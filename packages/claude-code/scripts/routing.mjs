@@ -58,6 +58,7 @@ function tierFor(task, files) {
   if (!readonly(task) && matches('fullRisk', task)) return 'full';
   if (activePreparation(task)) return 'standard';
   if (prototype(task) && !readonly(task)) return 'standard';
+  if (docsOnly(files) && !matches('review', task)) return 'light';
   if (files.length > 2 || languagesFor(task, files).length > 1) return 'standard';
   const mechanical = matches('small', task) && !matches('behaviorMarkers', task) && !matches('performance', task);
   if (mechanical || (docsOnly(files) && !matches('review', task))) return 'light';
@@ -151,6 +152,7 @@ function recommendationReasons(task, files, recommendation) {
     return [`The task mentions ${risk}, requiring the full risk tier.`];
   }
   if (activePreparation(task)) return ['The task requests operational preparation requiring production checks.'];
+  if (docsOnly(files) && !matches('review', task)) return ['The supplied paths are documentation-only.'];
   if (files.length > 2) {
     return [`The supplied scope contains ${files.length} paths, recommending standard coordination.`];
   }
@@ -212,7 +214,8 @@ export function explainRoute(task, files = [], requestedTier) {
     tierOverride: { requested: requestedTier ?? null, applied: tier, minimum, constrained },
     procedure,
     continuation: { resume: procedure.id === 'resume-work', references: procedure.id === 'resume-work'
-      ? ['skills/use-proofwork/references/recovery.md'] : [] },
+      ? [tier === 'light' ? 'skills/use-proofwork/references/light-recovery.md'
+        : 'skills/use-proofwork/references/recovery.md'] : [] },
     workflow: workflowFor(task, files, tier, recommendation.playbook, procedure.id),
   };
 }

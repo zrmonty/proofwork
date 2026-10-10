@@ -1,5 +1,12 @@
 # Proofwork changelog
 
+## 0.32.0 — Proportionate recovery
+
+- Keep documentation-only edits light across larger file inventories, preserving risk floors.
+- Select a small recovery guide for interrupted light tasks; defer full run machinery.
+- Preserve partial evidence and outstanding full-run obligations across light follow-ups.
+- Add routing, context-budget and isolated hook-policy regressions for both hosts.
+
 ## 0.31.0 — Operator-ready release guidance
 
 - Bind resolved dependencies, build privileges and remediation to lock/source/delivery artifact evidence.

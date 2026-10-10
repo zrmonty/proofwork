@@ -241,3 +241,30 @@ test('a new prompt hint does not inherit unrelated previous assignment paths',as
  assert.match(hint,/"tier":"light"/);
  assert.doesNotMatch(hint,/rust-best-practices|python-best-practices|typescript-best-practices/);
 });
+
+test('light prompt recovery neither writes a ledger nor clears a bound run evidence gap', async t => {
+  const fresh = await mkdtemp(path.join(tmpdir(), 'pw light resume '));
+  t.after(() => rm(fresh, { recursive: true, force: true }));
+  const prompt = '$use-proofwork Resume work on interrupted typo fix';
+  const event = { cwd: fresh, session_id: 'light-session', hook_event_name: 'UserPromptSubmit', prompt };
+  for (const host of ['codex', 'claude-code']) {
+    const hint = await runHook(host, event);
+    assert.match(hint.hookSpecificOutput.additionalContext, /"tier":"light"/);
+    assert.match(hint.hookSpecificOutput.additionalContext, /references\/light-recovery.md/);
+    assert.deepEqual(await readdir(fresh), []);
+    assert.deepEqual(await runHook(host, { ...event, hook_event_name: 'Stop',
+      stop_hook_active: false, last_assistant_message: 'Done.' }), {});
+  }
+  const bound = await boundFixture(t);
+  await bound.record('checkpoint', { phase: 'verifying' });
+  const statePath = path.join(bound.repo, '.engineering-team/runs/run/state.json');
+  const before = await readFile(statePath, 'utf8');
+  await runHook('codex', { ...bound.event, hook_event_name: 'UserPromptSubmit', prompt });
+  assert.equal(await readFile(statePath, 'utf8'), before);
+  assert.equal((await runHook('codex', bound.event)).decision, 'block');
+  await bound.record('checkpoint', { phase: 'stopped-incomplete', nextAction: 'Run the interrupted parser check' });
+  assert.deepEqual(await runHook('codex', bound.event), {});
+  const restored = await runHook('codex', { ...bound.event, hook_event_name: 'SessionStart' });
+  assert.match(restored.hookSpecificOutput.additionalContext, /Run the interrupted parser check/);
+  assert.match(restored.hookSpecificOutput.additionalContext, /stopped-incomplete/);
+});

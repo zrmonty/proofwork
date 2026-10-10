@@ -109,3 +109,12 @@ test('resume context includes required recovery guidance rather than hiding it a
  assert.ok(measured.scenarios[0].words>1200);
  assert.ok(measured.scenarios[0].words<=4000);
 });
+
+test('light resume counts its shared light recovery once and stays within the unchanged budget', () => {
+  const tasks = ['Resume work on the interrupted README typo fix', 'Resume work on interrupted variable rename'];
+  const measured = measureContext(process.cwd(), tasks.map(task => ({ task, files: ['src/parser.rs'] })));
+  for (const scenario of measured.scenarios) {
+    assert.equal(scenario.tier, 'light');
+    assert.ok(scenario.words <= 800, `${scenario.task}: ${scenario.words}`);
+  }
+});

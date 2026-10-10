@@ -31,6 +31,12 @@ passes full checks and package parity. See the [operator-guidance verification r
 
 For release work, Proofwork connects resolved dependencies to the inspected artifact, compares effective environment configuration, maps failure propagation and recovery, and generates useful logs, metrics and alerts with the change. It returns separate ready-for-staging and ready-for-production decisions with owned residual risks. See [operational scenarios](docs/operational-scenarios.md) and [production-finish](shared/skills/production-finish/SKILL.md). Live deployment and verification remain separate observations.
 
+## Small tasks and interruptions
+
+A typo fix or documentation edit can finish with the affected diff and a relevant check, without setup, workers or a run ledger. Documentation file counts alone do not increase the tier. Describe the remaining task when resuming, for example `Resume work on the interrupted README typo fix`; Proofwork selects the short recovery guide. Unknown scope needs inspection; behavior or security risk still raises the tier.
+
+An interrupted check is not a pass. Recovery preserves the edit, reruns affected checks, respects pauses and reports unavailable verification with a concrete next action. A light follow-up cannot clear unresolved evidence or effects from an existing full run. See [light recovery](shared/skills/use-proofwork/references/light-recovery.md).
+
 ## Start
 
 The root is **use-proofwork**. Supported command spelling depends on the host:

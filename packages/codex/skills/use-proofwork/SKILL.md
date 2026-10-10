@@ -22,4 +22,4 @@ configured roles through pw-setup. Settle material findings on the integrated ar
 read commit-features; enforcement requires opt-in. Apply clear-voice while writing docs/comments and every final
 report. Skip setup for routine work. Explain before/after, checks, uncertainty and operator actions without technique names. Use evidence-surface to connect outcomes to actual checks, identities and gaps; routine reports stay short.
 
-Read [handoffs](references/handoffs.md) for stage changes, interacting skills or resume; load continuation.references on resume. Keep one objective, coordinator and finding list.
+Read [handoffs](references/handoffs.md) for material stage changes or interacting skills; on resume load continuation.references first. Light recovery stays light. Keep one objective, coordinator and finding list.

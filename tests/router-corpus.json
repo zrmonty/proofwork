@@ -90,5 +90,7 @@
 {"task": "the checkout page is slow, make it faster", "files": [], "tier": "standard", "playbook": "investigate", "skills": ["data-driven-development", "pw-clean-code", "performance-increase"]},
 {"task": "which C file handles login", "files": [], "tier": "light", "playbook": "investigate", "skills": []},
 {"task": "Which Rust module handles login?", "files": [], "tier": "light", "playbook": "investigate", "skills": ["rust-best-practices"]},
-{"task": "Add a screen explaining which C file handles login", "files": [], "tier": "standard", "playbook": "feature", "skills": ["data-driven-development", "pw-clean-code"]}
+{"task": "Add a screen explaining which C file handles login", "files": [], "tier": "standard", "playbook": "feature", "skills": ["data-driven-development", "pw-clean-code"]},
+{"task": "Correct spelling in the documentation", "files": ["README.md", "docs/setup.md", "docs/help.md"], "tier": "light", "playbook": "bug-fix", "skills": []},
+{"task": "Resume work on the interrupted README typo fix", "files": ["README.md"], "tier": "light", "playbook": "feature", "skills": []}
 ]

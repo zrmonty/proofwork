@@ -192,3 +192,24 @@ test('actual operational preparation keeps production checks despite documentati
     assert.ok(!plan.skills.includes('production-finish'), task);
   }
 });
+
+test('light documentation scope and interrupted edits avoid coordination while retaining risk floors', () => {
+  const files = ['README.md', 'docs/setup.md', 'docs/help.md', 'docs/faq.md'];
+  const ordinary = explainRoute('Correct documentation spelling', files);
+  const resumed = explainRoute('Resume work on the interrupted README typo fix', files);
+  for (const plan of [ordinary, resumed]) {
+    assert.equal(plan.tier, 'light');
+    assert.deepEqual(plan.skills, []);
+    assert.deepEqual(plan.principles, []);
+    assert.deepEqual(plan.workflow.options, []);
+    assert.deepEqual(plan.workflow.review, []);
+  }
+  assert.deepEqual(resumed.continuation.references, ['skills/use-proofwork/references/light-recovery.md']);
+  assert.equal(resumed.procedure.id, 'resume-work');
+  for (const task of ['Resume work on the interrupted concurrent queue',
+    'Resume work on the interrupted security audit']) {
+    assert.equal(explainRoute(task, files, 'light').tier, 'full');
+  }
+  assert.equal(explainRoute('Resume work on interrupted parser validation', ['src/parser.rs'], 'light').tier,
+    'standard');
+});
