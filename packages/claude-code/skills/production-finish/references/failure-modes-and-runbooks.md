@@ -6,9 +6,19 @@ Use for consequential release changes or recovery responsibilities. Scope to act
 
 Walk a critical request/job through its real effects. For each consequential boundary record: failure trigger; completed and uncertain effects; durable owner; user-visible symptom; detecting signal; safe retry/reconciliation; recovery action; verification; operator. Include dependency outage, process termination, resource exhaustion and incompatible configuration/schema only where they can occur in this system.
 
+Map the blast radius with code/configuration pointers: affected operations, tenants or users, queues, downstream
+services, data compatibility and duration. Explain how a local failure spreads through retries, shared resource
+pools, fan-out or old/new overlap. Identify the containment boundary and what still works. Use measured fan-out,
+limits and actual callers; label estimates and unknowns. File count is not blast radius. Rank the few consequential
+modes by impact, plausible trigger and detectability, then select bounded drills that distinguish their failure paths.
+
 Separate degraded capability from unsafe operation. Decide what must stop accepting work and what may continue. A healthy process may have unavailable persistence. A liveness probe must not restart a service merely because an upstream provider is slow; readiness should reflect required serving capability. Probe design follows the actual host contract.
 
 Rehearse selected faults with synthetic records and local/staging resources. Bound test duration, request count and storage use. Do not kill shared services, send payments/messages or alter live data for a drill without authority. Observe cleanup, in-flight work, retry amplification, duplicate effects and recovery after the fault ends. Missing fault access remains unverified.
+
+Produce the note even when a drill is blocked: mark each step inspected, locally executed, staging-rehearsed or
+unverified. For a small application, one short recovery note can cover a dependency timeout and replacement;
+distributed systems need separate procedures only where owners or recovery sequences differ.
 
 ## Connect symptoms to evidence
 

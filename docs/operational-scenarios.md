@@ -30,3 +30,31 @@ For a consequential unresolved assumption, a configured independent challenger m
 5. After authorized promotion, confirm the serving artifact through real routing. Use an authorized nonmutating observation or owned synthetic invoice flow. If a save times out, reconcile durable state before retrying. Observe the agreed error/latency window and report propagation/sampling limits.
 
 Expected artifacts: artifact manifest, sanitized exposure findings, local/staging/live gate table, migration compatibility record, isolated restore results, operational runbook and unresolved effects with owners. A blocked deployment leaves a useful locally verified artifact; it does not become “verified live.” Credential exposure requires separately authorized replacement and revocation, with consumer verification. Removing the value from the current image does not invalidate earlier copies.
+
+## Reminder-job change: produce the operator handoff
+
+Assume reminders call a provider, then persist delivery state; an existing scheduler, structured logger and metrics
+collector are available. This is an illustrative workflow, not executed notification or recovery evidence.
+
+Bind the chosen provider client and transitive resolved versions to the lock digest and built image inventory.
+Record build-only inputs separately. Compare local/staging/live provider endpoint classification, credential
+presence/validation, timeout, retry budget, worker ownership and schema compatibility without exporting values.
+An intended sandbox endpoint difference still needs a contract check; unknown production permissions stay pending.
+
+Map the partial-failure boundary: provider accepts the send but the response times out. Retrying can duplicate a
+reminder, and retry fan-out can exhaust a shared worker pool. Identify affected jobs/users, durable operation IDs,
+provider lookup capability and the containment action: pause the affected queue while reconciliation runs.
+
+Generate logs for attempt category, safe operation ID and known/unknown outcome; counters for resolved outcomes;
+queue-age and durable-progress metrics. Keep IDs out of metric labels. Derive alert windows and thresholds from
+the agreed reminder deadline and measured normal behavior. Route a sandbox alert only with existing authority;
+an emitted counter cannot prove collector visibility or operator notification.
+
+Write a short recovery note pointing to actual pause/reconcile/resume commands and code. Rehearse synthetic
+timeout and replacement, inspect durable state before retry, and verify duplicate prevention and resumed progress.
+If provider lookup is unavailable, unknown sends require an owned reconciliation decision; invent no safe replay.
+
+Return ready-for-staging after the local artifact and required checks pass. Return ready-for-production only when
+required environment, alert and recovery checks pass with no blockers. A residual-risk row for unavailable
+provider lookup identifies duplicate-send consequence, affected jobs, containment, owner, blocking gate and next
+verification. Deployment and live verification remain separate observations.

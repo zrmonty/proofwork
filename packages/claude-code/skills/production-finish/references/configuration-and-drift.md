@@ -14,6 +14,17 @@ Compare a redacted manifest of configuration names, validation outcomes and non-
 
 For each difference, state intended, unintended or unresolved; identify the owning code/configuration and its practical effect. Check provider-injected defaults and inherited process settings. A private value can be represented by present/absent and validation result; don't export a hash of a guessable credential. Inspect secret references and access rights through protected provider mechanisms when authorized.
 
+Write a parity table with dimension, local/staging/live observation, classification, behavioral consequence,
+required check and owner. Expected differences such as test payment endpoints need evidence that they exercise
+the relevant contract; identical names do not prove equivalent privileges or behavior. Unknown live settings
+remain unknown. Confirm which image/build is running and where effective configuration was observed, not merely
+which environment file was supplied. Never export private URLs, account names or secret-reference identifiers.
+
+Bind the manifest to the artifact and configuration revision. Recheck affected dimensions after a rebuild,
+flag/identity change, schema migration or provider-default change. Prefer an existing startup validator and a
+small read-only comparison command or deployment check; make output safe before capture. A previous staging pass
+does not transfer to a changed artifact. Document intentional drift and the observable condition that invalidates it.
+
 ## Exercise drift failures
 
 Use isolated configurations to omit a required setting, supply an invalid value, change a feature flag and deny a needed capability. Observe the real startup/operation error, cleanup and redacted diagnostics. Test a representative schema/configuration mismatch and an old/new rollout pairing when overlap exists. An environment file parsed successfully is not proof its values reached the running artifact.

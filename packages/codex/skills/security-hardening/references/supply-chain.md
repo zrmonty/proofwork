@@ -8,6 +8,13 @@ Inventory direct and resolved dependencies, lockfiles, vendored/native code, plu
 
 Check resolution sources, pinned versions/digests and integrity validation through existing package/registry mechanisms. Verify the lock is consumed by the actual production build, not regenerated silently. Unexpected registry substitutions, mutable tags, unverified downloads or lifecycle scripts are findings to investigate with their concrete execution privileges; pinning alone does not establish a trustworthy publisher.
 
+Produce a release-input record: source revision; lockfile digest; resolved package/version and transitive path;
+registry/origin and integrity evidence; install/build command and toolchain; base-image digest when applicable;
+delivered artifact digest; observed inclusion as runtime, build-only or absent. Inspect the artifact's package
+metadata, bundled modules, native binaries or image inventory with incumbent tools. Lock entries are candidates,
+not proof every dependency ships. A stripped bundle or remote rebuild needs its own observation; record an
+unavailable mapping instead of asserting source-to-artifact parity. Investigate lock changes during the build.
+
 For CI, inspect PR/fork trust, event semantics, checkout credentials, token permissions, cache/artifact sharing and which steps receive secrets. Untrusted contribution code must not gain release credentials merely by running tests. Use maintained official workflows and narrowly scoped permissions. Separate verification from privileged publication where the project supports it. Do not weaken branch or organization policy to make checks pass.
 
 ## Evaluate current advisories
@@ -15,6 +22,10 @@ For CI, inspect PR/fork trust, event semantics, checkout credentials, token perm
 Consult current authoritative advisories against resolved versions, affected features, target platform and reachable use. Record source/date, affected dependency path, exploit prerequisites, runtime/build exposure and proposed disposition. A scanner database age or unreachable service is a check gap, not zero vulnerabilities. Keep private package metadata inside authorized systems.
 
 A declared advisory severity does not by itself establish application exploitability. Reproduce safely or trace the reachable boundary without fetching malicious proof-of-concept packages. Retain a known vulnerability as unresolved or explicitly mitigated only with evidence and an accountable owner; do not suppress it for a clean dashboard.
+
+Tie each material finding to that release-input record and the actual affected entry point, privilege or shipped
+component. Assign remediation ownership and the gate it blocks. A build-only dependency with release-token access
+can be more consequential than an unreachable runtime package. Record advisory database freshness and coverage.
 
 ## Remediate and prove consumption
 

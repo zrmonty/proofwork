@@ -1,4 +1,4 @@
-# Proofwork 0.30.0 verification
+# Proofwork 0.31.0 verification
 
 October 10, 2026. This matrix describes current evidence and its limits. Earlier release observations are preserved in [verification history](../CHANGELOG.md).
 
@@ -18,7 +18,7 @@ October 10, 2026. This matrix describes current evidence and its limits. Earlier
 Reproduce local checks with `npm run check`. Run the comparative suite using the [harness](../evals/ab/README.md), with a locally reviewed runner configuration. Export only sanitized aggregates. Fixture checks do not establish production security, visual appeal, goal continuation or real-application performance.
 
 
-[Windows/Ubuntu CI](https://github.com/zrmonty/proofwork/actions/runs/38084811385) passes full checks, both package forms and generated parity. Current 0.30 [consolidation checks](../evals/results/principle-consolidation-20261010.md) pass locally across 20 canonical scripts: 2,349/2,381 lines and 1,459/1,500 branches. Both packages remove the standalone principle entries; seven conditional references remain. Standard and optional-hook packages build, and Codex 0.30.0 is installed and enabled. No native adherence or comparative quality claim follows from these structural checks.
+[Windows/Ubuntu CI](https://github.com/zrmonty/proofwork/actions/runs/38084811385) passes full checks, both package forms and generated parity. Historical 0.30 [consolidation checks](../evals/results/principle-consolidation-20261010.md) pass locally across 20 canonical scripts: 2,349/2,381 lines and 1,459/1,500 branches. Both packages remove the standalone principle entries; seven conditional references remain. Standard and optional-hook packages build, and Codex 0.30.0 is installed and enabled. No native adherence or comparative quality claim follows from these structural checks.
 
 Historical 0.29 [systems-outcome checks](../evals/results/systems-outcomes-20261010.json) pass locally across 20 canonical scripts:
 2,346/2,378 lines (98.65%) and 1,461/1,502 branches (97.27%). The single-invocation Codex installer shows an enabled

@@ -5,14 +5,14 @@ description: When preparing hosting, deployment artifacts, secret handling and r
 
 # Production finish
 
-Prepare a verified production artifact, suitable hosting plan and accountable operational responsibilities. A development server or built image does not establish deployment readiness. Identify whether the request authorizes local cleanup, packaging, environment changes or deployment; building does not authorize publishing.
+Prepare an operable release with artifact-bound evidence. Identify authority for cleanup, packaging, environment changes and deployment; readiness does not authorize publishing.
 
 Use [impact-map](../impact-map/SKILL.md) for affected deployment contracts and
 [challenge-review](../challenge-review/SKILL.md) for consequential release assumptions.
 
 ## Choose the destination
 
-Inspect instructions, architecture, locked dependencies, production build/start paths, configuration, persistence and the primary flow. Ask how the user will host the app unless already known, resolving only decision-relevant budget, maintenance ownership, traffic, concurrent writes, jobs and external services. Continue independent local work while answers are pending; unknown hosting keeps host-dependent readiness incomplete.
+Inspect instructions, build/start paths, locks, configuration, persistence and the primary flow. Ask intended hosting unless known; resolve relevant budget, operator, traffic, writes, jobs and dependencies. Continue independent work while answers are pending; unknown hosting keeps host-dependent readiness incomplete.
 
 Recommend the least demanding suitable deployment. Load [hosting and containers](references/hosting-and-containers.md) for tradeoffs and Docker work. Containers can provide a portable runtime or satisfy image-based hosting; they do not themselves create scalability. Respect a suitable existing choice and avoid speculative orchestration.
 
@@ -24,7 +24,12 @@ Load [exposure checks and response](references/exposure-and-response.md). Redact
 
 Remove real secret capabilities from delivery and rebuild. Deletion does not revoke an exposed credential. Authorized rotation/revocation remains separate; leave unavailable response pending and preserve public history unless history changes are authorized. An unresolved exposed capability blocks release readiness. Use [security-hardening](../security-hardening/SKILL.md) for deeper requested audits or demonstrated vulnerabilities.
 
-For configuration changes or environment mismatches, read [configuration and drift](references/configuration-and-drift.md). For consequential operational paths, read [failure modes and runbooks](references/failure-modes-and-runbooks.md) and update the actual code-linked recovery procedure. For build/dependency trust, read [delivery integrity](../security-hardening/references/supply-chain.md). These are conditional lenses of this release, not new coordinators.
+For release preparation, read [delivery integrity](../security-hardening/references/supply-chain.md) and
+[configuration parity](references/configuration-and-drift.md): connect resolved inputs to the built artifact and
+classify effective environment differences. For consequential operational paths, read
+[failure modes and runbooks](references/failure-modes-and-runbooks.md) and
+[observability with the change](references/observability-with-change.md). Produce a short code-linked recovery note
+and implement needed signals with the changed behavior using existing tooling. These lenses share one release record.
 
 ## Verify operation and rollout
 
@@ -38,4 +43,7 @@ Load [readiness gates](references/readiness-gates.md) for release decisions and 
 
 ## Return the reached release state
 
-Report hosting rationale, changes, artifact identity, executed checks/environment, resolved findings and pending answers, credentials, restore checks or external actions. Distinguish locally verified, host-ready, deployed and verified live states. Finish only when scoped requirements pass and material issues have accountable dispositions. A clean scan is bounded evidence, not exhaustive security certification.
+Return explicit ready-for-staging and ready-for-production decisions, then distinguish deployed from verified-live.
+Link artifact/lock identities, parity differences, the recovery note and exercised log/metric/alert signals. List
+residual risks with consequence, mitigation, owner, blocking gate and next check; unknowns remain pending.
+Finish when scoped criteria pass with accountable dispositions. A clean scan proves only its inspected scope.

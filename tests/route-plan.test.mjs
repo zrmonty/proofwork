@@ -104,6 +104,21 @@ test('operational preparation automatically selects production guidance and expl
   }
 });
 
+test('operator readiness, parity and change instrumentation select release guidance without deployment authority', () => {
+  for (const task of ['Prepare the app so it is ready for staging', 'Check environment parity for this release',
+    'Generate observability for the changed checkout workflow', 'Prepare a release blast-radius recovery note']) {
+    const plan = explainRoute(task, ['ops/release.md']);
+    assert.equal(plan.playbook, 'production-finish', task);
+    assert.notEqual(plan.tier, 'light', task);
+    assert.ok(plan.skills.includes('production-finish'), task);
+  }
+  for (const task of ['Explain environment parity', 'Fix typo in the observability guide']) {
+    const plan = explainRoute(task, ['docs/operations.md']);
+    assert.equal(plan.tier, 'light', task);
+    assert.ok(!plan.skills.includes('production-finish'), task);
+  }
+});
+
 test('mixed review-and-change requests cannot shed executable verification', () => {
   const plan = explainRoute('Review and fix parser rejection', ['src/parser.rs'], 'light');
   assert.equal(plan.tier, 'standard');

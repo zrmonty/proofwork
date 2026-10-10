@@ -24,6 +24,10 @@ Functions and files have no universal line-count ceiling. Keep names clear, resp
 
 From a reviewed checkout, one command registers, installs and verifies the plugin: `node scripts/install.mjs --host codex` (or `--host claude-code`). Add `--source .` for the local built source. It does not configure model roles or lifecycle hooks. Older supported Claude versions can use the two-step marketplace registration/install flow in [first run](docs/first-run.md).
 
+## Operator-ready releases
+
+For release work, Proofwork connects resolved dependencies to the inspected artifact, compares effective environment configuration, maps failure propagation and recovery, and generates useful logs, metrics and alerts with the change. It returns separate ready-for-staging and ready-for-production decisions with owned residual risks. See [operational scenarios](docs/operational-scenarios.md) and [production-finish](shared/skills/production-finish/SKILL.md). Live deployment and verification remain separate observations.
+
 ## Start
 
 The root is **use-proofwork**. Supported command spelling depends on the host:

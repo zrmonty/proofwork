@@ -26,12 +26,16 @@ const operationalPattern = [
   '\\b(?:write|generate|update|rehearse)\\b.*\\b(?:operational |recovery )?runbooks?\\b',
   '\\b(?:rehearse|test)\\s+(?:recovery|restore)\\b',
   '\\bfailure[- ]mode\\b.*\\b(?:analysis|review|test|drill)\\b',
+  '\\bready\\s+for\\s+(?:staging|production)\\b',
+  '\\b(?:check|compare|verify)\\b.*\\b(?:environment|configuration)\\s+parity\\b',
+  '\\b(?:generate|add|implement)\\s+observability\\b',
+  '\\brelease\\b.*\\bblast[- ]radius\\b',
 ].join('|');
 const operationalPreparation = task => testPattern(operationalPattern, task);
 const production = task => !readonly(task) && (matches('production', task) || operationalPreparation(task));
 const activePreparation = task => production(task) &&
-  /\b(?:prepare|finish|check|plan|configure|rotate|write|rehearse|set\s+up|get)\b/i.test(task) &&
-  !matches('small', task) && !/\b(?:documentation|docs|guides?)\b/i.test(task);
+  /\b(?:prepare|finish|check|plan|configure|rotate|write|rehearse|generate|verify|compare|set\s+up|get)\b/i.test(task)
+  && !matches('small', task) && !/\b(?:documentation|docs|guides?)\b/i.test(task);
 function security(task) {
   return matches('security', task) || (matches('review', task) && matches('securityToken', task));
 }

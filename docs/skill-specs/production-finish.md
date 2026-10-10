@@ -36,7 +36,28 @@ references/exposure-and-response.md covers public-surface tracing, safe scanning
 13. A destination rebuilds locally verified source with different inputs: remote readiness requires its actual artifact and environment evidence; local smoke success is not carried forward automatically.
 14. A schema change cannot be reversed by an image rollback: the report identifies a compatible forward repair or authorized restore, stop conditions and accountable operator without promising lossless recovery.
 
-## Evidence and authorship
+## Operational deliverables
+
+Release work connects resolved dependency paths and build privileges to lock/source/artifact identities and
+observed inclusion. Configuration parity classifies effective environment differences with their consequences,
+owners and invalidation conditions. Consequential failure analysis maps affected users, data and downstream
+effects, containment and unknown writes, then produces a short executable recovery note. Observability is
+implemented with changed behavior through incumbent logs, metrics and alert configuration; emission, collection,
+query visibility and notification delivery are separate claims. Readiness records both staging and production
+decisions, blocked criteria and an owned residual-risk list; deployment and verified-live remain later states.
+
+Acceptance cases:
+
+- A locked package is absent from a stripped artifact: the report does not assert every lock entry ships.
+- A build-only package executes with release credentials: its privileges remain in the supply-chain review.
+- Identical environment key names hide different permissions: parity checks actual effective capabilities safely.
+- A retry fans out through a shared pool: the recovery note names downstream impact and containment, not file count.
+- Logging exists but the collector is unavailable: emitted evidence is retained; collected/alert-delivered stays pending.
+- Staging passes but promotion rebuilds different inputs: production readiness requires the new artifact's evidence.
+- An irreversible migration lacks an adequate recovery check: a green health probe cannot clear that blocker.
+
+references/observability-with-change.md owns signal generation and testing. Other operational detail stays with
+configuration-and-drift, failure-modes-and-runbooks, readiness-gates and security-hardening's supply-chain reference.
 
 references/release-observation.md covers authorized rollout observation and reconciliation of unknown durable writes. A green readiness endpoint cannot certify the authenticated save/read path. A timed-out smoke write is looked up through the supported identity before retry or run-owned cleanup; missing observations remain uncertain. A partially completed deployment is reconciled against the actually serving artifact, and recovery considers current data compatibility rather than promising lossless image rollback. Bounded local/host/live observations remain separate, with no new live-operation authority.
 

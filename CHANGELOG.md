@@ -1,5 +1,14 @@
 # Proofwork changelog
 
+## 0.31.0 — Operator-ready release guidance
+
+- Bind resolved dependencies, build privileges and remediation to lock/source/delivery artifact evidence.
+- Classify effective configuration parity and invalidate stale environment observations.
+- Map failure propagation, containment and recovery with code-linked operator notes.
+- Generate incumbent logs, metrics and alerts with changed behavior; distinguish emission, collection and notification evidence.
+- Separate staging and production decisions, deployment and live verification, with owned residual risks.
+- Route operator parity/readiness/instrumentation requests without escalating explanations or typo fixes.
+
 ## 0.30.0 — Consolidated decision guidance
 
 - Remove all fifteen standalone principle skills and their redundant discovery/specification entries.

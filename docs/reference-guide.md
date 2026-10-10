@@ -50,4 +50,5 @@ their workflow owners instead of maintaining parallel skill procedures. Light wo
 
 - [Configuration and drift](../shared/skills/production-finish/references/configuration-and-drift.md): effective environment contracts and startup validation.
 - [Failure modes and runbooks](../shared/skills/production-finish/references/failure-modes-and-runbooks.md): actual fault drills, observability and code-linked recovery.
+- [Observability with the change](../shared/skills/production-finish/references/observability-with-change.md): implemented logs, metrics and alerts with separate collection/delivery evidence.
 - [Supply chain](../shared/skills/security-hardening/references/supply-chain.md): resolved dependency/build/CI trust and consumed remediation.
