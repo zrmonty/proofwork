@@ -12,7 +12,7 @@ with an owner. Missing evidence cannot pass; readiness grants no deployment auth
 | Deployed | The destination is observed serving the intended artifact after an authorized promotion. | Required live flow and observation window. |
 | Verified live | Authorized journey and consequential durable effects pass through real routing for the agreed observation scope. | Sampling limits and ongoing operations. |
 
-Return both readiness decisions as yes, no or pending with reasons. A unavailable staging environment is pending,
+Return both readiness decisions as yes, no or pending with reasons. An unavailable staging environment is pending,
 not automatically not applicable. If the hosting pattern has no separate staging, explain the equivalent isolated
 checks and remaining live-only uncertainties; do not silently lower the standard. An open exposed capability,
 unknown incompatible migration or missing mandatory recovery check blocks production readiness.

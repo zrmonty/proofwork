@@ -26,6 +26,9 @@ From a reviewed checkout, one command registers, installs and verifies the plugi
 
 ## Operator-ready releases
 
+Codex 0.31.0 is installed and enabled. [Windows/Ubuntu CI](https://github.com/zrmonty/proofwork/actions/runs/38086672914)
+passes full checks and package parity. See the [operator-guidance verification record](evals/results/ops-primitives-20261010.md).
+
 For release work, Proofwork connects resolved dependencies to the inspected artifact, compares effective environment configuration, maps failure propagation and recovery, and generates useful logs, metrics and alerts with the change. It returns separate ready-for-staging and ready-for-production decisions with owned residual risks. See [operational scenarios](docs/operational-scenarios.md) and [production-finish](shared/skills/production-finish/SKILL.md). Live deployment and verification remain separate observations.
 
 ## Start

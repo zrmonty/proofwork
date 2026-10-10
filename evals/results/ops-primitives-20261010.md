@@ -17,6 +17,9 @@ Executed verification:
   both standard host builds and package links. Coverage is 2,365/2,397 lines and 1,462/1,503 branches.
 - Script identity: `scripts-sha256:993341585178b07340eb79974cc8a50a20b9cd6f9cb5bc91dc2c5c1d31f3c36e`.
 - Optional-hook packages build. Native Codex installer reports 0.31.0 enabled.
+- [Windows/Ubuntu CI](https://github.com/zrmonty/proofwork/actions/runs/38086672914) passes full checks,
+  both package forms and generated parity on `fa5b8ba`. A subsequent grammar/documentation correction was rebuilt;
+  executable scripts are unchanged from the tested revision.
 
 The reminder-job scenario is an illustrative procedure. These checks validate routing and packaging; they do not
 prove an agent performed a dependency audit, queried a live environment, delivered an alert, rehearsed recovery
