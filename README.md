@@ -33,7 +33,7 @@ For release work, Proofwork connects resolved dependencies to the inspected arti
 
 ## First outcomes and operational handoff
 
-Codex 0.33.0 is installed locally. See the [executed first-outcome and recovery record](evals/results/first-outcome-recovery-20261010.md).
+Codex 0.33.0 is installed locally; [Windows/Ubuntu CI](https://github.com/zrmonty/proofwork/actions/runs/38087658789) passes. See the [executed first-outcome and recovery record](evals/results/first-outcome-recovery-20261010.md).
 
 Start with a bounded real task and describe the behavior you want. The report should show the changed result, a check on the actual output, what remains uncertain and what you still own. See [first run and recovery](docs/first-run.md).
 

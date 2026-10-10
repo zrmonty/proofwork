@@ -30,3 +30,5 @@ Existing command observations record exit, duration and stream digests; prefligh
 - The systems outcome is a required instruction/handoff contract, not a new filesystem gate on every runtime completion. Model adherence needs native observation. Owner: project maintainer.
 - Backup restoration cannot recover unrecorded actions, unsaved edits or external receipts. The run coordinator/operator owns reconciliation and must not treat backup validity as current evidence.
 - Deployment, credential changes and acceptance of consequential production risks remain with the authorized operator. None was performed here.
+
+[Windows and Ubuntu CI](https://github.com/zrmonty/proofwork/actions/runs/38087658789) passed full checks and optional-hook package parity for source commit `961a4bb`.
