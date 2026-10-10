@@ -45,6 +45,7 @@ Give any skill a task in the same prompt. In Codex, use `$<skill-name>` or selec
 | `$clean-code` | `/proofwork:clean-code` | Simplify demonstrated complexity while preserving behavior and safety guards. |
 | `$frontend-design` | `/proofwork:frontend-design` | Develop an original visual direction, iterate and verify rendered interfaces. |
 | `$humanizer` | `/proofwork:humanizer` | Write natural application copy, simplify unnecessary headings and footer content, and keep interaction wording accurate. |
+| `$security-hardening` | `/proofwork:security-hardening` | Audit trust boundaries, fix supported vulnerabilities and verify repairs with safe adversarial regression checks. |
 | `$commit-features` | `/proofwork:commit-features` | Prepare truthful Major features / Minor features commit sections and check outgoing history. |
 
 Examples for Codex:
@@ -59,6 +60,7 @@ $architecture-fit Challenge this proposed stack. Explain why each major tool is 
 $production-finish Prepare this app for production. Check for exposed secrets, ask about hosting and build a Docker image if it fits.
 $performance-increase Improve this parser's throughput and shorten its benchmark run. Preserve correctness and report comparable measurements.
 $tdd-95 Implement the approved behavior test-first, enforce the 95% coverage gate and consolidate redundant test setup and cases.
+$security-hardening Audit and harden this app. Trace reachable vulnerabilities, fix shared causes, preserve legitimate behavior and report verification gaps.
 ```
 
 For Claude Code, replace the skill token with its namespaced command, for example `/proofwork:use-proofwork Find and fix issues in this repository`. `/use-proofwork` is the product entry name; a bare slash alias depends on host installation and is not guaranteed by the plugin. Commands reuse the host's available tools and permissions. Invoking a review or commit skill alone does not authorize edits, pushing or publishing.

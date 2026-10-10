@@ -20,6 +20,14 @@ test('routing loads core discipline and affected languages without mutating inpu
 });
 
 const initial = { schemaVersion: 1, owner: 'coordinator', objective: 'fix', criteria: ['works'], revision: 'r1', phase: 'preparing', tasks: [], evidence: [], findings: [] };
+test('routing selects security hardening for security intent without broad audit matches', () => {
+  for (const task of ['Security audit and harden vulnerable code', 'Fix authorization bypass', 'Prevent SQL injection', 'Investigate SSRF', 'Harden this application', 'Review exposed credentials']) {
+    assert.ok(route(task).skills.includes('security-hardening'), task);
+  }
+  for (const task of ['Audit article typography', 'Improve parser performance', 'Explain the security team meeting notes']) {
+    assert.ok(!route(task).skills.includes('security-hardening'), task);
+  }
+});
 test('routing selects humanizer for interface copy without treating HTTP headers as editorial work', () => {
   assert.ok(route('Build the account settings page',['src/Settings.tsx']).skills.includes('humanizer'));
   assert.ok(route('Humanize these error messages').skills.includes('humanizer'));

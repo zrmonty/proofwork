@@ -29,6 +29,8 @@ Read [exposure checks and response](references/exposure-and-response.md) when sc
 
 ## Make production behavior deliberate
 
+Load [security-hardening](../security-hardening/SKILL.md) for a requested security audit or demonstrated vulnerability requiring deeper tracing and remediation. Carry unresolved findings into the release decision; neither skill alone proves exhaustive application security.
+
 Run the real production build and start path using the project's locked dependencies and intended runtime. Check the primary flow against that artifact. Replace production fallbacks that hide missing required configuration with safe startup failures; keep useful errors while removing secrets and internal details from public responses. Remove unused debug or development delivery paths only after checking their consumers. Preserve monitoring and diagnostic context through redaction rather than silencing every error.
 
 Check the requirements that this application actually has: authorization on protected operations; cookie and proxy settings for the chosen topology; intended TLS termination and network exposure; narrowly scoped service identities; graceful shutdown and cancellation; health and readiness; and limits that prevent obvious resource exhaustion. Use the framework's existing mechanisms. Do not invent a universal hardening layer or change authentication semantics as incidental cleanup.

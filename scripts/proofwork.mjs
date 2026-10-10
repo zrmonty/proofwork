@@ -20,6 +20,7 @@ export function route(task, files = []) {
   text(task,'task');
   const playbook = /\b(review|audit)\b/i.test(task) ? 'review' : /\b(fix|bug|regression|broken)\b/i.test(task) ? 'bug-fix' : /\b(refactor|simplify|restructure)\b/i.test(task) ? 'refactor' : /\b(investigate|diagnose|explain|research)\b/i.test(task) ? 'investigate' : 'feature';
   const skills = ['worker-mode','functional-programming','data-driven-development','clean-code'];
+  if (/\b(harden(?:ing)?|vulnerabilit(?:y|ies)|ssrf|xss|csrf)\b|\bsecurity\s+(?:audit|review|hardening|scan)\b|\b(?:authorization|authentication|auth)\s+bypass\b|\b(?:sql|command|code)\s+injection\b|\b(?:exposed|leaked)\s+(?:credentials?|secrets?|keys?)\b/i.test(task)) skills.push('security-hardening');
   if ((['feature','bug-fix','refactor'].includes(playbook) && (files.some(file => /\.(?:tsx?|mts|cts|jsx?|mjs|cjs|rs|pyi?)$/i.test(file)) || /\b(implement|build|fix|bug|refactor|code)\b/i.test(task))) || /\b(tdd|coverage|tests?)\b/i.test(task)) skills.push('tdd-95');
   if (/\b(performance|benchmarks?|profil(?:e|ing)|latency|throughput|allocations?|faster|slow|optimi[sz](?:e|ation|ing))\b|\bspeed\s+up\b/i.test(task)) skills.push('performance-increase');
   if (/\b(architect(?:ure|ing)?|overengineering|stack)\b/i.test(task) || /\b(which|what|choose|select|compare|recommend|decide)\b.*\b(database|storage|tools?|technolog(?:y|ies)|sqlite|postgres(?:ql)?)\b/i.test(task) || /\bshould\b.*\b(use|choose)\b.*\b(database|storage|sqlite|postgres(?:ql)?)\b/i.test(task)) skills.push('architecture-fit');
