@@ -14,6 +14,8 @@
     "category": "Productivity",
     "logo": "./assets/brand/proofwork-icon.png",
     "composerIcon": "./assets/brand/proofwork-icon.png",
+    "logoDark": "./assets/brand/proofwork-icon-dark.png",
+    "composerIconDark": "./assets/brand/proofwork-icon-dark.png",
     "defaultPrompt": [
       "Use Proofwork to carry this engineering task through verified completion."
     ]

@@ -1,7 +1,11 @@
 # Proofwork
 
 <p align="center">
-  <img src="assets/brand/proofwork-logo.png" alt="Proofwork" width="360">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="assets/brand/proofwork-logo-dark.png">
+    <source media="(prefers-color-scheme: light)" srcset="assets/brand/proofwork-logo.png">
+    <img src="assets/brand/proofwork-logo.png" alt="Proofwork" width="360">
+  </picture>
 </p>
 
 Proofwork is a **skill-compression plugin for Codex and Claude Code**. Describe what you want to make, judge the result and refine it. Proofwork carries the engineering detail: choosing relevant skills, making proportionate implementation decisions, coordinating workers when useful and verifying the integrated result.

@@ -118,7 +118,8 @@ export async function build(options = {}) {
       }
       await cp(path.join(repository, "adapters", host), path.join(staging, "adapters"), { recursive: true });
       await mkdir(path.join(staging, "assets/brand"), { recursive: true });
-      for (const file of ["proofwork-logo.png", "proofwork-icon.png"])
+      for (const file of ["proofwork-logo.png", "proofwork-icon.png",
+        "proofwork-logo-dark.png", "proofwork-icon-dark.png"])
         await cp(path.join(repository, "assets/brand", file), path.join(staging, "assets/brand", file));
       await removeGenerated(path.join(staging, 'adapters/hooks'), staging);
       if (options.hooks) await cp(path.join(repository, 'adapters', host, 'hooks'), path.join(staging, 'hooks'),
@@ -155,6 +156,8 @@ export async function build(options = {}) {
           category: "Productivity",
           logo: "./assets/brand/proofwork-icon.png",
           composerIcon: "./assets/brand/proofwork-icon.png",
+          logoDark: "./assets/brand/proofwork-icon-dark.png",
+          composerIconDark: "./assets/brand/proofwork-icon-dark.png",
           defaultPrompt: ["Use Proofwork to carry this engineering task through verified completion."],
         };
       await writeFile(path.join(staging, manifestDirectory, "plugin.json"), `${JSON.stringify(manifest, null, 2)}\n`);
@@ -167,7 +170,10 @@ export async function build(options = {}) {
       await writeFile(
         path.join(staging, "README.md"),
         `# Proofwork ${metadata.version} for ${host}\n\n` +
-          '<img src="assets/brand/proofwork-logo.png" alt="Proofwork" width="320">\n\n' +
+          '<picture>\n' +
+          '  <source media="(prefers-color-scheme: dark)" srcset="assets/brand/proofwork-logo-dark.png">\n' +
+          '  <source media="(prefers-color-scheme: light)" srcset="assets/brand/proofwork-logo.png">\n' +
+          '  <img src="assets/brand/proofwork-logo.png" alt="Proofwork" width="320">\n</picture>\n\n' +
           `Install: \`${install}\` (register the Codex marketplace first).\n\n` +
           "Claude one-command marketplace install requires 2.1.292+.\n\n" +
           "Describe the outcome you want; Proofwork carries the engineering detail and verifies the result. " +

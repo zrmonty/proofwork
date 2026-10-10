@@ -1,6 +1,10 @@
 # Proofwork 0.30.0 for codex
 
-<img src="assets/brand/proofwork-logo.png" alt="Proofwork" width="320">
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="assets/brand/proofwork-logo-dark.png">
+  <source media="(prefers-color-scheme: light)" srcset="assets/brand/proofwork-logo.png">
+  <img src="assets/brand/proofwork-logo.png" alt="Proofwork" width="320">
+</picture>
 
 Install: `codex plugin add proofwork@proofwork-local` (register the Codex marketplace first).
 

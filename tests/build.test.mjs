@@ -59,13 +59,15 @@ test("isolated builds stamp versions, preserve skill parity and reject broken so
       ["claude-code", ".claude-plugin"],
     ]) {
       const output = path.join(outputRoot, host);
-      for (const asset of ["proofwork-logo.png", "proofwork-icon.png"]) {
+      for (const asset of ["proofwork-logo.png", "proofwork-icon.png",
+        "proofwork-logo-dark.png", "proofwork-icon-dark.png"]) {
         const packaged = await readFile(path.join(output, "assets/brand", asset));
         assert.deepEqual(packaged, await readFile(path.join(repository, "assets/brand", asset)));
         assert.equal(packaged.subarray(1, 4).toString(), "PNG");
         assert.ok(packaged.length < 5 * 1024 * 1024);
-        assert.equal(packaged[25], 6, "PNG retains its RGBA transparency channel");
-        if (asset === "proofwork-icon.png") {
+        if (!asset.includes("-dark")) assert.equal(packaged[25], 6, "light PNG retains its alpha channel");
+        else assert.ok([2, 6].includes(packaged[25]), "dark PNG is RGB or RGBA");
+        if (asset.includes("icon")) {
           assert.equal(packaged.readUInt32BE(16), packaged.readUInt32BE(20));
           assert.ok(packaged.readUInt32BE(16) >= 48 && packaged.readUInt32BE(16) <= 4096);
         }
@@ -74,7 +76,13 @@ test("isolated builds stamp versions, preserve skill parity and reject broken so
         const plugin = JSON.parse(await readFile(path.join(output, manifest, "plugin.json"), "utf8"));
         assert.equal(plugin.interface.logo, "./assets/brand/proofwork-icon.png");
         assert.equal(plugin.interface.composerIcon, plugin.interface.logo);
+        assert.equal(plugin.interface.logoDark, "./assets/brand/proofwork-icon-dark.png");
+        assert.equal(plugin.interface.composerIconDark, plugin.interface.logoDark);
       }
+      const readme = await readFile(path.join(output, "README.md"), "utf8");
+      assert.match(readme, /<source media="\(prefers-color-scheme: dark\)"/);
+      for (const match of readme.matchAll(/(?:src|srcset)="([^"]+)"/g))
+        assert.ok((await readFile(path.join(output, match[1]))).length > 0);
       assert.ok(!(await readdir(output)).includes("hooks"));
       assert.ok(!(await readdir(path.join(output, "adapters"))).includes("hooks"));
       assert.equal(
