@@ -9,3 +9,5 @@ Source version 0.32.0. This record covers routing, recovery instructions and exe
 - Normal and optional-hook package builds passed; standard Codex installation verified version 0.32.0. No lifecycle hooks or model settings were installed or changed.
 
 An interrupted check is not a passing result. Light recovery preserves the diff, rechecks affected evidence and reconciles uncertain external effects. These are shipped instructions; fixtures prove policy/runtime behavior, not that every model follows those instructions. Native Codex/Claude interruption dispatch and newcomer time-to-result remain unverified.
+
+[Windows and Ubuntu CI](https://github.com/zrmonty/proofwork/actions/runs/38087156819) passed full checks and optional-hook build parity for source commit `c513f41`.
