@@ -117,3 +117,7 @@ Version 0.9.0 adds dead-code-audit, a reachability/test-ownership reference, spe
 ## Follow-up: DRY and a single audit entry
 
 Version 0.10.0 adds dry-audit and audit-stack, specifications, aggregate routing and host command documentation. The [verification report](../evals/results/audit-stack-20261010.md) records red/green routing, a CLI aggregate route, all twenty-five passing tests, both twenty-one-skill builds, strict Claude validation and installed file parity. Audit-stack reuses the coordinator to merge supported findings and verify integrated repairs across core lenses, adding UI/release checks when relevant. No target-application combined audit or measured improvement was executed; per-lens evidence and unresolved gates remain explicit obligations.
+
+## Follow-up: deeper visual direction and interface craft
+
+Version 0.10.1 strengthens frontend-design with actionable direction, reference translation, representative vertical slices, a new interface-craft reference and hypothesis-driven rendered critique. Specifications and authored scenarios cover typography/fallback, grouping, selective softness, assets and truthful interaction states. The [verification report](../evals/results/design-craft-20261010.md) records twenty-five passing tests, both package builds, strict Claude validation and installed design-file parity. No target interface or browser evaluation was executed; visual and interaction claims still require observed rendered evidence.

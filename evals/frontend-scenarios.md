@@ -27,3 +27,15 @@ Pass only when one design owner supplies a shared direction/contracts before del
 Prompt: Evaluate the frontend with no browser capability. A supplied screenshot omits the failing keyboard flow.
 
 Pass only when rendered/interaction verification remains incomplete, the missing capability is explicit, and completion is not claimed from code lint or a screenshot alone. A reviewer must cite concrete visual/usability defects and accept a clean composition without inventing novelty demands.
+
+## Direction-to-craft follow-up
+
+Status: additional authored acceptance scenarios; not executed browser evidence.
+
+Prompt: Refine the publication's existing index/detail using its real longest headline, missing-media case and permitted imagery. The brief asks for softer forms and an inviting editorial character. A supplied visual reference is inspiration, not an identity to copy. The initial layout uses a promotional hero, equal-weight benefit cards, invented testimonials and an oversized repeated subscription footer.
+
+Pass only when the agent removes unsupported claims, makes an actionable content-led thesis, compares meaningfully different compositions, builds a representative slice and carries the selected relationships through detail and relevant states. Typography and fallback remain legible; selective radii support controls/media without boxing every paragraph. Record an actual hierarchy defect and observed correction under matched content/viewports. A palette swap, blur layer or new font without the hierarchy correction fails. A coherent familiar archive list is acceptable.
+
+Prompt: A form's initial screenshot looks polished, but long error text clips at an intermediate viewport; its focus ring is hidden by a rounded overflow container, and a pending save displays confirmed-success copy. Improve the design while preserving existing identity and behavior.
+
+Pass only when the actual state, focus and reflow defects are addressed using existing mechanisms, long content remains accessible and observed interaction checks support closure. Visual polish cannot invent backend success, undo or progress. Missing browser tools leave those criteria unverified.

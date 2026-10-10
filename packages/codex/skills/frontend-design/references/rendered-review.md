@@ -10,6 +10,8 @@ Record artifact/revision identity, viewport dimensions, route/state, fixture con
 
 ## A useful critique pass
 
+Start at page scale and then inspect component details. View the whole composition for dominance and grouping; inspect text/control size and wrapping at normal use rather than judging a zoomed-out capture alone. Do not hide overflow, missing assets or unreadable text by choosing a convenient crop. Record whether the primary flow starts where expected and remains understandable after scrolling.
+
 1. **Orient:** Can a first-time visitor identify the product, current location, and next meaningful action from the first useful view?
 2. **Scan:** Does visual weight match content priority? Are unrelated regions competing? Can the eye follow the intended reading order?
 3. **Read:** Check actual headline wrapping, paragraphs, metadata, link distinction, and dense values. Inspect contrast through the project's tools and target, not appearance alone.
@@ -18,6 +20,14 @@ Record artifact/revision identity, viewport dimensions, route/state, fixture con
 6. **Polish:** Look for inconsistent spacing, baselines, radii, icon weight, and media treatment after the hierarchy and interaction work.
 
 Apply the portions relevant to the brief. A static essay need not be tested as a transactional application; an upload console needs more than a homepage capture.
+
+## Compare a change with a hypothesis
+
+For each material iteration, state the defect and predicted improvement. “The lead and archive look equally important; make the lead title/media larger and reduce archive surface weight so the lead is identifiable before reading every item.” Compare the same content and viewport before and after. Check that improvement did not push the actual action away, clip a title or erase useful density.
+
+Separate cause from preference. If the defect is wrapping, changing accent color cannot close it. If the defect is uncertain action state, a smoother animation cannot establish truth. Fix hierarchy before microdetail, then inspect typography, borders, corners and icon alignment at normal size. Retain an existing successful pattern when no supported defect remains.
+
+For a substantial redesign, compare index/detail and an actual state across desktop and narrow views. Check a viewport between the endpoints for a likely layout transition when applicable; two ideal screenshots can miss an awkward intermediate layout. Exercise keyboard/focus, relevant zoom, asset fallback and primary recovery with available tools. Missing capability remains a named gap rather than a simulated observation.
 
 ## Review actions across changing data
 

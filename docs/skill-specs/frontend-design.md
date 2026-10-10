@@ -21,13 +21,15 @@ Read the objective, audience, primary task, representative content and states, i
 
 ## Progressive disclosure
 
-The entry point carries the brief-to-artifact workflow. references/composition.md supports choosing structure, typography, rhythm, and selective softness. references/rendered-review.md supports evidence collection and actionable visual findings. Load them when those decisions matter, rather than importing both into every small correction.
+The entry point carries the brief-to-artifact workflow. references/composition.md supports direction selection, reference translation, content hierarchy and selective softness. references/interface-craft.md develops type, grouping, surfaces, assets and complete component states. references/rendered-review.md supports evidence collection and hypothesis-driven comparison. Load only the detail relevant to the task, rather than importing every reference into small corrections.
 
 ## Output and evidence
 
 Return the brief, selected direction with reasons, current working artifact or scoped critique, shared design contract when needed, viewport/revision-bound renders, actual interactions, and resolved/outstanding findings. A screenshot cannot prove keyboard behavior; code checks cannot certify visual quality. Missing browser capability leaves rendered acceptance incomplete.
 
 ## Acceptance cases
+
+Additional craft requirements: an actionable visual thesis, mechanism-based reference translation, a representative vertical slice before repeated sections, coherent type/surface/asset roles and complete relevant component states. Decision logic follows pure UI transitions and actual backend capabilities. Critique records a visible defect, hypothesized remedy and same-content/viewport comparison; no decorative checklist or arbitrary originality score.
 
 Existing scenario prompts are in evals/frontend-scenarios.md. Expanded behavioral decisions:
 
@@ -40,6 +42,10 @@ Existing scenario prompts are in evals/frontend-scenarios.md. Expanded behaviora
 7. A clean, coherent layout is accepted without demanding arbitrary decorative distinction.
 8. A batch action retains clear target identity across filtering and partial success; copy and affordances do not imply that all operations finished or ask people to repeat successful work.
 9. A longest identifier, missing image or permission-limited view is checked when representative; difficult content is not hidden or illegibly shrunk to preserve the idealized composition.
+10. A generic promotional sequence hides a publication's lead: restructure around supplied content and observe hierarchy, without inventing testimonials or merely changing colors.
+11. A supplied reference has a strong masthead and reading rhythm: translate those mechanisms into the project's own composition; copying identity/assets or importing the whole layout fails.
+12. A rounded control family and open reading region retain contrast, focus, state distinctions and narrow readability. Extreme softness is not a substitute for hierarchy.
+13. A visual correction improves a fixed viewport but regresses fallback type or intermediate-width content: keep the relevant criterion open and correct the actual defect.
 
 ## Evaluation status and authorship
 

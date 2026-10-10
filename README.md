@@ -43,7 +43,7 @@ Give any skill a task in the same prompt. In Codex, use `$<skill-name>` or selec
 | `$functional-programming` | `/proofwork:functional-programming` | Keep domain decisions pure and make state transitions and effects explicit. |
 | `$data-driven-development` | `/proofwork:data-driven-development` | Model invariants and evaluate changes using observed data and repeatable checks. |
 | `$clean-code` | `/proofwork:clean-code` | Simplify demonstrated complexity while preserving behavior and safety guards. |
-| `$frontend-design` | `/proofwork:frontend-design` | Develop an original visual direction, iterate and verify rendered interfaces. |
+| `$frontend-design` | `/proofwork:frontend-design` | Develop a distinctive visual direction; refine composition, typography, assets and interaction states through rendered critique. |
 | `$humanizer` | `/proofwork:humanizer` | Write natural application copy, simplify unnecessary headings and footer content, and keep interaction wording accurate. |
 | `$security-hardening` | `/proofwork:security-hardening` | Audit trust boundaries, fix supported vulnerabilities and verify repairs with safe adversarial regression checks. |
 | `$dead-code-audit` | `/proofwork:dead-code-audit` | Remove proven dead code and exclusively attached tests, then verify surviving behavior and runtime entry points. |

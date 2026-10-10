@@ -1,6 +1,6 @@
 ---
 name: frontend-design
-description: Design, implement, or refine frontends through content-specific composition, coherent visual decisions, accessible interaction, and rendered critique.
+description: Design and refine distinctive frontends through an explicit visual direction, content-led composition, typography and surface craft, complete interaction states and observed visual iteration.
 ---
 
 # Frontend design
@@ -15,6 +15,10 @@ Write a brief that can settle a disagreement: audience; primary task; content pr
 
 For a substantial new composition, compare two plausible directions that change information hierarchy or navigation. Two palettes on the same arrangement are one direction. Read [composition and visual decisions](references/composition.md) when selecting a new direction or diagnosing a generic layout. Choose within delegated authority and explain why; do not create an approval stop merely to show options.
 
+Give the chosen direction an actionable thesis: which content leads, how discovery works, what should feel calm or energetic, and which recurring choices carry identity. Ground references in mechanisms such as reading rhythm, masthead hierarchy or image framing; do not reproduce another brand's logo, exact layout or expressive assets. State what to preserve from an incumbent and what must improve. Use the smallest useful comparison, not a compulsory presentation deck.
+
+For substantial builds, implement a representative vertical slice with real content before multiplying sections: the lead view, one detail/action and a meaningful state at desktop and narrow widths. Resolve hierarchy and interaction there, then extend its rules. A polished hero attached to generic unfinished screens is not a coherent product.
+
 ## Give the interface a coherent voice
 
 Read [humanizer](../humanizer/SKILL.md) when creating or revising visible wording and content structure. Keep the language specific to the audience and actual product behavior. Reduce repeated title layers and promotional chrome when they add no useful orientation; preserve meaningful headings, navigation, accessible structure and required links. Review ordinary and failure-state copy as part of the real flow.
@@ -23,9 +27,13 @@ Choose the hierarchy first: dominant content, supporting content, navigation, an
 
 Record the chosen direction in the existing design document or a concise `DESIGN.md`. Include type roles and fallbacks; spacing rhythm; content widths; surfaces and colors; control and media radii; image treatment; interaction states; responsive changes; and one or two distinctive decisions. Reuse the project's system before introducing fonts, icons, packages, or additional token layers. Do not invent a design system for a one-line repair.
 
+Read [interface craft](references/interface-craft.md) when turning a direction into detailed components, selecting assets, resolving dense text/data or refining visual finish. Establish hierarchy with real type, grouping, width and whitespace before decorating surfaces. Apply one coherent set of decisions across index, detail, controls and states; identity should survive removal of ornamental effects.
+
 Use softness selectively. Controls, media, and bounded surfaces can have related rounded forms while long reading regions remain open. Relate nested radii to padding and inspect the corners at their actual size. A pill is useful for a tag or compact action; it is not the default shape for every control. Do not cover weak hierarchy with oversized radii, blur, shadows, or gradients.
 
 For parallel UI work, the design owner supplies a shared contract before separate slices diverge: selected direction, representative composition, tokens, component states, content fixtures, responsive behavior, and ownership. Integrate and inspect the whole page. Two individually polished sections can still compete for attention or disagree on density.
+
+Avoid automatic hero → benefit cards → testimonials → repeated CTA composition. Each region needs supplied content and a job in the actual journey. Repeated cards, gradients, dashboards and familiar components are appropriate when they solve that job; judge their visual hierarchy and behavior rather than banning a style. Never invent credibility claims to fill a layout or add decorative regions just to make the page longer.
 
 ## Build the real experience
 
@@ -34,6 +42,8 @@ Use semantic controls and familiar affordances for important actions. Make the p
 Design the states that the flow actually encounters: loading, empty, failed, partial, successful, disabled, or destructive confirmation as appropriate. Put recovery near the failed action and preserve entered work when possible. Distinguish “no items exist” from “the filter matches no items” and “items failed to load.” Do not add fictional loading or error screens to a static publication merely to fill a checklist.
 
 Treat responsiveness as a change of priorities and available space, not scaled-down desktop styling. Decide what stacks, what changes alignment, how actions remain reachable, and whether dense data needs a useful alternate view. Check long text, missing media, realistic row counts, and zoom/reflow where relevant. Make motion explain a state change; support reduced motion and avoid delaying essential interaction for decoration.
+
+Model meaningful UI state changes as pure transitions over current data and events; adapters own requests, navigation and committed effects. Render from canonical state instead of separately synchronized flags or counts. Preserve the actual contract for optimistic updates, retry, cancellation and undo. Include pending, focus, error and selected treatments in the component design where they exist, rather than bolting them on after the attractive success state.
 
 ## Render, critique, and improve
 
@@ -44,6 +54,8 @@ Read [rendered review](references/rendered-review.md) for substantial builds, re
 Critique in order: purpose and hierarchy; reading order and density; alignment and rhythm; interaction and state clarity; typography and media; surface detail. Name a visible defect, its effect on the person, and the smallest design change that resolves it. “Looks generic” is a prompt to investigate, not a finding. A uniform card wall may flatten editorial priority; repeated cards may correctly support a product catalog.
 
 Batch the few material changes, render again, and compare at the same viewports. A stronger hierarchy should be visible in composition and reading order, not merely asserted in a description. Preserve behavior while polishing. Use independent visual review for substantial work when available and authorized; resolve material findings without demanding novelty from already effective patterns.
+
+Keep a brief iteration record: observed defect, person affected, proposed visual/interaction change, comparison and verdict. Work on the strongest remaining defect rather than cycling palettes or adding flourishes. Stop when the acceptance criteria are observed and no material finding remains; record a retained tradeoff when resolving one issue would harm the primary task. Do not promise originality, authenticity or reader satisfaction from an aesthetic label alone.
 
 ## Deliverable and finish line
 

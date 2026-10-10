@@ -30,6 +30,20 @@ Give text and images widths that suit their jobs. A long article need not occupy
 
 Choose a small set of radius roles and inspect them on real controls and surfaces. Softer media can complement open text; nested rounded panels often add visual noise without structure. Borders, background changes, and whitespace can establish containment with less weight than a card. Keep contrast and disabled/focus distinctions coherent across these treatments.
 
+## Turn references into design decisions
+
+Read a reference for its mechanics: the size relationship between masthead and lead, the way metadata sits beside text, the density of an archive, the treatment of imagery, and where the reader pauses. Translate those mechanisms to the project's content and brand. A reference supplies questions and constraints, not an asset library or permission to copy an identity.
+
+Compare directions using the same representative content. For an essay publication, one direction might emphasize a singular lead with a quiet archive; another might prioritize an ongoing chronological conversation. Test what people can discover and how the longest headline behaves in each. Changing only font/color is a craft variation, not a different information design.
+
+Write the selected direction concretely: “Open reading canvas, strong author masthead, one dominant essay, quiet dated list, rounded media and restrained subscription control.” Tie it to audience and task, then carry it through article detail, archive and actual empty/error states. For a working console, formulate its own thesis around scanning, exceptions and action density rather than importing the publication's composition.
+
+## Detect generic composition through consequences
+
+Ask whether replacing the product name/content would leave every region and emphasis unchanged. If so, examine whether a habitual template is hiding the project's real priority. This is a diagnostic question, not proof that common patterns are bad. Name the consequence: lead content has no prominence, repeated headings consume attention, fictional credibility blocks fill space, or the primary work sits below decorative sections.
+
+Remove or reshape the region that lacks a job. Introduce distinction through actual content relationships, typographic rhythm, imagery or navigation rather than a novelty effect. Keep familiar affordances where they reduce effort. A recognizable layout can still be specific and well-crafted.
+
 ## Distinction through a few durable choices
 
 Useful character can come from an unusually clear masthead, a specific crop strategy, generous article rhythm, a disciplined accent, an expressive but readable title scale, or meaningful editorial ordering. Carry the choice across index, detail, and state views. Do not sprinkle unrelated motifs to prove originality.
