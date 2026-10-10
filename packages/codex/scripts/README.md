@@ -29,3 +29,5 @@ Context budgets count initial preparation/options and disclose deferred review/r
 Option Arena defaults to two candidates; an explicit third stays within maxParallel and actual host capacity.
 
 Named procedures: `route --explain` exposes `procedure`; read its packaged `path` before the selected phase guidance. The legacy `playbook` value remains a compatible checkpoint stage. See `playbooks/` and `shared/playbooks.json` in the package. Explicit full procedure names preserve a full floor; read-only intent still controls effects. Context-budget includes the selected guide, and the comparative harness injects the same guide.
+
+Explained routing is the shared integration plan: plain route, optional prompt hints and comparative inputs use the same normalized intent. Prompt hints leave file discovery to the root rather than inheriting previous assignment paths. Required resume guidance counts in initial context; review/report entries remain deferred. See [the integrated flow](https://github.com/zrmonty/proofwork/blob/main/docs/flow.md).
