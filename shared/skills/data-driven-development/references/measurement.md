@@ -26,6 +26,20 @@ Measure the full requested path as well as a micro-operation when local savings 
 - Repeatedly searching many metrics for a positive result increases the chance of a misleading story. Label exploratory findings and confirm the decision with a focused follow-up.
 - A test fixture supports that workload. It does not establish production benefit or a broad language/runtime ranking.
 
+## Prevent leakage and selection from choosing the answer
+
+Record how observations entered the dataset, not just its row count. Opt-in telemetry, only completed tasks or only successful responses can exclude the people and failures the change affects. Compare relevant segments and account for exclusions; an aggregate improvement can reverse when the workload mix changes. Missing observations may have a cause related to failure, so replacing them with zero or silently dropping them needs a defensible policy.
+
+For experiments, identify the unit receiving the change and the unit measured. Ten requests from one user are not automatically ten independent users. Where concurrent variants can interfere through shared caches, team behavior or inventory, assignment and interpretation need to account for that interaction. Use an appropriate design or narrow the causal claim; do not prescribe randomization when it is infeasible or unauthorized.
+
+For predictive systems or tuned heuristics, split evaluation data before fitting preprocessing, selecting thresholds or tuning the implementation. Keep related users/entities together when overlap would leak their information; respect time order when predicting future behavior. Evaluate the selected candidate on untouched representative data. Repeatedly optimizing against the same benchmark can overfit its fixture even without machine learning.
+
+Choose the observation window and stopping rule before interpreting a confirmatory test. Repeatedly checking until a favorable result appears does not provide the same evidence as a planned comparison. If the experiment changes during exploration, record that change and seek fresh confirmation proportional to the decision's stakes. Do not manufacture a significance claim from an arbitrary sample size or a percentage difference alone.
+
+## Collect the minimum useful evidence
+
+Prefer synthetic or aggregated inputs when they answer the question. Removing names alone may leave identifiers, rare combinations or free text that expose individuals. Keep permitted data scope, retention and access with the experiment; do not paste raw production rows into prompts, logs or published evidence. Preserve enough sanitized provenance to reproduce the conclusion without retaining private content unnecessarily.
+
 ## End with a decision
 
 Accept when the relevant evidence meets the user's target and guardrails. Reject when the proposed change adds cost without its required benefit. Investigate when uncertainty prevents a meaningful decision. Record limitations in the same place as the result. Keep regression protection for correctness even when a performance experiment is inconclusive.

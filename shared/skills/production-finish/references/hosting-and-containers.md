@@ -24,6 +24,18 @@ SQLite can fit a modest application served by one appropriately configured owner
 
 A restore test uses a separate isolated destination and a representative backup. Do not overwrite a live database to prove restoration. Check compatible migrations, integrity and a representative application query. Explain how a release can recover from a failed migration or image rollout; a previous image alone does not reverse a destructive schema change. For jobs and writes, verify shutdown stops accepting new work and handles in-flight effects within the platform's termination window.
 
+## Plan the release transition
+
+Describe the actual sequence only when a stateful or rolling release needs it: compatible configuration, schema preparation, application switch, health observation, and later removal of obsolete fields or behavior. Existing deployment mechanisms take precedence over introducing a release framework. For a single-instance app, an agreed maintenance window can be simpler and safer than creating zero-downtime machinery.
+
+Test representative compatibility in an isolated environment: the old app against prepared state, the new app against migrated state, and mixed versions when the host can run both. Include jobs or clients that outlive the deployment. A renamed field or changed message format can break an old worker even when the new HTTP process is healthy.
+
+Separate recovery actions. Reverting application code may be safe before an incompatible data change; after that change, recovery can require a compatible forward fix or an approved restore with known data loss. Backups do not make every migration reversible. Identify the cutover condition, observable stop condition and responsible operator. Do not invent rollback SQL, run a live restore, or replay writes without authority and a demonstrated data model.
+
+Readiness means the instance can serve its required workload, not merely that its process exists. Use meaningful bounded checks and the platform's existing lifecycle behavior; avoid a probe that mutates user data or reveals internal details. Decide which downstream failure should block startup, block routing, or be handled by a degraded feature rather than making every dependency a global outage.
+
+Retain provenance through promotion: tested artifact identity, runtime configuration shape without values, compatible data state, and live observation when authorized. If the destination rebuilds source, inspect its resulting artifact and required checks; a local image's evidence cannot certify an unobserved remote build.
+
 ## Build only the image the app needs
 
 Inspect existing Dockerfiles, build scripts and deployment configuration before adding new ones. Derive the image from the real production entrypoint and locked dependency installation. Use a maintained suitable base and record its resolved identity; a pinned digest aids repeatability but needs an update process. Use separate build and runtime stages when build tools or development dependencies are otherwise left in the runtime. Select a compatible base instead of chasing minimum image size at the expense of required libraries.

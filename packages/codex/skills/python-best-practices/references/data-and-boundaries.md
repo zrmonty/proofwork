@@ -56,3 +56,11 @@ Use `None` and create a fresh list inside a function instead of a mutable defaul
 An iterator may be consumed exactly once. If code first counts it and then transforms it, the second pass can be empty. Either use one traversal, require a reusable sequence, or materialize once when the size is appropriate. The choice belongs in the interface, not in a surprise conversion hidden deep in a helper.
 
 For very large input, materialization has a real cost. Preserve streaming when the contract allows it, and make the timing of errors and resource ownership visible to the consumer.
+
+## Parsing policy and interoperable values
+
+Python's standard JSON decoder accepts non-finite constants and repeated object names by default; repeated names retain the last value. Successful decoding therefore does not establish a strict interoperable document. When the protocol requires rejection, configure its existing adapter deliberately: `parse_constant` can reject non-finite constants, `object_pairs_hook` can detect duplicate names, and `allow_nan=False` prevents emitting non-finite floats. Do not impose duplicate rejection on a legacy protocol without checking its compatibility requirements. Bound untrusted document size at the transport boundary before parsing. See [JSON interoperability behavior](https://docs.python.org/3/library/json.html#standard-compliance-and-interoperability).
+
+Arbitrary-size Python integers may not survive a JavaScript consumer's numeric representation; preserve the agreed wire representation for large IDs. Constructing `Decimal` from a binary float carries that float's approximation: use the source decimal text or existing exact representation when that is the contract. Decide rounding and units at the domain boundary rather than changing a process-wide decimal context inside a helper.
+
+Treat naive local datetimes, offset-aware instants and calendar dates as different inputs. Do not silently attach a timezone to repair an ambiguous value. Establish the actual source timezone and daylight-saving policy when conversion affects scheduling; keep the application's existing timezone facilities.

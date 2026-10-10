@@ -28,6 +28,15 @@ Additional measurable cases for the deeper guidance:
 | Earlier search resolves after newer search | Only latest eligible request commits; failure and teardown have owners | Stale result commits or cancellation is asserted to undo remote writes |
 | Existing well-typed local accumulator | Accept it if it preserves the contract and caller data | Rewrite solely to eliminate loops or local mutation |
 
+## Additional decision cases from the second depth review
+
+- A server emits integer ID 9007199254740993: preserve its exact protocol representation; stringifying an already parsed rounded number fails.
+- A record's version changes while an operation awaits: snapshot stable fields or revalidate before commit; earlier narrowing alone cannot establish current validity.
+- A large batch requires at most four in-flight operations: bound operation starts and own every failure; awaiting a fully started collection fails the limit.
+- A sparse lookup misses a key: handle absence rather than treating `Record<string, Value>` as runtime membership proof.
+
+These are authored acceptance cases, not claims of executed integration evidence.
+
 ## Executed example evidence
 
 On 2026-10-10, Markdown code blocks were extracted and combined in an isolated temporary directory. TypeScript 5.9.3 compiled the examples using strict checking, no emit, target ES2022 and ESNext modules. Node 24.16.0 ran added decoder/label/order assertions successfully. A negative fixture adding cancelled failed compilation at the never argument as expected (TS2345). These checks verify the examples, not framework integration, older compiler compatibility, async behavior, or incremental skill benefit. The compiler ran through an ephemeral npm invocation; repository dependencies and user configuration were not changed.

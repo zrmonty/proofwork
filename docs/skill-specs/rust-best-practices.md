@@ -29,6 +29,15 @@ Additional measurable cases for the deeper guidance:
 | Unsafe wrapper changes ownership | Safety preconditions and enforcement are reviewed across callers | Passing tests cited as sufficient proof of soundness |
 | Clean local loop with private accumulator | Accept when invariants and ownership remain clear | Rewrite solely to remove mut or demand extra allocations |
 
+## Additional decision cases from the second depth review
+
+- Truncate text containing a multibyte character: settle byte versus display semantics and avoid an invalid slice boundary; a successful ASCII-only test is insufficient.
+- A fallible input stream contains one rejected record: preserve fail-fast or observable partial-result policy; silently using `filter_map(Result::ok)` fails unless dropping errors is the actual contract.
+- Two tasks clone an Arc: recognize shared inner ownership and require the inner type's real synchronization contract; claiming independent copies fails.
+- A caller times out while blocking work continues: retain an owner until completion and do not reuse its resource prematurely; ending the await is insufficient evidence of shutdown.
+
+These are authored acceptance cases, not claims of executed integration evidence.
+
 ## Executed example evidence
 
 On 2026-10-10, both Rust Markdown blocks were extracted into an isolated temporary source and compiled with rustc 1.95.0 using --test. The ledger_contract test passed: ordinary and empty totals, preserved borrowed input, negative entry and overflow rejection. This establishes example behavior on that compiler, not minimum-compiler compatibility, all Cargo feature/target combinations, unsafe soundness, cancellation behavior, or incremental skill benefit. Repository toolchain configuration was unchanged.

@@ -46,3 +46,11 @@ A worker handoff is provisional. Inspect changes outside the advertised files, f
 After integration, record a new content identity that includes uncommitted relevant files. Rerun checks affected by later slices or dependencies and record coordinator-accepted task results at that identity. Do not mechanically relabel old evidence with the new identity. Evidence can be reused only when its actual covered content and dependencies remain valid, and the completion guard requires current criterion records with matching artifacts.
 
 For a rejected review finding, record the supported reason: for example, the supposedly duplicate guard covers a separate external boundary. “Tests pass” does not answer a concern about ownership or races. For an accepted finding, verify the fix and review nearby consequences before marking it resolved.
+
+## Keep the critical path visible
+
+For each dependent slice, name the decision or artifact it waits on rather than scheduling all workers immediately. Read-only investigation can resolve uncertainty in parallel; code that depends on an unresolved transaction or response contract should not invent it. More active agents can lengthen the task through conflicting assumptions, duplicated setup and integration delay. Match delegation to independent questions and collect a useful result before multiplying roles.
+
+When a worker cannot proceed, ask what specific input changes that fact. Reassign unaffected work only after reconciling ownership; do not conceal the dependency by having another worker implement a second contract. Repeated failures on the same assumption call for a focused investigation, not an endless sequence of replacement implementers.
+
+Review both successful behavior and the user-visible failure consequence on the integrated artifact. For an export plus download UI, file generation can pass while a stale link delivers the previous export. The shared job identity and state transition are integration criteria; independent screenshots or a generator unit test cannot settle them. Record the behavior that crosses slices and use evidence that reaches it.

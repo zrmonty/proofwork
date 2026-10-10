@@ -43,3 +43,11 @@ Avoid multi-stage pipelines when they obscure early exit, error context, or cost
 A due-date calculation should receive the effective date and the relevant domain rules. The boundary chooses the clock/timezone policy. A random allocation decision should receive a generated sample or deterministic dependency when that is the actual contract. Passing dependencies does not settle the correctness of timezone rules, distributions, or numeric precision; those remain domain questions.
 
 Do not inject every ordinary library function. Expose dependencies when doing so makes variability, effects, or domain policy visible. More parameters are useful only when they make the function's behavior easier to explain and verify.
+
+## Refactoring must preserve observable semantics
+
+Purity permits reasoning from values; it does not make every rearrangement equivalent. Before fusing, sorting, parallelizing or memoizing a calculation, preserve input order, duplicates, short-circuiting, selected error, numeric rounding and overflow policy. Floating-point addition is not associative: `(1e16 + -1e16) + 1` and `1e16 + (-1e16 + 1)` can produce different results. A parallel reduction needs an acceptable precision contract, not just a pure callback.
+
+An eager map followed by validation can perform work on later records that a fail-fast loop would never visit. For a total pure operation that may be acceptable; for expensive computations or fallible callbacks it can change latency and the error reported. A lazy iterator also moves execution and failure into the consumer's lifetime. Test the promised behavior rather than treating pipeline syntax as evidence of equivalence.
+
+Memoization needs a complete key and a bounded owner. Hidden configuration, time, mutable objects or user identity can make equal-looking calls differ. Caching a mutable result can let one caller change another's answer. Introduce caching only for a demonstrated need and preserve isolation, invalidation and memory limits; the application's existing cache is preferable to a new generic memoizer.

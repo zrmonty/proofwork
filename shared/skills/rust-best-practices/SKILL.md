@@ -13,8 +13,8 @@ Read Cargo manifests, workspace boundaries, the declared minimum compiler versio
 
 For each changed operation, identify who owns its inputs, what remains available afterward, which failures callers can handle, and what happens if work stops halfway through. Load focused detail when relevant:
 
-- For borrowing, domain types, parsing, amounts, and errors, read [Ownership and domain contracts](references/ownership-and-domain.md).
-- For locks, cancellation, resources, unsafe code, and checks, read [Resources and verification](references/resources-and-verification.md).
+- For borrowing, domain types, UTF-8 boundaries, fallible collections, amounts, and errors, read [Ownership and domain contracts](references/ownership-and-domain.md).
+- For shared ownership, locks, cancellation, blocking work, resources, unsafe code, and checks, read [Resources and verification](references/resources-and-verification.md).
 
 ## Choose ownership from use
 

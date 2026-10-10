@@ -51,6 +51,8 @@ Preserve localization keys, interpolation contracts, plurals, escaping and local
 
 ## Review the experience and finish
 
+Check the same action across its controls, confirmations, toasts and notifications for conflicting promises. Preserve the public disclosure policy and avoid exposing internal diagnostics or private data through friendlier errors. Use the interaction reference when audience, privacy or cross-surface state changes what can truthfully be said.
+
 Read the full flow after editing. Check repetition, terminology, promises, heading density and whether the next action is easy to understand. Compare representative ordinary and failure states. A sentence can sound natural in isolation and become irritating when repeated ten times.
 
 When changing an implemented interface, inspect its rendered context where tools are available: narrow layouts, long labels, meaningful heading order, error placement and focus/accessible-name behavior affected by the edit. Exercise changed actions if wording depends on their effect. Reuse existing checks for behavior or localization contracts. Do not claim rendered or interaction verification from source inspection alone; a wording-only proposal can be reviewed as text with that scope stated.

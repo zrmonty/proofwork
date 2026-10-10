@@ -19,6 +19,16 @@ Record artifact/revision identity, viewport dimensions, route/state, fixture con
 
 Apply the portions relevant to the brief. A static essay need not be tested as a transactional application; an upload console needs more than a homepage capture.
 
+## Review actions across changing data
+
+Inspect the real transition, not just each state's visual appearance. For a selection-and-submit flow, establish what happens when the selected item changes, disappears or becomes unavailable before submission. Preserve the person's context and make the result refer to the item actually acted on. A beautiful selected card does not resolve an action that applies to an outdated selection.
+
+Differentiate a blocked control from a pending action and an outcome the application cannot yet confirm. Preventing repeat clicks may support the flow, but does not prove the server avoided duplicate effects. Use the actual contract for retry, cancellation and recovery; do not add optimistic completion or undo solely for visual smoothness. Surface partial success when some operations finished and others need attention, without asking the person to repeat successful work.
+
+Stress the chosen composition with content that changes its meaning: a long unbroken identifier, an item with no image, several equivalent priorities, a permission-limited view, or a result containing only one item. Choose cases encountered by this product. Confirm that action identity, labels and grouping survive, rather than shrinking meaningful text or hiding the difficult data. A render with curated content is evidence only for that content.
+
+For example, a batch approval screen should expose which rows remain selected after a filter change and which approvals actually succeeded after a partial failure. A static essay index has neither obligation; its important stress cases may instead be long titles, missing thumbnails and bylines. The primary flow determines the review, not a universal state checklist.
+
 ## Findings that lead to changes
 
 Weak: “Make it more premium.”

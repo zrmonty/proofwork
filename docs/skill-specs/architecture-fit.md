@@ -21,6 +21,7 @@ Inspect existing code, hosting evidence, chosen tools, workflows, data ownership
 - Apply the same requirement test to services, caches, brokers, search, packaging and orchestration. A container image alone does not make stateful horizontal replicas safe.
 - Record the chosen option, rejected alternatives, assumptions, owner, failure/recovery plan, evidence gaps and a measurable reopening condition.
 - Preserve a modest migration seam and identify semantic migration work; do not implement unused adapters or speculative layers.
+- Walk a representative action and consequential failure through serious alternatives, with every required responsibility owned. Count custom coordination and incident work as complexity. Identify a cheap observation that can disprove a consequential recommendation; unavailable decisive evidence leaves it conditional.
 
 ## Progressive disclosure
 
@@ -46,6 +47,8 @@ Return a reasoned selected architecture or explicitly conditional recommendation
 12. A modest mutable app with an unjustified PostgreSQL proposal asks what a simpler supported arrangement cannot do; it gives a concrete recommendation rather than merely mentioning SQLite.
 13. An existing PostgreSQL service is questioned on capability and burden; retention requires reasons including actual migration cost, while a demonstrated simpler fit receives a scoped proposal rather than an unauthorized migration.
 14. A framework or ORM is retained only with a real advantage for this project's interactions or data work; bespoke replacement complexity counts against removal.
+15. A nominally dependency-free replacement that needs homemade transaction, synchronization and delivery mechanisms is compared on total responsibility and operational cost, not dependency count.
+16. A disputed host/storage proposal receives a focused decisive check or explicit evidence gap; no full multi-stack prototype or unsupported certainty is required.
 
 ## Evaluation status and authorship
 

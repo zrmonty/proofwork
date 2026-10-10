@@ -21,7 +21,7 @@ Read [domain models and examples](references/domain-models.md) for difficult inv
 
 Use an experiment when the assignment makes a measurable claim: performance, resource use, reliability, conversion, quality, or a suspected regression. State the hypothesis, primary outcome, representative workload, meaningful decision threshold, and correctness guardrails before selecting a favorable result. A threshold should come from the user's need or existing target, not an invented impressive percentage.
 
-Capture a baseline from the current artifact with a repeatable command or procedure. Read [measurement and decisions](references/measurement.md) when comparing performance or product outcomes. Record the environment and inputs that could explain the result. Compare like with like and retain inconvenient observations.
+Capture a baseline from the current artifact with a repeatable command or procedure. Read [measurement and decisions](references/measurement.md) when comparing performance or product outcomes, designing evaluation datasets, or using production observations. Record how inputs were selected and the environment that could explain the result. Compare like with like and retain inconvenient observations. Prevent tuning or preprocessing from leaking evaluation data into the candidate being judged.
 
 Change the suspected cause, rerun the comparison, and account for variation. Reject or narrow the claim if correctness worsens, costs shift elsewhere, or representative behavior fails the threshold. A negative result can save unnecessary code; it does not need to be reframed as a success.
 

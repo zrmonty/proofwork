@@ -1,6 +1,6 @@
 # Skill depth revision
 
-This revision strengthens the original guidance across all twelve Proofwork skills. Depth means the skill helps an agent choose and verify a better approach in a real task. Additional length alone is not a quality measure.
+This standard covers all seventeen Proofwork skills. Depth means the skill helps an agent choose and verify a better approach in a real task. Additional length alone is not a quality measure. The initial twelve-skill revision remains recorded separately; subsequent reviews must include the newer architecture, finishing, performance, TDD and humanizer workflows.
 
 ## Authoring standard
 
@@ -14,6 +14,9 @@ Descriptions should route a task accurately before loading the body. Writing sho
 
 - Every canonical skill has a corresponding specification and all package-local references resolve in both builds.
 - Runtime contracts, command forms, ownership and native goal semantics remain compatible with the existing tools.
+- Architecture challenges every consequential component against a simpler adequate arrangement. The functional default permits measured private loops; every project code file remains at or below 500 physical lines, with no generated/existing-code exception.
+- Coverage uses separate 95% line/branch floors, independent source discovery and truthful collection provenance. Consolidation retains unique failure detectors; performance comparisons preserve workload, completed work and resource tradeoffs.
+- Release and UI wording describe actual states and consequences. Secret checks redact before output; a source review, fixture or package validator never becomes an exhaustive safety, rendered or production-readiness guarantee.
 - Language guidance distinguishes runtime validation from static types, caller data from owned data, and domain decisions from resource/effect management.
 - Frontend guidance derives composition from content and tasks, supports coherent softer forms, and requires actual rendered evidence for visual claims.
 - Review guidance permits a clean verdict and makes each finding concrete, scoped and behavior-preserving.
@@ -28,3 +31,5 @@ Descriptions should route a task accurately before loading the body. Writing sho
 4. **Positive maintainability case:** review a simple pure result implemented with a private accumulator and a loop. It should remain intact unless a concrete defect is demonstrated.
 
 Executed results are in the [skill depth verification report](../evals/results/skill-depth-20261010.md). These cases establish scoped behavior under the tested capabilities; no quality multiplier or benchmark gain is assumed.
+
+The [second full review](../evals/results/skill-depth-round2-20261010.md) covers all seventeen skills, with independent source review, forward-use decisions and an executed Python red/green fixture using real separate line/branch coverage. It records intermediate failures and the limits of the tested cases.

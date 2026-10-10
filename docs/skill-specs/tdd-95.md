@@ -33,6 +33,10 @@ references/coverage-and-ci.md defines denominator integrity, independent ratios,
 10. A proposed shared fixture that leaks mutable state is rejected or repaired; no retries or deletion hide its failure.
 11. A source fault that the old unique detector caught must still fail the consolidated suite, or consolidation is repaired before completion.
 12. Faster local filtered tests do not replace the final full selected-target coverage command; stale reports cannot pass CI.
+13. Multiple shards cover overlapping files: merge distinct opportunities using the collector, require all intended shards and reject summed counts or averaged percentages.
+14. Coverage reports name the current commit but the working tree changed: content provenance and a fresh collection are required, not a commit-label match alone.
+15. Parameterization schedules asynchronous assertions without waiting: the suite must propagate failures and complete each independent case before a green result is trusted.
+16. Shared setup passes only in its original order or leaves background resources alive: consolidation restores independence and includes teardown in its timing evidence.
 
 ## Evidence and authorship
 

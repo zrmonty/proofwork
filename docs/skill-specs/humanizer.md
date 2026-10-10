@@ -14,6 +14,7 @@ Write application copy with natural, specific language and purposeful structure.
 - Distinguish empty, filtered, failed, queued, uncertain and complete states. Match labels, recovery and reversibility to observed behavior.
 - Preserve form labels, accessible names, localization keys, variables, plural forms and formatting. Do not silently reinterpret approved legal text.
 - Review across the flow and in rendered context when implementing copy; make unsupported checks and dependent facts explicit.
+- Compare the same action across visible surfaces against its authoritative state. Preserve public disclosure policies; do not echo private/internal diagnostics or reveal resource/account existence through an incidental wording change.
 
 ## Resources
 
@@ -31,6 +32,8 @@ structure-and-voice.md supports page composition and editorial decisions. intera
 8. Named interpolation and plural contracts survive edits; long localized strings are checked or the missing check is stated.
 9. Repeated generic promises are replaced by supplied specifics or deleted; no fabricated metrics or endorsements appear.
 10. A source-only copy review does not claim rendered, keyboard or localization verification, or guaranteed human authorship.
+11. An invitation dispatch confirmation does not imply membership acceptance; controls, toast, detail and notification messages preserve their distinct observed events.
+12. A friendlier access error preserves the established disclosure policy and safe support reference rather than exposing internal diagnostics or identifying another person's account.
 
 ## Evidence
 

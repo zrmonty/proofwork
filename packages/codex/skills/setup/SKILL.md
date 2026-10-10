@@ -13,6 +13,8 @@ Read the packaged [runtime](../../adapters/runtime.md), [goal](../../adapters/go
 
 Mark relevant capabilities **supported**, **unavailable** or **unknown**, with the observation behind the label. A listed tool can support a planned attempt; successful use establishes what access works in this environment. Distinguish ordinary shell execution from interactive TUI input, browser connection from authenticated tab access, browser from Electron/native desktop, and delegation from isolated checkout support. A library on disk does not establish any of those host permissions.
 
+Make the first useful check reproduce the project's actual path rather than certify the whole machine. Inspect what its command invokes, which environment it targets and whether fixtures are isolated before executing it. A command named test can still require live credentials or modify remote data. Use existing authorization for the intended local checks; identify a consequential effect that falls outside it instead of treating a script name as permission. Report the smallest missing prerequisite, not a demand to provision every possible tool.
+
 For unfamiliar hosts, model choices or partial capability failures, read [capability and role decisions](references/capabilities.md). Do not repeatedly probe irrelevant access or expose credentials to establish a status.
 
 ## Choose roles without changing model policy
@@ -28,6 +30,8 @@ Native subagents do not supply cross-provider orchestration. An external bridge 
 ## Map checks to acceptance
 
 Select shared engineering skills, languages for affected files and frontend guidance for interface work. For each required outcome, name the existing check or observation that can prove it, its expected environment, and any missing capability. Treat builds, unit tests, browser interactions and visual review as different claims. A supported substitute is acceptable only when it proves the same required behavior.
+
+For executable work, inspect both collection and enforcement: source discovery, separate coverage metrics, failure-status propagation and code-file discovery. A threshold in configuration is not evidence that CI runs it. Record how unimported source and ignored/custom generated code enter the respective inventories. If an inherited target cannot meet the required 95% or 500-line gate within scope, state that gap before promising completion and continue authorized useful work without weakening the requirement.
 
 If browser access is absent for a layout task, code checks can continue but cannot establish rendered quality. If a project test requires an unavailable external service, isolate pure behavior where useful and keep the service-backed criterion unproved. Do not weaken acceptance merely to make the plan pass.
 

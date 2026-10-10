@@ -34,6 +34,14 @@ Keep visible text, accessible names and confirmation wording consistent. An icon
 
 Form help should answer a real question: required format, privacy of a field, or consequence of changing it. Do not add “Please enter your…” under every labeled input. Put important guidance where someone can use it before submitting. Keep errors connected to their field and preserve a usable general error for non-field failures.
 
+## Preserve privacy and truth across surfaces
+
+Inspect where the message can appear and who can read it. A user-facing error should not echo access tokens, private identifiers, raw queries or another person's details merely because the backend supplied them. Use the project's safe public error and support-reference mechanism where available. More conversational wording does not justify turning internal diagnostic detail into public copy. For access and account flows, preserve the established disclosure policy; do not make a generic response reveal whether a person or resource exists.
+
+Compare messages for the same action across the button, confirmation, toast, detail view and notification. Identify the authoritative state and the audience of each surface. “Invitation sent” can be accurate after dispatch, while “Member joined” requires a different event. Do not let a shortened toast imply a stronger outcome than the detailed status. If source strings disagree with observed behavior, propose accurate copy or report the missing state contract; do not quietly alter the application to make the sentence true.
+
+Preserve the useful cause without blaming the person. “Choose a date after today” describes a correctable input constraint. “You entered an invalid date again” adds accusation without helping. When the cause is unknown, say what is unavailable and offer the real next step rather than inventing a reassuring explanation. A human voice can admit uncertainty directly.
+
 ## Preserve string contracts
 
 Inspect the existing localization mechanism before editing. Preserve IDs, named variables, plural categories, escaping, markup boundaries and formatter ownership. Keep whole translatable messages instead of concatenating fragments whose word order assumes English. Format dates, currency and numbers with the project's locale-aware mechanisms.

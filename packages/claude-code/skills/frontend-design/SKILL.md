@@ -37,6 +37,8 @@ Treat responsiveness as a change of priorities and available space, not scaled-d
 
 ## Render, critique, and improve
 
+For data-dependent actions, inspect transitions as well as screenshots: stale selection, changed permissions, uncertain completion and partial success where they can occur. The rendered-review reference includes these probes and content stress cases. Make the interface follow the actual domain state instead of inventing optimistic success, undo or retry behavior to polish the experience.
+
 Read [rendered review](references/rendered-review.md) for substantial builds, redesigns, or visual audits. Inspect the running primary page, a representative detail or state, and a narrow viewport. Exercise the primary action, keyboard path, and relevant failure recovery. Record viewport, artifact/revision identity, and observed outcome with captures.
 
 Critique in order: purpose and hierarchy; reading order and density; alignment and rhythm; interaction and state clarity; typography and media; surface detail. Name a visible defect, its effect on the person, and the smallest design change that resolves it. “Looks generic” is a prompt to investigate, not a finding. A uniform card wall may flatten editorial priority; repeated cards may correctly support a product catalog.

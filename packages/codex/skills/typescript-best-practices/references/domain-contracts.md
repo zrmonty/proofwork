@@ -70,3 +70,11 @@ Accept `readonly Item[]` when only observing items. Return the actual result sha
 Be deliberate about null, omitted properties, and undefined: serializers and compiler settings can distinguish them. Preserve the established protocol when changing an optional field. Do not substitute truthiness for a missing-value test if zero or an empty string is valid.
 
 For each wrapper, overload, or generic, ask which invalid call it prevents or which consumer it enables. Remove machinery with no concrete answer. If a checked value can later be mutated, a type label alone cannot preserve its invariant; control ownership or revalidate when trust changes.
+
+## Preserve meaning across the wire
+
+For integer identifiers or counters, establish the largest valid value before choosing `number`. A server's 64-bit integer can exceed JavaScript's safe integer range: precision may already be lost during JSON parsing, before a decoder sees it. Preserve large IDs as the protocol's strings or another explicitly agreed representation; do not stringify an already rounded number. `bigint` is an internal option, not an automatic JSON transport contract.
+
+For monetary and measured values, state units, rounding stage, finite-value policy and aggregate bounds. Floating-point calculations are not made exact by annotating them. For dates, distinguish an instant, a local calendar date and a recurring local time. Keep the protocol's timezone/offset and precision; parsing every date-like string through one constructor can change its meaning.
+
+When indexing a lookup table, prove membership or handle absence. `Record<string, Value>` can suggest every key exists even when runtime data is sparse. A compiler option can expose some mistakes, but changing global settings is not a substitute for fixing the affected contract.

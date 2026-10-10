@@ -40,3 +40,11 @@ Use investigator, implementer and reviewer as responsibilities, not a mandatory 
 When authorized model choices exist, consider actual tool compatibility and context needs before latency. A model unable to read the full affected ownership boundary is a poor fit for integrated review, regardless of its benchmark reputation. Use observed task results to revise mappings; record limits and uncertainty without inventing usage metrics. Reassigning a role also requires reconciling its live ownership and work.
 
 The capability plan should answer: what can run now, what evidence will it produce, what remains unavailable, and what next action resolves the important uncertainty? Store those answers in coordinator state without credentials or unnecessary user data.
+
+## Probe a concrete path, then stop discovery
+
+For a web application, a useful probe may be its existing production build and a local route with isolated test data. It establishes that path under the observed checkout, runtime and configuration. It does not establish authenticated browser access, production credentials or safe load testing. Inspect the scripts and required environment names without printing their values; a failed check should name the missing prerequisite rather than dump configuration.
+
+Distinguish a missing binary, unsupported option, unavailable service, permission rejection and application assertion failure. They require different remedies. An assertion failure is not a missing capability, and installing another tool will not make it passing evidence. An unsupported collector metric stays unverified even if a different metric is available. Do not repeatedly run an identical denied operation without a relevant change or supported alternative.
+
+When a previously working check starts failing after a host, account or checkout change, refresh the affected capability observation. Keep unaffected evidence only when its artifact and dependencies remain valid. Record a supported next action such as obtaining the correct local fixture or using an already authorized compatible runtime; do not silently substitute global settings, provider accounts or a new deployment target.

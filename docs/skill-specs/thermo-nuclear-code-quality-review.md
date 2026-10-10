@@ -14,6 +14,8 @@ Use `node scripts/check-file-lines.mjs --repo PATH` and the additive `--inventor
 
 Conditional reasoning examples live in references/structural-review.md. Give exactly one verdict: meets the bar, needs restructuring or insufficient evidence. Authorized revisions are rechecked against the original concern and nearby consequences; the coordinator owns disposition.
 
+For disputed concerns, trace a concrete rule change and compare a local remedy with a broader model change by mechanisms removed, preserved contracts and introduced costs. Integrated parallel work requires seam inspection and surviving-owner checks; independent worker results are not proof of combined behavior.
+
 ## Observable acceptance cases
 
 - Reachable contradictory operation fields produce a located finding that identifies duplicated rules, explicit-state remedy and required partial-failure checks.
@@ -29,6 +31,8 @@ Conditional reasoning examples live in references/structural-review.md. Give exa
 - Missing consumers necessary to judge a material abstraction yield insufficient evidence with the exact missing context, rather than an unsupported defect or claimed full acceptance.
 - Passing tests do not erase a structural concern. Review-only scope produces no edits, external comments or unrelated redesign.
 - Revised code is checked for remaining old predicates/owners and new adjacent consequences before findings are considered resolved.
+- A coherent transaction/domain/transport boundary can meet the bar despite several layers. Collapsing earned cleanup and compatibility owners is not required for stylistic simplicity.
+- An integrated consumer still using an old predicate or incompatible response receives a located finding; isolated worker tests do not establish the unseen integrated contract.
 
 ## Evidence and boundaries
 

@@ -15,7 +15,7 @@ Prefer a function whose supplied inputs determine its output and whose invocatio
 
 ## Protect the ownership contract
 
-Preserve caller-owned inputs unless mutation is the documented API. Copy the portion that will change; a shallow copy still shares nested objects. Decide whether returned collections intentionally share values with the input. Read [transformations and aliasing](references/transformations.md) for collection changes, performance-sensitive work, or unclear ownership.
+Preserve caller-owned inputs unless mutation is the documented API. Copy the portion that will change; a shallow copy still shares nested objects. Decide whether returned collections intentionally share values with the input. Read [transformations and aliasing](references/transformations.md) for collection changes, performance-sensitive work, memoization, reordered calculations, or unclear ownership.
 
 A clear loop with a private accumulator can implement a pure transformation. Prefer it to a chain that hides ordering, repeats work, or allocates large intermediate collections. Local mutation is an implementation choice; escaped mutable state is a contract. Do not demand deep copying immutable values or replace a well-specified in-place API merely for style.
 

@@ -32,6 +32,9 @@ references/exposure-and-response.md covers public-surface tracing, safe scanning
 9. A denied or absent Docker daemon yields missing runtime evidence. A passing build alone does not become a successful image smoke test.
 10. A production migration is not run destructively without scope. Rollback addresses data compatibility and restore requirements, not just returning to a previous image.
 11. A clean redacted scan identifies inspected surfaces and remaining coverage limits, never promises exhaustive credential absence. A third-party scanner receives no private source without disclosure authority.
+12. A rolling release changes a field consumed by an old worker: readiness includes mixed-version compatibility or a justified nonoverlapping cutover, not only the new instance's health.
+13. A destination rebuilds locally verified source with different inputs: remote readiness requires its actual artifact and environment evidence; local smoke success is not carried forward automatically.
+14. A schema change cannot be reversed by an image rollback: the report identifies a compatible forward repair or authorized restore, stop conditions and accountable operator without promising lossless recovery.
 
 ## Evidence and authorship
 

@@ -38,6 +38,15 @@ Existing cases are in evals/language-scenarios.md. Expanded decisions:
 6. A documented in-place API remains valid in a focused cleanup; unauthorized ownership changes fail scope.
 7. Checks distinguish transition unit evidence from a real failure/recovery boundary.
 
+## Additional decision cases from the second depth review
+
+- A parallel reduction changes floating-point grouping: preserve the required precision policy or reject the rewrite; purity does not establish associativity.
+- A map fusion changes which malformed record is reported first: preserve the documented ordering/error contract.
+- A memoized computation depends on user identity or mutable configuration: include relevant dependencies and retain isolation/invalidation; equal explicit arguments alone do not justify reuse.
+- A lazy transformation moves a failure into the consumer: disclose and verify its changed lifetime/error contract rather than claiming equivalent eager behavior.
+
+These are authored acceptance cases, not claims of executed integration evidence.
+
 ## Evaluation status and authorship
 
 Original Proofwork guidance. Examples are instructional and need their stated contracts; they are not production libraries or proof of general correctness. Parent evaluation records executed checks. Existing broad baseline already handled pure input preservation; no incremental efficacy claim follows from adding this reference.

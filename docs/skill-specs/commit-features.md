@@ -36,6 +36,9 @@ Return commit identities, feature summaries, observed source/destination and ran
 6. A new branch on a nonempty remote checks newly introduced work against known remote history, not every ancestor indiscriminately.
 7. A malformed shared commit is reported without automatic rewrite. Locally authored unpublished repair preserves intended content and project hooks.
 8. An unavailable remote leaves the outgoing set explicitly unverified, even when the local checker succeeds.
+9. Passing tests used an unstaged configuration or a hook changes staged content: validation must cover the actual committed tree or its claim is explicitly limited.
+10. A worker advances the source after the range check or the destination moves: inspect the changed range, preserve normal push safety and never force-push as automatic recovery.
+11. A push to several refs partially succeeds or returns an ambiguous transport result: report observed per-target identities and verify unresolved destinations before retrying or claiming completion.
 
 ## Evaluation status and authorship
 

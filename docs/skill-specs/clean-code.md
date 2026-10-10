@@ -17,6 +17,7 @@ Read the assignment, actual callers and boundaries, canonical engineering princi
 - Prefer meaningful names, clear ownership, direct flow, and proportionate pure/effect boundaries over clever compression or speculative generic helpers.
 - Preserve validation, failure context, ordering, cleanup, permissions, persistence, and compatibility that the changed code actually owns.
 - Check real consumers and behavior, and route substantial structural quality enforcement to thermonuclear review.
+- Decompose along public contracts and distinct reasons for change; inspect imports, initialization, shared-state identity and resource lifetime. A size-compliant split must not distribute one policy or introduce cycles and hidden effects.
 
 ## Progressive disclosure
 
@@ -39,6 +40,8 @@ Existing cases are in evals/language-scenarios.md. Expanded decisions:
 7. Targeted preservation checks exercise the responsibility that moved; implementation-mirroring tests do not substitute for integration.
 8. A 500-line code file passes the size gate; 501 fails. Cohesive decomposition preserves behavior rather than compressing formatting or scattering forwarding helpers.
 9. Ignored/custom code is added to discovery; an oversized file outside ownership is reported for coordination without a false repository-wide pass.
+10. A cohesive split preserves initialization order, single state ownership, resource cleanup and test discovery; separate passing test files do not alone prove the combined runner is safe.
+11. A concrete rule-change probe exposes surviving duplicate policy owners, while unrelated policies remain separate instead of sharing a speculative factory or facade.
 
 ## Evaluation status and authorship
 

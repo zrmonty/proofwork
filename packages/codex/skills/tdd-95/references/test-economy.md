@@ -28,7 +28,11 @@ Use only relevant rows and add the actual project's risks. Do not create a gener
 
 A table of 20 independent cases replacing 20 copied test functions reduces maintenance repetition, not necessarily execution count or runtime. Report that distinction. A single test looping over those cases may stop on the first failure and conceal the rest; use the runner's native case facilities or independent subtests instead.
 
+Check the assertion boundary after parameterization: the runner must observe each failure and wait for each asynchronous assertion or effect. A callback that schedules work and immediately returns can report success before its checks run. Avoid catching an assertion just to collect results unless the test then propagates a failing result through the runner's supported mechanism. Name cases from safe input characteristics rather than embedding private fixture values.
+
 Do not build a generic test abstraction merely to save a few repeated assertions. Avoid one broad end-to-end test replacing several isolated detectors: it can increase diagnosis cost and introduce cascading failures. Keep a dedicated test for a distinct regression even when a shared setup helper is used.
+
+Keep every code file at or below 500 physical lines, including tests and generated executable fixtures. Consolidation must not produce an oversized test file: split by cohesive behavior while retaining independent case reporting. Coverage exclusions do not exempt code from the file-size gate, and dense formatting is not a substitute for a clear split.
 
 ## Reduce real elapsed cost
 
@@ -45,5 +49,7 @@ For each removed unique-looking detector, explain the retained detector. When th
 Useful faults follow the contract: wrong boundary comparator, omitted permission check, forgotten cleanup, accidental input mutation or wrong error translation. Avoid mutations in irrelevant generated code or equivalent transformations that cannot change behavior. A surviving mutation may be equivalent or outside scope; investigate before calling it a test defect.
 
 Keep consolidation reversible until the affected suite, required coverage and fault checks pass. If merged fixtures leak state, restore independent setup and fix the cause before trying a narrower sharing strategy. Never remove a failure case, disable a test, broaden a snapshot or add retries just to make a shorter suite green.
+
+Test sharing against a plausible different order or isolated case execution when it could conceal dependence on prior cases. An immutable fixture may be shared, but lazy caches, global clocks, registered callbacks and background tasks can still retain state around it. Include teardown cost in runtime comparisons and verify owned resources are released; a faster suite that leaves workers alive has shifted its cost beyond the measured boundary.
 
 Return before/after test function count, independent case count, elapsed measurements and retained guarantees. There is no minimum test count and no deletion quota. Keeping the same count while reducing expensive duplicated setup can be the best result.

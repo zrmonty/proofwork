@@ -37,3 +37,11 @@ Keep observations monotonic as history, not as success selection. A newer failed
 Before the local completion guard, check facts it cannot infer: all modifying workers are collected, actual content matches the recorded identity, observations are honest, reviewed scope is adequate and authorized delivery is finished. The guard checks structure, latest criterion results and artifact digests. A successful guard is separate from native goal completion.
 
 If a limit or interruption prevents finishing, save remaining criteria, attempts, concrete gap and next action. Use the host's actual lifecycle rules for pause/blocked/complete. A missing browser may leave visual proof incomplete while tests remain useful; it does not convert partial acceptance into completion. Do not start a background loop to bypass the host's continuation model.
+
+## Reconcile changes in the task itself
+
+A later user correction can change a requirement without cancelling the objective. Identify which decisions, implementation slices and checks depend on it; preserve unaffected useful work and revise dependent assignments. Do not finish against superseded acceptance or restart every investigation from scratch. Preserve authorization separately: a new design preference does not automatically authorize a new external effect.
+
+On resume, a clean working tree may still be the wrong artifact if a dependency, environment or remote release changed. Compare the relevant manifest, configuration and deployment identity before reusing checks. Likewise, a dirty unrelated note need not invalidate a previously observed parser behavior. Explain selective reuse through actual dependencies rather than treating timestamps or cleanliness as proof.
+
+Keep the next action specific enough for another coordinator to continue: reconcile the remote ref, observe the pending job's outcome, obtain the required fixture, or verify a named criterion on the current snapshot. “Continue testing” and a list of past intentions leave important decisions hidden. If there is no confirmed success, retain uncertainty rather than reconstructing it from the planned command.

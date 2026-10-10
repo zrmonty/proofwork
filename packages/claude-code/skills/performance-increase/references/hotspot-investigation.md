@@ -22,6 +22,8 @@ An optimization opportunity should connect an observation to a change and a chec
 
 Do not assume a constant-factor rewrite beats the existing implementation. Index construction can lose for small inputs. A larger batch can increase latency or lock duration. Concurrency can make a shared resource slower. Record the actual useful range instead of concealing the crossover.
 
+Test distributions that exercise the changed mechanism: collisions or skew for lookups, long strings for parsing, repeated misses for caches, and partial downstream failures for batching. Bound retained memory and lifetime, not just the allocation count in one operation. A cache warmed with a tiny fixture can hide unbounded growth; a batch that succeeds only when every item succeeds has not preserved error semantics. Evaluate only the relevant risks rather than expanding each task into a generic stress campaign.
+
 ## Preserve the language's useful tools
 
 Read only the subsection matching the implementation. Check the installed tool and repository conventions before using version-dependent flags.

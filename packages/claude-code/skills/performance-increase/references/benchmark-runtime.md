@@ -37,6 +37,12 @@ Keep meaningful distributions. A minimum can help estimate an uncontended best c
 
 Check total work. A throughput figure needs its duration and completed-unit definition. Timing asynchronous dispatch instead of completion, counting attempted rather than successful operations, or changing bytes to records between runs invalidates the comparison. Confirm that instrumentation and output checks do not consume the bottleneck being measured; place invariant checks outside timing when safe and retain required product validation inside it.
 
+For service measurements, record offered load, completed successful work, failures, timeouts and queued work together. Discarding slow failures can improve reported latency while making the service worse. State whether each simulated client waits for a response before submitting its next request: that model reduces offered load as the service slows and cannot alone substantiate behavior under an independently arriving burst. Include queue waiting in an end-to-end latency claim. Never generate live traffic merely to complete this comparison.
+
+The [k6 load-model documentation](https://grafana.com/docs/k6/latest/using-k6/scenarios/concepts/open-vs-closed/) explains why request scheduling changes the question a load test answers. Use the existing harness's appropriate model rather than adding k6 as a dependency by default.
+
+Keep a case table when workloads differ: typical, small, large, cold or contention-heavy as applicable. Do not average distinct cases into a single gain that hides a material regression. Choose the acceptance target and permitted tradeoffs before selecting favorable runs; if exploratory tuning used these data, confirm the chosen candidate with new independent observations. Archive the actual raw timing records with their units and revision so the summary can be checked.
+
 ## Finish with an explicit claim boundary
 
 Return the command and case selection, environment, measured boundary, baseline and candidate identities, wall time, operation statistic, sample method and observed variation. State correctness checks, changed resource costs and remaining gaps. A result from one machine and workload establishes that scoped observation. Capacity, production tails and other supported platforms require their own evidence.

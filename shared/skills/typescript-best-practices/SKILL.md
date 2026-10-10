@@ -15,8 +15,8 @@ State the invariant concretely: â€œa retry count is a nonnegative safe integer,â
 
 Read only the detail needed for the task:
 
-- For parsing, numeric rules, states, or public signatures, read [Domain contracts](references/domain-contracts.md).
-- For promises, UI races, modules, resource ownership, or test selection, read [Effects and verification](references/effects-and-verification.md).
+- For parsing, numeric/time wire rules, sparse lookups, states, or public signatures, read [Domain contracts](references/domain-contracts.md).
+- For promises, bounded work, state checked across await, UI races, modules, resource ownership, or test selection, read [Effects and verification](references/effects-and-verification.md).
 
 ## Choose types that expose decisions
 

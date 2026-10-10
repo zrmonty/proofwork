@@ -35,3 +35,15 @@ Preserve current files and return their location, known identity, last actual ch
 For a substantial feature, report fulfilled criteria separately from gaps. Name the integrated interface assumptions, changed paths and any required follow-up owned elsewhere. Supply executable commands and bounded observations, not raw provider transcripts or secrets. UI results identify actual viewport/URL and interaction outcomes where available, with the agreed design reference.
 
 `ready-for-review` is appropriate when the assigned artifact and evidence are inspectable, even if the coordinator must still perform integrated checks. Use `needs-revision` when your own assigned behavior remains incomplete, or `blocked` with the precise missing input/capability. Never hide a failed criterion inside an otherwise confident summary.
+
+## Distinguish a diagnosis from a guessed patch
+
+Suppose an export occasionally omits records. Check whether the loss occurs in selection, pagination, serialization or delivery using representative identifiers and counts at the relevant boundary. Protect private data in observations. A successful smaller export does not show the failing path, and adding retries cannot repair a deterministic selection error. Choose the owning rule from the observation, then prove the fix through the consumer that lost the records.
+
+An intermittent failure may depend on ordering, cancellation or shared state. Record the conditions that reproduce it and retain the failing observation. Avoid replacing it with an easier deterministic test that never reaches the same failure mechanism. If the original fault cannot be reproduced, label the diagnosis provisional and provide the strongest bounded evidence available without inventing a red phase.
+
+## Report integration dependencies precisely
+
+A worker result might say: “The form sends the agreed request and handles rejection locally. End-to-end completion remains unproved because the server migration is owned by task B. The request shape and expected error codes are linked here.” That is actionable. “Backend pending” leaves the coordinator guessing which path is incomplete.
+
+Name assumptions that could invalidate the slice: schema version, authentication context, browser base path, fixture isolation or service transaction semantics. Do not require a generic list for a tiny change; include only assumptions the implementation actually relies on. When an assumption changes, inspect the affected code and revalidate instead of merely changing the result's revision label.

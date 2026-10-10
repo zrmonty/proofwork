@@ -29,6 +29,8 @@ Prefer explicit control flow to clever compression. Use names that reveal the do
 
 ## Preserve what users rely on
 
+When decomposing files, read the reference's cohesion probes. Check imports, initialization, shared-state identity and resource lifetime as well as migrated calls. Keep one responsibility authoritative; meeting the 500-line maximum by distributing the same rule across files does not resolve its maintenance cost.
+
 Before changing structure, identify the behavior that must survive: outputs, validation, failure context, ordering, resource cleanup, permissions, persistence, and public compatibility as applicable. A wrapper may be the only owner of logging, normalization, or cleanup even if its happy path appears redundant.
 
 Use existing behavior tests. Add a focused public-behavior or integration check when the changed responsibility lacks meaningful protection. Do not freeze incidental implementation details to prove a refactor. Check the actual removal across callers; passing a unit test of the new helper cannot prove all consumers migrated.

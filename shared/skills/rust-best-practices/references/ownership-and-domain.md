@@ -56,3 +56,9 @@ Do not return an empty collection on failure unless “no data” is genuinely t
 Avoid exposing implementation details through public types unnecessarily. A private helper can be concrete; a library interface should preserve compatibility across its consumers. Prefer borrowing only while the relationship remains useful: a return value borrowing a short-lived decoder buffer may make the interface harder to use than returning owned data.
 
 [Rust ownership](https://doc.rust-lang.org/book/ch04-00-understanding-ownership.html) and [recoverable errors](https://doc.rust-lang.org/book/ch09-02-recoverable-errors-with-result.html) ground the language mechanisms; the domain determines the ownership and recovery policy.
+
+## Text and collection semantics are contracts
+
+Rust strings are UTF-8. A byte count is not a character count, and a Unicode scalar count is not necessarily a visible-character count. A byte slice boundary inside a multibyte character is invalid. Decide whether the operation limits transport bytes, scalar values or displayed text before choosing slicing/iteration; use checked access when offsets come from outside. A lossy conversion is appropriate only when replacement characters are an accepted outcome, not when identifiers must remain exact. See the [string slice contract](https://doc.rust-lang.org/std/primitive.str.html).
+
+For fallible iterators, `filter_map(Result::ok)` silently discards errors. Use it only if dropping rejected entries is the documented policy and rejection remains observable where required. Collecting `Result` can express fail-fast behavior; an explicit loop can express partial success with indexed errors. Keep order, duplicate handling and failure semantics unchanged when switching representations. A hash collection is not a substitute for an ordered sequence merely because lookup is faster.

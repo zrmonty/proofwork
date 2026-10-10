@@ -17,6 +17,7 @@ Read the objective, audience, primary task, representative content and states, i
 - Supply a coherent contract before parallel UI slices diverge, and review their integrated hierarchy.
 - Implement meaningful loading/empty/error/success states only where the actual flow encounters them, with accessible controls, focus, recovery, reflow, and applicable motion/contrast checks.
 - Critique hierarchy and task usability before surface decoration; batch fixes and compare the actual running artifact.
+- Inspect meaningful action transitions and representative content stress cases, including stale selections, partial results or uncertain completion only where the real domain encounters them. Preserve actual retry and recovery contracts rather than inventing UI promises.
 
 ## Progressive disclosure
 
@@ -37,6 +38,8 @@ Existing scenario prompts are in evals/frontend-scenarios.md. Expanded behaviora
 5. A filtered empty list and a network failure communicate different meanings and actions. A static essay receives no invented transactional states.
 6. Missing browser access yields a bounded code/static critique with the missing checks named, never “verified desktop/mobile” from description alone.
 7. A clean, coherent layout is accepted without demanding arbitrary decorative distinction.
+8. A batch action retains clear target identity across filtering and partial success; copy and affordances do not imply that all operations finished or ask people to repeat successful work.
+9. A longest identifier, missing image or permission-limited view is checked when representative; difficult content is not hidden or illegibly shrunk to preserve the idealized composition.
 
 ## Evaluation status and authorship
 

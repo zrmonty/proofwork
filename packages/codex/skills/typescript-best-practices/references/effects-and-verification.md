@@ -14,6 +14,10 @@ Choose async structure from the failure policy:
 
 `Promise.all` rejection does not itself cancel siblings. Never launch writes in parallel merely because the syntax is compact. A detached promise needs an owner that records failure; prepending `void` only changes the expression's use.
 
+An async callback passed to `forEach` does not make the enclosing function wait for its promises. Use sequential iteration for ordered effects, or collect and await promises for independent bounded work. `Promise.all(items.map(...))` starts work for the whole collection; a concurrency limit must govern starting work, not just awaiting results. Reuse the existing limiter and test maximum in-flight work when the input can be large.
+
+A narrowing or precondition checked before `await` may no longer describe shared mutable state afterward. Capture stable owned inputs when the operation needs a snapshot; otherwise recheck the identity, version or authorization at the commit boundary. A captured object reference alone is not a snapshot of its mutable fields. Do not assume TypeScript detects this race.
+
 For search as you type, cancellation may be insufficient if an API ignores its signal or work already finished. Before committing a result, compare its request identity with the current one. Use the framework's existing facility when it provides the guarantee. Verify a slow earlier response arriving after a later response, a failure, and teardown.
 
 For external writes, distinguish confirmed failure, confirmed success, and unknown outcome. A timeout may occur after the remote side committed. Decide whether retrying is safe from the API contract, not the exception's name. Preserve the existing error convention and useful causes; sanitize user messages rather than leaking response bodies or credentials.

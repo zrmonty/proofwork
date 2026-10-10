@@ -38,6 +38,8 @@ Do cleanup in finally or async context managers. Do not suppress cancellation wi
 
 Test cancellation during the stage that holds a resource or performs an effect, then inspect cleanup and partial state. Testing only normal completion proves neither. [Asyncio task documentation](https://docs.python.org/3/library/asyncio-task.html) explains task ownership, structured concurrency, and cancellation mechanisms; inspect documentation appropriate to the project's interpreter.
 
+Calling a synchronous client inside `async def` can still block the event loop. Use the existing async client or established offloading boundary when blocking is material. Cancelling the await of thread-offloaded work does not prove the thread stopped; preserve ownership of clients/files until the operation really ends, and account for possible completed writes. Do not start an unbounded thread/task for every record. Verify responsiveness, in-flight limits and shutdown when changing execution strategy.
+
 ## Subprocesses are trust boundaries
 
 Prefer argument lists and checked results to interpolated shell commands. Also distinguish arguments from options: shell avoidance alone does not stop an external program interpreting an input beginning with a dash as an option. Use its documented option terminator or other safe contract where relevant.

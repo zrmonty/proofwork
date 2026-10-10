@@ -18,6 +18,10 @@ Mutex poisoning is a signal that an invariant may have been interrupted. Do not 
 
 Task cancellation and dropping a future depend on the API involved. Read the runtime and operation's cancellation contract before claiming an operation is safe to select, retry, or abandon. Dropping a future cannot be assumed to undo remote writes. Track partial completion or use the existing idempotency mechanism when the outcome can be unknown.
 
+`Arc` shares ownership; it does not add synchronization to its contents or make a non-thread-safe inner value thread-safe. Its clone also does not copy the inner value. Trace interior mutability and the actual `Send`/`Sync` requirements when moving data into tasks. Prefer an owned message or immutable snapshot where it removes the need for shared mutation. See [Arc's thread-safety contract](https://doc.rust-lang.org/std/sync/struct.Arc.html).
+
+Moving blocking work off an async executor does not establish that cancelling the waiting task stops the underlying operation. Check the runtime's blocking-task contract, bound submitted work and give ongoing operations an owner through shutdown. A timeout must not allow a worker to keep mutating a resource that the caller has already reused or removed.
+
 A timeout test that only observes “the task stopped” is insufficient for a resource claim. Verify relevant handles/locks are released and the externally visible state satisfies the operation's documented partial-effect policy.
 
 ## Unsafe review is an invariant audit

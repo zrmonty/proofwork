@@ -42,6 +42,16 @@ Exactly 500 lines passes the size gate; it may still contain a material ownershi
 
 The automatic checker inventory is a starting point. A checked-in `.py` test counts as project code; a project-owned extensionless executable or ignored generated source must be added through the supplementary JSON inventory. A Markdown manual and an external dependency installation are outside the code-file count. Document the inspected boundary and any unavailable generated output; missing inventory evidence cannot support full acceptance.
 
+## Compare remedies before prescribing one
+
+Probe a structural concern with a concrete change: if one business rule changes tomorrow, which owners must be updated and which unrelated consumers are affected? Trace the actual locations rather than counting layers or guessing from names. Several files can legitimately own different rules. Several pure functions can still duplicate the same policy and drift. Neither file count nor functional style settles ownership.
+
+Compare the smallest local remedy against a broader model change. Name what each removes, which contracts it preserves and any added indirection. A new abstraction is justified only when its useful ownership or boundary outweighs that cost for current consumers. When two remedies are reasonable, state the tradeoff rather than presenting one stylistic preference as the only acceptable design.
+
+For integrated parallel work, inspect the contract at the seam: do consumers use the new authoritative rule, do old paths still maintain a second state, and do success and failure responses mean the same thing on both sides? Separate worker tests can pass while the combined callers still use incompatible assumptions. A review of the integrated artifact should identify that mismatch and its preservation checks; it must not claim unseen integration was tested.
+
+Counterexample: a transaction wrapper, domain calculation and transport adapter can be a coherent three-layer design with separate obligations. Collapsing them to reduce the layer count may obscure cleanup or public error handling. Accept that design when the traced contract earns the boundaries. Conversely, moving a duplicated predicate into another file without migrating the old callers leaves the original finding unresolved.
+
 ## Useful verdicts
 
 **Needs restructuring:** describe the material mechanism, smallest adequate remedy and checks preserving behavior. Cosmetic preferences can remain nonblocking and should not inflate this verdict.

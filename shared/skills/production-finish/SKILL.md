@@ -35,10 +35,14 @@ Check the requirements that this application actually has: authorization on prot
 
 For persisted data, identify where it survives a restart and a replacement deployment. Verify migrations against the intended release process and test a representative backup restore in an isolated destination. State acceptable data loss and recovery time. A persistent volume without a restore procedure is not a recovery plan. Do not run destructive migrations, delete production data, or modify retention merely because a finishing checklist mentions them.
 
+Check the transition as well as the destination. Determine whether old and new instances, jobs or clients can overlap during deployment, and whether the new schema and configuration remain compatible with them. Distinguish reversible application rollout from irreversible data changes. A recovery plan must say when to stop, which artifact and data state can be restored, and who owns the action; a previous image is not sufficient evidence.
+
 If containers fit and building is within scope, create or improve the smallest suitable image, build it, inspect its relevant exposure surfaces, and smoke-test the actual image. Report an unavailable daemon or denied build as missing execution evidence, not a passing Docker deliverable. Re-run checks affected by cleanup on the combined artifact.
 
 ## Return a release decision
 
 Give the user a concise readiness report: selected hosting and reasons; changes made; production artifact identity; checks actually executed and their environment; findings resolved; and any missing credentials, hosting answers, restore tests, or external actions. Distinguish locally verified packaging from deployment and live verification.
+
+Keep release states explicit: locally verified, ready for the selected host, deployed, and verified live. Report only states reached by observed checks. If deployment is authorized, promote the tested artifact rather than quietly rebuilding different inputs, and verify the primary flow through the actual public routing and access boundary. Record environment-specific checks separately from local ones.
 
 Call the scoped finish complete only when its required checks pass on the final artifact and every material exposure or operational issue has an accountable disposition. An unresolved exposed secret capability blocks release readiness even if local cleanup passes. State scanner coverage and limitations; a clean scan supports a bounded observation, never an exhaustive guarantee that no secret exists.

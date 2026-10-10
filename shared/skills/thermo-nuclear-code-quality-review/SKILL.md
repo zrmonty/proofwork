@@ -33,6 +33,8 @@ Resolve violations through cohesive decomposition that preserves contracts, vali
 
 ## Make findings actionable
 
+Use the structural reference's concrete-change probe and remedy comparison for disputed findings. Inspect the integrated seam after parallel work, including remaining old owners and consumer assumptions. Prefer a supported local remedy when it fully addresses the concern; fewer layers, pure functions and more files are not independent evidence of better ownership.
+
 Each finding names a location, observed mechanism, practical maintenance cost, feasible remedy and behavior that must survive. Tie the cost to a real kind of change or failure, such as updating a validation rule in three owners. Show what disappears: duplicate rules, contradictory states, forwarding layers or hidden effects. Moving unchanged complexity into more files is not enough.
 
 Distinguish a demonstrated defect, a supported structural concern and an unanswered question. Prioritize by consequence and likelihood, not stylistic intensity. Do not demand a framework, new dependency, whole-system rewrite or unchecked guard deletion without demonstrated need. If the simplest safe improvement is local, recommend it. If a remedy lacks evidence, state the uncertainty rather than disguising it as a prescription.

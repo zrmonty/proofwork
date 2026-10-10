@@ -35,6 +35,8 @@ Apply the same reasoning beyond databases. Read [component decisions](references
 
 ## Decide and preserve an affordable next step
 
+For a consequential choice, use the component reference's end-to-end walkthrough: locate every required responsibility in the simplest complete arrangement, including its meaningful failure path. Identify the cheapest observation that could disprove the recommendation. Hidden custom mechanisms count as complexity; missing decisive evidence makes the choice conditional rather than automatically favoring the familiar stack.
+
 Give a recommendation with reasons, not an unranked catalog. Identify the requirement that rules out each serious alternative. Challenge preferences with the same evidence test, while respecting a genuine tool mandate and its constraints. For an existing stack, examine whether the burden is still justified and compare the actual benefit of simplifying against migration, compatibility and recovery costs. Keeping PostgreSQL may be the right answer, but state why rather than treating its presence as sufficient. Recommendations do not authorize replacement; do not migrate a working system merely to conform to an example.
 
 Record a short decision in the project's existing format, or supply a draft if documentation changes are outside scope:

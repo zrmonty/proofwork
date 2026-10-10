@@ -68,6 +68,10 @@ For an empty remote repository, checking the source's reachable history may be a
 
 The checker accepts an explicit revision/range and checks every selected commit's message. It does not discover push targets, verify remote freshness, identify authorship, certify a fast-forward, or compare claims with diffs. Those are the coordinator's responsibilities.
 
+Freeze the source identity after checks; if another worker advances the branch or a new commit appears, inspect and validate the added outgoing work before sending it. Use explicit destination refs when the requested destination could differ from Git's configured default. If the remote moves and a normal push is rejected, refresh its observed state and re-evaluate the range and integration; rejection does not create force-push authority.
+
+For multiple destinations, treat success separately. One remote branch accepting an update does not prove every target was updated. An ambiguous network result requires inspecting the remote identity before claiming success or repeating effects. Report the accepted source/destination identities and any unresolved target without inventing an all-or-nothing outcome.
+
 ## Message repairs
 
 Before correcting local history, establish which commits were authored here and remain unpublished. If another worker authored a commit, coordinate rather than rewriting their work independently. Preserve signatures and hooks under the project's policy; changing a commit changes its identity.

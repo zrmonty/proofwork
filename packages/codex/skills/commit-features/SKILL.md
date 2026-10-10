@@ -25,6 +25,8 @@ A large diff is not necessarily a major feature. A behavior-preserving cleanup c
 
 State breaking compatibility separately and state checks actually performed. “Tests pass” needs a real executed result applicable to the committed artifact. A documentation-only commit can have Major features `None` and a concrete Minor features entry. A fix-only commit can do the same.
 
+Distinguish the tested working tree from the staged tree. Partial staging or unstaged fixture/configuration changes can make a passing local run inapplicable to the commit. Where this matters, verify the staged artifact in an isolated checkout or narrow the validation claim. Recheck the resulting commit when hooks modify content; do not preserve a claim that no longer describes the committed tree.
+
 Read [messages and outgoing history](references/messages-and-history.md) for examples and push-range decisions. Use a UTF-8 message file with `git commit -F <file>` to preserve literal newlines and text. Preserve repository hooks, signing, and established commit policy.
 
 ## Validate the commits that will leave this checkout

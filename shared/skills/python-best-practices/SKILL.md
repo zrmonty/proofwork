@@ -15,8 +15,8 @@ Identify whether inputs are trusted domain values, decoded external values, one-
 
 Load only relevant detail:
 
-- For records, annotations, decoding, aliasing, and numeric rules, read [Data and boundaries](references/data-and-boundaries.md).
-- For exceptions, files, generators, subprocesses, async work, and checks, read [Effects and verification](references/effects-and-verification.md).
+- For records, annotations, JSON policy, aliasing, numeric/time interchange, read [Data and boundaries](references/data-and-boundaries.md).
+- For exceptions, files, generators, subprocesses, async/blocking work, and checks, read [Effects and verification](references/effects-and-verification.md).
 
 ## Design a small, honest interface
 

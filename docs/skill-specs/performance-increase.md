@@ -41,6 +41,9 @@ references/hotspot-investigation.md covers symptom-driven measurements, semantic
 11. A private loop reduces measured allocations while retaining caller ownership; the skill permits it and does not force a chained allocating functional expression.
 12. A candidate improves mean response but violates the supplied memory or tail target; it is rejected or the explicitly authorized tradeoff is recorded.
 13. Profiling finds no material optimization; the evaluator reports the evidence and retains the simpler implementation without inventing a promised percentage.
+14. Faster service latency excludes timeouts and failed requests: the comparison includes offered load, completed work and failures before accepting any improvement.
+15. A lookup wins on a reused large fixture but loses when constructed for ordinary small requests: the report includes construction, size crossover and relevant input distributions rather than prescribing it everywhere.
+16. Repeated tuning selects the best of many noisy candidates: independent confirmation and preserved raw records are required before reporting a reliable gain.
 
 ## Evaluation status and authorship
 

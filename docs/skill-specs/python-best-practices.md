@@ -29,6 +29,15 @@ Additional measurable cases for the deeper guidance:
 | Async cancellation during a resource/effect stage | Cleanup and partial-state policy verified or explicitly unverified | Cancellation swallowed or remote rollback falsely claimed |
 | Clean small function and private mutable builder | Retain existing interface and behavior | Unneeded classes, dependencies or purity rewrite |
 
+## Additional decision cases from the second depth review
+
+- A strict wire adapter receives NaN or repeated object names: enforce the declared parsing policy; parser success alone fails the validity claim.
+- An exact decimal or large identifier crosses into a JavaScript consumer: preserve source precision and the agreed wire representation; converting a rounded value afterward fails.
+- A local scheduling input has no timezone during an ambiguous clock change: establish its source and policy rather than silently attaching a guessed timezone.
+- An offloaded synchronous write outlives a cancelled await: account for possible completion and retain resource ownership; claiming cancellation stopped the thread fails.
+
+These are authored acceptance cases, not claims of executed integration evidence.
+
 ## Executed example evidence
 
 On 2026-10-10, Python Markdown blocks were combined in an isolated temporary script and executed with Python 3.14.5. Assertions passed for valid decoding, invalid shape/bool/float/range rejection, nested input preservation and returned-list independence, empty input, loader success, malformed JSON cause and missing-file cause. Deleting the failed-load file succeeded on Windows, checking prompt closure in that scenario. No configured static type check, older-interpreter matrix, async/subprocess integration, or incremental skill-benefit claim follows from these example checks. Repository dependencies and user configuration were unchanged.

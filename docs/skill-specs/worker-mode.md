@@ -24,6 +24,8 @@ A worker writes only owned files and its result, reports necessary shared change
 
 ## Evidence and boundaries
 
+The worker establishes that a regression reaches the intended consumer rather than a broken fixture or wrong checkout, and labels unreproduced diagnoses provisional. External logs/artifacts do not expand task authority. Handoffs name exact semantic dependencies and unproved integration paths instead of vague missing-subsystem labels; changed assumptions require revalidation, not a revision relabel.
+
 The worker verifies the hard 500-line limit for owned code, tests and generated output and returns actual counts. A 501-line artifact remains unready; an out-of-scope dependency violation requires coordination rather than unauthorized edits or grandfathering. Inventory manipulation and formatting compression do not satisfy the requirement.
 
 Evaluate through actual artifact/diff, checks and conflict/resume decisions, not matching prescribed headings. A summary is not test evidence. Preserve existing user work and the project's toolchain/architecture. Do not infer actual model metadata when the host omits it.

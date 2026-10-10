@@ -91,3 +91,7 @@ Version 0.6.0 enforces the hard code-file maximum through implementation, review
 ## Follow-up: active architecture challenge
 
 Version 0.6.1 requires each major architecture choice to earn its place, including whether the component is needed at all. The [forward-use report](../evals/results/architecture-challenge-20261010.md) records concrete omit/replace decisions for an overbuilt static publication and reasoned retention plus topology questions for an established transactional app. All twenty-two tests and the file gate pass; both packages build and Codex 0.6.1 is installed. Hypothetical reasoning does not establish target-app operating evidence.
+
+## Follow-up: second full skill review
+
+Version 0.7.0 strengthens all seventeen skills and their specifications, covering ownership, numerical semantics, causal measurement, partial UI outcomes, mixed-version recovery, truthful coverage and integrated evidence. The [review report](../evals/results/skill-depth-round2-20261010.md) records independent source review, fresh forward scenarios and a test-first Python fixture with 51 passing tests, 100% lines and 100% branches from actual collection. All twenty-two package/runtime tests pass, both packages build, strict Claude validation passes and Codex 0.7.0 is installed with matching skill/reference hashes. Selected fixtures do not certify rendered interfaces, live releases or comparative effectiveness.

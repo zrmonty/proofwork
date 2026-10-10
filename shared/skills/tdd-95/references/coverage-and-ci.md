@@ -32,6 +32,12 @@ Use the existing runner's separate line and branch thresholds where supported. O
 
 Generate fresh reports from the final source identity. Do not merge an old successful run into new evidence; combine only intentionally partitioned runs of the same source and configuration. Preserve the test command's exit status through pipelines and report generation. Exercise the gate once with a deliberately failing small fixture or an isolated temporarily stricter threshold, restore configuration, and show the ordinary command passing. Do not publish a known failing production change just to test CI.
 
+The Git commit alone is not an identity for a dirty working tree. Record relevant source and coverage-configuration content identities, including uncommitted inputs, or collect from the exact clean artifact being released. Bind the report to that selection and runner invocation. Delete or segregate prior output before collection so a failed command cannot leave an old report eligible for the gate.
+
+Combine shard coverage through the collector's supported merge, keeping distinct line and branch opportunities counted once and marked covered when a compatible shard covers them. Adding each shard's covered/total counts double-counts overlapping sources; averaging shard percentages weights them incorrectly. Require every intended shard to succeed and match source/configuration before normalization. A numerically passing partial union does not replace a missing shard's behavioral checks.
+
+For Coverage.py, consult its [combine command](https://coverage.readthedocs.io/en/latest/commands/cmd_combine.html) for supported data files and path mapping. Path equivalence does not establish that different jobs measured the same source contents; preserve provenance separately.
+
 Watch-mode subsets and changed-file filters are useful during red/green work; they do not replace the final selected-target measurement. Never enable success with no tests as a route to the gate.
 
 ## Use the bundled report checker

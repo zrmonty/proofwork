@@ -28,6 +28,16 @@ For a small event signup system, start with the app's existing runtime and relat
 
 For a team already operating an appropriate managed platform, use its demonstrated mechanisms rather than introducing a smaller but unfamiliar deployment path. The decision optimizes the actual team's burden, not the component count in a diagram.
 
+## Test the smallest complete arrangement
+
+Walk one representative user action through each serious option, including a failure at the most consequential boundary. For a booking, identify who checks availability, who records the booking, what happens if confirmation delivery fails, and how a retry avoids creating another booking. Put every required responsibility somewhere explicit. A diagram with fewer boxes is incomplete if the application must secretly reimplement transactions, authorization or delivery guarantees.
+
+Compare a complete simpler arrangement against the proposed one, not a stripped-down happy path against a production system. Include the same data retention, access boundaries, operational owner and recovery expectations. If the simpler option needs custom synchronization, a homegrown job runner and manual incident repair, those mechanisms count as complexity even when they do not appear as dependencies.
+
+Before settling a disputed choice, name the observation that could disprove the recommendation. Prefer the cheapest decisive check: exercise one required query, verify the host's durable storage contract, test an interrupted job, or trace an existing restore procedure. Do not build several complete stacks for comparison. When the evidence is unavailable, distinguish a provisional choice from a proved fit and state what would change it.
+
+For example, a booking application may retain a managed database because existing transaction and recovery arrangements solve its actual obligations with less owner effort. A newsletter may omit a queue because publication is synchronous and a delivery provider already owns durable delivery. The same queue becomes justified if the application has a separate required job that must survive its own process failure. Evaluate the responsibility, not the component's reputation.
+
 ## A measured upgrade, without speculative layers
 
 State the current limitation and an observable trigger tied to the user's target. For example: measure the booking write path at the expected peak, including the import job; reopen storage if observed contention prevents the agreed response time after direct transaction/query improvements. If no target exists, ask for it or report exploratory measurements honestly.

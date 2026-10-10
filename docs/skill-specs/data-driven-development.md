@@ -38,6 +38,16 @@ Existing cases are in evals/language-scenarios.md. Expanded decisions:
 6. A serialization change checks actual producer/consumer values, including relevant null/absence and units, rather than relying on matching local types.
 7. If no meaningful threshold was supplied, exploratory comparison is labeled as such instead of inventing a percentage target.
 
+## Additional decision cases from the second depth review
+
+- A speed report excludes timeouts: restore their place in the outcome/denominator or narrow the conclusion; successful-run averages cannot establish reliability improvement.
+- A tuned heuristic shares users or future observations between fitting and evaluation: isolate related entities/time and evaluate the final candidate on untouched inputs.
+- Many requests belong to a few assigned users: identify assignment/measurement units rather than treating each request as independent experimental evidence.
+- Repeated metric inspection stops at the first favorable result: label exploration and seek fresh confirmation instead of presenting the selected result as a planned test.
+- Name-stripped production rows still contain rare identifying combinations: minimize or aggregate evidence; removing direct names does not establish safe publication.
+
+These are authored acceptance cases, not claims of executed integration evidence.
+
 ## Evaluation status and authorship
 
 Original Proofwork instructions and examples. Scenario descriptions are not executed benchmarks. Prior broad baseline did not establish these experiment decisions; actual evaluator artifacts and limitations are maintained separately.
