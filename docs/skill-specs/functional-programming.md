@@ -14,6 +14,8 @@ Read caller contracts, domain rules, ownership, effect boundaries, and project c
 - Preserve caller-owned data under the actual contract, distinguishing shallow copies, nested aliases, and immutable sharing.
 - Choose direct data shapes and meaningful states/errors rather than speculative generic abstractions.
 - Separate state transition decisions from existing effect execution and persistence ownership.
+- Inventory writes in changed create/update/delete, UI, workflow, retry, reconciliation and cache paths; express as many decisions as possible as pure next-state/effect calculations. Explain inseparable resource/framework decisions without layering trivial setters.
+- Derive views from canonical state, keep snapshots genuinely stable and reject effects from stale/version-conflicted candidates. Feed observed outcomes back as events; pure plans create no authorization or delivery guarantee.
 - Keep concurrency/version/transaction mechanisms at the boundary; pure computation alone supplies none of those guarantees.
 - Handle uncertain effects through actual provider lookup/idempotency contracts. Cancellation/timeout is not proof of non-delivery.
 - Accept a clear private accumulator or loop and reject needless copying, pipeline complexity, or effect frameworks.
@@ -37,6 +39,8 @@ Existing cases are in evals/language-scenarios.md. Expanded decisions:
 5. Two transitions over one old revision preserve the storage conflict/version mechanism rather than claiming pure functions avoid races.
 6. A documented in-place API remains valid in a focused cleanup; unauthorized ownership changes fail scope.
 7. Checks distinguish transition unit evidence from a real failure/recovery boundary.
+8. An event sequence preserves inputs and deterministically returns next state/effect requests, including duplicate/stale outcomes and uncertainty. Executing I/O in the transition fails.
+9. A framework updater may evaluate twice: no network or telemetry fires from the pure updater, and a rejected storage candidate issues no effects.
 
 ## Additional decision cases from the second depth review
 

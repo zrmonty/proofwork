@@ -13,6 +13,7 @@ Read domain examples, current artifact, caller/interchange contracts, permitted 
 - Identify fields, units, valid states, ownership, invariants, and boundary trust.
 - Preserve distinctions among missing, empty, zero, unknown, and malformed when behavior depends on them.
 - Use simple data-driven rules where they express stable facts; avoid a generic interpreter for a few conditions.
+- Require clean functional domain transformations and state transitions by default. Separate effectful collection from pure normalization, summaries and decisions over stable snapshots and explicit policy; preserve raw rows and return owned results.
 - For empirical work, state hypothesis, primary outcome, workload, meaningful target, and correctness guardrails before selecting a favorable result.
 - Capture an observed baseline and repeatable comparison, preserving relevant environment, distribution, failures, and variation.
 - Distinguish fixture observation, production trend, causal experiment, and inference. Accept, reject, or investigate rather than manufacturing a favorable story.
@@ -37,6 +38,8 @@ Existing cases are in evals/language-scenarios.md. Expanded decisions:
 5. Cold and warm results are labeled; failed attempts are retained rather than removed from the denominator.
 6. A serialization change checks actual producer/consumer values, including relevant null/absence and units, rather than relying on matching local types.
 7. If no meaningful threshold was supplied, exploratory comparison is labeled as such instead of inventing a percentage target.
+8. Repeated analysis of the same observations and policy returns the same result without altering rows; hidden clock/collection calls or changed denominators fail the functional contract.
+9. A partial response calculates per-ID next states and preserves unknown outcomes; deriving total success from submitted counts fails.
 
 ## Additional decision cases from the second depth review
 

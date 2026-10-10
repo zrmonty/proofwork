@@ -40,6 +40,12 @@ Choose the observation window and stopping rule before interpreting a confirmato
 
 Prefer synthetic or aggregated inputs when they answer the question. Removing names alone may leave identifiers, rare combinations or free text that expose individuals. Keep permitted data scope, retention and access with the experiment; do not paste raw production rows into prompts, logs or published evidence. Preserve enough sanitized provenance to reproduce the conclusion without retaining private content unnecessarily.
 
+## Keep analysis replayable
+
+Preserve collected observations as an unchanged input; return a new analysis value with denominators, exclusions, missing/failed counts and relevant uncertainty. Pass policy, thresholds and any reference time explicitly instead of consulting globals or collecting new rows inside a summarizer. Two analyses over the same supplied snapshot and policy should agree. Persist or publish the resulting report only through the boundary, after validating its provenance and allowed disclosure.
+
+When preprocessing learns parameters, separate the pure fitting calculation over training data from the pure application of those returned parameters to evaluation data. Keep collection, training/evaluation selection and random sampling ownership explicit. This shape helps expose leakage but does not itself prove an unbiased experiment. A pure function can still encode a bad denominator or false causal assumption.
+
 ## End with a decision
 
 Accept when the relevant evidence meets the user's target and guardrails. Reject when the proposed change adds cost without its required benefit. Investigate when uncertainty prevents a meaningful decision. Record limitations in the same place as the result. Keep regression protection for correctness even when a performance experiment is inconclusive.
