@@ -47,24 +47,30 @@ pub struct Reservation {
     pub effect: Effect,
 }
 
-pub fn reserve(current: &Inventory, units: u32) -> Result<Reservation, ReserveError> {
+fn remaining_stock(current: &Inventory, units: u32) -> Result<u32, ReserveError> {
     if units == 0 {
         return Err(ReserveError::ZeroUnits);
     }
-    let available = current
+    current
         .available
         .checked_sub(units)
-        .ok_or(ReserveError::InsufficientStock)?;
-    let revision = current
+        .ok_or(ReserveError::InsufficientStock)
+}
+
+fn reserved_inventory(current: &Inventory, units: u32) -> Result<Inventory, ReserveError> {
+    let mut next = *current;
+    next.available = remaining_stock(current, units)?;
+    next.revision = next
         .revision
         .checked_add(1)
         .ok_or(ReserveError::RevisionOverflow)?;
+    Ok(next)
+}
+
+pub fn reserve(current: &Inventory, units: u32) -> Result<Reservation, ReserveError> {
     Ok(Reservation {
         expected_revision: current.revision,
-        next: Inventory {
-            revision,
-            available,
-        },
+        next: reserved_inventory(current, units)?,
         effect: Effect::NotifyReserved { units },
     })
 }
@@ -73,6 +79,64 @@ pub fn reserve(current: &Inventory, units: u32) -> Result<Reservation, ReserveEr
 The exposed fields make the sketch easy to inspect; it is not a tamper-proof command capability. A production adapter must accept internally computed proposals and enforce its own current authority/invariants. Use private validated construction when the actual API requires it. This function checks zero units, stock and revision overflow in that order; preserve the error-selection contract when refactoring.
 
 Two callers can calculate valid reservations from the same revision. The owning storage boundary must conditionally commit against that revision under its existing atomic mechanism. A separate read-then-write check can race. Rejected proposals cannot issue their notification; recompute from a fresh authorized observation instead of overwriting another writer. Committing state and notifying still has a crash window: use the application's actual durable mechanism only when the requested guarantee requires it.
+
+The following fixture checks the pure proposal; it deliberately supplies no storage or notification adapter.
+
+```rust
+#[cfg(test)]
+fn stock(revision: u64, available: u32) -> Inventory {
+    Inventory {
+        revision,
+        available,
+    }
+}
+
+#[test]
+fn reservation_proposes_state_and_effect() {
+    let current = stock(7, 10);
+    let proposal = reserve(&current, 3).unwrap();
+    assert_eq!(proposal.expected_revision, 7);
+    assert_eq!(proposal.next, stock(8, 7));
+    assert_eq!(proposal.effect, Effect::NotifyReserved { units: 3 });
+}
+
+#[test]
+fn exact_stock_is_allowed() {
+    assert_eq!(reserve(&stock(0, 3), 3).unwrap().next, stock(1, 0));
+}
+
+#[test]
+fn zero_reservation_is_rejected() {
+    assert_eq!(reserve(&stock(0, 10), 0), Err(ReserveError::ZeroUnits));
+}
+
+#[test]
+fn insufficient_reservation_is_rejected() {
+    let expected = Err(ReserveError::InsufficientStock);
+    assert_eq!(reserve(&stock(0, 2), 3), expected);
+}
+
+#[test]
+fn reservation_revision_overflow_is_rejected() {
+    let expected = Err(ReserveError::RevisionOverflow);
+    assert_eq!(reserve(&stock(u64::MAX, 2), 1), expected);
+}
+
+#[test]
+fn reservation_error_precedence_is_preserved() {
+    let current = stock(u64::MAX, 0);
+    assert_eq!(reserve(&current, 0), Err(ReserveError::ZeroUnits));
+    assert_eq!(reserve(&current, 1), Err(ReserveError::InsufficientStock));
+}
+
+#[test]
+fn reservation_preserves_input_and_replays() {
+    let current = stock(5, 8);
+    let before = current;
+    assert_eq!(reserve(&current, 2), reserve(&current, 2));
+    assert_eq!(current, before);
+}
+```
 
 An adapter's local effect request does not prove a notification was delivered, sent once or durably scheduled. Use stable operation identity and observed outcomes where that contract needs them. Cancellation, a timeout and a retry are separate domain facts; none automatically rolls back a committed reservation.
 

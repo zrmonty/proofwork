@@ -6,18 +6,22 @@ A summary function accepting `Vec<i64>` and consuming it is awkward if its calle
 
 ```rust
 #[derive(Debug, PartialEq, Eq)]
-enum TotalError {
+pub enum TotalError {
     NegativeAmount { index: usize },
     Overflow { index: usize },
 }
 
-fn total_cents(entries: &[i64]) -> Result<i64, TotalError> {
-    entries.iter().enumerate().try_fold(0_i64, |total, (index, &amount)| {
-        if amount < 0 {
-            return Err(TotalError::NegativeAmount { index });
-        }
-        total.checked_add(amount).ok_or(TotalError::Overflow { index })
-    })
+fn add_entry(total: i64, (index, &amount): (usize, &i64)) -> Result<i64, TotalError> {
+    if amount < 0 {
+        return Err(TotalError::NegativeAmount { index });
+    }
+    total
+        .checked_add(amount)
+        .ok_or(TotalError::Overflow { index })
+}
+
+pub fn total_cents(entries: &[i64]) -> Result<i64, TotalError> {
+    entries.iter().enumerate().try_fold(0_i64, add_entry)
 }
 ```
 
@@ -27,13 +31,23 @@ Targeted checks should establish:
 
 ```rust
 #[test]
-fn ledger_contract() {
+fn ledger_preserves_input() {
     let entries = vec![125, 250];
     assert_eq!(total_cents(&entries), Ok(375));
     assert_eq!(entries, vec![125, 250]);
     assert_eq!(total_cents(&[]), Ok(0));
-    assert_eq!(total_cents(&[-1]), Err(TotalError::NegativeAmount { index: 0 }));
-    assert_eq!(total_cents(&[i64::MAX, 1]), Err(TotalError::Overflow { index: 1 }));
+}
+
+#[test]
+fn ledger_rejects_negative_amount() {
+    let expected = Err(TotalError::NegativeAmount { index: 0 });
+    assert_eq!(total_cents(&[-1]), expected);
+}
+
+#[test]
+fn ledger_rejects_overflow() {
+    let expected = Err(TotalError::Overflow { index: 1 });
+    assert_eq!(total_cents(&[i64::MAX, 1]), expected);
 }
 ```
 

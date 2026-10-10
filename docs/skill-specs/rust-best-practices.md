@@ -70,3 +70,13 @@ These acceptance cases are authored guidance. The verification report separately
 
 ## Authorship and evaluation
 Requirements originate in the approved Proofwork design and user preferences. The instructional text and workflow were written for these requirements; no upstream skill assets were imported or adapted. Official documentation linked in the skill supplies technical grounding only. Coordinator supplied a fresh Codex pre-skill baseline at evals/results/baseline.txt: pure input handling, Python mutable-default avoidance, Rust recoverable input errors, and generic frontend critique already worked. It did not establish Proofwork-specific routing, rendered design iteration, integration, or host parity. Detailed scenario prompts/rubrics were recorded before authoring; that broad baseline does not count as running every listed case. Guided evaluation and full language/browser fixtures remain pending until artifacts demonstrate them.
+
+## Curriculum-depth expansion
+
+The topic guide routes one Rust entry to twenty-three focused, originally authored references. The [coverage map](../rust-topic-coverage.md) covers all 75 readable numbered topics across nine supplied images, with duplicate 27 counted once and unseen 9/60/61 explicitly uninferred. Review panels map to contract checks. Do not import educational wording or external skill assets.
+
+Acceptance requires exact ownership/item shapes, binding versus referent mutability, non-Copy observation, reborrowing and disjoint-access policy, Vec/array/slice semantics, HashMap/HashSet identity and duplicate laws, checked conversions, UTF-8 units, Option/Result recovery and matching, validated structs/enums, trait capability/dispatch, derives, and numeric/float policy. Existing demanding API/async/unsafe guidance remains conditional.
+
+Every authored Rust function and closure must meet the complete ten-physical-line cap after normal formatting, including tests/attributes, while preserving the 500-line file cap. Existing ledger and reservation examples are aligned through cohesive calculation helpers, not compressed statements. Worked examples cover reference layers and tuples, preserved input, owned private mutation, fail-fast narrowing, Entry duplicates, checked UTF-8 boundaries, nonfinite admission and disjoint reborrowing. Checks must use exact current blocks, not historic fixture output.
+
+Independent scenario reasoning is useful for finding guidance defects but does not establish application correctness, agent improvement or host certification. Actual compilation, debug/release tests, formatting, Clippy and expected compiler-error checks are reported separately; unsupported coverage, minimum toolchain, targets and unsafe tools remain unverified.

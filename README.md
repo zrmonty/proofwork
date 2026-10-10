@@ -56,7 +56,7 @@ Give any skill a task in the same prompt. In Codex, use `$<skill-name>` or selec
 | `$worker-mode` | `/proofwork:worker-mode` | Execute a bounded assignment and return a reviewable result. |
 | `$thermo-nuclear-code-quality-review` | `/proofwork:thermo-nuclear-code-quality-review` | Audit maintainability and report concrete structural findings with a verdict. |
 | `$typescript-best-practices` | `/proofwork:typescript-best-practices` | Apply TypeScript guidance to types, validation, effects and tests. |
-| `$rust-best-practices` | `/proofwork:rust-best-practices` | Design ownership, pure state transitions and public errors; bound async/concurrent work and verify performance, unsafe and FFI contracts. |
+| `$rust-best-practices` | `/proofwork:rust-best-practices` | Apply deep Rust guidance for borrowing, collections, iterator types, conversions, traits, numeric contracts and pure transitions; verify async, performance and unsafe/FFI obligations. |
 | `$python-best-practices` | `/proofwork:python-best-practices` | Apply Python guidance to data models, boundaries, resources and tests. |
 | `$functional-programming` | `/proofwork:functional-programming` | Keep domain decisions pure and make state transitions and effects explicit. |
 | `$data-driven-development` | `/proofwork:data-driven-development` | Model invariants and evaluate changes using observed data and repeatable checks. |
@@ -205,3 +205,5 @@ node scripts/check-commits.mjs --repo . --range origin/main..HEAD
 ```
 
 For an initial repository with no base, an explicit revision such as `HEAD` checks the reachable initial history. Review the actual diff too; formatting does not establish correctness.
+
+Rust guidance has one entry and twenty-three focused references. The [Rust topic guide](shared/skills/rust-best-practices/references/topic-guide.md) routes by the actual decision; [topic coverage](docs/rust-topic-coverage.md) maps all readable lessons in the supplied curriculum images.

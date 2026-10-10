@@ -11,6 +11,8 @@ Make ownership, valid states, and failure policy visible in the API. The goal is
 
 Read Cargo manifests, workspace boundaries, the declared minimum compiler version, toolchain file, edition, feature flags, target assumptions, and affected public callers. Use the repository's formatter, Clippy policy, tests, and async runtime. Do not assume a current compiler feature is available to the project's supported consumers.
 
+For basics through advanced Rust, use the [topic guide](references/topic-guide.md) to select among ownership, borrowing, collections, iterator item shapes, conversions, text, domain types, numeric policy and traits. Read [worked contracts](references/worked-contracts.md) when exact runnable examples will resolve a type or ownership question; do not load every reference.
+
 For each changed operation, identify who owns its inputs, what remains available afterward, which failures callers can handle, and what happens if work stops halfway through. Load focused detail when relevant:
 
 - For borrowing, domain types, UTF-8 boundaries, fallible collections, amounts, and errors, read [Ownership and domain contracts](references/ownership-and-domain.md).
@@ -52,6 +54,8 @@ Specify admission, in-flight and retained-result bounds before adding parallel w
 Run configured formatting, Clippy, and tests for affected features/targets. Choose checks that challenge the changed invariant: preserved borrowed input, invalid parsing, numeric edges, cleanup on error, or concurrent ordering. For public API changes, exercise a consumer. Report actual feature/target coverage rather than claiming all builds from one default configuration.
 
 For executable changes, apply [tdd-95](../tdd-95/SKILL.md)'s real independent-source line/branch gates and retain stricter requirements; unsupported branch collection stays unverified. Use doctests/consumer checks for supported public examples and targeted failure/interleaving tests for resources. Miri, sanitizers, model checking and profiling can support specific claims when available; none is a substitute for a stated invariant or a soundness proof. Do not run a huge feature/target matrix unrelated to the changed contract.
+
+Keep every complete function within ten physical lines after normal formatting, including attached attributes, signatures, braces, comments, blanks and nested callbacks; each closure has its own limit. Split cohesive responsibilities while preserving validation order, ownership, effects and consumer compatibility. Do not compress statements or hide complexity to pass. Use the [counting contract](../clean-code/references/function-size-and-complexity.md); the file checker does not certify functions.
 
 Keep all project code, tests, scripts and generated code within 500 physical lines. Split cohesive modules and update callers/generators; never compress or exclude source to pass. Review the integrated API, feature set and effect path after later changes invalidate earlier evidence.
 
