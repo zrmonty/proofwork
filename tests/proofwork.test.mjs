@@ -20,6 +20,24 @@ test('routing loads core discipline and affected languages without mutating inpu
 });
 
 const initial = { schemaVersion: 1, owner: 'coordinator', objective: 'fix', criteria: ['works'], revision: 'r1', phase: 'preparing', tasks: [], evidence: [], findings: [] };
+test('routing ties audit-stack to core audits and routes DRY without dry-run confusion', () => {
+  for (const task of ['/proofwork:audit-stack Audit and fix this repo', '$audit-stack', 'Run the audit stack']) {
+    const result = route(task, ['src/main.py']);
+    assert.equal(result.playbook, 'review');
+    for (const skill of ['audit-stack', 'security-hardening', 'dead-code-audit', 'dry-audit', 'performance-increase', 'tdd-95', 'architecture-fit', 'thermo-nuclear-code-quality-review', 'functional-programming', 'data-driven-development', 'clean-code', 'python-best-practices']) assert.ok(result.skills.includes(skill), `${task}: ${skill}`);
+    assert.equal(result.skills.length, new Set(result.skills).size);
+    assert.ok(!result.skills.includes('production-finish'));
+    assert.ok(!result.skills.includes('frontend-design'));
+  }
+  assert.ok(route('Audit-stack frontend production readiness', ['src/Page.tsx']).skills.includes('production-finish'));
+  assert.ok(route('Audit-stack frontend production readiness', ['src/Page.tsx']).skills.includes('frontend-design'));
+  for (const task of ['Run a DRY audit', 'Remove duplicated domain rules', 'Review duplicate code', '$dry-audit']) assert.ok(route(task).skills.includes('dry-audit'), task);
+  for (const task of ['Dry-run the database migration', 'Audit accessibility', 'Find duplicate user records']) {
+    const skills = route(task).skills;
+    assert.ok(!skills.includes('dry-audit'), task);
+    assert.ok(!skills.includes('audit-stack'), task);
+  }
+});
 test('routing selects dead-code cleanup without confusing it with live data deletion', () => {
   for (const task of ['Audit dead code and remove attached tests', 'Remove unused exports', 'Delete unreachable functions', 'Clean up orphaned tests', 'Remove obsolete modules', 'Remove dead-code']) {
     assert.ok(route(task).skills.includes('dead-code-audit'), task);

@@ -27,6 +27,8 @@ For executable implementation, follow [tdd-95](../tdd-95/SKILL.md) and include i
 
 ## Select ownership before parallelism
 
+For a combined audit-stack request, follow [audit-stack](../audit-stack/SKILL.md)'s lens plan inside this existing run; do not recursively redispatch it. For focused duplication work, load [dry-audit](../dry-audit/SKILL.md). Merge common root causes while preserving each lens's checks and completion gaps.
+
 For dead-code cleanup, load [dead-code-audit](../dead-code-audit/SKILL.md). Establish supported roots before deleting and remove exclusively attached tests/artifacts coherently. Preserve live behavior and record justified executable-source inventory changes rather than manufacturing a better coverage percentage.
 
 For security audits or hardening, load [security-hardening](../security-hardening/SKILL.md). Trace the actual enforcement boundaries and include distinguishing regression evidence for repairs. Keep unresolved credential response and unavailable live checks explicit; do not equate local fixes with a secure-release verdict.

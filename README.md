@@ -47,6 +47,8 @@ Give any skill a task in the same prompt. In Codex, use `$<skill-name>` or selec
 | `$humanizer` | `/proofwork:humanizer` | Write natural application copy, simplify unnecessary headings and footer content, and keep interaction wording accurate. |
 | `$security-hardening` | `/proofwork:security-hardening` | Audit trust boundaries, fix supported vulnerabilities and verify repairs with safe adversarial regression checks. |
 | `$dead-code-audit` | `/proofwork:dead-code-audit` | Remove proven dead code and exclusively attached tests, then verify surviving behavior and runtime entry points. |
+| `$dry-audit` | `/proofwork:dry-audit` | Consolidate duplicated rules and responsibilities while preserving distinct policies and consumer checks. |
+| `$audit-stack` | `/proofwork:audit-stack` | Coordinate security, dead-code, DRY, performance, TDD/coverage, architecture and maintainability audits with one integrated result. |
 | `$commit-features` | `/proofwork:commit-features` | Prepare truthful Major features / Minor features commit sections and check outgoing history. |
 
 Examples for Codex:
@@ -63,9 +65,13 @@ $performance-increase Improve this parser's throughput and shorten its benchmark
 $tdd-95 Implement the approved behavior test-first, enforce the 95% coverage gate and consolidate redundant test setup and cases.
 $security-hardening Audit and harden this app. Trace reachable vulnerabilities, fix shared causes, preserve legitimate behavior and report verification gaps.
 $dead-code-audit Find and remove dead code and its exclusively attached tests. Check dynamic entry points, public contracts and shared fixtures before deletion.
+$dry-audit Find duplicated domain rules, consolidate their owner and verify all affected consumers.
+$audit-stack Audit and fix this repository. Preserve supported behavior and report findings and verification gaps for each lens.
 ```
 
 For Claude Code, replace the skill token with its namespaced command, for example `/proofwork:use-proofwork Find and fix issues in this repository`. `/use-proofwork` is the product entry name; a bare slash alias depends on host installation and is not guaranteed by the plugin. Commands reuse the host's available tools and permissions. Invoking a review or commit skill alone does not authorize edits, pushing or publishing.
+
+Run the combined workflow in Claude Code with `/proofwork:audit-stack` or in Codex with `$audit-stack`. By default it audits and makes scoped local repairs; append `report only; do not edit` for a read-only run. Every core audit lens receives a status with evidence, a reason it is not applicable, or a specific missing check. UI/copy and production finishing are included when relevant. It merges overlapping findings into one repair plan and verifies the integrated result; it does not deploy or claim every check passed merely because a skill loaded.
 
 [Architecture fit](shared/skills/architecture-fit/SKILL.md) actively challenges the proposed and relevant existing stack: why is this component needed, and what simpler arrangement would satisfy the project? PostgreSQL, frameworks, ORMs, API layers, queues, caches and orchestration must each earn their place. It recommends what to keep, replace, omit or defer based on real requirements and total burden, including migration costs. No database brand or audience size supplies a default answer.
 

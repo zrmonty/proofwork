@@ -113,3 +113,7 @@ Version 0.8.0 adds security-hardening, its two references and specification, roo
 ## Follow-up: dead-code and attached-test cleanup
 
 Version 0.9.0 adds dead-code-audit, a reachability/test-ownership reference, specification, routing and README commands. The [verification report](../evals/results/dead-code-audit-20261010.md) records the red/green routing test, all twenty-four passing tests, both nineteen-skill builds, strict Claude validation and installed Codex parity. The skill removes proven dead responsibilities and exclusively attached tests while protecting dynamic/public consumers, shared fixtures and live guarantees. No target-application cleanup was executed for this release; structural checks do not establish exhaustive reachability.
+
+## Follow-up: DRY and a single audit entry
+
+Version 0.10.0 adds dry-audit and audit-stack, specifications, aggregate routing and host command documentation. The [verification report](../evals/results/audit-stack-20261010.md) records red/green routing, a CLI aggregate route, all twenty-five passing tests, both twenty-one-skill builds, strict Claude validation and installed file parity. Audit-stack reuses the coordinator to merge supported findings and verify integrated repairs across core lenses, adding UI/release checks when relevant. No target-application combined audit or measured improvement was executed; per-lens evidence and unresolved gates remain explicit obligations.

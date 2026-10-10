@@ -21,6 +21,8 @@ Identify a concrete source of reader or change friction: duplicated policy, ambi
 
 ## Simplify one responsibility at a time
 
+For a DRY audit, load [dry-audit](../dry-audit/SKILL.md). Prove repeated code owns the same rule before consolidating; retain distinct policies and necessary enforcement at separate trust boundaries.
+
 For an explicit dead-code audit or removal task, load [dead-code-audit](../dead-code-audit/SKILL.md). It covers supported runtime roots, dynamic consumers and cleanup of exclusively attached tests. A lack of search matches alone is not a deletion decision.
 
 Read [refactoring decisions](references/refactoring-decisions.md) for structural changes, wrapper removal, or duplicated rules. Choose the smallest change that puts a responsibility in its appropriate existing place. Remove dead paths only after checking callers, exports, configuration, tests, fixtures, and external contracts relevant to the deletion.

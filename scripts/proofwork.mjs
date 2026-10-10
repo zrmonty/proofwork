@@ -20,6 +20,8 @@ export function route(task, files = []) {
   text(task,'task');
   const playbook = /\b(review|audit)\b/i.test(task) ? 'review' : /\b(fix|bug|regression|broken)\b/i.test(task) ? 'bug-fix' : /\b(refactor|simplify|restructure)\b/i.test(task) ? 'refactor' : /\b(investigate|diagnose|explain|research)\b/i.test(task) ? 'investigate' : 'feature';
   const skills = ['worker-mode','functional-programming','data-driven-development','clean-code'];
+  if (/\baudit[- ]stack\b/i.test(task)) skills.push('audit-stack','security-hardening','dead-code-audit','dry-audit','performance-increase','tdd-95','architecture-fit','thermo-nuclear-code-quality-review');
+  if (/\bdry[- ]audit\b|\b(?:duplicate|duplicated|duplication of)\s+(?:code|domain rules?|validation|logic|calculations?|implementations?)\b/i.test(task)) skills.push('dry-audit');
   if (/\bdead[- ]code\b|\b(?:unused|unreachable|obsolete)\s+(?:code|functions?|exports?|modules?|dependencies|tests?)\b|\borphaned\s+(?:tests?|fixtures?)\b/i.test(task)) skills.push('dead-code-audit');
   if (/\b(harden(?:ing)?|vulnerabilit(?:y|ies)|ssrf|xss|csrf)\b|\bsecurity\s+(?:audit|review|hardening|scan)\b|\b(?:authorization|authentication|auth)\s+bypass\b|\b(?:sql|command|code)\s+injection\b|\b(?:exposed|leaked)\s+(?:credentials?|secrets?|keys?)\b/i.test(task)) skills.push('security-hardening');
   if ((['feature','bug-fix','refactor'].includes(playbook) && (files.some(file => /\.(?:tsx?|mts|cts|jsx?|mjs|cjs|rs|pyi?)$/i.test(file)) || /\b(implement|build|fix|bug|refactor|code)\b/i.test(task))) || /\b(tdd|coverage|tests?)\b/i.test(task)) skills.push('tdd-95');
@@ -33,7 +35,7 @@ export function route(task, files = []) {
   if (skills.includes('frontend-design') || /\b(humani[sz](?:e|er|ing|ation)|microcopy|ux writing|empty[- ]states?)\b/i.test(task) || (/\b(copy|wording|labels?|messages?|tone|headings?|footer|header)\b/i.test(task) && /\b(app|application|page|screen|ui)\b/i.test(task)) || (/\b(buttons?|forms?|notifications?|onboarding|confirmations?|navigation)\b/i.test(task) && /\b(copy|wording|labels?|text|messages?)\b/i.test(task))) skills.push('humanizer');
   if (playbook === 'review' || playbook === 'refactor') skills.push('thermo-nuclear-code-quality-review');
   if (/\b(commit|push|github|shipping)\b/i.test(task)) skills.push('commit-features');
-  return {playbook,skills};
+  return {playbook,skills:[...new Set(skills)]};
 }
 
 export function transition(state, command, record, owner) {
