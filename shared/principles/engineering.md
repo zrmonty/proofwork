@@ -11,6 +11,7 @@ These are canonical Proofwork defaults. User requirements, host permissions, and
 - Measure claims against representative behavior. Attach actual checks to the current artifact and expose unavailable evidence.
 - Treat external actions as effects with real failure modes. Cancellation and timeout do not prove a write did not occur; inspect before retrying.
 - Review can produce no findings. Every material finding needs an observable consequence and a feasible remedy that preserves required behavior.
+- Every project code file must stay at or below 500 physical lines, including comments and blanks. Tests, scripts, generated and existing code have no exception. Decompose cohesive responsibilities; do not compress formatting or hide source to evade the limit. Report and coordinate violations beyond owned scope.
 - Interface quality includes content, accessibility, responsive use, and real interactions. A passing build or appealing screenshot proves only its own claim.
 
 No principle creates permission, replaces a host lifecycle rule, or makes a worker's completion the team's completion.

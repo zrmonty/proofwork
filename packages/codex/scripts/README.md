@@ -44,6 +44,14 @@ Every inventory file must appear exactly once; unexpected files are rejected. Co
 
 Check the collector's source discovery, instrumentation and line/branch semantics before writing an exporter. A combined statement-and-branch percentage cannot substitute for separate metrics. The report's revision and tool fields record provenance; their presence is not proof that an agent's claimed values are accurate. Run the actual tests successfully, retain the raw artifact and inventory, review normalization and associate the result with the integrated code. Wire both the test command and this checker into the project's CI when in scope; never mask either exit status.
 
+## Code-file length gate
+
+Run `node <plugin-root>/scripts/check-file-lines.mjs --repo PATH [--inventory additional-code-paths.json]`. The limit is fixed at 500 physical lines; it cannot be raised through an option. Exit 0 means discovered files pass; exit 1 means a violation or incomplete/invalid inspection. Blank lines and comments count. A terminating newline does not add a phantom line. CRLF, LF and CR are recognized, along with UTF-8 and BOM-marked UTF-16 text.
+
+Git discovers tracked and non-ignored untracked code by supported source extensions and common build-script names. Discovery includes tests and generated files when present in that set. The optional inventory is a JSON array of repository-relative forward-slash file paths and is **additive**, never a replacement or exclusion list. Supply custom-language, extensionless, notebook or ignored application-code artifacts there after inspecting the project. Prose, data and external dependency artifacts are not source; do not misclassify live code to bypass the rule. Empty discovery, unreadable input, escaping paths and symlink file inputs fail inspection.
+
+The checker reads the current worktree without modifying it. Its JSON report includes inspected files, counts and violations; it does not prove complete discovery, snapshot stability or cohesive architecture. Run on the final integrated artifact and retain its identity with the report. Minification, multi-statement compression, removal of meaningful comments and inventory manipulation do not satisfy the engineering rule. Fix generators or split modules by responsibilities, preserving behavior and consumers. Report existing or out-of-scope violations for coordination; no grandfathering or structural exception raises the limit.
+
 ## Build
 
 `node scripts/build.mjs` regenerates both local packages from **our** authored canonical assets, verifies package-local Markdown references and manifests, and produces `packages/codex` and `packages/claude-code`. These generated package directories are wholly build-owned; do not edit them. No global settings, accounts, remote publication or native goals are modified.

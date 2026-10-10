@@ -24,7 +24,7 @@ references/refactoring-decisions.md supports wrapper evaluation, policy duplicat
 
 ## Output and evidence
 
-Report the clarified responsibility, removed mechanism, current-artifact preservation evidence, and material remaining findings with feasible remedies. No arbitrary line-count, style, or novelty demands.
+Report the clarified responsibility, removed mechanism, current-artifact preservation evidence, and material remaining findings with feasible remedies. Enforce the explicit 500-physical-line code-file maximum; invent no additional size, style or novelty demands. Comments, blanks, tests, scripts, generated and already oversized project code count; no exception or inventory manipulation raises the limit.
 
 ## Acceptance cases
 
@@ -37,6 +37,8 @@ Existing cases are in evals/language-scenarios.md. Expanded decisions:
 5. Contradictory state flags receive a model/ownership fix, not just a shorter boolean expression.
 6. A clear local loop and an already direct implementation receive no finding.
 7. Targeted preservation checks exercise the responsibility that moved; implementation-mirroring tests do not substitute for integration.
+8. A 500-line code file passes the size gate; 501 fails. Cohesive decomposition preserves behavior rather than compressing formatting or scattering forwarding helpers.
+9. Ignored/custom code is added to discovery; an oversized file outside ownership is reported for coordination without a false repository-wide pass.
 
 ## Evaluation status and authorship
 

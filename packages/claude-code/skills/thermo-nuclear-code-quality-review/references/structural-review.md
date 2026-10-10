@@ -32,13 +32,15 @@ Validation appears both on an external request and on a separately consumed impo
 
 Do not delete a guard because a previous caller validated once. The preservation constraint includes alternate entry points and error behavior. A review can accept the duplicated boundary check and still suggest a shared domain parser when its contract clearly fits.
 
-## File crosses the size presumption
+## File violates the hard maximum
 
-A hand-authored file grows from 940 to 1,060 lines. Measure both revisions and inspect whether routing, persistence and domain transitions now have distinct responsibilities. The threshold creates a presumptive blocker, not proof of a bug. A coherent remedy might move persistence behind an existing boundary while leaving pure transitions together; it must remove conceptual mixing rather than scatter related cases across tiny files.
+A source file grows from 480 to 501 physical lines. It fails the 500-line maximum even if its behavior is correct. Inspect whether routing, persistence and domain transitions have distinct responsibilities. A coherent remedy might move persistence behind an existing boundary while leaving pure transitions together. Preserve error handling, transaction boundaries and callers, then check both behavior and resulting file sizes. Scattering related cases across tiny forwarding files does not satisfy the structural review.
 
-A structural exception needs evidence: for example, one cohesive protocol table whose cases must be compared together, with generated mechanical content assessed through its generator and no independent responsibilities hidden in the file. “Splitting is inconvenient” is not enough. Be explicit about the exception and why comprehension/change cost is lower with the proposed structure.
+A cohesive protocol table at 501 lines still fails: there is no exception. For generated application code, adjust the generator to emit meaningful bounded modules and verify a fresh generation. Do not reformat several statements onto one line, discard explanations or reclassify code as data to disguise the violation.
 
-Exactly 1,000 lines is not the specified below-to-above crossing. An already-large file still warrants scrutiny based on responsibility growth. Do not invent a runtime failure or split stable code solely to produce a smaller count.
+Exactly 500 lines passes the size gate; it may still contain a material ownership problem. A pre-existing 620-line file within reviewed scope fails without grandfathering. If edits to it are not authorized, report its count, ownership and proposed decomposition for coordination. Do not rewrite unrelated code, and do not give the reviewed scope a meets-the-bar verdict while that violation remains.
+
+The automatic checker inventory is a starting point. A checked-in `.py` test counts as project code; a project-owned extensionless executable or ignored generated source must be added through the supplementary JSON inventory. A Markdown manual and an external dependency installation are outside the code-file count. Document the inspected boundary and any unavailable generated output; missing inventory evidence cannot support full acceptance.
 
 ## Useful verdicts
 

@@ -9,6 +9,10 @@ Make the behavior easier to locate and the next change safer. Prefer subtraction
 
 Read the canonical [engineering principles](../../principles/engineering.md) and apply those relevant to the assignment. This skill does not create a competing quality verdict; substantial structural enforcement belongs to the coordinator's thermonuclear review.
 
+Keep every project code file at **500 physical lines or fewer**, including comments and blank lines. This is a hard maximum, not a review preference: 501 fails. It covers implementation, tests, scripts and generated application code, including existing oversized files. Split along cohesive responsibilities and preserve contracts; do not minify, combine unrelated statements, strip useful explanation or exclude files to evade the limit. Adjust generators when their output exceeds the maximum. External dependencies and prose/data artifacts are not project code; custom or ignored project code still counts.
+
+Run `node <plugin-root>/scripts/check-file-lines.mjs --repo <repo> [--inventory <additional-code-paths.json>]`. Inspect discovery and add custom, extensionless or ignored application code to its additive inventory. The checker cannot identify every language or prove architectural quality. An existing violation outside the assignment's ownership must be reported and coordinated; do not silently grandfather it, claim the repository passes, or rewrite another owner's files without scope.
+
 ## Trace before judging
 
 Read the requested behavior from entry point to result, including meaningful callers and effect boundaries. Find where the answer to a maintainer's question lives: “Who validates this value?”, “Who owns this state?”, “Where does this error go?”, or “Which rule chooses this outcome?”

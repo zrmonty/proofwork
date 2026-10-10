@@ -83,3 +83,7 @@ Version 0.4.0 adds performance-increase, tdd-95 and a bundled executable coverag
 ## Follow-up: human application copy
 
 Version 0.5.0 adds humanizer with two conditional references and frontend integration. The [verification report](../evals/results/humanizer-20261010.md) records independent sample-copy use, state/structure preservation and corrected routing cases. All twenty tests pass; both seventeen-skill packages build, Claude strict validation passes and Codex 0.5.0 is installed and enabled. The text fixtures do not certify rendered interfaces, translations or reader satisfaction.
+
+## Follow-up: hard 500-line maximum
+
+Version 0.6.0 enforces the hard code-file maximum through implementation, review and completion guidance and bundles an executable checker. The [verification report](../evals/results/file-limit-20261010.md) records boundary tests, independent review and the passing 20-file repository scan. All twenty-two tests pass; both seventeen-skill packages build and npm run check now includes the gate. Source discovery requires an additive inventory for custom or ignored project code and does not replace architectural review.

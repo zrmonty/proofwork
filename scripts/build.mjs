@@ -63,7 +63,7 @@ export async function build() {
         await cp(path.join(repository,file),path.join(staging,file));
       }
       await mkdir(path.join(staging,'scripts'));
-      for (const file of ['proofwork.mjs','check-commits.mjs','check-coverage.mjs','README.md']) await cp(path.join(repository,'scripts',file),path.join(staging,'scripts',file));
+      for (const file of ['proofwork.mjs','check-commits.mjs','check-coverage.mjs','check-file-lines.mjs','README.md']) await cp(path.join(repository,'scripts',file),path.join(staging,'scripts',file));
       const manifestDirectory = host === 'codex' ? '.codex-plugin' : '.claude-plugin';
       await mkdir(path.join(staging,manifestDirectory));
       const manifest = {name:'proofwork',version:metadata.version,description:'Coordinated engineering with original skills, bounded parallel work and inspectable evidence.',author:{name:'Proofwork contributors'},license:'MIT',skills:'./skills/'};

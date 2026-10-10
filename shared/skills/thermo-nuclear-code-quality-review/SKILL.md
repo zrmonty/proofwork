@@ -5,7 +5,7 @@ description: Assess structural maintainability of substantial changes, combined 
 
 # Thermonuclear maintainability review
 
-Determine whether the implementation makes the domain easier to understand and change. Look for a smaller model or clearer owner that removes mechanisms while preserving behavior. This is a demanding review, not a quota of criticism or a preference for short files.
+Determine whether the implementation makes the domain easier to understand and change. Look for a smaller model or clearer owner that removes mechanisms while preserving behavior. Give supported findings without a criticism quota, and enforce the project's hard file-size limit.
 
 ## Establish what you can judge
 
@@ -25,7 +25,11 @@ Trace a representative success and failure path, then examine the pressure point
 
 For detailed review probes, worked findings and clean cases, read [structural review examples](references/structural-review.md) when the implementation has those shapes. Use its questions to investigate; do not report hypothetical defects as demonstrated findings.
 
-Measure relevant hand-authored files at base and result. Crossing from below 1,000 lines to above 1,000 is a presumptive blocker: require cohesive decomposition or an explicit compelling structural exception. Investigate responsibilities before recommending a split. Generated files are assessed through their generator. Growth in an already large file deserves scrutiny; line count alone does not prove a runtime defect. Preserve the literal below/above threshold rather than converting it into an arbitrary maximum.
+Every project-owned code file must contain at most **500 physical lines**, including blank lines and comments. Exactly 500 passes; 501 fails. This applies to application code, tests, scripts and generated application code, including files that were already oversized before the change. There is no structural exception or grandfathering. Prose and data files are not code; third-party dependencies outside the project's ownership are not project code.
+
+Run `node scripts/check-file-lines.mjs --repo PATH` from the Proofwork installation. Its automatic inventory includes Git-tracked and nonignored untracked source files. Add custom, extensionless or ignored project code with `--inventory PATH`, a JSON file listing additional paths; this supplements the automatic inventory. Record inventory gaps rather than accepting an incomplete scan. The checker is read-only and measures size, not responsibility or behavior.
+
+Resolve violations through cohesive decomposition that preserves contracts, validation, cleanup and failure behavior. Generated code requires changing the generator or its output boundaries; it has no blanket exemption. Do not minify, compress statements, remove useful comments or manipulate exclusions to pass. If an oversized file is outside the authorized edit scope, report the violation and coordinate scope with its owner. An oversized file within reviewed scope prevents acceptance even when it predates the task; finding it does not authorize an unrelated rewrite.
 
 ## Make findings actionable
 
@@ -36,7 +40,7 @@ Distinguish a demonstrated defect, a supported structural concern and an unanswe
 Lead with material findings and give exactly one maintainability verdict:
 
 - **meets the bar:** scoped structure is understandable and appropriate; no unresolved material structural concern remains. A clean result needs no invented findings.
-- **needs restructuring:** a demonstrated material ownership/model problem or unaddressed threshold presumption prevents acceptance. Name the smallest adequate change and preservation checks.
+- **needs restructuring:** a demonstrated material ownership/model problem or a code file above 500 physical lines within reviewed scope prevents acceptance. Name the smallest adequate change and preservation checks.
 - **insufficient evidence:** missing context prevents judging a material claim. Name the missing artifact or observation and what decision it would resolve.
 
-An exception to a presumptive blocker must be explicit and justified. Report checks actually performed and material gaps. This verdict covers scoped maintainability, separately from correctness and security. On authorized revisions, verify the changed behavior and review the original finding plus nearby consequences; the coordinator owns final disposition and integrated completion.
+Report checks actually performed and material gaps. A passing size check does not establish good module boundaries. This verdict covers scoped maintainability, separately from correctness and security. On authorized revisions, verify the changed behavior and review the original finding plus nearby consequences; the coordinator owns final disposition and integrated completion.

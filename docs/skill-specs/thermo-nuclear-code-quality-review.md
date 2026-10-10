@@ -2,13 +2,15 @@
 
 ## Purpose and inputs
 
-Give a demanding but calibrated structural maintainability verdict with actionable supported findings. Inputs are authorized paths/base/dirty scope, changed code and consumers, contracts/tests, relevant hand-authored file measurements and language/functional guidance.
+Give a demanding but calibrated structural maintainability verdict with actionable supported findings. Inputs are authorized paths/base/dirty scope, changed code and consumers, contracts/tests, a complete project-code inventory with physical line measurements and language/functional guidance.
 
 ## Decision contract
 
 Trace actual invariants, interfaces, dependencies, effects and failure behavior. Find feasible simplifications that remove mechanisms rather than relocate unchanged complexity. Findings contain location, observed mechanism, practical cost, remedy and preservation constraints. Maintainability, correctness and security judgments remain distinct. Clean code earns acceptance without a criticism quota; unanswered questions are not disguised as defects.
 
-The below-to-above 1,000-line hand-authored crossing is a presumptive blocker requiring cohesive decomposition or an explicit compelling structural exception. Exact-threshold and already-large cases are considered as specified, without invented runtime defects. Generated artifacts are evaluated through their generator.
+Every project-owned code file has a hard maximum of 500 physical lines, counting blanks and comments. Exactly 500 passes; 501 fails. Existing oversized files, tests, scripts and generated application code have no exception. Prose/data and third-party dependencies outside project ownership are not code in this inventory. Resolve violations through cohesive decomposition preserving behavior; change the generator for oversized generated code. Do not evade the gate through minification, compressed statements, discarded useful comments or manipulated exclusions.
+
+Use `node scripts/check-file-lines.mjs --repo PATH` and the additive `--inventory PATH` JSON path list for custom, extensionless or ignored code. The checker measures size without modifying files or proving code quality. Report incomplete inventory and out-of-edit-scope violations, coordinate authorized ownership, and withhold meets-the-bar for an unresolved oversized file in reviewed scope. Discovering a violation does not authorize an unrelated rewrite.
 
 Conditional reasoning examples live in references/structural-review.md. Give exactly one verdict: meets the bar, needs restructuring or insufficient evidence. Authorized revisions are rechecked against the original concern and nearby consequences; the coordinator owns disposition.
 
@@ -19,7 +21,10 @@ Conditional reasoning examples live in references/structural-review.md. Give exa
 - A forwarding helper without a useful contract is distinguished from a small wrapper that owns cleanup, transaction lifetime or compatibility.
 - An ambient clock/shared setting in domain decisions is assessed by actual reproduction/change cost; a clock used directly at the output boundary is not automatically a defect.
 - Validation at separate external boundaries is preserved. Review does not delete guards merely because a previous caller validates.
-- A hand-authored 940-to-1,060-line change receives a responsibility-based remedy or supported explicit exception. File splitting alone is not evidence; exactly 1,000 lines is not the literal above-threshold crossing.
+- A 480-to-501-line change fails; exactly 500 passes the count check without automatically proving good structure. The remedy separates cohesive responsibilities and preserves contracts and failure behavior.
+- A pre-existing 620-line file within reviewed scope fails without grandfathering. If edit scope excludes it, report the violation and coordinate ownership rather than rewriting it or accepting the reviewed scope.
+- Oversized generated application code requires generator changes and fresh-output verification; tests and scripts receive the same maximum. Custom, extensionless and ignored project code supplements the automatic inventory instead of replacing it.
+- Minification, compressed statements, discarded useful comments and gate-exclusion tricks are rejected. Prose/data and externally owned dependencies do not receive arbitrary code-size findings.
 - A material ownership problem gives needs restructuring with a smallest adequate remedy and preservation checks. A scoped coherent implementation gives meets the bar with no invented findings.
 - Missing consumers necessary to judge a material abstraction yield insufficient evidence with the exact missing context, rather than an unsupported defect or claimed full acceptance.
 - Passing tests do not erase a structural concern. Review-only scope produces no edits, external comments or unrelated redesign.

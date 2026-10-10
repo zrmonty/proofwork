@@ -26,6 +26,8 @@ Conditional detail lives in the skill's references/coordination.md and reference
 
 ## Evidence and boundaries
 
+Code delivery includes the hard 500-physical-line maximum as a completion criterion on the integrated artifact. The coordinator checks additive discovery for custom or ignored code, coordinates required decomposition and does not record a repository-wide pass with unresolved existing violations. Exactly 500 passes; 501 does not. Neither structural review nor the completion guard creates an exception.
+
 Behavioral evaluation should expose assignments, changed artifacts, raw bounded check outcomes, finding disposition and resume decisions. Packaging validation proves resource structure only. Never invent execution, model metadata, installation, aliases or host support. No implicit external publication or expansion of user authorization.
 
 Original authorship: this skill and its references were written to Proofwork's requirements and current runtime contract. No external skill text or workflow was imported or mechanically paraphrased. Acceptance cases above are specifications until actual evaluation records establish behavior.

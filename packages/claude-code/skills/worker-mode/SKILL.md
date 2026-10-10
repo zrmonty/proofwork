@@ -31,4 +31,6 @@ Edit only assigned paths. If a needed change belongs to another owner, report th
 
 Before returning, inspect the actual diff and remove demonstrated duplication, unnecessary forwarding and misleading names. Preserve failure handling and observable behavior while simplifying. Explain material departures from the agreed design or functional default; a useful reason names the clarity, compatibility or measured performance tradeoff.
 
+Verify the hard 500-line maximum from clean-code, including owned tests and generated code. Return actual counts and checker discovery gaps with your evidence. A 501-line file is not ready for acceptance; decompose it within ownership or return the unresolved violation for coordination. Never compress formatting or alter the inventory to create a passing count.
+
 Return the [worker-result](../../contracts/worker-result.md) with checkout/content identity, changed paths, fulfilled criteria, actual commands and observations, evidence locations, unresolved findings and next action. Include requested/actual models only when exposed; otherwise say unknown. Never label unexecuted checks as passing. `ready-for-review` means the artifact is ready to evaluate, not that the team's objective is complete.

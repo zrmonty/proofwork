@@ -4,6 +4,8 @@ An engineering workflow plugin for Codex and Claude Code. Give it a task; its en
 
 Proofwork aims to help a team write less, better code. All shipped instructions are originally authored to [our specification](docs/design/2026-10-10-proofwork-design.md). No existing skill files were imported or adapted.
 
+**Hard code-file limit: 500 physical lines.** Exactly 500 is allowed; 501 is a violation. Implementation, tests, scripts, generated application code and existing oversized files follow the same rule. Split cohesive responsibilities rather than compressing code or hiding files. The implementation, review and root workflows enforce this requirement; `npm run check:file-lines` checks this repository, and `npm run check` includes it after building.
+
 ## Start
 
 The root is **use-proofwork**. Supported command spelling depends on the host:
@@ -136,6 +138,7 @@ These are shell commands for coordinators and contributors. `<plugin-root>` is t
 | `node <plugin-root>/scripts/proofwork.mjs complete --repo <repo> --run <id> --owner <session> --revision <identity>` | Check recorded completion gates; does not complete a native goal. |
 | `node <plugin-root>/scripts/check-commits.mjs --repo <repo> --range <outgoing-range>` | Check outgoing feature sections. |
 | `node <plugin-root>/scripts/check-coverage.mjs --report <report.json> --inventory <inventory.json> [--threshold 95..100]` | Enforce separate line/branch floors against an independently enumerated source target. |
+| `node <plugin-root>/scripts/check-file-lines.mjs --repo <repo> [--inventory <additional-code-paths.json>]` | Reject project code files above 500 physical lines; add custom or ignored code paths to discovery. |
 | `npm test` | Run the source repository's tests. |
 | `npm run build` | Regenerate both packages. |
 | `npm run check` | Run tests followed by the build. |
