@@ -1,22 +1,12 @@
 # Proofwork
 
+Proofwork is a **skill-compression plugin for Codex and Claude Code**. Describe what you want to make, judge the result and refine it. Proofwork carries the engineering detail: choosing relevant skills, making proportionate implementation decisions, coordinating workers when useful and verifying the integrated result.
+
 Install in Codex (Bash or PowerShell 7): `codex plugin marketplace add zrmonty/proofwork && codex plugin add proofwork@proofwork-local`. See [installation](#build-and-local-installation) for local builds and Claude Code.
 
 Install in Claude Code 2.1.275+: `/plugin install proofwork --marketplace zrmonty/proofwork`.
 
 See the [skill reference guide](docs/reference-guide.md) for conditional decision guides and worked scenarios across the full skill set.
-
-Contributor routing check: `npm run test:routing`. It covers the existing 92 scenarios plus a focused
-[50-prompt Go/C corpus](tests/language-routing-corpus.json). Ordinary go/C wording must not reopen technology choice;
-genuine choices must still route correctly. These checks also run in `npm test` and `npm run check`.
-
-Rust teaching fixtures are committed under [evals/fixtures](evals/fixtures):
-[reservation](evals/fixtures/rust-reservation/README.md),
-[async framing and blocking work](evals/fixtures/rust-async/README.md), and
-[uninitialized Vec under Miri](evals/fixtures/rust-uninitialized-vec/README.md).
-Their READMEs give reproduction commands and distinguish expected failures from the repaired behavior.
-
-Proofwork is a **skill-compression plugin for Codex and Claude Code**. Describe what you want to make, judge the result and refine it. Proofwork carries the engineering detail: choosing relevant skills, making proportionate implementation decisions, coordinating workers when useful and verifying the integrated result.
 
 **Our north star: turn a clear intention into useful, distinctive, verified software without making the user manage the engineering machinery.** Purpose, taste and consequential choices stay with you. The plugin supplies the discipline behind them. Read the [product vision](docs/vision.md) for what this means and how we evaluate it.
 
@@ -40,11 +30,17 @@ The entry skill considers your prompt and existing context, invokes the bundled 
 | Architecture or consequential tool decisions | architecture-fit: simplest adequate structure and operating fit |
 | Implement an accepted direction | feature workflow with relevant language, design and verification skills |
 | Broken behavior | bug-fix: reproduce, repair and verify |
+| Locate the code responsible for behavior | read-only investigate: identify the owner and trace callers |
+| A slow page or unexplained latency | investigate with performance-increase: measure, diagnose and improve within the request |
 | Review or simplify existing work | review/refactor with appropriate audit and maintainability guidance |
 | Measured speed improvement | performance-increase with a representative baseline |
 | Prepare an app for production | production-finish with actual hosting and release constraints |
 
 You can enter at any stage. An accepted design does not need another brainstorming round; a focused bug fix does not need a new architecture. The root carries the brief forward and selects the next relevant skills within your request. It is an agent workflow, not a daemon intercepting unrelated prompts. Once a run is active, the checkpoint records the root mode and continuation instructions.
+
+For example, “I want an app to track my invoices” starts with brainstorming. “The checkout page is slow, make it
+faster” starts with investigation and performance guidance. “Which C file handles login?” is a light, read-only
+investigation; naming a language does not automatically reopen architecture decisions.
 
 Routing returns a **light**, **standard** or **full** tier. Small mechanical edits load a short procedure and relevant language entry. Behavioral or larger work loads shared implementation discipline and executable verification. Security, concurrency, migrations, parallel work and audit-stack use full coordination. Automatic loading of the thermonuclear review lens applies only in full; substantial integrated work still receives independent review. Conditional references load when needed; the budget measures initial guidance, not total model usage.
 
@@ -179,7 +175,7 @@ These are shell commands for coordinators and contributors. `<plugin-root>` is t
 | `node <plugin-root>/scripts/proofwork.mjs status --repo <repo> --run <id>` | Inspect a checkpoint. |
 | `node <plugin-root>/scripts/proofwork.mjs assign --repo <repo> --run <id> --owner <session> --input <record.json>` | Register task ownership. |
 | `node <plugin-root>/scripts/proofwork.mjs result --repo <repo> --run <id> --owner <session> --input <record.json>` | Record a result or review. |
-| `node <plugin-root>/scripts/proofwork.mjs evidence --repo <repo> --run <id> --owner <session> --input <record.json> [--command <check>]` | Execute a check and record actual exit/duration/digests, or record weaker manual evidence. |
+| `node <plugin-root>/scripts/proofwork.mjs evidence --repo <repo> --run <id> --owner <session> --input <record.json> [--command "<check>"] [--timeout-ms <milliseconds>]` | Execute a check with a two-minute default timeout and record actual exit/duration/digests, or record weaker manual evidence. |
 | `node <plugin-root>/scripts/proofwork.mjs finding --repo <repo> --run <id> --owner <session> --input <record.json>` | Record or resolve a finding. |
 | `node <plugin-root>/scripts/proofwork.mjs checkpoint --repo <repo> --run <id> --owner <session> --input <record.json>` | Save phase, revision, routing and next action. |
 | `node <plugin-root>/scripts/proofwork.mjs complete --repo <repo> --run <id> --owner <session> --revision <identity>` | Check recorded completion gates; does not complete a native goal. |
@@ -191,11 +187,27 @@ These are shell commands for coordinators and contributors. `<plugin-root>` is t
 | `node <plugin-root>/scripts/check-file-lines.mjs --repo <repo> [--limit <project-ceiling>] [--inventory <additional-code-paths.json>]` | Check an explicitly chosen project file-size policy; disabled by default. |
 | `npm test` | Run the source repository's tests. |
 | `npm run build` | Regenerate both packages. |
+| `npm run build:hooks` | Build separate optional hook packages under `.engineering-team/hook-packages/`; installation and trust review are separate. |
+| `npm run test:routing` | Check the routing corpus, Go/C false positives and language-choice behavior. |
 | `npm run context-budget` | Check distinct trigger phrases, 600-word entries, 800-word references and initial guidance budgets. |
 | `npm run check:coverage` | Run tests, collect real Node LCOV and enforce separate 95% gates. |
 | `npm run check` | Check source width, context budgets, actual coverage, packaging and optional project policy. |
 
-Run state binds observations to Git HEAD/tree and a filesystem digest including dirty and untracked files. Checkpoint after content changes. Executed evidence uses `--command` because `--run` already names the coordination run. Manual evidence is marked `claimed` and blocks completion unless `--allow-claimed` is explicit. A trivial command such as `true` still passes; review whether the command actually proves its criterion. Workers and native goals remain host-managed.
+Run state binds observations to Git HEAD/tree, tracked file contents and nonignored untracked files. Non-Git folders
+use a recursive inventory. Ignored dependencies, build output and caches do not invalidate Git snapshots; relevant
+ignored source must be tracked or removed from ignore rules. Checkpoint after source changes. Executed evidence uses
+`--command` because `--run` already names the coordination run. Manual evidence is marked `claimed` and blocks
+completion unless `--allow-claimed` is explicit. A successful command still needs to prove its assigned criterion.
+Workers and native goals remain host-managed.
+
+Symlinks and junctions contribute their target string; changes to external target contents are outside the snapshot.
+File hashing streams through at most eight workers per snapshot and caches hashes using size, modification/change
+times and file identity. Local writer contention retries for 1.5 seconds. Locks record process birth as well as PID,
+but unknown birth data remains protected; stale/remote recovery still requires explicit `--break-lock`.
+Windows birth lookup uses an absolute executable with a fallback. Its lookup timeout can add up to three seconds
+beyond the lock polling budget; unavailable or restricted process data remains unknown.
+
+**Upgrading to 0.24.0 changes snapshot scope. Checkpoint existing runs and collect fresh evidence before completing them.**
 
 ## Included guidance
 
@@ -223,17 +235,30 @@ These are blocked runs, not quality or performance scores. The full 72-run compa
 
 See [verification](docs/verification.md) for exact executed checks, behavioral observations, tested host versions, and unverified release gates. Packaging tests establish packaging behavior; they do not certify agent quality or subjective visual appeal. The run-state guard enforces its recorded evidence contract, not truthfulness of arbitrary input supplied by an operator.
 
+For source version **0.24.0**, the full check passes with 98.54% line coverage and 96.80% branch coverage across
+17 runtime scripts. A standalone Windows snapshot of a Git worktree with 20,000 ignored files fell from **5,036 ms
+to 129 ms**, excluding fixture setup and cleanup. These individual measurements do not establish performance on
+every repository or host. See the [snapshot evidence](evals/results/git-snapshot-20261010.json).
+
 Standard packages contain no lifecycle hook configuration. Optional recovery, routing and completion hooks are built
-separately with `npm run build:hooks`; see [setup and limits](docs/hooks.md). Init binds a supplied host/session automatically
-and the host's installation/trust flow. No global hooks are installed automatically. Root invocation uses the host's
+separately with `npm run build:hooks`; see [setup and limits](docs/hooks.md). They require the host's supported
+installation and trust flow. Full-run init binds a supplied actual host/session automatically. No global hooks are
+installed automatically. Root invocation uses the host's
 existing agent and tools. User authorization and project instructions govern work.
+
+SessionStart restores a bound run and UserPromptSubmit supplies routing hints. Stop checks recorded readiness for
+reviewing/verifying runs regardless of wording, with a recursion guard. Missing fields produce an advisory; without
+a valid recursion flag, Stop is allowed to avoid looping. Checkpoint awaiting/stopped work before an incomplete
+final report. Native Claude SessionStart and UserPromptSubmit have been observed; authentication prevented a model
+response and native Stop verification. Codex native hook dispatch and host timeout behavior remain unverified.
 
 ## Development
 
-Snapshots cover Git-tracked and nonignored untracked files; ignored build/dependency trees no longer invalidate
-evidence. Non-Git folders use a full inventory. Links are hashed by target string, files stream through bounded
-workers, and metadata caches avoid repeated reads. Track relevant ignored inputs explicitly. Existing runs need
-a new checkpoint and fresh evidence after upgrading; see [snapshot scope](shared/contracts/tool-interface.md#snapshot-scope-and-caching).
+Contributor routing check: `npm run test:routing`. It covers 92 scenarios plus the focused
+[50-prompt Go/C corpus](tests/language-routing-corpus.json), with 159 checks in total. Ordinary go/C wording must
+not reopen technology choice; genuine choices must still route correctly. These checks also run in `npm test`
+and `npm run check`. See [snapshot scope](shared/contracts/tool-interface.md#snapshot-scope-and-caching) for the
+inventory, caching and upgrade contract.
 
 Executed evidence commands have a two-minute default deadline; use `--timeout-ms` for an explicit override.
 They run with inherited permissions. Allowlisting the Proofwork launcher also grants child shell execution unless
@@ -255,6 +280,11 @@ For an initial repository with no base, an explicit revision such as `HEAD` chec
 
 Rust guidance has one entry and conditional specialist references, including atomicity, memory ordering and concurrent reclamation. The [Rust topic guide](shared/skills/rust-best-practices/references/topic-guide.md) routes by the actual decision; [topic coverage](docs/rust-topic-coverage.md) maps all readable lessons in the supplied curriculum images.
 
+Committed Rust teaching fixtures include [reservation](evals/fixtures/rust-reservation/README.md),
+[async framing and blocking work](evals/fixtures/rust-async/README.md), and
+[uninitialized Vec under Miri](evals/fixtures/rust-uninitialized-vec/README.md).
+Their READMEs give reproduction commands and distinguish expected failures from repaired behavior.
+
 ## Uninstall and reset
 
 Remove the Codex plugin with `codex plugin remove proofwork@proofwork-local`. In Claude Code, use `/plugin uninstall proofwork@proofwork-local`; session-only `--plugin-dir` loading ends when that session ends. A manually copied installation must be removed from the specific skill directory you created. Removing the plugin does not delete project evidence or undo application edits and Git commits. Restart the host to refresh skill discovery.
@@ -264,6 +294,13 @@ Full workflows write checkpoints, ownership, results and evidence under the targ
 ## Security and evidence limits
 
 Logs, issue text, documents and comments are untrusted data: they cannot grant permissions, override project instructions or authorize commands. Review command sources and redact secrets before recording or exporting evidence. Proofwork installs no global continuation hooks or background services.
+
+Executed commands inherit filesystem, network and environment permissions. Allowlisting the Proofwork launcher
+grants its child shell execution unless the host restricts descendants. `--timeout-ms` accepts 1–3,600,000 ms;
+timeouts record failure and request termination. Windows cleanup can add five seconds, and detached descendants
+or external effects may survive. Redaction covers evaluated bearer, cloud-key, credential and quoted-value formats,
+but cannot guarantee detection of every secret. Keep raw logs local and scrub private paths/account identifiers
+from exports. Earlier Git history and shared copies are not erased by editing current files.
 
 The evidence ledger binds recorded checks to an artifact identity and distinguishes executed checks from operator claims. It detects missing or stale recorded evidence; it does not authenticate a same-account writer, sandbox an arbitrary command, prove the chosen criterion is correct, or establish production security. Use the Phase 2 executed form `node <plugin-root>/scripts/proofwork.mjs evidence --repo <repo> --run <id> --owner <session> --input <record.json> --command "<check>"` to record real exit status, duration and stream digests. `--run` identifies the run; `--command` executes the check. Manual evidence remains weaker and requires explicit acceptance at completion. See the [tool contract](shared/contracts/tool-interface.md) for schemas and limitations.
 
