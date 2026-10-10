@@ -20,6 +20,8 @@ export function route(task, files = []) {
   text(task,'task');
   const playbook = /\b(review|audit)\b/i.test(task) ? 'review' : /\b(fix|bug|regression|broken)\b/i.test(task) ? 'bug-fix' : /\b(refactor|simplify|restructure)\b/i.test(task) ? 'refactor' : /\b(investigate|diagnose|explain|research)\b/i.test(task) ? 'investigate' : 'feature';
   const skills = ['worker-mode','functional-programming','data-driven-development','clean-code'];
+  if (/\b(architect(?:ure|ing)?|overengineering|stack)\b/i.test(task) || /\b(which|what|choose|select|compare|recommend|decide)\b.*\b(database|storage|tools?|technolog(?:y|ies)|sqlite|postgres(?:ql)?)\b/i.test(task) || /\bshould\b.*\b(use|choose)\b.*\b(database|storage|sqlite|postgres(?:ql)?)\b/i.test(task)) skills.push('architecture-fit');
+  if (/\b(production[- ](?:finish|ready|readiness)|deployment|deploy|hosting|docker|containeri[sz](?:e|ation))\b/i.test(task) || /\b(finish|prepare|ready)\b.*\b(production|prod|release)\b/i.test(task) || /\b(finish|prepare)\s+(?:(?:this|the|our|my|an|a)\s+)?(?:app|application)\b/i.test(task)) skills.push('production-finish');
   if (files.some(file => /\.(?:tsx?|mts|cts)$/i.test(file)) || /\b(typescript|tsx)\b/i.test(task)) skills.push('typescript-best-practices');
   if (files.some(file => /\.rs$/i.test(file)) || /\brust\b/i.test(task)) skills.push('rust-best-practices');
   if (files.some(file => /\.pyi?$/i.test(file)) || /\bpython\b/i.test(task)) skills.push('python-best-practices');

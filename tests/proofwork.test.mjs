@@ -20,6 +20,19 @@ test('routing loads core discipline and affected languages without mutating inpu
 });
 
 const initial = { schemaVersion: 1, owner: 'coordinator', objective: 'fix', criteria: ['works'], revision: 'r1', phase: 'preparing', tasks: [], evidence: [], findings: [] };
+test('routing selects requirements-based architecture and production finishing only for relevant intent', () => {
+  assert.ok(route('Architect a club app for about 100 people').skills.includes('architecture-fit'));
+  assert.ok(route('Choose SQLite or PostgreSQL for a small app').skills.includes('architecture-fit'));
+  assert.ok(route('Which database should this app use for 100 users?').skills.includes('architecture-fit'));
+  assert.ok(route('Should this app use SQLite or PostgreSQL?').skills.includes('architecture-fit'));
+  assert.ok(route('Finish this app for production and build a Docker image').skills.includes('production-finish'));
+  assert.ok(route('Prepare for production on an existing hosting platform').skills.includes('production-finish'));
+  const focused = route('Fix the parser bug and finish its unit tests', ['src/parser.ts']);
+  assert.ok(!focused.skills.includes('architecture-fit'));
+  assert.ok(!focused.skills.includes('production-finish'));
+  assert.ok(!route('Fix the parser bug and finish unit tests for the app').skills.includes('production-finish'));
+  assert.ok(!route('Fix the SQLite query bug').skills.includes('architecture-fit'));
+});
 test('reopening a reviewed task cannot reclaim paths assigned to another active worker', () => {
   const assigned = transition(initial,'assign',{id:'a',objective:'fix',files:['src'],revision:'r1'},'coordinator');
   const reviewed = transition(assigned,'result',{id:'a',status:'reviewed',revision:'r1',summary:'checked'},'coordinator');

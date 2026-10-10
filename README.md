@@ -29,6 +29,8 @@ Give any skill a task in the same prompt. In Codex, use `$<skill-name>` or selec
 | --- | --- | --- |
 | `$use-proofwork` | `/proofwork:use-proofwork` | Carry a task through discovery, routing, bounded workers, review and evidence. |
 | `$setup` | `/proofwork:setup` | Inspect host capabilities, toolchains, model roles and repository checks. |
+| `$architecture-fit` | `/proofwork:architecture-fit` | Choose architecture and tools from real workload, hosting, budget and maintenance needs. |
+| `$production-finish` | `/proofwork:production-finish` | Prepare an app for production, inspect secret exposure, establish hosting and build a suitable container when needed. |
 | `$worker-mode` | `/proofwork:worker-mode` | Execute a bounded assignment and return a reviewable result. |
 | `$thermo-nuclear-code-quality-review` | `/proofwork:thermo-nuclear-code-quality-review` | Audit maintainability and report concrete structural findings with a verdict. |
 | `$typescript-best-practices` | `/proofwork:typescript-best-practices` | Apply TypeScript guidance to types, validation, effects and tests. |
@@ -47,9 +49,15 @@ $use-proofwork Find and fix issues in this repository. Reproduce bugs first and 
 $thermo-nuclear-code-quality-review Review the current diff and its callers. Report findings without editing.
 $frontend-design Refine the article page with a content-led editorial identity and verify desktop/mobile behavior.
 $commit-features Prepare a commit message from the staged diff and check the outgoing history.
+$architecture-fit Design a small club app for about 100 people. Explain the simplest adequate stack and ask about material unknowns.
+$production-finish Prepare this app for production. Check for exposed secrets, ask about hosting and build a Docker image if it fits.
 ```
 
 For Claude Code, replace the skill token with its namespaced command, for example `/proofwork:use-proofwork Find and fix issues in this repository`. `/use-proofwork` is the product entry name; a bare slash alias depends on host installation and is not guaranteed by the plugin. Commands reuse the host's available tools and permissions. Invoking a review or commit skill alone does not authorize edits, pushing or publishing.
+
+[Architecture fit](shared/skills/architecture-fit/SKILL.md) asks which requirements justify each component. About 100 users makes SQLite worth considering; write concurrency, hosting, recovery and maintenance determine whether it fits. It also challenges unnecessary services, queues, caches and orchestration while preserving a suitable existing stack.
+
+[Production finish](shared/skills/production-finish/SKILL.md) establishes hosting with the user, checks the actual production artifact for public secret exposure, and verifies the relevant build, runtime and recovery behavior. When containers fit, it can build and smoke-test a Docker image. It treats packaging, scaling and live deployment as distinct deliverables and reports any missing evidence or required credential response.
 
 ## Build and local installation
 

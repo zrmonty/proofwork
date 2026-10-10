@@ -71,3 +71,7 @@ The 0.1.1 [self-audit](../evals/results/self-audit-20261010.md) verifies explici
 ## Follow-up: deeper original skills
 
 Version 0.2.0 revises all twelve skills, adds nineteen conditional reference documents and deepens the shared contracts. The [skill-depth report](../evals/results/skill-depth-20261010.md) records source review, package validation, executed examples and fresh forward-use cases. All fourteen runtime tests still pass. These checks do not establish comparative quality gains or expand the certified host matrix.
+
+## Follow-up: architecture and production finishing
+
+Version 0.3.0 adds architecture-fit and production-finish with four conditional references. The [verification report](../evals/results/architecture-finish-20261010.md) records independent source review, corrected routing regressions, contrasting architecture decisions and an executed Docker build, artifact scan and HTTP smoke test. All fifteen tests pass; both fourteen-skill packages build, Claude strict validation passes and Codex 0.3.0 is installed and enabled. The static fixture does not certify a real application's capacity, recovery, credential response or live deployment.
