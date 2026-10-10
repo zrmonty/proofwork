@@ -75,3 +75,7 @@ Version 0.2.0 revises all twelve skills, adds nineteen conditional reference doc
 ## Follow-up: architecture and production finishing
 
 Version 0.3.0 adds architecture-fit and production-finish with four conditional references. The [verification report](../evals/results/architecture-finish-20261010.md) records independent source review, corrected routing regressions, contrasting architecture decisions and an executed Docker build, artifact scan and HTTP smoke test. All fifteen tests pass; both fourteen-skill packages build, Claude strict validation passes and Codex 0.3.0 is installed and enabled. The static fixture does not certify a real application's capacity, recovery, credential response or live deployment.
+
+## Follow-up: performance and gated TDD
+
+Version 0.4.0 adds performance-increase, tdd-95 and a bundled executable coverage checker. The [verification report](../evals/results/performance-tdd-20261010.md) records independent review, real collector pass/fail and omission checks, measured lookup and benchmark-harness changes, and test consolidation without an unsupported runtime claim. All nineteen tests pass; both sixteen-skill packages build, Claude strict validation passes and Codex 0.4.0 is installed and enabled. Collector provenance, actual-project coverage and production performance remain separate obligations.

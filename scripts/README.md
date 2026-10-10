@@ -28,6 +28,22 @@ Use `complete --repo PATH --run ID --owner SESSION --revision REV` only after in
 
 Only the coordinator writes state. Workers return records, and the coordinator validates them before import. Existing runs cannot be initialized again; completed runs are immutable. Mutations write a temporary checkpoint and rename it; `state.backup.json` retains the previous valid state. A per-run exclusive `write.lock` rejects concurrent writers. After a crash, inspect live writers before manually removing a stale lock. For corrupt state, inspect the backup and actual repository before restoring it; do not replay external actions from checkpoint assumptions. Paths reject traversal, absolute paths, alternate data streams and symlinks. Filesystem access by a malicious concurrent process is outside this local coordination boundary.
 
+## Coverage gate
+
+Run `node <plugin-root>/scripts/check-coverage.mjs --report REPORT.json --inventory INVENTORY.json [--threshold 95..100]`. Exit 0 means both aggregate metrics meet the threshold; exit 1 means a failed gate, invalid input or missing evidence. A stricter threshold is supported; lowering it below 95 is rejected. This tool only reads inputs and evaluates counts. It does not run tests, collect coverage, verify revision identity or prove the inventory is complete.
+
+INVENTORY.json is a nonempty JSON array of repository-relative source paths using forward slashes, independently enumerated from the agreed executable target. Include unimported source; use documented, stable exclusions for non-target/generated/vendor material. Do not derive the inventory from the coverage report's already-observed files. Paths must be unique and contain no traversal. Preserve scope across comparisons.
+
+REPORT.json is normalized from an actual coverage tool's current artifact, with this shape:
+
+```json
+{"schemaVersion":1,"revision":"observed-artifact-identity","tool":"actual tool and exporter version","files":[{"path":"src/domain.js","lines":{"covered":95,"total":100},"branches":{"covered":19,"total":20}}]}
+```
+
+Every inventory file must appear exactly once; unexpected files are rejected. Counts are nonnegative safe integers, covered cannot exceed total, and both metrics are mandatory for every file. Explicit zero branches means the file has no instrumented branches; unsupported branch collection must never be normalized into zero. A target with no executable lines is invalid. The tool aggregates raw counts and compares each metric separately without rounding a below-threshold ratio up to a pass. A genuinely branch-free target reports null branch percentage with a vacuous branch gate, after inspection establishes that collection is supported and complete.
+
+Check the collector's source discovery, instrumentation and line/branch semantics before writing an exporter. A combined statement-and-branch percentage cannot substitute for separate metrics. The report's revision and tool fields record provenance; their presence is not proof that an agent's claimed values are accurate. Run the actual tests successfully, retain the raw artifact and inventory, review normalization and associate the result with the integrated code. Wire both the test command and this checker into the project's CI when in scope; never mask either exit status.
+
 ## Build
 
 `node scripts/build.mjs` regenerates both local packages from **our** authored canonical assets, verifies package-local Markdown references and manifests, and produces `packages/codex` and `packages/claude-code`. These generated package directories are wholly build-owned; do not edit them. No global settings, accounts, remote publication or native goals are modified.

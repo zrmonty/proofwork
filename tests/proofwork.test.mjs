@@ -20,6 +20,15 @@ test('routing loads core discipline and affected languages without mutating inpu
 });
 
 const initial = { schemaVersion: 1, owner: 'coordinator', objective: 'fix', criteria: ['works'], revision: 'r1', phase: 'preparing', tasks: [], evidence: [], findings: [] };
+test('routing loads measured performance and gated TDD for matching work', () => {
+  assert.ok(route('Reduce benchmark runtime and improve throughput').skills.includes('performance-increase'));
+  assert.ok(route('Make the parser faster').skills.includes('performance-increase'));
+  assert.ok(route('Optimize the parser',['src/parser.ts']).skills.includes('performance-increase'));
+  assert.ok(route('Implement a parser',['src/parser.ts']).skills.includes('tdd-95'));
+  assert.ok(route('Consolidate redundant tests and enforce coverage').skills.includes('tdd-95'));
+  assert.ok(!route('Explain the README wording').skills.includes('tdd-95'));
+  assert.ok(!route('Fix the parser bug').skills.includes('performance-increase'));
+});
 test('routing selects requirements-based architecture and production finishing only for relevant intent', () => {
   assert.ok(route('Architect a club app for about 100 people').skills.includes('architecture-fit'));
   assert.ok(route('Choose SQLite or PostgreSQL for a small app').skills.includes('architecture-fit'));

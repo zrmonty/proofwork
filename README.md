@@ -31,6 +31,8 @@ Give any skill a task in the same prompt. In Codex, use `$<skill-name>` or selec
 | `$setup` | `/proofwork:setup` | Inspect host capabilities, toolchains, model roles and repository checks. |
 | `$architecture-fit` | `/proofwork:architecture-fit` | Choose architecture and tools from real workload, hosting, budget and maintenance needs. |
 | `$production-finish` | `/proofwork:production-finish` | Prepare an app for production, inspect secret exposure, establish hosting and build a suitable container when needed. |
+| `$performance-increase` | `/proofwork:performance-increase` | Profile bottlenecks, improve measured runtime/resource use and reduce benchmark overhead without changing the workload. |
+| `$tdd-95` | `/proofwork:tdd-95` | Use test-first development with separate 95% line/branch gates and consolidate redundant tests while preserving fault detection. |
 | `$worker-mode` | `/proofwork:worker-mode` | Execute a bounded assignment and return a reviewable result. |
 | `$thermo-nuclear-code-quality-review` | `/proofwork:thermo-nuclear-code-quality-review` | Audit maintainability and report concrete structural findings with a verdict. |
 | `$typescript-best-practices` | `/proofwork:typescript-best-practices` | Apply TypeScript guidance to types, validation, effects and tests. |
@@ -51,6 +53,8 @@ $frontend-design Refine the article page with a content-led editorial identity a
 $commit-features Prepare a commit message from the staged diff and check the outgoing history.
 $architecture-fit Design a small club app for about 100 people. Explain the simplest adequate stack and ask about material unknowns.
 $production-finish Prepare this app for production. Check for exposed secrets, ask about hosting and build a Docker image if it fits.
+$performance-increase Improve this parser's throughput and shorten its benchmark run. Preserve correctness and report comparable measurements.
+$tdd-95 Implement the approved behavior test-first, enforce the 95% coverage gate and consolidate redundant test setup and cases.
 ```
 
 For Claude Code, replace the skill token with its namespaced command, for example `/proofwork:use-proofwork Find and fix issues in this repository`. `/use-proofwork` is the product entry name; a bare slash alias depends on host installation and is not guaranteed by the plugin. Commands reuse the host's available tools and permissions. Invoking a review or commit skill alone does not authorize edits, pushing or publishing.
@@ -58,6 +62,8 @@ For Claude Code, replace the skill token with its namespaced command, for exampl
 [Architecture fit](shared/skills/architecture-fit/SKILL.md) asks which requirements justify each component. About 100 users makes SQLite worth considering; write concurrency, hosting, recovery and maintenance determine whether it fits. It also challenges unnecessary services, queues, caches and orchestration while preserving a suitable existing stack.
 
 [Production finish](shared/skills/production-finish/SKILL.md) establishes hosting with the user, checks the actual production artifact for public secret exposure, and verifies the relevant build, runtime and recovery behavior. When containers fit, it can build and smoke-test a Docker image. It treats packaging, scaling and live deployment as distinct deliverables and reports any missing evidence or required credential response.
+
+[Performance increase](shared/skills/performance-increase/SKILL.md) measures the real workload before changing code and distinguishes application improvements from shorter benchmark execution. [TDD 95](shared/skills/tdd-95/SKILL.md) requires at least 95% line coverage and 95% branch coverage over the agreed executable target, preserving stricter existing gates. Its bundled checker rejects missing files, unavailable metrics and below-threshold results. Tests are consolidated by behavior and repeated cost; distinct failures and reliable diagnostics remain covered. These workflows use the project's real tools; the coverage checker evaluates exported counts and does not itself collect coverage or establish test quality.
 
 ## Build and local installation
 
@@ -127,6 +133,7 @@ These are shell commands for coordinators and contributors. `<plugin-root>` is t
 | `node <plugin-root>/scripts/proofwork.mjs checkpoint --repo <repo> --run <id> --owner <session> --input <record.json>` | Save phase, revision, routing and next action. |
 | `node <plugin-root>/scripts/proofwork.mjs complete --repo <repo> --run <id> --owner <session> --revision <identity>` | Check recorded completion gates; does not complete a native goal. |
 | `node <plugin-root>/scripts/check-commits.mjs --repo <repo> --range <outgoing-range>` | Check outgoing feature sections. |
+| `node <plugin-root>/scripts/check-coverage.mjs --report <report.json> --inventory <inventory.json> [--threshold 95..100]` | Enforce separate line/branch floors against an independently enumerated source target. |
 | `npm test` | Run the source repository's tests. |
 | `npm run build` | Regenerate both packages. |
 | `npm run check` | Run tests followed by the build. |

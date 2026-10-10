@@ -21,6 +21,8 @@ node <plugin-root>/scripts/proofwork.mjs route --task <text> --files <comma-sepa
 
 Read the selected playbook and skills. Always load [worker-mode](../worker-mode/SKILL.md), [functional-programming](../functional-programming/SKILL.md), [data-driven-development](../data-driven-development/SKILL.md) and [clean-code](../clean-code/SKILL.md); add languages and frontend guidance for actual affected files. Routing is a recommendation: correct it when inspected scope differs and record the reason. A missing file is a capability gap, not an invitation to invent its instructions. Run [setup](../setup/SKILL.md) when required capabilities, role mappings or checks are unknown.
 
+For executable implementation, follow [tdd-95](../tdd-95/SKILL.md) and include its scoped coverage gate in the completion criteria. Preserve the agreed source inventory and stricter existing requirements. Record the actual test and gate outcomes on the integrated artifact; missing metrics or a below-gate legacy target remain incomplete rather than receiving a fabricated pass. Documentation-only work does not require executable coverage. For requested optimization, load [performance-increase](../performance-increase/SKILL.md), define the workload and record comparable correctness and performance evidence before claiming improvement.
+
 ## Select ownership before parallelism
 
 Read the [assignment](../../contracts/assignment.md), [worker-result](../../contracts/worker-result.md), [evidence](../../contracts/evidence.md) and [run-state](../../contracts/run-state.md) contracts. Initialize a unique local run, or reconcile an existing one. The coordinator alone writes aggregate state; each worker returns its own result.
