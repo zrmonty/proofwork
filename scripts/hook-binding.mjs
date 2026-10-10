@@ -15,11 +15,11 @@ function validateIdentifier(value) {
   if (typeof value !== "string" || !identifiers.test(value) || reserved.test(value)) fail();
   return value;
 }
-function validateOwner(owner) {
+export function validateOwner(owner) {
   if (typeof owner !== "string" || !owner.trim() || owner.length > 256 || /[\x00-\x1f]/.test(owner)) fail();
   return owner;
 }
-function validateSelection(host, session) {
+export function validateSelection(host, session) {
   if (!hosts.includes(host)) fail();
   validateIdentifier(session);
 }
@@ -33,11 +33,11 @@ async function inspect(candidate, kind) {
     throw error;
   }
 }
-async function inspectChain(file, finalKind = "file") {
-  const absolute = path.resolve(file),
-    root = path.parse(absolute).root;
-  let candidate = root;
-  const components = absolute.slice(root.length).split(path.sep).filter(Boolean);
+async function inspectChain(repo, file, finalKind = "file") {
+  const relative = path.relative(repo, path.resolve(file));
+  if (relative === ".." || relative.startsWith(`..${path.sep}`) || path.isAbsolute(relative)) fail();
+  let candidate = repo;
+  const components = relative.split(path.sep).filter(Boolean);
   for (let index = 0; index < components.length; index += 1) {
     candidate = path.join(candidate, components[index]);
     if (!(await inspect(candidate, index === components.length - 1 ? finalKind : "directory"))) return null;
@@ -46,14 +46,15 @@ async function inspectChain(file, finalKind = "file") {
 }
 async function canonicalRepository(repo) {
   if (typeof repo !== "string" || !repo.trim() || repo.length > 4096) fail();
-  if (!(await inspectChain(repo, "directory"))) fail();
-  return realpath(repo);
+  const canonical = await realpath(repo);
+  if (!(await inspect(canonical, "directory"))) fail();
+  return canonical;
 }
 function bindingPath(repo, host, session) {
   return path.join(repo, ".engineering-team", "hooks", "bindings", host, `${session}.json`);
 }
-async function readJson(file, maximum) {
-  const expected = await inspectChain(file);
+async function readJson(repo, file, maximum) {
+  const expected = await inspectChain(repo, file);
   if (!expected) return null;
   const handle = await open(file, constants.O_RDONLY | (constants.O_NOFOLLOW ?? 0));
   try {
@@ -74,7 +75,7 @@ async function readJson(file, maximum) {
 }
 async function validateRun(binding) {
   const file = path.join(binding.repo, ".engineering-team", "runs", binding.run, "state.json");
-  const state = await readJson(file, 2 * 1024 * 1024);
+  const state = await readJson(binding.repo, file, 2 * 1024 * 1024);
   if (
     !state ||
     state.schemaVersion !== 1 ||
@@ -103,7 +104,7 @@ function validateBinding(binding, repo, host, session) {
 export async function readBinding(repo, host, session) {
   validateSelection(host, session);
   const canonical = await canonicalRepository(repo);
-  const binding = await readJson(bindingPath(canonical, host, session), 16 * 1024);
+  const binding = await readJson(canonical, bindingPath(canonical, host, session), 16 * 1024);
   if (binding === null) return null;
   validateBinding(binding, canonical, host, session);
   await validateRun(binding);
@@ -118,7 +119,7 @@ async function ensureDirectories(repo, host) {
     } catch (error) {
       if (error.code !== "EEXIST") throw error;
     }
-    if (!(await inspectChain(current, "directory"))) fail();
+    if (!(await inspectChain(repo, current, "directory"))) fail();
   }
 }
 const sameBinding = (left, right) =>
@@ -135,7 +136,7 @@ async function publishBinding(binding) {
     } finally {
       await handle.close();
     }
-    if (!(await inspectChain(path.dirname(destination), "directory"))) fail();
+    if (!(await inspectChain(binding.repo, path.dirname(destination), "directory"))) fail();
     try {
       await link(temporary, destination);
     } catch (error) {
@@ -181,7 +182,7 @@ export async function unbind(options) {
   if (!existing) return { unbound: false };
   if (existing.run !== options.run || existing.owner !== options.owner) fail();
   const file = bindingPath(repo, options.host, options.session);
-  await inspectChain(file);
+  await inspectChain(repo, file);
   await unlink(file);
   return { unbound: true };
 }

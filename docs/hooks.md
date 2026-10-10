@@ -12,23 +12,29 @@ Claude uses direct process arguments; Codex uses plugin-root command substitutio
 [Codex hook reference](https://learn.chatgpt.com/docs/hooks) and
 [Claude hook reference](https://code.claude.com/docs/en/hooks). Host-event verification is separate from fixture tests.
 
-## Bind a run explicitly
+## Bind automatically when initializing
 
-Initialize a full run through the existing runtime. Use the actual host session ID exposed by the prompt hint or
-host event and that run's coordinator owner. Never invent an ID or select a run by creation time.
+The coordinator passes `--host codex|claude-code --session <host-session>` to `proofwork.mjs init` using the actual
+session ID supplied by the prompt hint or host event. Initialization writes the binding automatically; the user
+does not run a separate binding command. Never invent an ID or select a run by creation time.
 Replace placeholders and quote paths containing spaces; `<plugin-root>` is the installed package.
 
 ```text
-node <plugin-root>/scripts/hook-binding.mjs bind --repo <repo> --host codex --session <host-session> --run <run> --owner <owner>
+node <plugin-root>/scripts/proofwork.mjs init --repo <repo> --run <run> --owner <owner> --objective "Task" --revision <revision> --criteria works --host codex --session <host-session>
 node <plugin-root>/scripts/hook-binding.mjs unbind --repo <repo> --host codex --session <host-session> --run <run> --owner <owner>
 node <plugin-root>/scripts/proofwork.mjs preflight --repo <repo> --run <run> --owner <owner> --revision <revision>
 ```
 
 Use `claude-code` for that host. Bindings live under `.engineering-team/hooks/bindings/<host>/<session>.json`.
 Binding validates checkpoint identity and authority, is idempotent for the same assignment, and rejects replacement.
+Plain initialization without a host identity remains unbound. Supply both options together. An already bound session
+is rejected before creating a new run. If binding publication fails after initialization, the error explicitly reports
+that the run exists; inspect it and use `hook-binding.mjs bind` to recover rather than initializing another run.
 Unbind deliberately before switching runs. Concurrent creation publishes a complete file; unbind/rebind operations
 are not serialized. Local state must be trusted; path checks cannot defend against a malicious same-user process
 replacing directories during an operation.
+Repository roots and parent symlinks/junctions are allowed and canonicalized; links within `.engineering-team/`
+remain rejected.
 
 ## Event behavior
 
@@ -36,7 +42,7 @@ replacing directories during an operation.
 | --- | --- |
 | SessionStart | Recover the bound objective, phase, skills, next action, criteria, findings and effects. Quoted checkpoint values remain untrusted data. Stopped and awaiting states never authorize restarting work. |
 | UserPromptSubmit | Recommend a route for an explicit root request or a bound active run. Preserve accepted context and permission limits. Hints do not change checkpoints or create goals. Stop/cancel/pause requests receive no hint. |
-| Stop | For a bound active run and a recognized completion prefix, run read-only preflight. Request correction or an honest incomplete report if readiness fails. The recursion guard disables a second continuation. |
+| Stop | Run read-only preflight for a bound reviewing/verifying run regardless of wording, or a recognized completion claim in an earlier phase. Failing readiness requests correction. Awaiting/stopped phases and the recursion guard disable continuation. |
 
 Unbound ordinary sessions and completed bindings receive no recovery or completion intervention. Explicit root
 requests can still receive routing hints. Events read no transcripts, execute no project commands and write no state.
@@ -48,10 +54,18 @@ is false; inspect the JSON. It creates no locks, backups or directories. `--allo
 explicitly; the Stop hook never sets it. Readiness is a point-in-time observation, not an attestation against later
 edits, dishonest criteria or a hostile local process.
 
-Detection deliberately recognizes prefixes such as `Task complete.`, `Proofwork complete.`, `Done.` and `Finished:`.
-It skips reports marked incomplete, blocked, unverified or awaiting input and requires `stop_hook_active: false`.
-This conservative guard cannot understand every completion claim, prevent the user ending a session or complete
-its native goal.
+Claim matching supplements state checks and recognizes evaluated natural phrases. In reviewing/verifying, even an
+incomplete report triggers preflight: checkpoint `awaiting-input` or `stopped-incomplete` before stopping honestly.
+The hook never changes state itself. `stop_hook_active: true` allows the continuation to end without looping.
+Missing or invalid fields produce a visible advisory for a bound active run. Without a valid recursion flag, the hook
+allows Stop rather than risking a loop. Missing/null message text still permits state-based checking when the flag is
+false. Hosts document message text as nullable, so that advisory can also indicate an unavailable message.
+Hooks cannot prevent a user interruption or complete a native goal. Claude API errors use StopFailure, not Stop.
+
+The policy imports the runtime/router only after finding an active binding or explicit root request. Node still starts
+for every configured event; hook-free packages avoid that cost. Native Claude SessionStart and UserPromptSubmit
+dispatch are observed in [turn evidence](../evals/results/native-claude-turn-20261010.json). Authentication failed
+before a model response, so native Stop blocking remains unverified; Codex native dispatch is also unverified.
 
 ## Reset and remaining scope
 

@@ -38,9 +38,11 @@ Checkpoint before dispatch, after integration/review/checks and before yielding.
 
 Use native goals only when requested; budgets/pause/blocked follow actual host conditions. No replacement scheduler. Limits preserve incomplete checkpoints.
 
-With an explicitly installed lifecycle package, bind this full run to the actual host session using
-`hook-binding.mjs bind` and the coordinator owner. Never guess session IDs or choose the newest run.
-Hooks recover context; they neither create goals nor authorize resuming stopped work. `preflight` inspects completion without writes.
+With an explicitly installed lifecycle package, pass `--host codex|claude-code --session <actual-host-session>`
+to full-run `init`; it writes the binding automatically. Never guess session IDs or choose the newest run.
+Hooks recover context; they neither create goals nor authorize resuming stopped work. `preflight` inspects completion
+without writes. Before an incomplete final report, checkpoint `awaiting-input` or `stopped-incomplete` so Stop does
+not request continuation of a reviewing/verifying run.
 
 Commits follow repository convention. [commit-features](../../commit-features/SKILL.md) formatting/checking applies only when `commitFormat` is explicitly enabled; absent means off. Do not automatically rewrite messages or block pushes with an unrequested format. Commit/push still requires existing authorization.
 

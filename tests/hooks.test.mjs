@@ -6,7 +6,7 @@ import path from "node:path";
 import { spawnSync } from "node:child_process";
 import { execute } from "../scripts/proofwork.mjs";
 import { bind } from "../scripts/hook-binding.mjs";
-import { runHook } from "../scripts/hook-policy.mjs";
+import { runHook, completionClaim } from "../scripts/hook-policy.mjs";
 import { hookCli } from "../scripts/host-hook.mjs";
 
 test("inactive hooks do nothing; an explicit root request receives a recommendation without writes", async (t) => {
@@ -47,6 +47,45 @@ async function boundFixture(t) {
   };
   return { repo, options, record, event };
 }
+
+test("natural completion claims and state-based Stop checks cannot bypass preflight", async (t) => {
+  const { record, event } = await boundFixture(t);
+  const messages = ["Task complete. All criteria pass.", "Done. Nothing is blocked; all tests pass.",
+    "All done - every criterion passes and I verified it.", "Everything is finished and verified.",
+    "The fix is in and tests are green.", "I have completed the work."];
+  for (const message of messages) assert.equal(completionClaim(message), true, message);
+  for (const phase of ["reviewing", "verifying"]) {
+    await record("checkpoint", { phase });
+    for (const message of [...messages, "Here is my report.", "Incomplete; tests failed."]) {
+      assert.equal((await runHook("codex", { ...event, last_assistant_message: message })).decision, "block");
+    }
+    const missingMessage = { ...event };
+    delete missingMessage.last_assistant_message;
+    const blocked = await runHook("codex", missingMessage);
+    assert.equal(blocked.decision, "block");
+    assert.match(blocked.systemMessage, /last_assistant_message/);
+    const missingGuard = { ...event };
+    delete missingGuard.stop_hook_active;
+    const advisory = await runHook("codex", missingGuard);
+    assert.match(advisory.systemMessage, /stop_hook_active/);
+    assert.equal(advisory.decision, undefined);
+    assert.deepEqual(await runHook("codex", { ...event, stop_hook_active: true }), {});
+  }
+});
+
+test("bound prompt hints retain Go/C false-positive fixes and advertise automatic init binding", async t => {
+  const { event } = await boundFixture(t);
+  for (const prompt of ["Go ahead and fix the typo", "Update the copy for plan C", "I want an app to track my invoices"]) {
+    const hint = (await runHook("codex", { ...event, hook_event_name: "UserPromptSubmit", prompt }))
+      .hookSpecificOutput.additionalContext;
+    assert.doesNotMatch(hint, /language-fit/);
+    assert.match(hint, /--host codex --session session/);
+    if (prompt.includes("invoices")) assert.match(hint, /brainstorm/);
+  }
+  const hint = (await runHook("codex", { ...event, hook_event_name: "UserPromptSubmit",
+    prompt: "Compare Go and C for this network service" })).hookSpecificOutput.additionalContext;
+  assert.match(hint, /language-fit/);
+});
 
 test("ready completion uses recorded reviewed work and current evidence; completed bindings stay inactive", async (t) => {
   const { repo, options, record, event } = await boundFixture(t);

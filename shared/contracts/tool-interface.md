@@ -34,10 +34,13 @@ Only the coordinator writes state. Workers return records, and the coordinator v
 without writing state, locks, backups or directories. It returns `{ready, reasons}`; exit zero means the query ran,
 not that readiness passed. The Stop hook never accepts claimed evidence. Readiness can become stale after any edit.
 
-Optional lifecycle packages use `hook-binding.mjs bind|unbind --repo PATH --host codex|claude-code --session ID
+For automatic lifecycle binding, add `--host codex|claude-code --session ID` to `init`; both options are required.
+An existing binding rejects initialization before writes. Publication failure reports that the run already exists.
+Optional lifecycle packages also support recovery with `hook-binding.mjs bind|unbind --repo PATH --host codex|claude-code --session ID
 --run ID --owner SESSION`. Supply the actual host session and an explicit owned run; binding never selects the newest
-checkpoint. Read-only handlers recover context and supply hints; conservative Stop detection has a recursion guard
-and allows incomplete or stopped work. Standard packages do not enable hooks. Host trust and installation remain separate.
+checkpoint. Read-only handlers recover context and supply hints; state-based Stop checking has a recursion guard
+and allows checkpointed awaiting/stopped work. Reviewing/verifying Stop checks readiness regardless of wording.
+Standard packages do not enable hooks. Host trust and installation remain separate.
 
 ## Coverage gate
 

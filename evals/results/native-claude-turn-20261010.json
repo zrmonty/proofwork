@@ -1,0 +1,90 @@
+{
+  "schemaVersion": 1,
+  "observedAt": "2026-10-10T18:19:16.316165+00:00",
+  "host": "claude-code",
+  "cliVersion": "2.1.296",
+  "packageVersion": "0.22.0",
+  "authenticationPrecheck": {
+    "loggedIn": false,
+    "authMethod": "none"
+  },
+  "boundedActualCliAttempt": true,
+  "fakeApiOrModelResponses": false,
+  "modelResponseObserved": false,
+  "exitCode": 1,
+  "timedOut": false,
+  "nativeEventsObserved": {
+    "SessionStart": true,
+    "UserPromptSubmit": true,
+    "Stop": false
+  },
+  "nativeHookResponses": [
+    {
+      "event": "SessionStart",
+      "exitCode": 0,
+      "outcome": "success"
+    },
+    {
+      "event": "UserPromptSubmit",
+      "exitCode": 0,
+      "outcome": "success"
+    }
+  ],
+  "automaticBindingHintVerified": {
+    "fullRunInitAdvertised": true,
+    "hostArgumentAdvertised": true,
+    "sessionArgumentAdvertised": true,
+    "automaticBindingAdvertised": true,
+    "newestRunSelectionForbidden": true
+  },
+  "authenticationFailureObserved": true,
+  "assistantEnvelopeError": "authentication_failed",
+  "globalConfigurationChanged": false,
+  "credentialsChanged": false,
+  "nativeStopFalseCompletionVerified": false,
+  "artifactHashes": {
+    "hooks/hooks.json": "6a750be5b0a4b5aceb5fb3baab110156292aaf383dce6f890990b8673b423355",
+    "scripts/host-hook.mjs": "1c47cff62cf2bd35029e61ba6bd51e0303f974953bfcab9c453010a92bfadecd",
+    "scripts/hook-policy.mjs": "28bb0522cfad9a4f6f94199d3d3aaa40469216cb6494033582056b3b6cd25b5d",
+    "scripts/proofwork.mjs": "c7eee155ece2d65794e68d65241d2ff9ec2825f899f339c5e6ebd816e980ecd2",
+    "scripts/hook-binding.mjs": "615d5d9f117644f0a19a50a917b1460ff3678ed18620612de156d601187c00b7"
+  },
+  "limits": [
+    "Claude auth unavailable. CLI emitted an assistant-shaped authentication error, not a model response; native Stop false-completion remains unverified.",
+    "Exact generated handlers were dispatched; no fake API responses or synthetic Stop events were used.",
+    "Handler tests and native initialization-only checkpoint recovery evidence remain distinct from real successful model-turn verification."
+  ],
+  "payloadShapeRecordingRun": {
+    "separateFromExactHandlerRun": true,
+    "wrapperForwardsOriginalNativePayload": true,
+    "unchangedPackagedHostHookInvoked": true,
+    "exitCode": 1,
+    "credentialOrModelChanges": false,
+    "nativePayloadShapes": [
+      {
+        "event": "SessionStart",
+        "keysAndTypes": {
+          "session_id": "string",
+          "transcript_path": "string",
+          "cwd": "string",
+          "hook_event_name": "string",
+          "source": "string"
+        }
+      },
+      {
+        "event": "UserPromptSubmit",
+        "keysAndTypes": {
+          "session_id": "string",
+          "transcript_path": "string",
+          "cwd": "string",
+          "prompt_id": "string",
+          "permission_mode": "string",
+          "hook_event_name": "string",
+          "prompt": "string"
+        }
+      }
+    ],
+    "nativeStopObserved": false,
+    "authFailureObserved": true
+  }
+}

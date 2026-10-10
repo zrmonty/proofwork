@@ -6,6 +6,7 @@ import { route } from './routing.mjs';
 import { acquireLock, releaseLock } from './runtime-locks.mjs';
 import { snapshotIdentity, sameIdentity, ignoreHint, validateRevision } from './runtime-snapshot.mjs';
 import { executeEvidence, redact } from './runtime-evidence.mjs';
+import { bind, readBinding, validateSelection, validateOwner } from './hook-binding.mjs';
 export { route } from './routing.mjs';
 
 const fail = message => { throw new Error(message); };
@@ -281,11 +282,23 @@ export async function execute(command, options) {
   if (command === 'status')
     return JSON.parse(await readFile(
       await safePath(repo, `.engineering-team/runs/${run}/state.json`, 'state'), 'utf8'));
-  return writeState(command, repo, run, directory, options);
+  const autoBind = command === 'init' && (options.host !== undefined || options.session !== undefined);
+  if (autoBind) {
+    validateSelection(options.host, options.session);
+    validateOwner(options.owner);
+    if (await readBinding(repo, options.host, options.session)) fail('host session is already bound; unbind first');
+  }
+  const state = await writeState(command, repo, run, directory, options);
+  if (autoBind) {
+    try { await bind({ repo, run, owner: options.owner, host: options.host, session: options.session }); }
+    catch { fail('run initialized, but session binding failed; inspect the run and retry binding before proceeding'); }
+  }
+  return state;
 }
 const help = `Proofwork local tools (Node >=22). JSON on stdout; failures exit 1.
 route --task TEXT [--files comma,separated,paths]
 init --repo PATH --run ID --owner SESSION --objective TEXT --revision REV --criteria criterion,ids
+init also accepts --host codex|claude-code --session HOST_SESSION for automatic hook binding.
 status --repo PATH --run ID
 assign|result|evidence|finding|checkpoint --repo PATH --run ID --owner SESSION --input JSON_FILE
 evidence also accepts --command TEXT; command observations belong under .engineering-team/.

@@ -1,5 +1,14 @@
 # Proofwork changelog
 
+## 0.22.0 — state-based completion hooks
+
+- Reviewing/verifying runs now preflight Stop regardless of wording; natural completion patterns supplement earlier phases.
+- Missing Stop fields produce an advisory. A missing recursion flag permits Stop; a missing message still allows state checks.
+- Full-run init automatically binds supplied host/session identity; conflicting bindings reject before initialization.
+- Repository root/parent aliases are supported; internal state symlinks remain rejected. Inactive hooks defer runtime imports.
+- Native Claude SessionStart and UserPromptSubmit dispatched successfully; authentication prevented a model response and Stop.
+- Standard distribution remains hook-free. Optional hook packages still require local build and host trust review.
+
 ## 0.21.1 — newcomer product-intent routing
 
 - Plain intent such as "I want an app to track my invoices" now starts brainstorming without requiring engineering keywords.

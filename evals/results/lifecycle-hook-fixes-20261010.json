@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 1,
+  "version": "0.22.0",
+  "date": "2026-10-10",
+  "environment": "Node 24.16.0 on Windows",
+  "fullCheck": { "command": "npm run check", "exitCode": 0 },
+  "coverage": {
+    "revision": "scripts-sha256:738cdc6389384b7a9d1f4c13e078bde0843e4cb770dcdbe4189d0ef96ed200a1",
+    "tool": "Node V8 LCOV",
+    "inventory": "17 canonical scripts/*.mjs",
+    "lines": { "covered": 1657, "total": 1678, "percent": 98.74851013110846 },
+    "branches": { "covered": 954, "total": 980, "percent": 97.34693877551021 },
+    "threshold": 95,
+    "passed": true
+  },
+  "executedRegressions": [
+    "Six natural completion phrases recognized, including Nothing is blocked",
+    "Reviewing/verifying preflight blocks arbitrary wording and incomplete reports until checkpoint pause",
+    "Missing message produces advisory and still checks state with a known false recursion flag",
+    "Missing recursion flag produces advisory without requesting continuation",
+    "Ready, paused, complete and recursive Stop preserve existing behavior without state writes",
+    "Init binds a known host session; partial, malformed and conflicting identities reject before new run writes",
+    "Repository root and parent junctions accepted; internal run, state, hooks and binding links rejected",
+    "Bound prompt hints retain Go/C negative cases and route invoice product intent to brainstorm"
+  ],
+  "nativeHostEvidence": "native-claude-turn-20261010.json",
+  "limits": [
+    "Native Claude Stop blocking remains unverified because authentication failed before a model response.",
+    "Native Codex lifecycle dispatch remains unverified.",
+    "Optional hooks require local build and host trust; standard marketplace packages remain hook-free.",
+    "Deferred runtime imports reduce inactive work but Node still starts for each configured event; no startup benchmark claim.",
+    "Filesystem checks do not defend against a malicious same-user process; binding unbind/rebind is not serialized.",
+    "Coverage measures executable checks, not instructional quality or real-host enforcement."
+  ]
+}

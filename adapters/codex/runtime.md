@@ -25,5 +25,6 @@ For a manual-only skill, Codex supports `policy.allow_implicit_invocation: false
 Standard packages contain no lifecycle configuration. The separately built opt-in package puts host hooks in
 `hooks/hooks.json` and shared handlers in `scripts/`. Review and install through the host's supported trust flow.
 SessionStart recovers an explicitly bound run; UserPromptSubmit recommends a route; Stop performs read-only
-completion preflight with an incomplete-report escape and recursion guard. Bind using `hook-binding.mjs` with
-actual host session identity, repository, run and coordinator owner. Never infer a newest run or restart stopped work.
+completion preflight in reviewing/verifying regardless of wording, with a recursion guard. Supply actual host/session
+identity to `init --host codex --session ID` for automatic binding. Checkpoint awaiting/stopped before an incomplete
+report. Missing Stop fields produce an advisory. Never infer a newest run or restart stopped work.

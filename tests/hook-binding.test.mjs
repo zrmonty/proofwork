@@ -115,17 +115,32 @@ test("read rejects forged binding identity, malformed or oversized files", async
   }
 });
 
-test("symlinks in repository ancestors, run paths and binding paths are rejected", async () => {
+test("repository aliases canonicalize while internal run and binding symlinks remain rejected", async () => {
   const options = await fixture();
   const outer = await mkdtemp(path.join(tmpdir(), "proofwork-binding-links-"));
   try {
     const alias = path.join(outer, "repository");
     await symlink(options.repo, alias, "junction");
-    await assert.rejects(readBinding(alias, options.host, options.session));
+    assert.equal(await readBinding(alias, options.host, options.session), null);
+    assert.equal((await bind({ ...options, repo: alias })).repo, options.repo);
+    assert.equal((await readBinding(alias, options.host, options.session)).run, options.run);
+    const parentAlias = path.join(outer, "parent");
+    await symlink(path.dirname(options.repo), parentAlias, "junction");
+    const throughParent = path.join(parentAlias, path.basename(options.repo));
+    assert.equal((await bind({ ...options, repo: throughParent })).repo, options.repo);
+    await unbind({ ...options, repo: throughParent });
     const runAlias = path.join(options.repo, ".engineering-team/runs/alias");
     await symlink(path.join(options.repo, ".engineering-team/runs/run-one"), runAlias, "junction");
     await assert.rejects(bind({ ...options, run: "alias" }));
+    const stateFile = path.join(options.repo, ".engineering-team/runs/run-one/state.json");
+    const checkpoint = await readFile(stateFile);
+    await rm(stateFile);
+    await symlink(outer, stateFile, "junction");
+    await assert.rejects(bind(options));
+    await rm(stateFile);
+    await writeFile(stateFile, checkpoint);
     const hooks = path.join(options.repo, ".engineering-team/hooks");
+    await rm(hooks, { recursive: true });
     await symlink(outer, hooks, "junction");
     await assert.rejects(bind(options));
     await rm(hooks);
