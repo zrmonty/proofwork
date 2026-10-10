@@ -1,5 +1,10 @@
 # Proofwork 0.35.0 verification
 
+
+Current host/environment checks are recorded in [the 0.35.0 parity result](../evals/results/host-environment-parity-20261010.md).
+Local runtime coverage is 98.86% lines/97.01% branches over 22 scripts. Native Codex 0.35.0 installation is verified;
+Claude CLI fixtures and generated adapter parity do not establish native Claude installation or live hook dispatch.
+
 October 10, 2026. This matrix describes current evidence and its limits. Earlier release observations are preserved in [verification history](../CHANGELOG.md).
 
 | Surface | Evidence | Limits |
@@ -8,7 +13,7 @@ October 10, 2026. This matrix describes current evidence and its limits. Earlier
 | Routing/context | 34 distinct trigger descriptions (305 discovery words); selected decision references and playbook guide counted; all 600-word entries/800-word references; 94 exact routing cases; light at most 800 initial words, standard at most 4,000; aggregate growth limited to 10% | Deferred review/report entries, conditional references and task/model tokens are additional |
 | Codex and Claude package builds | Isolated version equality, skill parity and broken-reference rejection | Structural packaging does not prove task quality or live host behavior |
 | Run-state evidence | Actual exits, duration and stream digests; current filesystem/Git identity; manual claims require override; killed-process stale-lock recovery tested | A successful command can prove the wrong criterion. Local coordination is not an authentication boundary |
-| Installed Codex 0.34.0 | Standard hook-free CLI installation succeeded | Hook-enabled Codex installation and native event dispatch remain unverified |
+| Installed Codex 0.35.0 | Standard hook-free CLI installation succeeded | Hook-enabled Codex installation and native event dispatch remain unverified |
 | Rust atomic counter, 1.95.0/MSVC | Counter probe fails on split load/store, passes after fetch_add in debug/release; formatting and Clippy pass | Counter probe has no weak-memory proof, unsafe reclamation, Loom/Miri, cross-target or benchmark claim. See [probe](../evals/results/atomics-probe-20261010.md) |
 | Codex CLI 0.150.1 | Bounded comparative pilot outcome in [evaluation report](../evals/results/improvement-evaluation.md) | An interrupted pilot cannot establish relative agent quality |
 | Claude Code 2.1.296 | Exact optional handlers dispatched SessionStart and UserPromptSubmit; prompt hint advertises automatic init binding. See [native turn](../evals/results/native-claude-turn-20261010.json) | Authentication failed before a model response; native Stop blocking, subagents and goal continuation remain unverified. Earlier recovery smoke used a temporary binding wrapper |

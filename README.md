@@ -27,7 +27,8 @@ From a reviewed checkout, one command registers, installs and verifies the plugi
 ## Host and environment parity
 
 Use Node 22 or 24 and Git on Windows, Linux or macOS. The same routing, evidence, recovery and package checks run
-on all six CI combinations. Host execution remains separately verified: the native Codex installer is exercised
+on [all six passing CI combinations](https://github.com/zrmonty/proofwork/actions/runs/38088882321).
+Proofwork 0.35.0 is installed locally in Codex. Host execution remains separately verified: the native Codex installer is exercised
 locally; Claude installation and event behavior need a machine with that host available.
 
 For a CLI outside PATH, add `--cli "<absolute executable path>"` to the installer. For Windows npm installations,
