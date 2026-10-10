@@ -63,3 +63,7 @@ Every shipped skill has a project-specific [specification](skill-specs/) and beh
 Newly authored commits include Major features and Minor features sections. The formatter check runs against actual Git history and validates structure only. Raw provider event logs and stderr are excluded from Git; exported summaries omit credentials. No global scheduler, hook, credential store, external release publication, or mixed-provider bridge was installed.
 
 GitHub delivery: the design baseline is on `main` and the implementation is on `codex/proofwork`. SSH push succeeded. PR creation was rejected because the current GitHub CLI account (`ZmontyVD`) has READ permission on `zrmonty/proofwork`. The prepared description is preserved in `docs/pull-request.md`; credentials and account configuration were not changed.
+
+## Follow-up: installed Codex self-audit
+
+The 0.1.1 [self-audit](../evals/results/self-audit-20261010.md) verifies explicit marketplace registration, installation, fresh CLI skill discovery and shell/routing execution. It supersedes the initial CLI discovery/sandbox gaps for that tested configuration. All 14 tests pass; three demonstrated defects were fixed and independently reviewed. Broader host gates remain as documented in that report.

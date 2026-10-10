@@ -1,6 +1,6 @@
 # Capability inventory
 
-Proofwork tracks its own specification, not upstream file parity. Prior art: [pstack](https://github.com/cursor/plugins/tree/main/pstack). No upstream instructional assets are vendored.
+Proofwork tracks its own specification and capability coverage. No external instructional assets are vendored.
 
 Included original capabilities: task routing; disciplined workers; coordinator contracts; native goal composition; local checkpoint/evidence guards; scoped correctness and thermonuclear review; functional/data-driven/clean-code guidance; TypeScript/Rust/Python practices; content-specific frontend design; commit feature summaries; host-native shell/browser capability discovery.
 

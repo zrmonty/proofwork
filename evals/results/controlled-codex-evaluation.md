@@ -1,6 +1,6 @@
 # Proofwork behavioral evaluation
 
-Status: ready for parent review. A controlled fresh fixture exercised the locally discoverable root skill, not the prior installed pstack skills.
+Status: ready for parent review. A controlled fresh fixture exercised Proofwork's locally discoverable root skill.
 
 Root explicitly read: .agents/skills/use-proofwork/SKILL.md. Root package resolved to .agents. Host adapters and the packaged CLI/contracts were read before acting. Invocation through explicit skill file loading was demonstrated; automatic fresh-session host discovery and a registered slash command were not demonstrated.
 

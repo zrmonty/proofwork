@@ -1,6 +1,6 @@
 # Independent development review
 
-Reviewed October 10, 2026 by a separate review agent. Scope: the original shared skills, contracts, playbooks, platform adapters, scripts/proofwork.mjs, scripts/check-commits.mjs, tests, and the design specification; all currently uncommitted source was included. Installed pstack blast-radius and the user's thermonuclear review were read for development review only. No existing skills were copied into this report or product. Packaging was still under construction at this inspection.
+Reviewed October 10, 2026 by a separate review agent. Scope: the original shared skills, contracts, playbooks, platform adapters, scripts/proofwork.mjs, scripts/check-commits.mjs, tests, and the design specification; all currently uncommitted source was included. External impact-analysis guidance and the user's thermonuclear review were read for development review only. No existing skills were copied into this report or product. Packaging was still under construction at this inspection.
 
 ## Blocking finding
 

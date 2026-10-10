@@ -152,7 +152,7 @@ Native multi-model routing is included where supported. Mixed-provider workers r
 
 ## Frontend design and visual quality
 
-An original frontend-design skill is a first-release requirement. Its purpose is to create beautiful, distinctive, usable interfaces whose visual decisions follow the product, audience, content, and brand. Impeccable is a capability reference, not a source of skill text, workflow, command taxonomy, scripts, or templates. Author our specification and skill independently. Integrate frontend design with engineering mode, worker assignments, browser evidence, and goal completion; it is also directly invocable for design, critique, and refinement.
+An original frontend-design skill is a first-release requirement. Its purpose is to create beautiful, distinctive, usable interfaces whose visual decisions follow the product, audience, content, and brand. Author our specification, skill, workflow and supporting resources independently. Integrate frontend design with engineering mode, worker assignments, browser evidence, and goal completion; it is also directly invocable for design, critique, and refinement.
 
 Inputs are the requested surface and user task, actual content and states, brand constraints, incumbent components/tokens, target devices, and available assets. Outputs are a concise design brief, a selected visual direction with reasons, a working implementation or scoped critique as requested, reusable project-native tokens/components where justified, and evidence of visual and functional verification. Preserve an established identity during refinement; replace it only within an authorized redesign. Do not invent testimonials, customer counts, claims, or product behavior to make a composition look complete.
 
@@ -244,7 +244,7 @@ Delivery sequence: trustworthy worker mode and shared principles; platform packa
 
 Every outgoing commit uses the original commit-features skill. Its message contains explicit `Major features` and `Minor features` sections describing the actual staged change, using `None` when a category has no changes, plus validation and material limitations when applicable. Major describes a substantial user-facing capability or architectural milestone; minor describes a smaller improvement, fix, documentation, or tooling change. These categories do not determine semantic version bumps; breaking compatibility is called out separately. Inspect the staged diff and relevant evidence, avoid invented features, and never claim tests not run. Existing commits are not rewritten merely to change formatting. Before pushing new commits, validate their message structure and review the actual outgoing range. Push only within the user's authorization; the skill does not grant publication permission.
 
-Out of first-release scope: a hosted dashboard, global daemon, autonomous deployment, native desktop/TUI control, an automatic cross-provider bridge, and importing existing skills. Keep a capability inventory with specified/deferred decisions and evaluation coverage. References to pstack describe inspiration and prior art, not copied implementation. Choose the project's license explicitly; retain any notices required by actual non-skill dependencies.
+Out of first-release scope: a hosted dashboard, global daemon, autonomous deployment, native desktop/TUI control, an automatic cross-provider bridge, and importing existing skills. Keep a capability inventory with specified/deferred decisions and evaluation coverage. Choose the project's license explicitly; retain any notices required by actual non-skill dependencies.
 
 Brand and repository are now settled: Proofwork at github.com/zrmonty/proofwork, with a dedicated local checkout. Builder choices: build-script language, exact host agent-definition packaging, fixture repositories, and optional browser backend after capability discovery. Host versions are supported only after passing release evaluations; publish the tested version matrix rather than an untested minimum version.
 
@@ -252,12 +252,11 @@ Brand and repository are now settled: Proofwork at github.com/zrmonty/proofwork,
 
 Product requirements come from this conversation. Architecture, defaults, release sequencing, and local state format are proposed design choices. No implementation or runtime validation has occurred.
 
-- [Upstream pstack](https://github.com/cursor/plugins/tree/main/pstack): engineering principles, worker discipline, parallelism, and model-role workflows.
 - [Codex goals](https://developers.openai.com/cookbook/examples/codex/using_goals_in_codex): native goal lifecycle, continuation, and evidence-based completion.
 - [Claude Code goals](https://code.claude.com/docs/en/goal): native goal support and evidence surfaced to its evaluator.
 - [Claude Code plugins](https://code.claude.com/docs/en/plugins): platform packaging.
 - [Claude Code hooks](https://code.claude.com/docs/en/hooks): continuation mechanism; a custom global loop is unnecessary for the proposed first release.
-- Installed pstack-plugin 0.2.0 and the user's thermonuclear skill were inspected for capability requirements. No skill text is approved for import or adaptation.
+- The user's thermonuclear skill informed capability requirements. No skill text is approved for import or adaptation.
 - Installed TypeScript and Rust skills informed earlier exploration. All three language skills will be authored independently to this specification and checked against official documentation during implementation.
-- Impeccable's skill entry was inspected only to identify capability coverage. The frontend-design specification and eventual instructional assets are independently authored; no Impeccable implementation is approved for import or adaptation.
+- The frontend-design specification and instructional assets are independently authored; no external implementation is approved for import or adaptation.
 - [Substack](https://substack.com/) and [On Substack](https://on.substack.com/) are user-requested references for editorial identity and content structure. The softer forms, radius suggestions, typography direction, and iteration requirements above are our proposed interpretation of the user's preferences, not measured claims about those sites' styles.

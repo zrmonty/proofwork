@@ -1,6 +1,8 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { mkdtemp, writeFile, readFile, rm, symlink } from 'node:fs/promises';
+import { mkdtemp, writeFile, readFile, rm, symlink, mkdir, copyFile } from 'node:fs/promises';
+import { spawnSync } from 'node:child_process';
+import { fileURLToPath } from 'node:url';
 import { tmpdir } from 'node:os';
 import path from 'node:path';
 import { route, transition, execute } from '../scripts/proofwork.mjs';
@@ -18,6 +20,34 @@ test('routing loads core discipline and affected languages without mutating inpu
 });
 
 const initial = { schemaVersion: 1, owner: 'coordinator', objective: 'fix', criteria: ['works'], revision: 'r1', phase: 'preparing', tasks: [], evidence: [], findings: [] };
+test('reopening a reviewed task cannot reclaim paths assigned to another active worker', () => {
+  const assigned = transition(initial,'assign',{id:'a',objective:'fix',files:['src'],revision:'r1'},'coordinator');
+  const reviewed = transition(assigned,'result',{id:'a',status:'reviewed',revision:'r1',summary:'checked'},'coordinator');
+  const reassigned = transition(reviewed,'assign',{id:'b',objective:'follow up',files:['SRC/main.ts'],revision:'r1'},'coordinator');
+  for (const status of ['needs-revision','blocked','ready-for-review']) {
+    assert.throws(() => transition(reassigned,'result',{id:'a',status,revision:'r1',summary:'reopened'},'coordinator'),/overlap/);
+  }
+  const independent = transition(reviewed,'assign',{id:'b',objective:'other work',files:['tests'],revision:'r1'},'coordinator');
+  assert.equal(transition(independent,'result',{id:'a',status:'needs-revision',revision:'r1',summary:'reopened'},'coordinator').tasks[0].status,'needs-revision');
+  assert.equal(reassigned.tasks[0].status,'reviewed');
+});
+
+test('a copied checkpoint cannot mutate under another repository identity', async () => {
+  const repo = await mkdtemp(path.join(tmpdir(),'proofwork-source-'));
+  const other = await mkdtemp(path.join(tmpdir(),'proofwork-copy-'));
+  try {
+    const options = {repo,run:'a',owner:'owner',objective:'test',revision:'r1',criteria:'works'};
+    await execute('init',options);
+    const directory = path.join(other,'.engineering-team/runs/a');
+    await mkdir(directory,{recursive:true});
+    await copyFile(path.join(repo,'.engineering-team/runs/a/state.json'),path.join(directory,'state.json'));
+    const input = path.join(other,'checkpoint.json');
+    await writeFile(input,JSON.stringify({nextAction:'continue in wrong repo'}));
+    await assert.rejects(execute('checkpoint',{...options,repo:other,input}),/identity/);
+    assert.equal((await execute('status',{...options,repo:other})).nextAction,'Scope work and dispatch bounded assignments');
+  } finally { await rm(repo,{recursive:true,force:true}); await rm(other,{recursive:true,force:true}); }
+});
+
 test('pure transitions protect ownership, input and completion gates', () => {
   assert.throws(() => transition(initial, 'assign', {id:'a', objective:'fix', files:['a.ts'], revision:'r1'}, 'worker'), /owner/);
   const assigned = transition(initial, 'assign', {id:'a', objective:'fix', files:['a.ts'], revision:'r1'}, 'coordinator');
@@ -100,5 +130,43 @@ test('filesystem boundary rejects traversal, duplicate init and changed evidence
     await assert.rejects(execute('complete',options),/changed/);
     await writeFile(path.join(repo,'proof.txt'),'pass');
     assert.equal((await execute('complete',options)).phase,'complete');
+  } finally { await rm(repo,{recursive:true,force:true}); }
+});
+
+test('fresh CLI processes resume a checkpoint and verify completion without bypassing ownership', async () => {
+  const repo = await mkdtemp(path.join(tmpdir(),'proofwork-cli-'));
+  const script = fileURLToPath(new URL('../scripts/proofwork.mjs',import.meta.url));
+  const cli = (command, ...args) => spawnSync(process.execPath,[script,command,'--repo',repo,'--run','cli-run',...args],{encoding:'utf8',windowsHide:true});
+  const success = result => { assert.equal(result.status,0,result.stderr); return JSON.parse(result.stdout); };
+  const input = path.join(repo,'record.json');
+  const record = async (command, value) => {
+    await writeFile(input,JSON.stringify(value));
+    return success(cli(command,'--owner','coordinator','--input',input));
+  };
+  try {
+    success(cli('init','--owner','coordinator','--objective','CLI resume','--revision','r1','--criteria','works'));
+    await record('assign',{id:'a',objective:'verify',files:['src'],revision:'r1'});
+    await record('checkpoint',{phase:'stopped-incomplete',nextAction:'resume task a'});
+    assert.equal(success(cli('status')).nextAction,'resume task a');
+    const file = path.join(repo,'.engineering-team/runs/cli-run/state.json');
+    const before = await readFile(file,'utf8');
+    const rejected = cli('checkpoint','--owner','worker','--input',input);
+    assert.equal(rejected.status,1);
+    assert.match(rejected.stderr,/owner/);
+    assert.equal(await readFile(file,'utf8'),before);
+    // Inspect the backup before manually restoring a corrupted current checkpoint.
+    const backup = path.join(repo,'.engineering-team/runs/cli-run/state.backup.json');
+    assert.equal(JSON.parse(await readFile(backup,'utf8')).tasks[0].id,'a');
+    await writeFile(file,'{corrupt');
+    assert.equal(cli('status').status,1);
+    await copyFile(backup,file);
+    await record('checkpoint',{phase:'executing',nextAction:'verify restored task a'});
+    await record('result',{id:'a',status:'reviewed',revision:'r1',summary:'independently checked'});
+    await writeFile(path.join(repo,'proof.txt'),'verified artifact');
+    await record('evidence',{id:'e',criterion:'works',revision:'r1',artifact:'proof.txt',command:'fixture check',environment:'Node CLI',observed:'passed',passed:true});
+    assert.equal(success(cli('complete','--owner','coordinator','--revision','r1')).phase,'complete');
+    const immutable = cli('checkpoint','--owner','coordinator','--input',input);
+    assert.equal(immutable.status,1);
+    assert.match(immutable.stderr,/immutable/);
   } finally { await rm(repo,{recursive:true,force:true}); }
 });

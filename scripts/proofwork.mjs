@@ -11,6 +11,10 @@ const relative = (value, label) => {
   if (path.isAbsolute(value) || /[\\:\x00<>"|?*]/.test(value) || value.split('/').some(part => !part || /[. ]$/.test(part) || /^(con|prn|aux|nul|com[1-9]|lpt[1-9])(?:\.|$)/i.test(part))) fail(`unsafe ${label} path`);
   return value;
 };
+const overlaps = (files, otherFiles) => files.some(a => otherFiles.some(b => a.toLowerCase() === b.toLowerCase() || a.toLowerCase().startsWith(`${b.toLowerCase()}/`) || b.toLowerCase().startsWith(`${a.toLowerCase()}/`)));
+function checkOwnership(tasks, taskId, files) {
+  if (tasks.some(task => task.id !== taskId && task.status !== 'reviewed' && overlaps(task.files,files))) fail('ownership overlap; use isolated runs/checkouts or integrate first');
+}
 
 export function route(task, files = []) {
   text(task,'task');
@@ -36,15 +40,14 @@ export function transition(state, command, record, owner) {
     if (!Array.isArray(record.files) || !record.files.every(file => typeof file === 'string')) fail('files must be a path array');
     record.files.forEach(file => relative(file,'ownership'));
     if (next.tasks.some(task => task.id === record.id)) fail('task already exists');
-    for (const task of next.tasks.filter(task => task.status !== 'reviewed')) {
-      if (task.files.some(a => record.files.some(b => a.toLowerCase() === b.toLowerCase() || a.toLowerCase().startsWith(`${b.toLowerCase()}/`) || b.toLowerCase().startsWith(`${a.toLowerCase()}/`)))) fail('ownership overlap; use isolated runs/checkouts or integrate first');
-    }
+    checkOwnership(next.tasks,record.id,record.files);
     next.tasks.push({...record,status:'assigned'}); next.phase = 'executing';
   } else if (command === 'result') {
     const index = next.tasks.findIndex(task => task.id === record.id);
     if (index < 0) fail('unknown task');
     if (!['ready-for-review','needs-revision','blocked','reviewed'].includes(record.status)) fail('invalid result status');
     text(record.revision,'revision'); text(record.summary,'summary');
+    if (record.status !== 'reviewed') checkOwnership(next.tasks,record.id,next.tasks[index].files);
     next.tasks[index] = {...next.tasks[index],status:record.status,result:record};
     next.phase = 'reviewing';
   } else if (command === 'evidence') {
@@ -140,7 +143,7 @@ export async function execute(command, options) {
       await save(file,state,false); return state;
     }
     const state = JSON.parse(await readFile(file,'utf8'));
-    if (state.schemaVersion !== 1 || state.run !== run) fail('invalid checkpoint identity');
+    if (state.schemaVersion !== 1 || state.run !== run || state.repo !== repo) fail('invalid checkpoint identity');
     if (state.owner !== options.owner) fail('only the coordinator owner may update aggregate state');
     const record = command === 'complete' ? {revision:text(options.revision,'revision')} : JSON.parse(await readFile(text(options.input,'input'),'utf8'));
     if (command === 'evidence') record.digest = await digest(await safePath(repo,record.artifact,'artifact'));

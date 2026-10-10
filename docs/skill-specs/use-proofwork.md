@@ -12,4 +12,4 @@ Boundaries: no implicit goal creation, replacement scheduler, cross-provider cla
 
 Behavioral acceptance: pressure cases 1, 2 and 5 in evals/orchestration-pressure.md; route runs automatically; existing goal objective is preserved; stale evidence and unsettled workers cannot establish completion. Unavailable host capabilities remain unverified.
 
-Original authorship: authored from Proofwork's requirements. Installed pstack was development guidance only; no source skill content is imported. Baseline record: evals/results/baseline.txt, fresh Codex CLI execution by coordinator before authoring. Native safeguards already passed; missing product-specific checkpoints/contracts and routing are the concrete additions. Post-skill execution is recorded separately by coordinator.
+Original authorship: authored from Proofwork's requirements; no source skill content is imported. Baseline record: evals/results/baseline.txt, fresh Codex CLI execution by coordinator before authoring. Native safeguards already passed; missing product-specific checkpoints/contracts and routing are the concrete additions. Post-skill execution is recorded separately by coordinator.

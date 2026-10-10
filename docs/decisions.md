@@ -2,7 +2,7 @@
 
 - Brand: Proofwork; entry skill: use-proofwork, as requested October 10, 2026. Earlier team-mode references in the discussion were working names.
 - Repository: the dedicated local Proofwork directory connected to git@github.com:zrmonty/proofwork.git. Existing remote inspected and empty at start. No Document Prep product code changed.
-- Skills are original authored assets. Installed pstack skills guide this development session only. No pstack dependency is required at runtime.
+- Skills are original authored assets. External development guidance is not a runtime dependency.
 - Node built-ins support deterministic routing, safe local checkpoints, packaging, and commit formatting checks. The shipped plugin adds no dependency for these operations.
 - The user authorized autonomous completion and subagents. Routine choices do not require further approval. External release publication and unsupported runtime claims remain out of scope.
 - Host-native goals govern continuation. The plugin does not install a second loop or silently replace objectives.

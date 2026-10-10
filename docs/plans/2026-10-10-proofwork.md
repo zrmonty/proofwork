@@ -6,11 +6,11 @@ Goal: deliver installable Proofwork packages for Codex and Claude Code with a us
 
 Architecture: canonical authored Markdown in shared/, platform instructions in adapters/, dependency-free Node utilities for packaging, routing, and local checkpoints. Two distributable packages, no external orchestration daemon.
 
-Tech stack: Markdown, JSON, Node.js built-ins, host-native tools. Spec: ../specs/2026-10-10-proofwork-design.md.
+Tech stack: Markdown, JSON, Node.js built-ins, host-native tools. Spec: ../design/2026-10-10-proofwork-design.md.
 
 ## Global constraints
 
-- Do not copy or adapt any existing skill text. Current pstack skills may guide development only.
+- Do not copy or adapt any existing skill text. External guidance is for development only.
 - Respect host permissions and explicit user authorization. No external publication.
 - Prefer pure functions and explicit state/effect boundaries.
 - Do not assert host loading or behavioral validation that has not happened.

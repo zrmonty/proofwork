@@ -14,7 +14,7 @@ All mutation commands require `--repo <target-repository> --run <unique-id> --ow
 
 Initialize with `init --repo PATH --run ID --owner SESSION --objective "Task" --revision REV --criteria criterion-1,criterion-2 [--design PATH-OR-REFERENCE]`. State records `activeMode: use-proofwork`, resolved repository identity, base revision, selected skills/playbook, supplied limits and outstanding effects. `REV` identifies the integrated content being verified: a Git commit for a clean tree, or a recorded content digest/snapshot including uncommitted changes. A Git HEAD alone does not identify a dirty tree. Never reuse an identity after changing relevant content.
 
-Inspect with `status --repo PATH --run ID`. The tool does not change native goal status. For these commands, supply `--input PATH` pointing to a coordinator-reviewed JSON record:
+Inspect with `status --repo PATH --run ID`. The tool does not change native goal status. Mutations reject checkpoints whose recorded repository identity differs from the resolved target checkout. A moved or copied checkout starts a new run; read-only status remains available for diagnosis. Reopening a reviewed task checks ownership against all other active assignments. For these commands, supply `--input PATH` pointing to a coordinator-reviewed JSON record:
 
 | Command | Required record fields |
 | --- | --- |

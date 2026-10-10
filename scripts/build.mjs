@@ -60,8 +60,7 @@ export async function build() {
       for (const section of ['skills','contracts','playbooks','principles']) await cp(path.join(repository,'shared',section),path.join(staging,section),{recursive:true,errorOnExist:true,force:false});
       await cp(path.join(repository,'adapters',host),path.join(staging,'adapters'),{recursive:true});
       for (const file of ['LICENSE','NOTICE.md','UPSTREAM.md']) {
-        try { await cp(path.join(repository,file),path.join(staging,file)); }
-        catch(error) { if(error.code !== 'ENOENT') throw error; }
+        await cp(path.join(repository,file),path.join(staging,file));
       }
       await mkdir(path.join(staging,'scripts'));
       for (const file of ['proofwork.mjs','check-commits.mjs','README.md']) await cp(path.join(repository,'scripts',file),path.join(staging,'scripts',file));

@@ -2,7 +2,7 @@
 
 An engineering workflow plugin for Codex and Claude Code. Give it a task; its entry skill selects a playbook, loads the relevant language and design skills, coordinates bounded workers when useful, and checks the integrated result against evidence.
 
-Proofwork aims to help a team write less, better code. All shipped instructions are originally authored to [our specification](docs/superpowers/specs/2026-10-10-proofwork-design.md). Pstack and Impeccable informed capability discussions; neither is a runtime dependency and no existing skill files were imported or adapted.
+Proofwork aims to help a team write less, better code. All shipped instructions are originally authored to [our specification](docs/design/2026-10-10-proofwork-design.md). No existing skill files were imported or adapted.
 
 ## Start
 
@@ -21,6 +21,36 @@ Use Proofwork to fix the interrupted export. Reproduce it first, preserve the
 existing file format, and prove the final page survives. Use independent review.
 ```
 
+## Skill commands
+
+Give any skill a task in the same prompt. In Codex, use `$<skill-name>` or select the Proofwork skill in the skills menu. In the Claude Code plugin, use `/proofwork:<skill-name>`. If another installed plugin has a skill with the same name, select the Proofwork entry explicitly. The root loads relevant guidance automatically; individual commands are useful for focused work.
+
+| Codex invocation | Claude Code invocation | Use it for |
+| --- | --- | --- |
+| `$use-proofwork` | `/proofwork:use-proofwork` | Carry a task through discovery, routing, bounded workers, review and evidence. |
+| `$setup` | `/proofwork:setup` | Inspect host capabilities, toolchains, model roles and repository checks. |
+| `$worker-mode` | `/proofwork:worker-mode` | Execute a bounded assignment and return a reviewable result. |
+| `$thermo-nuclear-code-quality-review` | `/proofwork:thermo-nuclear-code-quality-review` | Audit maintainability and report concrete structural findings with a verdict. |
+| `$typescript-best-practices` | `/proofwork:typescript-best-practices` | Apply TypeScript guidance to types, validation, effects and tests. |
+| `$rust-best-practices` | `/proofwork:rust-best-practices` | Apply Rust guidance to ownership, errors, boundaries and verification. |
+| `$python-best-practices` | `/proofwork:python-best-practices` | Apply Python guidance to data models, boundaries, resources and tests. |
+| `$functional-programming` | `/proofwork:functional-programming` | Keep domain decisions pure and make state transitions and effects explicit. |
+| `$data-driven-development` | `/proofwork:data-driven-development` | Model invariants and evaluate changes using observed data and repeatable checks. |
+| `$clean-code` | `/proofwork:clean-code` | Simplify demonstrated complexity while preserving behavior and safety guards. |
+| `$frontend-design` | `/proofwork:frontend-design` | Develop an original visual direction, iterate and verify rendered interfaces. |
+| `$commit-features` | `/proofwork:commit-features` | Prepare truthful Major features / Minor features commit sections and check outgoing history. |
+
+Examples for Codex:
+
+```text
+$use-proofwork Find and fix issues in this repository. Reproduce bugs first and use independent review.
+$thermo-nuclear-code-quality-review Review the current diff and its callers. Report findings without editing.
+$frontend-design Refine the article page with a content-led editorial identity and verify desktop/mobile behavior.
+$commit-features Prepare a commit message from the staged diff and check the outgoing history.
+```
+
+For Claude Code, replace the skill token with its namespaced command, for example `/proofwork:use-proofwork Find and fix issues in this repository`. `/use-proofwork` is the product entry name; a bare slash alias depends on host installation and is not guaranteed by the plugin. Commands reuse the host's available tools and permissions. Invoking a review or commit skill alone does not authorize edits, pushing or publishing.
+
 ## Build and local installation
 
 Requires Node.js 22 or newer for the local tools. No npm dependencies are required.
@@ -32,7 +62,15 @@ npm run build
 
 Build writes `packages/codex/` and `packages/claude-code/`. Each contains the shared authored skills, relevant host adapter, playbooks, contracts, and local tools. Build validates bundled references. Run-state artifacts live in the target project's `.engineering-team/runs/`, not in the plugin package.
 
-For Codex, this repository contains a local marketplace entry and repo-scoped plugin configuration. From a trusted checkout, use the available plugin discovery/install UI or CLI to select `proofwork@proofwork-local`. See [Codex adapter](adapters/codex/runtime.md) for actual commands and any tested limitations. Do not overwrite personal config to install the package.
+For Codex, explicitly register the trusted checkout and install the package:
+
+```text
+codex plugin marketplace add . --json
+codex plugin add proofwork@proofwork-local --json
+codex plugin list --json
+```
+
+Confirm that Proofwork is installed and enabled, then start a fresh session and invoke `$use-proofwork`. The installer adds the marketplace/plugin entries to Codex configuration; it does not require replacing personal config. Repository metadata alone does not register a marketplace. After rebuilding an updated version, run `codex plugin add proofwork@proofwork-local --json` again and verify the installed version. See [Codex adapter](adapters/codex/runtime.md) and [self-audit evidence](evals/results/self-audit-20261010.md).
 
 For Claude Code, load the built package for the session:
 
@@ -40,14 +78,14 @@ For Claude Code, load the built package for the session:
 claude --plugin-dir ./packages/claude-code
 ```
 
-Then invoke `/proofwork:use-proofwork`. For persistent installation from GitHub:
+Then invoke `/proofwork:use-proofwork`. For persistent installation from a trusted local checkout containing the built package:
 
 ```text
-/plugin marketplace add zrmonty/proofwork
+/plugin marketplace add .
 /plugin install proofwork@proofwork-local
 ```
 
-The repository includes a Claude marketplace pointing to the built package. See [Claude adapter](adapters/claude-code/runtime.md).
+The repository includes a Claude marketplace pointing to the built package. Use a checkout containing `packages/claude-code` and run the build before installing local changes. See [Claude adapter](adapters/claude-code/runtime.md).
 
 Both platforms namespace or expose skill commands themselves. Proofwork does not claim a bare global `/use-proofwork` alias where the host does not support one.
 
@@ -63,6 +101,29 @@ Preserve its constraints and checkpoint the next action before yielding.
 ```
 
 Host goal semantics remain authoritative. Calling Proofwork alone does not create a goal. It preserves an existing objective, respects supplied limits and interruption, and never treats a budget stop as success. The local completion guard is additional bookkeeping; it cannot complete the host's goal or verify a test merely from a claimed result.
+
+## Local tool commands
+
+These are shell commands for coordinators and contributors. `<plugin-root>` is the installed package root; in this source checkout use `packages/codex` after building. `<repo>` is the target repository. Mutations require its coordinator owner. JSON schemas and recovery rules are in the [tool reference](scripts/README.md).
+
+| Command | Purpose |
+| --- | --- |
+| `node <plugin-root>/scripts/proofwork.mjs --help` | Show usage. |
+| `node <plugin-root>/scripts/proofwork.mjs route --task "Fix export bug" --files src/export.ts` | Select a playbook and skills. |
+| `node <plugin-root>/scripts/proofwork.mjs init --repo <repo> --run <id> --owner <session> --objective "Fix export" --revision <identity> --criteria regression,review` | Initialize a unique run. |
+| `node <plugin-root>/scripts/proofwork.mjs status --repo <repo> --run <id>` | Inspect a checkpoint. |
+| `node <plugin-root>/scripts/proofwork.mjs assign --repo <repo> --run <id> --owner <session> --input <record.json>` | Register task ownership. |
+| `node <plugin-root>/scripts/proofwork.mjs result --repo <repo> --run <id> --owner <session> --input <record.json>` | Record a result or review. |
+| `node <plugin-root>/scripts/proofwork.mjs evidence --repo <repo> --run <id> --owner <session> --input <record.json>` | Record an observation and hash its artifact. |
+| `node <plugin-root>/scripts/proofwork.mjs finding --repo <repo> --run <id> --owner <session> --input <record.json>` | Record or resolve a finding. |
+| `node <plugin-root>/scripts/proofwork.mjs checkpoint --repo <repo> --run <id> --owner <session> --input <record.json>` | Save phase, revision, routing and next action. |
+| `node <plugin-root>/scripts/proofwork.mjs complete --repo <repo> --run <id> --owner <session> --revision <identity>` | Check recorded completion gates; does not complete a native goal. |
+| `node <plugin-root>/scripts/check-commits.mjs --repo <repo> --range <outgoing-range>` | Check outgoing feature sections. |
+| `npm test` | Run the source repository's tests. |
+| `npm run build` | Regenerate both packages. |
+| `npm run check` | Run tests followed by the build. |
+
+Use an identity that includes current content: a clean commit or a recorded snapshot/digest for a dirty checkout. These tools store run state; they do not themselves run tests, spawn agents or establish truth from a supplied `passed` record.
 
 ## Included guidance
 
