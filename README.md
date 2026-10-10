@@ -24,6 +24,23 @@ Functions and files have no universal line-count ceiling. Keep names clear, resp
 
 From a reviewed checkout, one command registers, installs and verifies the plugin: `node scripts/install.mjs --host codex` (or `--host claude-code`). Add `--source .` for the local built source. It does not configure model roles or lifecycle hooks. Older supported Claude versions can use the two-step marketplace registration/install flow in [first run](docs/first-run.md).
 
+## Host and environment parity
+
+Use Node 22 or 24 and Git on Windows, Linux or macOS. The same routing, evidence, recovery and package checks run
+on all six CI combinations. Host execution remains separately verified: the native Codex installer is exercised
+locally; Claude installation and event behavior need a machine with that host available.
+
+For a CLI outside PATH, add `--cli "<absolute executable path>"` to the installer. For Windows npm installations,
+supply the package's Node entry file (`.js`, `.cjs` or `.mjs`) instead of its `.cmd` wrapper. Proofwork invokes it
+with the current Node runtime and literal arguments; it does not evaluate shell wrappers or change PATH.
+Installation checks enabled status and the loaded folder version when Claude reports a folder source.
+
+Prefer `evidence --argv <check-argv.json>` for portable checks. The file is a JSON array such as
+`["node", "scripts/check.mjs", "argument with spaces"]`; use an absolute executable when PATH differs between
+hosts. Arguments are literal, without shell expansion. Choose `--command` explicitly for pipelines or other shell
+syntax. Both forms have the same deadlines, snapshot binding and recorded exit/digest evidence. Neither is a
+sandbox or command allowlist. See the [host/environment verification record](evals/results/host-environment-parity-20261010.md).
+
 ## Operator-ready releases
 
 Codex 0.31.0 is installed and enabled. [Windows/Ubuntu CI](https://github.com/zrmonty/proofwork/actions/runs/38086672914)
@@ -297,7 +314,7 @@ These are shell commands for coordinators and contributors. `<plugin-root>` is t
 | `node <plugin-root>/scripts/proofwork.mjs status --repo <repo> --run <id>` | Inspect a checkpoint. |
 | `node <plugin-root>/scripts/proofwork.mjs assign --repo <repo> --run <id> --owner <session> --input <record.json>` | Register task ownership. |
 | `node <plugin-root>/scripts/proofwork.mjs result --repo <repo> --run <id> --owner <session> --input <record.json>` | Record a result or review. |
-| `node <plugin-root>/scripts/proofwork.mjs evidence --repo <repo> --run <id> --owner <session> --input <record.json> [--command "<check>"] [--timeout-ms <milliseconds>]` | Execute a check with a two-minute default timeout and record actual exit/duration/digests, or record weaker manual evidence. |
+| `node <plugin-root>/scripts/proofwork.mjs evidence --repo <repo> --run <id> --owner <session> --input <record.json> [--argv <check-argv.json> OR --command "<check>"] [--timeout-ms <milliseconds>]` | Execute a check with a two-minute default timeout and record actual exit/duration/digests, or record weaker manual evidence. |
 | `node <plugin-root>/scripts/proofwork.mjs finding --repo <repo> --run <id> --owner <session> --input <record.json>` | Record or resolve a finding. |
 | `node <plugin-root>/scripts/proofwork.mjs checkpoint --repo <repo> --run <id> --owner <session> --input <record.json>` | Save phase, revision, routing and next action. |
 | `node <plugin-root>/scripts/proofwork.mjs complete --repo <repo> --run <id> --owner <session> --revision <identity>` | Check recorded completion gates; does not complete a native goal. |

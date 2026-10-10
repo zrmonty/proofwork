@@ -39,3 +39,9 @@ Continue in the same conversation: “Resume the invoice export repair; verify t
 For a damaged full-run checkpoint, inspect the backup and run the packaged `recover` command with the existing repository, run and coordinator owner. It retains damaged bytes and the backup and returns stopped-incomplete with a reconciliation gap. Inspect current files and uncertain effects since the backup, then checkpoint the real next action and revalidate affected evidence. Missing or invalid backups remain a visible gap; do not overwrite them or discard source work.
 
 Full-tier and Harden-and-Finish reports link a [systems outcome](../shared/contracts/systems-outcome.md). It is the reusable operational handoff; unavailable checks and unassigned owners remain visible.
+
+
+For Windows npm CLI wrappers or a CLI outside PATH, add `--cli "<absolute native executable or Node entry file>"`
+to `scripts/install.mjs`. Supported Node entries end in `.js`, `.cjs` or `.mjs`; shell wrappers are rejected.
+For evidence checks across hosts, use `--argv <JSON string-array file>` instead of shell quoting. This does not
+restrict child-command authority. See the [environment guide](../README.md#host-and-environment-parity).

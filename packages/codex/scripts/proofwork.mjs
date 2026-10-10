@@ -245,14 +245,18 @@ async function recoverState(file, repo, run, options) {
   return recovered;
 }
 async function prepareEvidence(record, options, repo, state) {
+  if (options.command !== undefined && options.argv !== undefined) fail('choose --command or --argv, not both');
+  const invocation = options.argv !== undefined
+    ? JSON.parse(await readFile(options.argv, 'utf8')) : options.command;
+  if (options.argv !== undefined && !Array.isArray(invocation)) fail('--argv file must contain a JSON array');
   const artifact = await safePath(repo, record.artifact, 'artifact');
-  if (options.command && !record.artifact.startsWith('.engineering-team/'))
+  if (invocation !== undefined && !record.artifact.startsWith('.engineering-team/'))
     fail('executed observation artifact must be under .engineering-team/');
   transition(state, 'evidence', record, options.owner);
   const snapshot = await snapshotIdentity(repo);
   if (!sameIdentity(snapshot, state.snapshot)) fail('evidence identity differs from checkpoint; checkpoint first');
-  if (options.command)
-    Object.assign(record, await executeEvidence(record, options.command, repo, artifact, options['timeout-ms']));
+  if (invocation !== undefined)
+    Object.assign(record, await executeEvidence(record, invocation, repo, artifact, options['timeout-ms']));
   else record.source = 'claimed';
   record.snapshot = snapshot; record.digest = await digest(artifact);
   if (!sameIdentity(snapshot, await snapshotIdentity(repo))) fail('command changed codebase; checkpoint and rerun');
@@ -348,7 +352,7 @@ init also accepts --host codex|claude-code --session HOST_SESSION for automatic 
 status --repo PATH --run ID
 recover --repo PATH --run ID --owner SESSION (explicit corrupt/missing-state backup restoration)
 assign|result|evidence|finding|checkpoint --repo PATH --run ID --owner SESSION --input JSON_FILE
-evidence also accepts --command TEXT [--timeout-ms 1..3600000]; default timeout is 120000 ms.
+evidence accepts --command TEXT or --argv JSON_FILE [--timeout-ms 1..3600000]; default is 120000 ms.
 Command observations belong under .engineering-team/. This is arbitrary shell execution, not a sandbox.
 complete --repo PATH --run ID --owner SESSION --revision REV [--allow-claimed]
 preflight --repo PATH --run ID --owner SESSION --revision REV [--allow-claimed] (read-only readiness)

@@ -7,3 +7,8 @@ Use Claude's available shell/process tools and the project's existing check comm
 ## Interactive verification and cleanup
 
 Interactive TUI control requires observable terminal state and supported input; do not declare it from shell availability. Missing interactive tools leave that criterion unverified. Resolve and validate destructive cleanup targets before acting, preserve unrelated files, and follow platform-native path handling.
+
+
+Prefer evidence `--argv JSON_FILE` for executable-plus-argument checks across operating systems. Preserve arguments
+as strings; use an absolute executable when PATH differs. Use `--command` only when shell syntax is required.
+Both inherit operator authority and deadlines. A failed spawn or timeout is a gap, never a successful check.

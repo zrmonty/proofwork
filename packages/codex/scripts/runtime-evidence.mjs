@@ -22,7 +22,9 @@ function streamDigest(stream) {
 }
 async function runCommand(command, repo, timeoutMs) {
   const started = performance.now();
-  const child = spawn(command, { cwd: repo, shell: true, windowsHide: true, detached: process.platform !== 'win32' });
+  const direct = Array.isArray(command);
+  const child = spawn(direct ? command[0] : command, direct ? command.slice(1) : [],
+    { cwd: repo, shell: !direct, windowsHide: true, detached: process.platform !== 'win32' });
   const stdout = streamDigest(child.stdout), stderr = streamDigest(child.stderr);
   const result = await new Promise((resolve, reject) => {
     const timer = setTimeout(() => {
@@ -43,6 +45,11 @@ async function runCommand(command, repo, timeoutMs) {
     stdoutDigest: stdout.digest('hex'), stderrDigest: stderr.digest('hex') };
 }
 export async function executeEvidence(record, command, repo, artifact, timeout = 120000) {
+  const direct = Array.isArray(command);
+  if (direct ? !command.length || command.length > 256
+    || command.some(value => typeof value !== 'string' || value.includes('\0') || value.length > 32768)
+    || !command[0].trim() : typeof command !== 'string' || !command.trim() || command.includes('\0'))
+    throw new Error('evidence invocation must be shell text or a nonempty JSON array of string arguments');
   const timeoutMs = Number(timeout);
   if (!Number.isInteger(timeoutMs) || timeoutMs < 1 || timeoutMs > 3600000)
     throw new Error('evidence timeout must be an integer from 1 to 3600000 milliseconds');
@@ -50,8 +57,8 @@ export async function executeEvidence(record, command, repo, artifact, timeout =
   try {
     const observation = await runCommand(command, repo, timeoutMs);
     const observed = { ...observation, source: 'executed', passed: !observation.timedOut && observation.exitCode === 0,
-      command: 'Executed shell command (text withheld; review invocation against commandDigest)',
-      commandDigest: sha256(command),
+      command: `Executed ${direct ? 'argument-array' : 'shell'} command (text withheld; review commandDigest)`,
+      commandDigest: sha256(direct ? JSON.stringify(command) : command),
       observed: observation.timedOut ? 'command timed out' : `exit ${observation.exitCode}` };
     await output.writeFile(`${JSON.stringify(observed, null, 2)}\n`);
     return { ...record, ...observed };

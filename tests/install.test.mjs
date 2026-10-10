@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { installPlan, install, parseInstallArgs } from '../scripts/install.mjs';
+import { installPlan, install, parseInstallArgs, cliInvocation } from '../scripts/install.mjs';
 const good = (host, enabled = true) => ({status:0,stdout:JSON.stringify(host==='codex'
   ? {installed:[{pluginId:'proofwork@proofwork-local',version:'0.29.0',enabled}]}
   : [{id:'proofwork@proofwork-local',version:'0.29.0',enabled,scope:'user'}])});
@@ -42,4 +42,25 @@ test('installation exit alone cannot certify enabled status or a known version',
     good('codex',false).stdout]){
     assert.throws(()=>install({host:'codex'},()=>({status:0,stdout:output})),/verification/);
   }
+});
+
+
+test('explicit CLI files bypass shell wrappers and select loaded folder versions', () => {
+  const args = ['plugin', 'list', '--json'];
+  assert.deepEqual(cliInvocation('codex', args), { command: 'codex', args });
+  for (const cli of ['host.js', 'host.cjs', 'host.mjs']) {
+    const resolved = cliInvocation('codex', args, cli);
+    assert.equal(resolved.command, process.execPath);
+    assert.deepEqual(resolved.args.slice(1), args);
+  }
+  assert.notEqual(cliInvocation('codex', args, 'host.exe').command, 'codex');
+  for (const cli of ['', '-invalid', '\0', 1, 'host.cmd', 'host.bat', 'host.ps1'])
+    assert.throws(() => cliInvocation('codex', args, cli), /cli/);
+  assert.equal(parseInstallArgs(['--host', 'codex', '--cli', 'host.js']).cli, 'host.js');
+  const listing = [{id:'proofwork@proofwork-local',enabled:true,version:'0.1.0',
+    readFromFolder:'/fixture',folderVersion:'0.35.0'}];
+  const run = () => ({status:0,stdout:JSON.stringify(listing)});
+  assert.equal(install({host:'claude-code',cli:'host.js'},run).version,'0.35.0');
+  delete listing[0].folderVersion;
+  assert.throws(() => install({host:'claude-code'},run), /known version/);
 });

@@ -1,5 +1,12 @@
 # Proofwork changelog
 
+## 0.35.0 — Host and environment parity
+
+- Execute evidence through literal argument arrays or explicitly selected shell commands.
+- Support explicit native/Node CLI entries, bypass Windows shell wrappers and verify Claude folder versions.
+- Match repository policy paths with Windows or Unix separators without mutating caller input.
+- Run complete checks on Windows, Ubuntu and macOS with Node 22 and 24.
+
 ## 0.34.0 — Repository team policy
 
 - Let teams add up to three short declarative rules to existing `.proofwork.json` without a fork.

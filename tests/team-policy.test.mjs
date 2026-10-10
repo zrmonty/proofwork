@@ -67,6 +67,9 @@ test('selectors combine with AND and path prefixes respect directory boundaries'
   const plan = explainRoute('Choose new database');
   assert.equal(withTeamPolicy(plan, repo, 'Choose new database', ['db/schema.sql']).teamPolicy.rules.length, 1);
   assert.equal(withTeamPolicy(plan, repo, 'Choose new database', ['db']).teamPolicy.rules.length, 1);
+  const windowsFiles = ['db\\schema.sql'];
+  assert.equal(withTeamPolicy(plan, repo, 'Choose new database', windowsFiles).teamPolicy.rules.length, 1);
+  assert.deepEqual(windowsFiles, ['db\\schema.sql']);
   for (const files of [[], ['db-old/schema.sql'], ['src/db/schema.sql']]) {
     assert.equal(withTeamPolicy(plan, repo, 'Choose new database', files).teamPolicy.rules.length, 0);
   }

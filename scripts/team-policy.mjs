@@ -64,8 +64,9 @@ function applicable(rule, plan, task, files) {
       file === prefix || file.startsWith(`${prefix}/`))));
 }
 export function withTeamPolicy(plan, repo, task, files) {
+  const normalizedFiles = files.map(file => file.replace(/\\/g, '/'));
   const loaded = readPolicy(repo);
-  const rules = loaded?.policy.rules.filter(rule => applicable(rule, plan, task, files)) ?? [];
+  const rules = loaded?.policy.rules.filter(rule => applicable(rule, plan, task, normalizedFiles)) ?? [];
   return { ...plan, teamPolicy: { source: loaded ? '.proofwork.json' : null, digest: loaded?.digest ?? null,
     mode: isReadOnlyTask(task) ? 'review-only' : 'apply', rules: structuredClone(rules) } };
 }
