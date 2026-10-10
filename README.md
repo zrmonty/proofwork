@@ -1,5 +1,9 @@
 # Proofwork
 
+<p align="center">
+  <img src="assets/brand/proofwork-logo.png" alt="Proofwork" width="360">
+</p>
+
 Proofwork is a **skill-compression plugin for Codex and Claude Code**. Describe what you want to make, judge the result and refine it. Proofwork carries the engineering detail: choosing relevant skills, making proportionate implementation decisions, coordinating workers when useful and verifying the integrated result.
 
 Install in Codex (Bash or PowerShell 7): `codex plugin marketplace add zrmonty/proofwork && codex plugin add proofwork@proofwork-local`. See [installation](#build-and-local-installation) for local builds and Claude Code.

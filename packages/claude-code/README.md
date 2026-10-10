@@ -1,5 +1,7 @@
 # Proofwork 0.30.0 for claude-code
 
+<img src="assets/brand/proofwork-logo.png" alt="Proofwork" width="320">
+
 Install: `/plugin install proofwork --marketplace zrmonty/proofwork` (register the Codex marketplace first).
 
 Claude one-command marketplace install requires 2.1.292+.

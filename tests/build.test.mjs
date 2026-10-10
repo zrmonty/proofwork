@@ -37,6 +37,7 @@ test("isolated builds stamp versions, preserve skill parity and reject broken so
       "scripts",
       "shared",
       "adapters",
+      "assets/brand",
       "docs/skill-specs",
       ".claude-plugin",
       "package.json",
@@ -58,6 +59,22 @@ test("isolated builds stamp versions, preserve skill parity and reject broken so
       ["claude-code", ".claude-plugin"],
     ]) {
       const output = path.join(outputRoot, host);
+      for (const asset of ["proofwork-logo.png", "proofwork-icon.png"]) {
+        const packaged = await readFile(path.join(output, "assets/brand", asset));
+        assert.deepEqual(packaged, await readFile(path.join(repository, "assets/brand", asset)));
+        assert.equal(packaged.subarray(1, 4).toString(), "PNG");
+        assert.ok(packaged.length < 5 * 1024 * 1024);
+        assert.equal(packaged[25], 6, "PNG retains its RGBA transparency channel");
+        if (asset === "proofwork-icon.png") {
+          assert.equal(packaged.readUInt32BE(16), packaged.readUInt32BE(20));
+          assert.ok(packaged.readUInt32BE(16) >= 48 && packaged.readUInt32BE(16) <= 4096);
+        }
+      }
+      if (host === "codex") {
+        const plugin = JSON.parse(await readFile(path.join(output, manifest, "plugin.json"), "utf8"));
+        assert.equal(plugin.interface.logo, "./assets/brand/proofwork-icon.png");
+        assert.equal(plugin.interface.composerIcon, plugin.interface.logo);
+      }
       assert.ok(!(await readdir(output)).includes("hooks"));
       assert.ok(!(await readdir(path.join(output, "adapters"))).includes("hooks"));
       assert.equal(
@@ -173,6 +190,7 @@ test("build refuses to ship packages missing required legal and authorship files
       "adapters",
       "docs/skill-specs",
       "package.json",
+      "assets/brand",
       ".claude-plugin",
       "LICENSE",
       "NOTICE.md",

@@ -117,6 +117,9 @@ export async function build(options = {}) {
         }
       }
       await cp(path.join(repository, "adapters", host), path.join(staging, "adapters"), { recursive: true });
+      await mkdir(path.join(staging, "assets/brand"), { recursive: true });
+      for (const file of ["proofwork-logo.png", "proofwork-icon.png"])
+        await cp(path.join(repository, "assets/brand", file), path.join(staging, "assets/brand", file));
       await removeGenerated(path.join(staging, 'adapters/hooks'), staging);
       if (options.hooks) await cp(path.join(repository, 'adapters', host, 'hooks'), path.join(staging, 'hooks'),
         { recursive: true });
@@ -150,6 +153,8 @@ export async function build(options = {}) {
           shortDescription: "Your intent. Verified software.",
           developerName: "Proofwork contributors",
           category: "Productivity",
+          logo: "./assets/brand/proofwork-icon.png",
+          composerIcon: "./assets/brand/proofwork-icon.png",
           defaultPrompt: ["Use Proofwork to carry this engineering task through verified completion."],
         };
       await writeFile(path.join(staging, manifestDirectory, "plugin.json"), `${JSON.stringify(manifest, null, 2)}\n`);
@@ -162,6 +167,7 @@ export async function build(options = {}) {
       await writeFile(
         path.join(staging, "README.md"),
         `# Proofwork ${metadata.version} for ${host}\n\n` +
+          '<img src="assets/brand/proofwork-logo.png" alt="Proofwork" width="320">\n\n' +
           `Install: \`${install}\` (register the Codex marketplace first).\n\n` +
           "Claude one-command marketplace install requires 2.1.292+.\n\n" +
           "Describe the outcome you want; Proofwork carries the engineering detail and verifies the result. " +

@@ -12,6 +12,8 @@
     "shortDescription": "Your intent. Verified software.",
     "developerName": "Proofwork contributors",
     "category": "Productivity",
+    "logo": "./assets/brand/proofwork-icon.png",
+    "composerIcon": "./assets/brand/proofwork-icon.png",
     "defaultPrompt": [
       "Use Proofwork to carry this engineering task through verified completion."
     ]
