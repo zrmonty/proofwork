@@ -27,6 +27,10 @@ Discovery descriptions shrink 19.7%; aggregate injected guidance grows about 0.2
 These are word counts, not provider token measurements or evidence of better engineering outcomes. Context limits
 were not raised. No human or multi-model comparison was performed for this change.
 
+[Windows and Ubuntu CI](https://github.com/zrmonty/proofwork/actions/runs/38084811385) passes full checks,
+standard and optional-hook builds, and generated-package parity on `364ace8c9040155e6cfa17c7a97482f0021232eb`.
+The first run caught a stale verification-document version header; it was corrected before this passing run.
+
 Plain routing remains compatible. Explained routing now exposes principle IDs plus `principleReferences` paths;
 external consumers that treated IDs as skill directories must use the new paths. The removed commands have no
 discovery aliases. Prior evaluation records retain their original meanings.
