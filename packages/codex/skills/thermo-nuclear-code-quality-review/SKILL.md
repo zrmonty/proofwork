@@ -33,6 +33,8 @@ Resolve violations through cohesive decomposition that preserves contracts, vali
 
 ## Make findings actionable
 
+Apply [clean-code](../clean-code/SKILL.md)'s hard 10-physical-line function cap and complexity review. Inspect complete definitions, including signatures, methods, callbacks and tests; exactly 10 passes and 11 fails. Separate a counted size violation from a supported complexity finding. Require cohesive extraction that preserves contracts rather than compression or trivial helper chains. The bundled file-size checker does not measure function compliance; name the actual inspection scope/tool and unresolved definitions.
+
 Read [finding disposition and counterevidence](references/finding-disposition.md) when a concern is disputed or a revision claims to resolve it. Let demonstrated responsibility change the judgment, inspect the current owner and integrated consumers, and keep structural conclusions separate from unverified runtime claims.
 
 Use the structural reference's concrete-change probe and remedy comparison for disputed findings. Inspect the integrated seam after parallel work, including remaining old owners and consumer assumptions. Prefer a supported local remedy when it fully addresses the concern; fewer layers, pure functions and more files are not independent evidence of better ownership.

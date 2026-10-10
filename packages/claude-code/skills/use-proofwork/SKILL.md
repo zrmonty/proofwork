@@ -57,6 +57,8 @@ Evidence names the criterion, artifact, identity, environment, command or intera
 
 ## Continue safely and deliver
 
+Include clean-code's 10-physical-line function cap in implementation/review criteria. Verify complete definitions through available language-aware analysis or explicitly scoped inspection, and preserve meaningful complexity/behavior checks after extraction. Whole-file size checks alone cannot satisfy this criterion. Coordinate out-of-scope violations and report incomplete repository-wide coverage rather than claiming a full pass.
+
 Checkpoint before dispatch, after integration/review/checks and before yielding. On interruption or continuation read [recovery and evidence](references/recovery.md), reload this skill and the adapters, then inspect the actual checkout, live workers and uncertain effects. A saved identifier does not prove liveness, and an absent success record does not prove an external action failed.
 
 Follow the host's live goal contract. Invoking Proofwork does not create a goal. Create one only when explicitly requested, supply budgets only when requested, pause only when requested, and use blocked status only under the host's conditions. No second scheduler or replacement loop. Limits preserve an incomplete checkpoint rather than establishing success.
