@@ -56,3 +56,19 @@ The reference is original decision guidance. These cases specify observable acce
 ## Evaluation status and authorship
 
 Original Proofwork instructions and examples. Cargo, Python, Node and SQLite primary documentation was inspected for measurement constraints. Acceptance cases specify expected behavior; they do not assert that benchmarks or forward evaluations were executed. Executed checks and limitations belong in the parent verification record.
+
+## User-facing benchmark contract
+
+Load references/before-and-after-report.md for an investigation, optimization or harness result. Final delivery contains actual comparable before/after values with workload, unit and statistic, absolute difference and directional percentage, sample count/variation, environment, revisions/digests, reproduction commands and sanitized raw evidence. Include relevant resource/tail/failure tradeoffs. Explain the effect only at the measured boundary; a microbenchmark does not establish end-to-end benefit.
+
+Additional authored acceptance cases:
+- A median operation falls from 180 ms to 120 ms: report 60 ms saved, 33.3% lower duration and, if useful, 1.5x speedup; keep these hypothetical until actual samples exist.
+- A faster mean accompanies a worse required tail or memory target: show both and reject the constraint violation rather than hiding the adverse row.
+- Only the candidate is runnable: show its observed result, state the missing baseline and leave relative improvement unverified.
+- Different cache states or completed operation counts invalidate a gain; rerun equivalently or label the observations non-comparable.
+- A suite setup change saves wall time while operation measurements are unchanged: describe developer feedback improvement without claiming faster product behavior.
+- Baseline zero makes a percentage undefined; show the absolute difference without division or invented infinity.
+- Valid repeated samples remain noisy: report the actual observations/variation and no reliable improvement demonstrated.
+- A worker measured the change: the coordinator preserves its current-artifact provenance and includes the comparison in final delivery rather than leaving it only in a private handoff.
+
+These are report acceptance requirements, not executed application benchmarks or proof of measured improvement.

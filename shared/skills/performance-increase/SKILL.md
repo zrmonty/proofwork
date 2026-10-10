@@ -41,6 +41,10 @@ Use a selected benchmark for iteration and retain the appropriate complete confi
 
 ## Compare, decide and return evidence
 
+Read [before-and-after reporting](references/before-and-after-report.md) when returning an investigation, optimization or benchmark-harness result. Give the user actual baseline and candidate measurements in the final answer: workload/metric/statistic, before, after, absolute difference and percentage change with direction. Include sample counts and observed variation, comparable conditions, artifact identities, reproduction commands and sanitized raw evidence. Explain the measured benefit in terms of the user's task, with relevant regressions and resource tradeoffs alongside it. Do not leave the comparison only in a worker report or say "faster" without numbers.
+
+Capture the baseline before edits or safely reconstruct it for a comparable rerun. If a side cannot be measured, say so; report available observations and keep the gain unverified. Historical or illustrative numbers must be labeled and never substituted for this task's evidence. Separate microbenchmark, end-to-end behavior and benchmark-suite wall time; no measured internal speedup establishes an unmeasured user-wait improvement.
+
 Run the relevant correctness checks and repeat the baseline/candidate comparison under the recorded conditions. If possible, alternate their order or otherwise account for warm-up and machine drift. Record the actual measurement statistic and its variation; do not call a mean a percentile or claim a precise improvement below the experiment's resolution. For a reduction, identify the baseline denominator: `(baseline - candidate) / baseline`. Keep suite wall time and per-operation time in separate rows.
 
 Inspect adjacent resource costs. Faster average response can hide worse tail latency, greater memory use, increased database writes, or saturation under concurrency. Accept a tradeoff only when it fits the user's constraints, and document a limitation that matters. If the hypothesis fails, revert the ineffective change or explain why another independently demonstrated benefit justifies it. Avoid accumulating speculative tweaks.

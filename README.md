@@ -49,7 +49,7 @@ Give any skill a task in the same prompt. In Codex, use `$<skill-name>` or selec
 | `$setup` | `/proofwork:setup` | Inspect host capabilities, toolchains, model roles and repository checks. |
 | `$architecture-fit` | `/proofwork:architecture-fit` | Challenge every major stack component, compare simpler adequate alternatives and justify tools from real requirements. |
 | `$production-finish` | `/proofwork:production-finish` | Prepare an app for production, inspect secret exposure, establish hosting and build a suitable container when needed. |
-| `$performance-increase` | `/proofwork:performance-increase` | Profile bottlenecks, improve measured runtime/resource use and reduce benchmark overhead without changing the workload. |
+| `$performance-increase` | `/proofwork:performance-increase` | Profile and optimize with actual before/after benchmarks, clear savings and resource tradeoffs. |
 | `$tdd-95` | `/proofwork:tdd-95` | Use test-first development with separate 95% line/branch gates and consolidate redundant tests while preserving fault detection. |
 | `$brainstorm` | `/proofwork:brainstorm` | Shape a new project or unresolved idea into a concrete direction and first useful slice. |
 | `$worker-mode` | `/proofwork:worker-mode` | Execute a bounded assignment and return a reviewable result. |
