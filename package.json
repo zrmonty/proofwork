@@ -1,6 +1,6 @@
 {
   "name": "proofwork",
-  "version": "0.20.0",
+  "version": "0.20.1",
   "private": true,
   "type": "module",
   "scripts": {
@@ -11,7 +11,8 @@
     "context-budget": "node scripts/check-skill-list.mjs && node scripts/context-budget.mjs",
     "check:source-lines": "node scripts/check-source-lines.mjs",
     "check:coverage": "node scripts/verify-coverage.mjs",
-    "build:hooks": "node scripts/build.mjs --hooks"
+    "build:hooks": "node scripts/build.mjs --hooks",
+    "test:routing": "node --test tests/router-corpus.test.mjs tests/language-routing-corpus.test.mjs tests/language-fit.test.mjs"
   },
   "engines": {
     "node": ">=22"

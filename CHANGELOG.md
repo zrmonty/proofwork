@@ -1,5 +1,11 @@
 # Proofwork changelog
 
+## 0.20.1 — Go/C routing regressions
+
+- Added a separately labeled 50-prompt routing corpus: ordinary go/C phrases, genuine technology choices and focused implementation controls. Both unintended architecture routing and missing language-choice skills fail the checks.
+- Replaced bare go/C keyword triggers with explicit programming context; retained genuine comparisons and added evaluate as a choice verb.
+- Added the fast `npm run test:routing` command. The corpus also runs in the existing test and coverage gates; no model calls or new dependencies.
+
 ## 0.20.0 — optional lifecycle recovery and completion checks
 
 - Added explicit host-session/run binding, read-only completion preflight and shared lifecycle policy.

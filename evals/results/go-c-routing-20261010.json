@@ -1,0 +1,37 @@
+{
+  "schemaVersion": 1,
+  "version": "0.20.1",
+  "corpus": "tests/language-routing-corpus.json",
+  "corpusSha256": "8d5ccd36f551b70e7999c7b6ca925683ae005247d208699fcf68980b8cd692f9",
+  "rulesSha256": "a463613ab34c49554993112b534e3db6fe36b22550d14ca27c97b435165b4cc2",
+  "prompts": 50,
+  "groups": {
+    "ordinaryGo": 12,
+    "ordinaryC": 12,
+    "technologyChoice": 20,
+    "focusedWork": 6
+  },
+  "before": {
+    "passingPrompts": 23,
+    "falsePositiveChoices": 26,
+    "missedTechnologyChoices": 1
+  },
+  "after": {
+    "passingPrompts": 50,
+    "falsePositiveChoices": 0,
+    "missedTechnologyChoices": 0
+  },
+  "targetedRoutingTests": {
+    "passed": 149,
+    "failed": 0
+  },
+  "fullCheck": "npm run check passed",
+  "scope": "Deterministic routing only; no model task-quality claim",
+  "installedCodex": {
+    "version": "0.20.1",
+    "sourceFiles": 161,
+    "mismatches": 0,
+    "ordinaryGoRoute": "feature; no architecture/language-fit",
+    "technicalGoRoute": "architecture; language-fit selected"
+  }
+}
