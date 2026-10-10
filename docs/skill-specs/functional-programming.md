@@ -11,6 +11,8 @@ Read caller contracts, domain rules, ownership, effect boundaries, and project c
 ## Required decisions
 
 - Make supplied inputs sufficient to predict a domain result; obtain unstable dependencies at the boundary.
+- Require unambiguous domain naming for changed functions, parameters, bindings, types, fields, events and effects. Distinguish calculation/proposal, commit, execution and observation; expose relevant units, absolute/delta intent and lifecycle. Vague placeholders and unexplained abbreviations fail when they conceal meaning. Contextually clear short names remain valid.
+- Review names with their callers, use consistent domain vocabulary and update internal consumers together. Preserve public/wire/persisted compatibility unless an authorized migration changes it. Genuine uncertain outcomes must remain honestly named; unresolved domain meaning or compatibility constraints remain explicit, not invented certainty.
 - Preserve caller-owned data under the actual contract, distinguishing shallow copies, nested aliases, and immutable sharing.
 - Choose direct data shapes and meaningful states/errors rather than speculative generic abstractions.
 - Separate state transition decisions from existing effect execution and persistence ownership.
@@ -41,6 +43,9 @@ Existing cases are in evals/language-scenarios.md. Expanded decisions:
 7. Checks distinguish transition unit evidence from a real failure/recovery boundary.
 8. An event sequence preserves inputs and deterministically returns next state/effect requests, including duplicate/stale outcomes and uncertainty. Executing I/O in the transition fails.
 9. A framework updater may evaluate twice: no network or telemetry fires from the pure updater, and a rejected storage candidate issues no effects.
+10. A pure function called sendDelivery merely returns a proposed request: use a truthful domain proposal/calculation name and update its internal callers. A vague replacement such as handleData fails.
+11. Absolute quantity, quantity delta and retry milliseconds have distinct names; ambiguous quantity/amount/timeout values fail when callers cannot distinguish their meaning. A concise line binding inside invoice traversal passes.
+12. A remote timeout leaves delivery unconfirmed: retain an explicit unknown outcome name rather than confirmedDelivery. Naming clarity must not erase domain uncertainty or break an incumbent wire field without an authorized migration.
 
 ## Additional decision cases from the second depth review
 

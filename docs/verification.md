@@ -153,3 +153,7 @@ Version 0.15.0 adds language-fit to compare implementation technology across sys
 ## Follow-up: comprehensive Rust topic depth
 
 Version 0.16.0 expands the single Rust entry from seven to twenty-three conditional references. A [coverage map](rust-topic-coverage.md) accounts for all 75 readable numbered lessons in nine supplied images without inferring unseen titles. The [verification report](../evals/results/rust-curriculum-20261010.md) records independent review, exact current examples passing nineteen embedded and two consumer tests in debug/release, formatting and warning-denied Clippy, five expected compiler rejections, scoped function-size inspection, all fifty-six plugin tests, both package builds, strict validation and installed parity across 103 skill/reference files. No Rust numerical coverage, minimum-toolchain matrix, application benchmark, unsafe/async runtime or host behavioral certification was performed.
+
+## Follow-up: required functional naming
+
+Version 0.16.1 makes clear domain naming mandatory in functional-programming, distinguishing pure decisions/proposals from effect execution and exposing lifecycle, units and intent. Contextually clear short names remain valid, and genuine uncertainty remains explicit. The [verification report](../evals/results/functional-naming-20261010.md) records all fifty-six passing tests, both package builds, validators and installed parity across 103 skill/reference files. No naming linter, repository-wide rename or host behavioral evaluation was performed.
