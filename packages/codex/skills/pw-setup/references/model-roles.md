@@ -31,3 +31,6 @@ prefer relevant alternatives. Missing inventory leaves automatic choices unavail
 Use the runtime adapter for dispatch. Log requested/actual models and effort, unknown otherwise; replan after access
 failures. Explicit mappings override capability preferences. Budgets are advisory unless host-enforced; the coordinator
 limits scheduling. Setup provides a first useful check, then proceeds. It does not force newcomers to configure roles.
+
+Candidate budgets default to two; maxCandidates can explicitly request three for a distinct arena hypothesis.
+maxReviewers remains at most two and maxParallel at most three; a third candidate does not grant extra host capacity.

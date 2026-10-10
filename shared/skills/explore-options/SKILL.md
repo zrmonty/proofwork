@@ -17,3 +17,5 @@ Read [prototype comparison](references/comparison.md). Produce isolated, disposa
 uncertainty. Compare observations, select a coherent approach and record why the rejected option lost. Integrate
 only the useful slice, remove discarded prototypes and verify again. Surface consequential tradeoffs; resolve routine
 choices yourself. Report unknowns, requested/observed models and time/token costs.
+
+Use [option-arena](../option-arena/SKILL.md) for parallel candidates; a configured third candidate needs a distinct hypothesis.

@@ -19,6 +19,9 @@ For high-risk integrated work, read [model patterns](../use-proofwork/references
 correctness and maintainability reviewers with configured supported roles; resolve disagreements through artifact
 evidence and safe counterexamples, not majority votes.
 
+Use [challenge-review](../challenge-review/SKILL.md) for independent angles; feed its findings into this verdict
+rather than replacing the established lens or accepting a majority vote.
+
 ## Make the concern actionable
 
 Each finding names a location, observed mechanism, practical maintenance consequence, smallest adequate remedy and behavior to preserve. Distinguish demonstrated defects, supported structural concerns and unanswered questions. Prefer cohesive pure decisions and explicit resource boundaries. Do not manufacture helper chains, compress code or add frameworks to satisfy cosmetic metrics.

@@ -7,6 +7,9 @@ description: When auditing trust boundaries and repairing reachable vulnerabilit
 
 Find reachable ways an untrusted actor can violate access, data or execution contracts, repair their shared causes, and verify legitimate behavior. An audit-and-harden request includes scoped local fixes; an explicitly read-only audit returns findings. Preserve the requested product and deployment choices.
 
+Use [trace-path](../trace-path/SKILL.md) to establish actual trust/effect boundaries and
+[impact-map](../impact-map/SKILL.md) before claiming a repair preserves dependent surfaces.
+
 ## Establish the surface
 
 Inspect instructions, current edits, entry points, identity/session handling, data ownership, configuration, locked dependencies and delivery artifacts. Name the reviewed snapshot, assets, actors and trust boundaries. Trace a protected action through authorization, mutation and response, including alternate routes, jobs and retrieval paths.

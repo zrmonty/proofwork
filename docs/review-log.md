@@ -22,3 +22,5 @@ Model-role review (0.25.0): independent agent inspection and coordinator checks 
 model-pattern access, realistic architecture/hosting routes, mixed-review verification, readonly concurrency floors,
 documentation-scope production guidance and the packaged principle index. Fixes received focused regressions and
 current-artifact full checks. This is agent review, not human approval, native multi-model proof or a quality gain.
+
+Context-skill review (0.26.0): independent agent review found impact mapping was scheduled only after cross-boundary edits and schema migrations without file paths missed tracing. Both were corrected with failing-then-passing regressions. Final scoped review found no material issues. Coverage and packaging checks are separately recorded; this is not human approval, live skill-adherence proof or multi-model quality evidence.

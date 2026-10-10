@@ -1,4 +1,4 @@
-# Proofwork 0.25.0 for codex
+# Proofwork 0.26.0 for codex
 
 Install: `codex plugin add proofwork@proofwork-local` (Codex requires marketplace registration; Claude requires 2.1.275+).
 

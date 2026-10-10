@@ -155,3 +155,9 @@ test("planner is read only, bounded and CLI errors omit supplied secrets", async
   await symlink(repo, path.join(repo, ".proofwork.json"), "junction");
   await assert.rejects(planModelRoles({ repo, host: "codex", inventory: file }));
 });
+
+test("a third arena candidate requires explicit configuration and remains bounded", () => {
+  assert.equal(resolveModelRoles({}, [], "codex").budgets.maxCandidates, 2);
+  assert.equal(resolveModelRoles({ modelBudgets: { maxCandidates: 3 } }, [], "codex").budgets.maxCandidates, 3);
+  assert.throws(() => resolveModelRoles({ modelBudgets: { maxCandidates: 4 } }, [], "codex"));
+});

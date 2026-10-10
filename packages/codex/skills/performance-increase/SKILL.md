@@ -7,6 +7,8 @@ description: When profiling bottlenecks and measuring comparable before-and-afte
 
 Reduce demonstrated product cost or benchmark-suite wall time while preserving the contract. Product runtime, microbenchmarks and harness feedback are different targets. Pursue the largest supported opportunity, then stop when the agreed target is met or further cost outweighs benefit. Optimization does not authorize live-service load, new infrastructure or unrelated rewrites.
 
+For repeated measurable improvements, use [measure-loop](../measure-loop/SKILL.md); this skill owns benchmark validity.
+
 ## Establish comparable measurements
 
 Inspect callers, existing profiles/benchmarks, production configuration and prior results. Identify whose latency, throughput, startup, rendering, allocation, memory, query count or feedback time matters. Resolve missing workload, hardware, tail-latency and resource constraints that would change the decision; do not invent required speedups.

@@ -14,3 +14,6 @@ Recommend the least burdensome complete arrangement the owner can operate. A sma
 Read [decision workflow](references/decision-workflow.md) for consequential architecture work. Select [storage fit](references/storage-fit.md), [component decisions](references/component-decisions.md), or [exit cost and ownership](references/exit-cost-and-ownership.md) for the actual question. Load [language fit](../language-fit/SKILL.md) when implementation technology is undecided.
 
 Return a recommendation and practical consequences, the requirements excluding serious alternatives, evidence gaps, preserved contracts and the cheapest meaningful verification or reopening condition. Do not present popularity or unspecified future scale as evidence.
+
+For existing systems, use [trace-path](../trace-path/SKILL.md); use [origin-check](../origin-check/SKILL.md)
+when an unusual choice may encode an earlier constraint.

@@ -12,12 +12,19 @@ export function measureContext(repo, corpus) {
   const lightWords = wordCount(path.join(skillRoot, 'use-proofwork/references/light.md'));
   const scenarios = corpus.map(scenario => {
     const result = explainRoute(scenario.task, scenario.files);
-    const skills = [...result.skills, ...result.principles]
-      .map(skill => wordCount(path.join(skillRoot, skill, 'SKILL.md')));
+    const initial = [...new Set([...result.skills, ...result.principles,
+      ...result.workflow.beforeWork, ...result.workflow.options])];
+    const skills = initial.map(skill => wordCount(path.join(skillRoot, skill, 'SKILL.md')));
+    const deferred = [...new Set([...result.workflow.review, ...result.workflow.report])]
+      .filter(skill => !initial.includes(skill));
+    const deferredWords = deferred.reduce((total, skill) =>
+      total + wordCount(path.join(skillRoot, skill, 'SKILL.md')), 0);
     const words = entryWords + skills.reduce((total, count) => total + count, 0);
-    return { task: scenario.task, tier: result.tier, words: words + (result.tier === 'light' ? lightWords : 0) };
+    return { task: scenario.task, tier: result.tier, deferredWords,
+      words: words + (result.tier === 'light' ? lightWords : 0) };
   });
-  return { scenarios, totalWords: scenarios.reduce((total, scenario) => total + scenario.words, 0) };
+  return { scenarios, totalWords: scenarios.reduce((total, scenario) => total + scenario.words, 0),
+    totalDeferredWords: scenarios.reduce((total, scenario) => total + scenario.deferredWords, 0) };
 }
 
 export function checkContextBudget(measured, baseline) {

@@ -64,6 +64,8 @@ test("Proofwork context includes selected principle sources and optional unresol
   for (const principle of explainRoute(task.prompt, task.files).principles) {
     assert.ok(ordinary.includes(`${principle}${path.sep}SKILL.md`));
   }
+  plan.budgets.maxCandidates = 3;
+  writeFileSync(modelPlanPath, JSON.stringify(plan));
   const configured = harness.profileContext("proofwork", task, { modelPlanPath });
   assert.ok(configured.startsWith(ordinary));
   assert.match(configured, /untrusted requested plan/);

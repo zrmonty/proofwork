@@ -20,7 +20,8 @@ Create an ignored JSON config with `command`, string-array `args`, optional
 workspace and task context. The reference arm requires `referenceContextPath`;
 Proofwork defaults to canonical skill entries and can use `proofworkSkillRoot`.
 Bare receives the task and shared evaluation constraints without a skill profile.
-The entry and selected skills are injected; conditional references remain at
+The entry, selected skills/principles and preparation/options guidance are injected; deferred review/report
+selection is included as a phase plan, to load when reached. conditional references remain at
 their declared source paths. An installed automatic plugin can contaminate the
 bare arm, so host isolation must be verified separately.
 

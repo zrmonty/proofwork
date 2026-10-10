@@ -1,0 +1,89 @@
+{
+  "schemaVersion": 1,
+  "version": "0.26.0",
+  "date": "2026-10-10",
+  "environment": {
+    "os": "Windows",
+    "node": "24.16.0"
+  },
+  "checks": {
+    "fullCheckPassed": true,
+    "standardPackages": [
+      "codex",
+      "claude-code"
+    ],
+    "skillsPerPackage": 49,
+    "optionalHookPackagesBuilt": true,
+    "codexInstalledVersion": "0.26.0",
+    "codexEnabled": true,
+    "workflowRegressionTests": 12
+  },
+  "coverage": {
+    "passed": true,
+    "threshold": 95,
+    "revision": "scripts-sha256:e1e5407257d295cc521f4587d63fade92da8f9ed138ec902e370ce430ace2484",
+    "tool": "Node V8 LCOV",
+    "files": 19,
+    "metrics": {
+      "lines": {
+        "covered": 2213,
+        "total": 2240,
+        "percent": 98.79464285714286,
+        "passed": true
+      },
+      "branches": {
+        "covered": 1362,
+        "total": 1399,
+        "percent": 97.35525375268048,
+        "passed": true
+      }
+    },
+    "inventory": [
+      "scripts/build.mjs",
+      "scripts/check-commits.mjs",
+      "scripts/check-coverage.mjs",
+      "scripts/check-file-lines.mjs",
+      "scripts/check-skill-list.mjs",
+      "scripts/check-source-lines.mjs",
+      "scripts/collect-coverage.mjs",
+      "scripts/context-budget.mjs",
+      "scripts/hook-binding.mjs",
+      "scripts/hook-policy.mjs",
+      "scripts/host-hook.mjs",
+      "scripts/model-roles.mjs",
+      "scripts/proofwork.mjs",
+      "scripts/routing.mjs",
+      "scripts/runtime-evidence.mjs",
+      "scripts/runtime-locks.mjs",
+      "scripts/runtime-snapshot.mjs",
+      "scripts/verify-coverage.mjs",
+      "scripts/workflow-routing.mjs"
+    ]
+  },
+  "skillListing": {
+    "skills": 49,
+    "words": 380,
+    "violations": [],
+    "passed": true
+  },
+  "initialContext": {
+    "scenarios": 92,
+    "aggregateWords": 163019,
+    "maxLight": 578,
+    "maxStandard": 2870,
+    "entryWords": 188
+  },
+  "deferredContext": {
+    "aggregateEntryWords": 12822,
+    "note": "Review/report bodies load at their stages; preparation and options count upfront. Conditional references and task/model tokens are additional."
+  },
+  "review": {
+    "independentAgentReview": true,
+    "correctedFinding": "Move impact mapping before cross-boundary edits and recognize schema migrations without a file inventory."
+  },
+  "limits": [
+    "Worked scenarios illustrate procedure; they were not executed on a real application.",
+    "Live agent adherence, native cross-model dispatch and multi-model quality gains remain unverified.",
+    "No public release tag, deployment or global hook installation."
+  ]
+}

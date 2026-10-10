@@ -66,7 +66,7 @@ function validateConfiguration(config) {
     for (const [name, value] of Object.entries(config.modelBudgets)) {
       if (!Object.hasOwn(defaultBudgets, name)) fail();
       if (name === "maxTokens" && value === null) continue;
-      const maximum = name === "maxTokens" ? 1000000000 : defaultBudgets[name];
+      const maximum = name === "maxTokens" ? 1000000000 : name === "maxCandidates" ? 3 : defaultBudgets[name];
       if (!Number.isSafeInteger(value) || value < 1 || value > maximum) fail();
       budgets[name] = value;
     }

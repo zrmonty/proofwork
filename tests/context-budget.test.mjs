@@ -46,7 +46,8 @@ function fixture() {
   putFile(repo, 'shared/skills/use-proofwork/SKILL.md', 'entry '.repeat(100));
   putFile(repo, 'shared/skills/use-proofwork/references/light.md', 'stub '.repeat(50));
   for (const skill of ['pw-worker-mode', 'functional-programming', 'data-driven-development', 'pw-clean-code',
-    'tdd-95', 'security-hardening', 'thermo-nuclear-code-quality-review', 'rust-best-practices']) {
+    'tdd-95', 'security-hardening', 'thermo-nuclear-code-quality-review', 'rust-best-practices',
+    'trace-path', 'clear-voice', 'evidence-surface', 'impact-map', 'challenge-review']) {
     putFile(repo, `shared/skills/${skill}/SKILL.md`, 'skill '.repeat(10));
   }
   for (const name of ['proportionate-effort', 'preserve-contracts', 'prove-the-journey',
@@ -63,8 +64,10 @@ test('initial context counts the root, light stub and every selected skill once'
     { task: 'Rename a Rust field', files: ['main.rs'] }, { task: 'Implement parser', files: [] },
     { task: 'Harden application', files: [] }, { task: 'Fix retry logic', files: [] }];
   const measured = measureContext(repo, corpus);
-  assert.deepEqual(measured.scenarios.map(scenario => scenario.words), [160, 170, 160, 200, 170]);
-  assert.equal(measured.totalWords, 860);
+  assert.deepEqual(measured.scenarios.map(scenario => scenario.words), [170, 170, 160, 210, 180]);
+  assert.equal(measured.totalWords, 890);
+  assert.deepEqual(measured.scenarios.map(scenario => scenario.deferredWords), [10, 20, 20, 20, 20]);
+  assert.equal(measured.totalDeferredWords, 90);
 });
 
 test('budget command reports a failure and success from the actual selected entries', t => {
@@ -84,4 +87,14 @@ test('budget command reports a failure and success from the actual selected entr
   putFile(repo, 'shared/skills/use-proofwork/references/large.md', 'word '.repeat(801));
   assert.equal(contextBudget(repo).passed, false);
   assert.ok(contextBudget(repo).violations.some(file => file.limit === 800));
+});
+
+test('new context questions retain bounded light guidance in the real package', () => {
+  const questions = ['How does the parser reject invalid input?', 'Why was this unusual cache limit chosen?'];
+  const measured = measureContext(process.cwd(), questions.map(task => ({ task, files: ['src/parser.rs'] })));
+  for (const scenario of measured.scenarios) {
+    assert.equal(scenario.tier, 'light');
+    assert.ok(scenario.words <= 800, `${scenario.task}: ${scenario.words}`);
+    assert.ok(scenario.deferredWords > 0);
+  }
 });

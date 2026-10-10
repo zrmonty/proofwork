@@ -1,11 +1,14 @@
 import { readFileSync } from 'node:fs';
+import { workflowFor } from './workflow-routing.mjs';
 
 const rules = JSON.parse(readFileSync(new URL('../shared/routing.json', import.meta.url)));
 const testPattern = (pattern, value) => new RegExp(pattern, 'i').test(value);
 const matches = (name, task) => testPattern(rules.patterns[name], task);
 const hasExtension = (name, files) => files.some(file => testPattern(rules.extensions[name], file));
 const docsOnly = files => files.length > 0 && files.every(file => testPattern(rules.extensions.docs, file));
-const readonly = task => matches('readOnly', task) || matches('dryRun', task);
+const readonly = task => matches('readOnly', task) || matches('dryRun', task) ||
+  /^\s*how\s+(?:does|do)\b.*\b(?:work|behave|handle|reject|process|flow)\b/i.test(task) ||
+  /^\s*why\s+(?:was|is|does|did|were)\b.*\b(?:chosen|introduced|designed|decided|constraint|decision)\b/i.test(task);
 
 function languageChoice(task) {
   if (matches('copyLanguage', task) && !matches('languageFit', task)) return false;
@@ -190,5 +193,6 @@ export function explainRoute(task, files = [], requestedTier) {
   return {
     tier, playbook: recommendation.playbook, skills, recommendedTier: recommendation.tier, tierReasons, principles,
     tierOverride: { requested: requestedTier ?? null, applied: tier, minimum, constrained },
+    workflow: workflowFor(task, files, tier, recommendation.playbook),
   };
 }

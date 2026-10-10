@@ -1,5 +1,15 @@
 # Proofwork changelog
 
+## 0.26.0 — context and delivery workflows
+
+- Added ten original skills: Trace Path, Origin Check, Option Arena, Challenge Review, Clear Voice, Probe First,
+  Impact Map, Measure Loop, Procedure Draft and Evidence Surface.
+- Explained routes expose preparation, exploration, review and report phases without changing plain route JSON.
+- Initial budgets count preparation/options; deferred review/report costs are separately disclosed.
+- Current-behavior and historical-decision questions investigate rather than schedule implementation.
+- Candidate budgets default to two and permit an explicit third; review/concurrency limits remain bounded.
+- Connected existing architecture, security, production, performance and review lenses; added illustrative scenarios.
+
 ## 0.25.0 — model roles and inspectable decisions
 
 - Repository-local five-role model plans resolve observed capabilities with explicit reasoning and advisory budgets;
@@ -156,7 +166,7 @@ For a behavioral run, copy the intentional fixture into a disposable repository,
 
 ## Authorship and delivery
 
-Every shipped skill has a project-specific [specification](skill-specs/) and behavioral cases. Instructional files were independently authored, not copied/adapted from existing skills. Canonical assets are deliberately replicated into our own two packages by the build. The authorship/source review found no imported instructional assets; this is a review record, not automated proof of independent authorship.
+Every shipped skill has a project-specific [specification](docs/skill-specs/) and behavioral cases. Instructional files were independently authored, not copied/adapted from existing skills. Canonical assets are deliberately replicated into our own two packages by the build. The authorship/source review found no imported instructional assets; this is a review record, not automated proof of independent authorship.
 
 Newly authored commits include Major features and Minor features sections. The formatter check runs against actual Git history and validates structure only. Raw provider event logs and stderr are excluded from Git; exported summaries omit credentials. No global scheduler, hook, credential store, external release publication, or mixed-provider bridge was installed.
 
@@ -222,7 +232,7 @@ Version 0.10.1 strengthens frontend-design with actionable direction, reference 
 
 ## Follow-up: references across every skill
 
-Version 0.11.0 adds twenty-one conditional references across all twenty-one skills, expanding the collection to fifty-five references. Entries and specifications map the new decision support; a [reference guide](reference-guide.md) makes it discoverable. The [verification report](evals/results/references-expansion-20261010.md) records independent source review, separate hypothetical scenario reasoning, all twenty-five passing tests, both package builds, all skill validators, strict Claude validation and installed parity across seventy-six skill/reference files. These checks do not establish application-level behavioral certification or comparative improvement.
+Version 0.11.0 adds twenty-one conditional references across all twenty-one skills, expanding the collection to fifty-five references. Entries and specifications map the new decision support; a [reference guide](docs/reference-guide.md) makes it discoverable. The [verification report](evals/results/references-expansion-20261010.md) records independent source review, separate hypothetical scenario reasoning, all twenty-five passing tests, both package builds, all skill validators, strict Claude validation and installed parity across seventy-six skill/reference files. These checks do not establish application-level behavioral certification or comparative improvement.
 
 ## Follow-up: deep Rust decisions and checked example
 
@@ -234,7 +244,7 @@ Version 0.12.1 adds a hard ten-physical-line cap for complete project-owned func
 
 ## Follow-up: skill compression as the product goal
 
-Version 0.13.0 makes [skill compression](vision.md) the main goal: users steer through intent, taste and judgment while Proofwork carries engineering detail and verifies the result. Root, worker and architecture guidance now implement that division of responsibility; expertise and consequential authority remain accessible. The [verification report](evals/results/skill-compression-20261010.md) records all twenty-five tests, both builds, changed-skill validators, strict Claude validation, independent textual review and installed parity across eighty-two skill/reference files. No comparative newcomer evaluation or fresh application workflow was executed, so reduced cognitive burden remains a goal to measure rather than a claimed improvement.
+Version 0.13.0 makes [skill compression](docs/vision.md) the main goal: users steer through intent, taste and judgment while Proofwork carries engineering detail and verifies the result. Root, worker and architecture guidance now implement that division of responsibility; expertise and consequential authority remain accessible. The [verification report](evals/results/skill-compression-20261010.md) records all twenty-five tests, both builds, changed-skill validators, strict Claude validation, independent textual review and installed parity across eighty-two skill/reference files. No comparative newcomer evaluation or fresh application workflow was executed, so reduced cognitive burden remains a goal to measure rather than a claimed improvement.
 
 ## Follow-up: stage-aware entry routing
 
@@ -250,7 +260,7 @@ Version 0.15.0 adds language-fit to compare implementation technology across sys
 
 ## Follow-up: comprehensive Rust topic depth
 
-Version 0.16.0 expands the single Rust entry from seven to twenty-three conditional references. A [coverage map](rust-topic-coverage.md) accounts for all 75 readable numbered lessons in nine supplied images without inferring unseen titles. The [verification report](evals/results/rust-curriculum-20261010.md) records independent review, exact current examples passing nineteen embedded and two consumer tests in debug/release, formatting and warning-denied Clippy, five expected compiler rejections, scoped function-size inspection, all fifty-six plugin tests, both package builds, strict validation and installed parity across 103 skill/reference files. No Rust numerical coverage, minimum-toolchain matrix, application benchmark, unsafe/async runtime or host behavioral certification was performed.
+Version 0.16.0 expands the single Rust entry from seven to twenty-three conditional references. A [coverage map](docs/rust-topic-coverage.md) accounts for all 75 readable numbered lessons in nine supplied images without inferring unseen titles. The [verification report](evals/results/rust-curriculum-20261010.md) records independent review, exact current examples passing nineteen embedded and two consumer tests in debug/release, formatting and warning-denied Clippy, five expected compiler rejections, scoped function-size inspection, all fifty-six plugin tests, both package builds, strict validation and installed parity across 103 skill/reference files. No Rust numerical coverage, minimum-toolchain matrix, application benchmark, unsafe/async runtime or host behavioral certification was performed.
 
 ## Follow-up: required functional naming
 

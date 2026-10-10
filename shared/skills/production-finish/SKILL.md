@@ -7,6 +7,9 @@ description: When preparing hosting, deployment artifacts, secret handling and r
 
 Prepare a verified production artifact, suitable hosting plan and accountable operational responsibilities. A development server or built image does not establish deployment readiness. Identify whether the request authorizes local cleanup, packaging, environment changes or deployment; building does not authorize publishing.
 
+Use [impact-map](../impact-map/SKILL.md) for affected deployment contracts and
+[challenge-review](../challenge-review/SKILL.md) for consequential release assumptions.
+
 ## Choose the destination
 
 Inspect instructions, architecture, locked dependencies, production build/start paths, configuration, persistence and the primary flow. Ask how the user will host the app unless already known, resolving only decision-relevant budget, maintenance ownership, traffic, concurrent writes, jobs and external services. Continue independent local work while answers are pending; unknown hosting keeps host-dependent readiness incomplete.

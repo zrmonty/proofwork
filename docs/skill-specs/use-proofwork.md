@@ -65,3 +65,7 @@ The entry reads route explanations and selected principle files, naming a princi
 Light stays bounded; overrides retain security/concurrency and executable behavior floors. Consequential choices and
 independent reviews load model patterns conditionally. Configured roles respect observed host capabilities and budgets;
 missing access remains explicit. Prototypes compare isolated artifacts; integrated candidates need fresh evidence.
+
+## Conditional workflow phases
+
+Read explained beforeWork and options guidance before the affected action. Load review guidance on the integrated result and report guidance at delivery. Clear Voice also applies while authoring documentation/comments. Trace Path establishes current behavior; Origin Check verifies earlier constraints; Impact Map precedes cross-boundary edits and is checked again after integration. Novel unmatched operations use Procedure Draft before effects. These phases preserve authority and existing routing floors. Initial context includes required preparation/options; deferred costs are disclosed separately, not counted as an early load or ignored entirely.

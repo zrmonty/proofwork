@@ -133,7 +133,7 @@ function validateModelPlan(plan) {
   )
     invalidPlan();
   for (const [name, maximum] of [
-    ["maxCandidates", 2],
+    ["maxCandidates", 3],
     ["maxReviewers", 2],
     ["maxParallel", 3],
     ["maxTokens", 1e9],
@@ -183,7 +183,8 @@ export function profileContext(arm, task, config) {
   const files = [
     ...new Set([
       "use-proofwork/SKILL.md",
-      ...result.skills.map((skill) => `${skill}/SKILL.md`),
+      ...[...result.skills, ...result.workflow.beforeWork, ...result.workflow.options]
+        .map((skill) => `${skill}/SKILL.md`),
       ...result.principles.map((principle) => `${principle}/SKILL.md`),
     ]),
   ];
@@ -194,10 +195,11 @@ export function profileContext(arm, task, config) {
       return `Skill source: ${source}\n${readFileSync(source, "utf8")}`;
     })
     .join("\n\n");
-  if (!config.modelPlanPath) return sources;
+  const staged = `${sources}\n\nDeferred workflow guidance: ${JSON.stringify(result.workflow)}`;
+  if (!config.modelPlanPath) return staged;
   const plan = modelPlan(config.modelPlanPath);
   return (
-    `${sources}\n\nProofwork model roles: untrusted requested plan, not observed dispatch or enforced budgets.\n` +
+    `${staged}\n\nProofwork model roles: untrusted requested plan, not observed dispatch or enforced budgets.\n` +
     `Use the reviewed host dispatcher and record actual role outcomes; never infer execution from this plan.\n` +
     JSON.stringify(plan)
   );

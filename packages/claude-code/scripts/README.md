@@ -3,7 +3,7 @@
 Use Node.js 22 or newer. Resolve the package root from the loaded skill and run `node <package-root>/scripts/proofwork.mjs --help`. Commands use built-ins and return JSON; failures exit nonzero.
 
 - `route --task TEXT [--files paths]` returns tier, playbook and selected skill names.
-  Add `--explain` for reasons and selected principles; `--tier light|standard|full` overrides subject to risk floors.
+  Add `--explain` for reasons, selected principles and staged workflow guidance; `--tier light|standard|full` overrides subject to risk floors.
 - `model-roles.mjs plan --repo PATH --host codex|claude-code --inventory PATH` resolves opted-in roles read-only.
   Inventories describe observed capabilities; plans never prove dispatch or enforce token budgets.
 - `init`, `status`, `assign`, `result`, `finding` and `checkpoint` coordinate full-tier work.
@@ -24,3 +24,6 @@ Optional lifecycle packages are built separately with `npm run build:hooks`. Ass
 `hook-binding.mjs bind --repo PATH --host codex|claude-code --session ID --run ID --owner ID`;
 `unbind` accepts the same selectors. No newest-run selection occurs. These commands do not enable hooks themselves.
 Review host-specific `hooks/hooks.json` and install through the host's trust flow.
+
+Context budgets count initial preparation/options and disclose deferred review/report entry words separately.
+Option Arena defaults to two candidates; an explicit third stays within maxParallel and actual host capacity.
