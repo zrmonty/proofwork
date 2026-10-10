@@ -26,7 +26,8 @@ The 92-case initial corpus totals 159,484 words (0.75% above 0.28), with 19,022 
 light/standard maxima are 679/2,761. All existing context limits remain. The executed configuration fixture fails its
 baseline public/acceptance checks and passes all three after repair. This is local fixture evidence, not deployment.
 The two-row native pilot changed no files and lacks valid plugin/tool isolation; user-outcome metrics remain unknown.
-Remote Windows/Linux verification is recorded separately in the current evidence file.
+[Windows/Linux CI](https://github.com/zrmonty/proofwork/actions/runs/38084090159) passes source checks, standard/optional package builds and generated parity
+on 5e58a26. Per-platform coverage and source-byte identities are recorded separately in the evidence file.
 
 Historical 0.28 [integrated-flow checks](../evals/results/integrated-flow-20261010.json) pass across 19 canonical scripts:
 2,282/2,311 lines (98.75%) and 1,424/1,464 branches (97.27%). Seven new integration tests exercise shared intent,

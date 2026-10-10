@@ -180,7 +180,75 @@
   },
   "ci": {
     "configuration": ".github/workflows/check.yml",
-    "status": "Awaiting remote verification"
+    "status": "completed",
+    "conclusion": "success",
+    "url": "https://github.com/zrmonty/proofwork/actions/runs/38084090159",
+    "testedCommit": "5e58a26b8f85b2225e7ec837255e21da3a89def9",
+    "jobs": [
+      {
+        "name": "verify (ubuntu-latest)",
+        "conclusion": "success",
+        "steps": [
+          {
+            "name": "Run npm run check",
+            "conclusion": "success"
+          },
+          {
+            "name": "Run npm run build:hooks",
+            "conclusion": "success"
+          },
+          {
+            "name": "Check generated package parity",
+            "conclusion": "success"
+          }
+        ],
+        "coverage": {
+          "revision": "scripts-sha256:9c21fd10cd279cadeb98683a83999b23529546bcf057654d1d22031084612921",
+          "lines": {
+            "covered": 2345,
+            "total": 2378,
+            "percent": 98.61227922624055
+          },
+          "branches": {
+            "covered": 1459,
+            "total": 1500,
+            "percent": 97.26666666666667
+          }
+        }
+      },
+      {
+        "name": "verify (windows-latest)",
+        "conclusion": "success",
+        "steps": [
+          {
+            "name": "Run npm run check",
+            "conclusion": "success"
+          },
+          {
+            "name": "Run npm run build:hooks",
+            "conclusion": "success"
+          },
+          {
+            "name": "Check generated package parity",
+            "conclusion": "success"
+          }
+        ],
+        "coverage": {
+          "revision": "scripts-sha256:9c21fd10cd279cadeb98683a83999b23529546bcf057654d1d22031084612921",
+          "lines": {
+            "covered": 2346,
+            "total": 2378,
+            "percent": 98.65433137089991
+          },
+          "branches": {
+            "covered": 1461,
+            "total": 1502,
+            "percent": 97.27030625832224
+          }
+        }
+      }
+    ],
+    "limits": "Native runner CI tests scripts/package contracts; it does not execute a Claude agent or certify live systems."
   },
   "feedback": {
     "participants": 0,

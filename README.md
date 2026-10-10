@@ -309,7 +309,7 @@ Model roles use actual host capabilities and user-selected settings. Native alte
 
 ## Verification and limits
 
-Current 0.29 evidence is in the [systems-outcome record](evals/results/systems-outcomes-20261010.json). The [executed configuration repair](evals/examples/release-config/README.md) shows a public-safe before/after; [user-outcome evaluation](docs/user-outcome-evaluation.md) measures avoidable decisions, corrections, verified-slice time and feedback without inventing missing results. See [contributing](CONTRIBUTING.md) and the [opt-in feedback process](docs/early-user-feedback.md).
+Codex 0.29.0 is installed and enabled through the new installer. [Windows/Linux CI](https://github.com/zrmonty/proofwork/actions/runs/38084090159) passes full checks and package parity. Current 0.29 evidence is in the [systems-outcome record](evals/results/systems-outcomes-20261010.json). The [executed configuration repair](evals/examples/release-config/README.md) shows a public-safe before/after; [user-outcome evaluation](docs/user-outcome-evaluation.md) measures avoidable decisions, corrections, verified-slice time and feedback without inventing missing results. See [contributing](CONTRIBUTING.md) and the [opt-in feedback process](docs/early-user-feedback.md).
 
 The initial guidance for the same TypeScript parser bug fell from **7,036 to 2,534 words** (about 64%). Conditional reference loading is additional; this does not establish model-token savings or agent quality. The comparative harness contains nine tasks and defaults to three repetitions per arm. Its actual pilot produced this result:
 

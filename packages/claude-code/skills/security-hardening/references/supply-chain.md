@@ -23,4 +23,3 @@ Prefer the smallest maintained version or removal that closes the relevant expos
 Record source, lock and delivery artifact identities. Where existing tooling supplies signatures/provenance or an SBOM, verify them against the intended publisher/build and inspect their scope. An unsigned artifact is a documented provenance gap, not automatic permission to build a new signing service. A dependency inventory is not an exhaustive security audit.
 
 Return findings and dispositions, commands and observed consumed versions, missing access, update ownership and rollback/repair limits. Consult [release gates](../../production-finish/references/readiness-gates.md) for environment readiness; no scan grants deployment authority.
-

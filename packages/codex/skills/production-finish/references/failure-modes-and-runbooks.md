@@ -31,4 +31,3 @@ Derive commands from actual build/start/migration/backup tools and inspect them.
 A backup claim requires an isolated restore with application reads and integrity checks. Record observed restore duration and latest recoverable point against agreed recovery time/loss. If these targets are unknown, give measured facts and keep adequacy provisional. Recheck runbooks when commands, schemas, configuration or effect ordering change.
 
 Return the operational change and what became easier to diagnose or recover, with observed evidence. A written runbook is locally documented; an executed drill is rehearsed in its environment. Neither establishes verified live recovery.
-

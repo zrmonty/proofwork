@@ -21,4 +21,3 @@ Use isolated configurations to omit a required setting, supply an invalid value,
 Generate only the template/check appropriate to existing tooling. Templates contain placeholder names and safe examples, never working secrets. Bind configuration validation and drift checks to the normal build/start/release path when the project supports it; avoid introducing a configuration service for a small application.
 
 Return safe manifest location, artifact/environment identities, tested differences, pending host facts and operator action. Keep live configuration changes, rotations and feature activation within their explicit authority.
-
