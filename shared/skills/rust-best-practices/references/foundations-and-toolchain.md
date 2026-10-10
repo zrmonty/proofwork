@@ -1,5 +1,14 @@
 # Foundations and toolchain contracts
 
+## Must
+
+- Must match the project's style and toolchain policy.
+- Must distinguish edition from compiler and API availability.
+- Must choose types by domain meaning and target width.
+- Must name observable effects and mutable owners.
+- Must test claims on affected consumers and configurations.
+- Must report unsupported or unavailable checks as gaps.
+
 Read when starting a Rust component or changing compiler assumptions. Distinguish language mechanisms from the project's compatibility and domain promises.
 
 ## Semantics before syntax

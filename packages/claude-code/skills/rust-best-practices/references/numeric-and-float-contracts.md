@@ -1,5 +1,14 @@
 # Numeric policies before representation
 
+## Must
+
+- Must specify overflow and rounding before choosing operations.
+- Must check narrowing, signedness and allocation arithmetic.
+- Must define admission of NaN, infinity and signed zero.
+- Must distinguish approximate comparison from key equality.
+- Must preserve units and the existing money representation.
+- Must test relevant boundary behavior across build profiles.
+
 Name quantity and units: counts, offsets, durations, amounts and identifiers differ. usize is target-width indexing, not automatically stable wire/storage. External sizes need checked conversion and resource limits. Signedness does not validate forbidden negatives. Wire widths/endianness must be explicit. See [numeric types](https://doc.rust-lang.org/reference/types/numeric.html).
 
 ## Arithmetic and conversion

@@ -1,5 +1,14 @@
 # Absence, failure and branch ownership
 
+## Must
+
+- Must distinguish valid absence from recoverable failure.
+- Must preserve causes and actionable recovery categories.
+- Must keep pattern ownership consistent with later reuse.
+- Must preserve exhaustiveness and unknown-input policy.
+- Must avoid ordinary-input panics and silent success defaults.
+- Must make early-return and partial-effect behavior explicit.
+
 Option expresses legitimate absence; Result preserves meaningful failure. Define lookup miss versus denial, expiry or inconsistent storage. Result<Option<T>,E> can separate successful misses and failures. Optional parsing must retain absent/present-valid/present-invalid outcomes. Use a domain enum for distinct pending/unknown states, not redundant booleans; do not add one for a clear temporary binary choice.
 
 ## Adapters preserve policy

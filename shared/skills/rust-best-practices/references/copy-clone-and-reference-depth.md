@@ -1,5 +1,14 @@
 # Copy, Clone and exact reference types
 
+## Must
+
+- Must identify each iterator and closure reference layer.
+- Must distinguish copied handles from independent owned storage.
+- Must preserve the lifetime of collected borrowed values.
+- Must select the intended Clone receiver and output type.
+- Must avoid moving non-Copy contents through shared references.
+- Must treat public Copy as a consumer commitment.
+
 Determine the container element, iterator Item and closure argument before adding dereferences or cloning. Vec<T>::iter yields &T, iter_mut yields &mut T, consuming into_iter yields T. Vec<&T>::iter yields &&T; consuming it yields &T without owning referents. map receives Item; filter receives &Item. Use a temporary type annotation when needed. See [Iterator](https://doc.rust-lang.org/std/iter/trait.Iterator.html).
 
 [Copy](https://doc.rust-lang.org/std/marker/trait.Copy.html) requires Clone and excludes destructor types. Shared references are Copy; mutable references are not. Copying a reference preserves the same referent/lifetime. Public Copy is a compatibility promise; resource-owning future fields and one-use capabilities may make implicit duplication inappropriate even when today's fields permit it.

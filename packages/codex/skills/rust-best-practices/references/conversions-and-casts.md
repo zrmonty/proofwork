@@ -1,5 +1,14 @@
 # Conversion contracts
 
+## Must
+
+- Must define output meaning before selecting conversion syntax.
+- Must use fallible conversion for ordinary rejected values.
+- Must check narrowing, signedness and platform-width boundaries.
+- Must separate representation validity from domain validation.
+- Must preserve ownership and borrowing promises during conversion.
+- Must make rounding and lossy conversion explicit.
+
 Choose input domain, output meaning, ownership and rejection policy before resolving inference. A representable primitive can still violate ID, amount, timestamp or allocation policy.
 
 [From](https://doc.rust-lang.org/std/convert/trait.From.html) expresses a meaningful infallible value conversion and supplies Into. Ordinary rejected input needs [TryFrom/TryInto](https://doc.rust-lang.org/std/convert/trait.TryFrom.html), not panic inside From or a silent default. Several plausible rounding/format policies deserve a named operation. Generic Into bounds must serve actual callers. Preserve recovery information internally even when presentation redacts it; do not log sensitive rejected values.

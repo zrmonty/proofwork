@@ -1,8 +1,17 @@
 # Ownership and domain contracts
 
+## Must
+
+- Must preserve caller-owned inputs unless consumption is promised.
+- Must validate every construction route.
+- Must specify overflow, units and rounding.
+- Must retain actionable errors.
+- Must preserve text, order and duplicate semantics.
+- Must test domain outcomes rather than syntax choices.
+
 ## Borrow a ledger; reject an invalid total
 
-A summary function accepting `Vec<i64>` and consuming it is awkward if its caller must later export the same entries. Replacing it with a borrowed slice preserves that use. Summing with ordinary addition also leaves overflow policy dependent on the chosen operation/build behavior. This original example makes both promises explicit:
+A summary borrows its ledger so the caller can export it later. Checked addition makes overflow policy explicit:
 
 ```rust
 #[derive(Debug, PartialEq, Eq)]

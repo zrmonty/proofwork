@@ -1,5 +1,14 @@
 # Iterator ownership and execution
 
+## Must
+
+- Must choose borrowing or consumption from caller requirements.
+- Must identify exact Item and retained owners.
+- Must account for laziness and short-circuit execution.
+- Must preserve failure timing and destructive traversal behavior.
+- Must check edition-specific array iteration semantics.
+- Must bound traversal independently of iterator syntax.
+
 An iterator is a stateful cursor; its Item establishes what is yielded. For Vec<T>, iter/shared for-loop yields &T; iter_mut/mutable for-loop yields &mut T; owned into_iter/for-loop yields T and consumes the vector. Consuming Vec<&Record> transfers references, not records. Prefer [IntoIterator](https://doc.rust-lang.org/std/iter/trait.IntoIterator.html) with the needed Item for one traversal, or a slice when length, repeated traversal or random access matters. Do not clone before deciding whether consumption is required.
 
 ## Edition and reference layers

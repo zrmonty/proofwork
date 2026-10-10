@@ -9,6 +9,8 @@ Match the existing codebase's dominant style before a functional preference. Loa
 
 Make ownership, valid states and failure policy clear to callers. Inspect Cargo manifests, minimum compiler version, edition, feature/target assumptions and affected consumers before changing a contract.
 
+Rust has no universal function cap. Project-local caps must exempt safety comments, match arms and select! loops; lift them for unsafe wrappers.
+
 Borrow for observation, own consumed or retained values, and clone only for intended ownership semantics. Shared references and Arc clones do not create independent referents. Keep checked numeric policy, recoverable errors and validated construction explicit.
 
 Prefer pure domain decisions with clearly named inputs, next state and intended effects. Adapters own authority checks, versioned commits and observed effects. Ordinary loops and private mutation are valid when they preserve caller data and make bounds clear. Select synchronization from the invariant; tests cannot establish unsafe soundness.

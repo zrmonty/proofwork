@@ -1,5 +1,14 @@
 # Sequence representation and mutation
 
+## Must
+
+- Must distinguish allocated capacity from initialized length.
+- Must validate external counts before allocation and indexing.
+- Must preserve required element order and identity.
+- Must define partial-progress behavior for destructive traversal.
+- Must establish disjointness through supported safe APIs.
+- Must respect storage invalidation and borrowed lifetimes.
+
 Choose [array](https://doc.rust-lang.org/std/primitive.array.html) for type-level fixed length, [Vec](https://doc.rust-lang.org/std/vec/struct.Vec.html) for owned variable length, &[T] for contiguous observation, &mut [T] for changing elements without resizing. Frequent front removal may warrant an incumbent queue. Arrays are homogeneous; domain-named heterogeneous fields often need structs rather than long tuples. Check [array iteration compatibility](https://doc.rust-lang.org/edition-guide/rust-2021/IntoIterator-for-arrays.html) against edition/MSRV.
 
 Length counts initialized elements; capacity reserves storage, not values. Reservation does not resize. Validate external counts and checked size arithmetic before allocation. Fallible reservation does not make every later allocation recoverable. Do not assume a fixed growth factor or shrink after each operation. Retention limits depend on input size/concurrency, not one capacity observation. Extra capacity cannot waive aliasing, movement, destruction or raw-pointer invalidation.

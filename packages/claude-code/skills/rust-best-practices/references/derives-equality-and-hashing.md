@@ -1,5 +1,14 @@
 # Derives are public contracts
 
+## Must
+
+- Must derive only promises justified by domain semantics.
+- Must inspect nested Debug and error output for disclosure.
+- Must keep equality, ordering and hashing laws consistent.
+- Must preserve stored key identity during interior mutation.
+- Must distinguish Clone independence from shared ownership.
+- Must compile affected consumers after exported derive changes.
+
 Choose only the observation, duplication and comparison promises the domain needs. Field-based derives suit some values, not necessarily resource identity or capabilities. Enum equality includes variants/payloads. Representation, cfg and lint attributes are separate decisions; broad allow attributes must not hide the triggering diagnostic. Check [derive behavior](https://doc.rust-lang.org/reference/attributes/derive.html) and third-party macro contracts.
 
 ## Disclosure and duplication

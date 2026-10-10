@@ -1,5 +1,14 @@
 # Borrowing and reborrowing
 
+## Must
+
+- Must choose ownership from retention and access requirements.
+- Must inspect the conflicting borrow's later use.
+- Must establish disjointness before simultaneous mutable access.
+- Must distinguish reassigning a binding from mutating its referent.
+- Must preserve referent lifetime through every reborrow.
+- Must revalidate stale decisions at the commit boundary.
+
 Choose ownership from retention and overlapping access, not from the easiest compiler repair. T transfers ownership; &T lends observation; &mut T lends exclusive access. Owned results may outlive inputs; borrowed results require a surviving owner. Interior mutability means &T alone does not establish purity. Prefer slices for observation and owned results when a decoder buffer must be released. See [borrowing](https://doc.rust-lang.org/book/ch04-02-references-and-borrowing.html).
 
 ## Diagnose the actual conflict

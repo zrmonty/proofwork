@@ -1,5 +1,14 @@
 # Worked ownership and transformation contracts
 
+## Must
+
+- Must execute the exact examples being claimed as verified.
+- Must assert caller-input preservation and output ownership.
+- Must preserve original positions when the contract requires them.
+- Must reject narrowing failures without partial accepted output.
+- Must pair borrow rejection probes with accepted solutions.
+- Must report unexercised overflow, concurrency and toolchain guarantees.
+
 These original Rust blocks concatenate into one dependency-free fixture. Public visibility serves demonstration, not an application API recommendation.
 
 ## Borrowed selection

@@ -1,5 +1,12 @@
 # Proofwork changelog
 
+## 0.21.0 — executable Rust safety and cancellation contracts
+
+- Committed the eight-test reservation fixture and added executed Tokio framing/cancellation, blocking-waiter timeout and Miri initialization fixtures, including explicitly executed negative cases and repairs.
+- Added six topic-specific Must rules at the start of every Rust reference, within the existing word budgets.
+- Documented Rust 2024 unsafe migration obligations and project-local function-cap exemptions. The universal cap remains removed.
+- Reported exact fixture results separately from Node runtime coverage; no general unsafe soundness, Rust coverage or networking/shutdown certification is claimed.
+
 ## 0.20.1 — Go/C routing regressions
 
 - Added a separately labeled 50-prompt routing corpus: ordinary go/C phrases, genuine technology choices and focused implementation controls. Both unintended architecture routing and missing language-choice skills fail the checks.

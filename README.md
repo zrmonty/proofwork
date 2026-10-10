@@ -10,6 +10,12 @@ Contributor routing check: `npm run test:routing`. It covers the existing 82 sce
 [50-prompt Go/C corpus](tests/language-routing-corpus.json). Ordinary go/C wording must not reopen technology choice;
 genuine choices must still route correctly. These checks also run in `npm test` and `npm run check`.
 
+Rust teaching fixtures are committed under [evals/fixtures](evals/fixtures):
+[reservation](evals/fixtures/rust-reservation/README.md),
+[async framing and blocking work](evals/fixtures/rust-async/README.md), and
+[uninitialized Vec under Miri](evals/fixtures/rust-uninitialized-vec/README.md).
+Their READMEs give reproduction commands and distinguish expected failures from the repaired behavior.
+
 Proofwork is a **skill-compression plugin for Codex and Claude Code**. Describe what you want to make, judge the result and refine it. Proofwork carries the engineering detail: choosing relevant skills, making proportionate implementation decisions, coordinating workers when useful and verifying the integrated result.
 
 **Our north star: turn a clear intention into useful, distinctive, verified software without making the user manage the engineering machinery.** Purpose, taste and consequential choices stay with you. The plugin supplies the discipline behind them. Read the [product vision](docs/vision.md) for what this means and how we evaluate it.

@@ -1,5 +1,14 @@
 # Key identity and collection policy
 
+## Must
+
+- Must define duplicates, ordering and representative-key policy.
+- Must make equal keys hash equally.
+- Must preserve stored identity against interior mutation.
+- Must make borrowed lookup match owned equality and hashing.
+- Must validate counts and bound adversarial input.
+- Must join independently ordered collections by key identity.
+
 Choose maps for association, sets for membership, ordered storage for ranges/presentation, sequences for small stable lists, or indexed storage for genuinely dense validated identities. Repeated events must not disappear into a set. Duplicate map keys need explicit reject/replace/group policy. Hash iteration is not stable serialization order: sort at the output boundary or use ordered storage.
 
 ## Identity laws

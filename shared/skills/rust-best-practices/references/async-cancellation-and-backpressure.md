@@ -1,5 +1,14 @@
 # Async ownership and bounded work
 
+## Must
+
+- Must retain partial progress across cancellable framed I/O.
+- Must supervise every spawned task through completion.
+- Must bound admission, active work and retained bytes.
+- Must keep capacity owned by continuing blocking workers.
+- Must reconcile uncertain external outcomes before retrying.
+- Must shut down producers before draining dependent resources.
+
 Use the existing runtime and supported version. Before spawning, identify ownership of inputs, handles, buffers, capacity and final observations. Distinguish unstarted work, locally accepted work, possibly submitted effects and observed durable outcomes. Choose borrowed futures, bounded independent work, one owner or a narrow lock from that contract.
 
 ## Lifetimes and suspension
@@ -25,6 +34,8 @@ Async syntax does not prevent CPU or synchronous I/O from blocking its polling t
 Shutdown follows dependencies: stop admission/retry producers, notify owners, drain/safely interrupt/persist accepted work, observe tasks, then flush/close dependencies through fallible APIs. Name deadline survivors and restart reconciliation.
 
 ## Acceptance probes
+
+The executable [async fixtures](https://github.com/zrmonty/proofwork/tree/main/evals/fixtures/rust-async) contrast interrupted `read_exact` framing with retained decoding progress and demonstrate a blocking worker surviving its waiter's timeout.
 
 - Upload: interrupt after a prefix and after remote acceptance before acknowledgment; preserve session/authoritative offset or reconcile under the actual protocol.
 - Index rebuild: cancel the waiter while a blocking writer continues; capacity stays held and partial output remains unpublished.

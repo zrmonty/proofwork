@@ -1,10 +1,21 @@
 # APIs, errors and pure transitions
 
+## Must
+
+- Must expose consumption, retention and failure in signatures.
+- Must distinguish rejected input from uncertain external effects.
+- Must preserve caller-owned state while calculating proposals.
+- Must commit against the authoritative revision atomically.
+- Must emit effects only for accepted proposals.
+- Must test failure precedence and replay behavior.
+
 Read for consumer ownership, validated construction and recoverable state changes. Signatures must expose observation/consumption/retention, output lifetimes and error timing. A borrowed parser result retains its buffer; a small owned result may release it. One-shot streams cannot promise repeatable access. Generalize only for known consumers; check public traits, enum/error shapes, auto traits and optional features in [downstream consumers](downstream-compatibility.md).
 
 Preserve actionable recovery: malformed input, capacity denial, conflict, dependency failure or unknown write outcome. Keep causes and redact public errors. Formatting is not classification; blind retries may duplicate effects. Follow incumbent error libraries. Panic only for defensible internal invariants, not ordinary input/resource/I/O failures.
 
 ## Original versioned reservation fixture
+
+The committed [reservation fixture](https://github.com/zrmonty/proofwork/tree/main/evals/fixtures/rust-reservation) keeps the proposal and executable rejection/replay checks together.
 
 Counts are not money. The input is a validated authoritative snapshot; the function proposes state/effect without modifying it. Authentication, atomic commit and notification belong to the adapter.
 

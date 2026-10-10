@@ -1,5 +1,14 @@
 # Text ownership, units and destinations
 
+## Must
+
+- Must distinguish bytes, Unicode scalars and graphemes.
+- Must validate external UTF-8 slicing boundaries.
+- Must preserve authoritative protocol and signature bytes.
+- Must define normalization, lookup and duplicate identity consistently.
+- Must keep platform paths independent of UTF-8 assumptions.
+- Must bound rendering expansion and redact diagnostic output.
+
 [&str/String](https://doc.rust-lang.org/std/string/struct.String.html) represent borrowed/owned UTF-8. Choose ownership from retention, not allocation avoidance that keeps a large request alive. Binary/undecoded protocols need bytes first. Lossy decoding changes identity and belongs only to an approximate-display policy. Use [OsStr](https://doc.rust-lang.org/std/ffi/struct.OsStr.html)/[Path](https://doc.rust-lang.org/std/path/struct.Path.html) for non-UTF-8 platform values; never silently drop or rewrite an unrepresentable path.
 
 ## Units and boundaries

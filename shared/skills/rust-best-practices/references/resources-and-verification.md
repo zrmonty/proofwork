@@ -1,12 +1,21 @@
 # Resources and verification
 
+## Must
+
+- Must assign an owner through actual operation completion.
+- Must observe fallible commit, flush and close outcomes.
+- Must revalidate snapshots before committing shared changes.
+- Must preserve resources still used by timed-out workers.
+- Must identify unsafe enforcement mechanisms, not reassuring comments.
+- Must distinguish executed checks from unproven guarantees.
+
 ## Make resource lifetime match the operation
 
-Use the project's ownership/RAII patterns to bound files, buffers, guards, and subscriptions. Automatic dropping helps release resources, but a business operation may still need an explicit flush, commit, rollback, or close result. Do not assume destruction proves persistence succeeded.
+Use existing ownership/RAII patterns to bound files, buffers, guards and subscriptions. Observe fallible flush, commit, rollback and close results; destruction does not prove persistence.
 
 When a parser lends references into a buffer, document which owner keeps that buffer alive. For streaming input, decide when iteration errors occur and who finishes or drops the stream. Do not return an iterator that silently swallows failures to keep its item type convenient.
 
-Avoid cloning a large value solely to escape a broad borrow. First ask whether the borrow scope can shrink or immutable observation can happen before mutation. Clone when two actors truly need independent ownership, and explain material cost only when relevant.
+Narrow broad borrows or observe before mutation instead of cloning large values. Clone when actors need independent ownership; explain material cost when relevant.
 
 ## Concurrency is a state contract
 

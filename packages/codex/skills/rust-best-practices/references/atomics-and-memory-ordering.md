@@ -1,5 +1,14 @@
 # Atomics and concurrent protocols
 
+## Must
+
+- Must state the invariant and linearization point.
+- Must distinguish atomicity, publication and reclamation proofs.
+- Must identify the Release write consumed by Acquire.
+- Must keep CAS retry calculations free of effects.
+- Must define overflow, ABA and storage-reuse policy.
+- Must report model bounds and unresolved interleavings.
+
 Use for counters, publication, CAS, fences, atomic pointers or reclamation. The [controlled counter probe](https://github.com/zrmonty/proofwork/blob/main/evals/results/atomics-probe-20261010.md) demonstrates lost updates, not weak-memory correctness or performance.
 
 ## Separate the obligations

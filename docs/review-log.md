@@ -12,3 +12,8 @@ Future human entries must name the reviewer, reviewed revision, scope, decision 
 Lifecycle implementation review (0.20.0): independent agent inspection found no material blockers in shared hook
 policy, explicit bindings, read-only preflight or optional packaging. Fixture checks and actual isolated Claude
 SessionStart evidence are recorded separately in the verification document. This is agent review, not human sign-off.
+
+Rust fixture review (0.21.0): independent agent source review checked the initialization proof, native invalid-case
+guard, reservation scope, function-cap exception and edition notes. It found a missing static_mut_refs migration rule;
+that rule was added and final reference budgets/packages revalidated. Execution results are separate recorded observations,
+not independent reruns by that reviewer or a general unsafe soundness certification.

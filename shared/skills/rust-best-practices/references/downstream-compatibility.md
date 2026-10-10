@@ -1,5 +1,14 @@
 # Downstream compatibility and feature boundaries
 
+## Must
+
+- Must identify supported consumers before changing public contracts.
+- Must exercise affected minimal and optional feature builds.
+- Must inspect accidental dependency-feature activation.
+- Must preserve invariants across every supported constructor adapter.
+- Must distinguish wire evolution from internal enum changes.
+- Must report unavailable compiler and target checks honestly.
+
 Read this when changing a public Rust API, optional adapter, feature boundary, or minimum-supported compiler contract. The workspace's convenient build is not necessarily the consumer's build.
 
 ## Identify the actual consumer promise

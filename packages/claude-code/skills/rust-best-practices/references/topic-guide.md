@@ -1,5 +1,14 @@
 # Rust topic guide
 
+## Must
+
+- Must route from the actual changed contract.
+- Must establish types, owners and toolchain support first.
+- Must load only relevant references.
+- Must follow cross-links at genuine contract boundaries.
+- Must turn each topic into a decision and check.
+- Must report clean findings without speculative additions.
+
 Choose the reference that answers the current decision. Keep one Rust entry skill; do not load this entire library for an ordinary edit. Begin with the actual input/item type, owner, valid domain state and supported toolchain. Follow cross-links only when the operation crosses that boundary.
 
 ## Foundations and data ownership

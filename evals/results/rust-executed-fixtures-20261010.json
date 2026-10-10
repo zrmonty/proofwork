@@ -1,0 +1,94 @@
+{
+  "schemaVersion": 1,
+  "version": "0.21.0",
+  "observedAt": "2026-10-10T18:07:01.5524012Z",
+  "reservation": {
+    "path": "evals/fixtures/rust-reservation",
+    "debugTestsPassed": 8,
+    "releaseTestsPassed": 8,
+    "fmtPassed": true,
+    "clippyWarningsDeniedPassed": true,
+    "scope": "Sequential proposal/version/effect fixture; no database atomicity or durable effects claim"
+  },
+  "async": {
+    "path": "evals/fixtures/rust-async",
+    "tokio": "1.53.1",
+    "debugTestsPassed": 3,
+    "releaseTestsPassed": 3,
+    "intentionallyIgnoredRegression": 1,
+    "explicitBrokenExit": 101,
+    "brokenFrame": "BC",
+    "expectedFrame": "AB",
+    "fixedFrames": [
+      "AB",
+      "CD"
+    ],
+    "startedBlockingTaskSurvivedTimeout": true,
+    "startedBlockingTaskSurvivedAbort": true,
+    "workerReleasedAndJoined": true,
+    "fmtPassed": true,
+    "clippyWarningsDeniedPassed": true
+  },
+  "miri": {
+    "path": "evals/fixtures/rust-uninitialized-vec",
+    "nightly": "2026-10-10",
+    "rustc": "1.101.0-nightly (32dba69d6 2026-10-09)",
+    "miri": "0.1.0 (32dba69d69 2026-10-09)",
+    "host": "x86_64-pc-windows-msvc",
+    "interpretedTarget": "x86_64-unknown-linux-gnu",
+    "brokenExit": 1,
+    "diagnosis": "Undefined Behavior: reading uninitialized memory",
+    "fixedExit": 0,
+    "fixedObservation": "initialized_prefix=4 sum=100",
+    "nativeUBGuard": true,
+    "fmtPassed": true,
+    "clippyWarningsDeniedPassed": true,
+    "defaultToolchainUnchanged": "stable 1.95.0"
+  },
+  "instructionalChecks": {
+    "rustReferences": 25,
+    "mustRulesPerReference": 6,
+    "entryBudget": 600,
+    "referenceBudget": 800
+  },
+  "limitations": [
+    "No unsafe soundness or full network/shutdown proof",
+    "No numerical Rust coverage claim",
+    "No minimum-version or general feature/target matrix",
+    "Node coverage excludes these Rust fixtures"
+  ],
+  "sourceSha256": [
+    {
+      "path": "evals/fixtures/rust-reservation/src/lib.rs",
+      "sha256": "18e3d26a34ebb5acc437dd7e0bd2303a15b31fee0f93638f96007f1eb442ecd2"
+    },
+    {
+      "path": "evals/fixtures/rust-reservation/tests/contracts.rs",
+      "sha256": "d92404b29f626fdc0e4deeb980f3eeb2ddf495ce392b7b39e5292803de73f986"
+    },
+    {
+      "path": "evals/fixtures/rust-async/tests/blocking.rs",
+      "sha256": "e99e0c25bc141cb5abc0bfe9c0ff04f0746a75fdb1537f536cf38e90f04354a7"
+    },
+    {
+      "path": "evals/fixtures/rust-async/tests/cancellation.rs",
+      "sha256": "f84a14a6af5f52bba2d5cf621b9883977a850ba54c3bb3f8825bae15c3e1efc1"
+    },
+    {
+      "path": "evals/fixtures/rust-uninitialized-vec/examples/broken.rs",
+      "sha256": "fa686d843a0895102487eaa77dedf254878d7c841f487512d5cc000e815d2eee"
+    },
+    {
+      "path": "evals/fixtures/rust-uninitialized-vec/examples/fixed.rs",
+      "sha256": "809a81beff792eb2f28df79cb2bb5cdf5161c6caa42e782227d4d36fece9dfb1"
+    }
+  ],
+  "fullNodeCheckPassed": true,
+  "finalContextBudgetPassed": true,
+  "installedCodex": {
+    "version": "0.21.0",
+    "sourceFiles": 161,
+    "mismatches": 0,
+    "hookConfigurationInstalled": false
+  }
+}

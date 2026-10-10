@@ -1,5 +1,14 @@
 # Generics and dispatch relationships
 
+## Must
+
+- Must generalize only for a demonstrated caller requirement.
+- Must require capabilities without incidental extra bounds.
+- Must preserve actual returned-data lifetime relationships.
+- Must check supertrait implementations and associated-type constraints.
+- Must verify dyn compatibility before choosing trait objects.
+- Must measure dispatch tradeoffs before claiming faster execution.
+
 Generalize a demonstrated caller requirement. Bounds express required capabilities, not speed, purity, authentication or retry safety. Avoid incidental Clone/Debug/Send/'static restrictions. One parameter relates argument types; separate parameters allow variation. Associated-type equality constrains needed outputs. Readable where clauses cannot repair an overcomplicated responsibility.
 
 Type parameters are implicitly Sized. [T: Trait + ?Sized](https://doc.rust-lang.org/reference/trait-bounds.html#sized) permits borrowed unsized referents such as str/slices/trait objects, not arbitrary by-value unsized arguments. Compile both intended sized and unsized callers. Supported syntax depends on actual edition/MSRV.

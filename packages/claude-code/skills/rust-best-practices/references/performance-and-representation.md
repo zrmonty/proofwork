@@ -1,5 +1,14 @@
 # Performance and representation
 
+## Must
+
+- Must measure equivalent before/after workloads.
+- Must preserve order, failure and ownership contracts.
+- Must bound allocation, retained memory and concurrent work.
+- Must justify representation changes with observed costs.
+- Must report variability, workload identity and limitations.
+- Must reject optimizations that invalidate safety or correctness.
+
 Read when profiling points to Rust allocation, traversal, collection, serialization, dispatch or retained-memory costs. Follow the [performance workflow](../../performance-increase/SKILL.md); Rust-specific mechanisms do not replace representative measurement.
 
 ## Find the expensive work before choosing a representation

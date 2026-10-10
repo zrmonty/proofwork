@@ -1,5 +1,14 @@
 # Structs, enums and method contracts
 
+## Must
+
+- Must represent valid alternatives without contradictory flags.
+- Must validate all construction and decoding routes.
+- Must choose receivers by observation, mutation or consumption.
+- Must preserve invariants on failed mutable operations.
+- Must distinguish internal states from compatible wire representations.
+- Must review downstream callers after public shape changes.
+
 Use when selecting domain representations, enforcing construction or choosing receiver ownership. Representation should make the actual valid states and consumer obligations clear.
 
 ## Products, alternatives and validated construction

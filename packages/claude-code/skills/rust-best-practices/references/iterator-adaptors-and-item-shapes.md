@@ -1,5 +1,14 @@
 # Adaptors, item types and positions
 
+## Must
+
+- Must trace Item, closure arguments and output types.
+- Must preserve source positions when diagnostics require them.
+- Must retain fallible errors unless rejection policy allows dropping.
+- Must detect truncated pairing when zip requires completeness.
+- Must bound unbounded traversal and output expansion.
+- Must preserve observable visitation and effect order.
+
 Trace source Item, closure argument and output. [Map](https://doc.rust-lang.org/std/iter/struct.Map.html) receives Item and returns a new item; [Filter](https://doc.rust-lang.org/std/iter/struct.Filter.html) receives &Item and yields the accepted original. Thus &Record becomes &&Record in filter, &mut Record becomes &&mut Record, and a tuple (&Key,&Value) becomes &(&Key,&Value). A shared predicate borrow cannot move non-Copy fields or freely mutate through the contained exclusive handle; select then update, or use clear mutable traversal.
 
 Destructuring owned tuples can move fields; borrowed tuple patterns can bind references. A map iterator's tuple of references differs from a slice iterator's reference to an owned tuple. [Binding modes](https://doc.rust-lang.org/reference/patterns.html#binding-modes), including edition-2024 restrictions, matter. When inference obscures ownership, use a named parameter and explicit fields rather than repeated clone/ampersand repairs.

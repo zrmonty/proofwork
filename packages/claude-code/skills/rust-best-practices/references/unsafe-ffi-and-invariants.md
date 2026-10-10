@@ -1,6 +1,27 @@
 # Unsafe and foreign-boundary obligations
 
-Prefer existing safe wrappers, slices, owned buffers or locks. Map constructors, methods, adapters, callbacks and destruction, including safe clients outside the crate. A safe wrapper must be sound for every permitted use, not just the intended caller. Keep policy calculations separate from pointer access, registration and release.
+## Must
+
+- Must enforce every safe wrapper's permitted-client invariants.
+- Must prove initialization before exposing or dropping elements.
+- Must establish allocation, alignment, provenance and aliasing requirements.
+- Must preserve ownership through callback quiescence and destruction.
+- Must review foreign signatures and thread/unwind contracts.
+- Must audit edition migrations beyond inserted unsafe syntax.
+
+Prefer existing safe wrappers, slices, owned buffers or locks. Map construction, access, callbacks and destruction, including external safe clients. Wrappers must be sound for every permitted use. Separate policy from pointer access, registration and release.
+
+## Rust 2024 migration
+
+- [unsafe_op_in_unsafe_fn](https://doc.rust-lang.org/edition-guide/rust-2024/unsafe-op-in-unsafe-fn.html) warns by default: unsafe operations inside unsafe functions need explicit blocks and local justifications, separate from caller obligations.
+- [Extern blocks](https://doc.rust-lang.org/edition-guide/rust-2024/unsafe-extern.html) require `unsafe extern`. Items default to unsafe; mark a permitted item `safe` only when every safe call satisfies its foreign contract. Verify signatures against the actual ABI.
+- [Attributes](https://doc.rust-lang.org/edition-guide/rust-2024/unsafe-attributes.html) require `#[unsafe(no_mangle)]`, `#[unsafe(export_name = "...")]` and `#[unsafe(link_section = "...")]`. Audit symbol collisions and section/linker requirements.
+- [Newly unsafe functions](https://doc.rust-lang.org/edition-guide/rust-2024/newly-unsafe-functions.html) include `set_var`, `remove_var` and deprecated Unix `before_exec`. `pre_exec` was already unsafe. Prefer per-child environment configuration; audit platform-specific environment concurrency and post-fork closure restrictions.
+- [static_mut_refs](https://doc.rust-lang.org/edition-guide/rust-2024/static-mut-references.html) is deny-by-default, including implicit references from formatting and method calls. Prefer immutable statics with controlled interior mutability. Raw-pointer creation avoids an immediate reference; it does not prove later access sound across threads, interrupts or reentrancy.
+
+`cargo fix --edition` changes syntax, not soundness. Review every inserted block and actual precondition.
+
+No universal function cap applies. Under a local cap, exclude safety comments, match arms and `select!` loops; lift it for unsafe wrappers rather than fragment their safety proof.
 
 ## Record the enforcing mechanism
 
@@ -11,6 +32,8 @@ Before [from_raw_parts](https://doc.rust-lang.org/std/slice/fn.from_raw_parts.ht
 Casts/integer arithmetic do not prove pointer provenance. Rust's complete aliasing/provenance model retains documented limitations. [UnsafeCell](https://doc.rust-lang.org/std/cell/struct.UnsafeCell.html) does not permit aliased mutable references or data races; audit every accessor/callback.
 
 ## Initialization and destruction
+
+The [uninitialized-Vec fixture](https://github.com/zrmonty/proofwork/tree/main/evals/fixtures/rust-uninitialized-vec) pairs an intentionally invalid length claim with initialized storage for Miri comparison. Execute the invalid case only under Miri; ordinary execution is undefined behavior.
 
 Capacity is not initialized length. Check foreign status and written count against allocation and documented bounds before exposing elements. Track initialized prefixes/fields on every error/unwind path; release only initialized owned values. [MaybeUninit](https://doc.rust-lang.org/std/mem/union.MaybeUninit.html) exposes rather than removes this obligation. Zero bytes are not valid for arbitrary types; repeated extraction can duplicate ownership.
 

@@ -84,3 +84,16 @@ Independent scenario reasoning is useful for finding guidance defects but does n
 ## Atomics expansion
 
 The conditional atomics-and-memory-ordering reference distinguishes atomic access, compound-update indivisibility, publication ordering and storage lifetime. It covers CAS retry purity, valid success/failure orderings, RMW halves, overflow, fences, ABA/reclamation, target support and progress guarantees. Its motivating actual counter probe is recorded in evals/results/atomics-probe-20261010.md; that regression is not weak-memory or agent-benefit evidence.
+
+## Executable obligations and concise rules
+
+All Rust references begin with five to seven topic-specific Must rules, followed by their decision and evidence detail.
+Reference budgets still apply. Committed fixtures cover reservation proposal/version semantics, cancellation-corrupted
+framing and its repair, started blocking work surviving waiter timeout, and uninitialized Vec rejection under Miri.
+Expected failures must be explicitly executed and identified by their actual assertion or undefined-behavior diagnosis;
+compiler/dependency/tool failures cannot stand in for a negative result. Report ordinary tests and Miri separately.
+
+No universal function cap returns. A project-local cap excludes Rust safety comments, match arms and select! loops;
+lift that cap for unsafe wrappers when extraction would fragment the safety argument. Edition-2024 unsafe migration
+covers explicit unsafe blocks, unsafe extern and item obligations, unsafe attributes and newly unsafe functions.
+Syntax migration never establishes soundness.
