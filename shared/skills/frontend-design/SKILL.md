@@ -17,6 +17,8 @@ For a substantial new composition, compare two plausible directions that change 
 
 ## Give the interface a coherent voice
 
+Read [humanizer](../humanizer/SKILL.md) when creating or revising visible wording and content structure. Keep the language specific to the audience and actual product behavior. Reduce repeated title layers and promotional chrome when they add no useful orientation; preserve meaningful headings, navigation, accessible structure and required links. Review ordinary and failure-state copy as part of the real flow.
+
 Choose the hierarchy first: dominant content, supporting content, navigation, and action. Give these roles different visual weight through scale, spacing, placement, and contrast. If everything is prominent, nothing leads. Use real long titles, meaningful metadata, and representative imagery while composing; short placeholder text hides the hard cases.
 
 Record the chosen direction in the existing design document or a concise `DESIGN.md`. Include type roles and fallbacks; spacing rhythm; content widths; surfaces and colors; control and media radii; image treatment; interaction states; responsive changes; and one or two distinctive decisions. Reuse the project's system before introducing fonts, icons, packages, or additional token layers. Do not invent a design system for a one-line repair.

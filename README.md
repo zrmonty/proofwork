@@ -42,6 +42,7 @@ Give any skill a task in the same prompt. In Codex, use `$<skill-name>` or selec
 | `$data-driven-development` | `/proofwork:data-driven-development` | Model invariants and evaluate changes using observed data and repeatable checks. |
 | `$clean-code` | `/proofwork:clean-code` | Simplify demonstrated complexity while preserving behavior and safety guards. |
 | `$frontend-design` | `/proofwork:frontend-design` | Develop an original visual direction, iterate and verify rendered interfaces. |
+| `$humanizer` | `/proofwork:humanizer` | Write natural application copy, simplify unnecessary headings and footer content, and keep interaction wording accurate. |
 | `$commit-features` | `/proofwork:commit-features` | Prepare truthful Major features / Minor features commit sections and check outgoing history. |
 
 Examples for Codex:
@@ -50,6 +51,7 @@ Examples for Codex:
 $use-proofwork Find and fix issues in this repository. Reproduce bugs first and use independent review.
 $thermo-nuclear-code-quality-review Review the current diff and its callers. Report findings without editing.
 $frontend-design Refine the article page with a content-led editorial identity and verify desktop/mobile behavior.
+$humanizer Rewrite this application's copy in a natural, direct voice. Reduce repetitive headings and footer sections while preserving useful navigation, facts and behavior.
 $commit-features Prepare a commit message from the staged diff and check the outgoing history.
 $architecture-fit Design a small club app for about 100 people. Explain the simplest adequate stack and ask about material unknowns.
 $production-finish Prepare this app for production. Check for exposed secrets, ask about hosting and build a Docker image if it fits.

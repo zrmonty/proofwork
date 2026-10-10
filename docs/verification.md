@@ -79,3 +79,7 @@ Version 0.3.0 adds architecture-fit and production-finish with four conditional 
 ## Follow-up: performance and gated TDD
 
 Version 0.4.0 adds performance-increase, tdd-95 and a bundled executable coverage checker. The [verification report](../evals/results/performance-tdd-20261010.md) records independent review, real collector pass/fail and omission checks, measured lookup and benchmark-harness changes, and test consolidation without an unsupported runtime claim. All nineteen tests pass; both sixteen-skill packages build, Claude strict validation passes and Codex 0.4.0 is installed and enabled. Collector provenance, actual-project coverage and production performance remain separate obligations.
+
+## Follow-up: human application copy
+
+Version 0.5.0 adds humanizer with two conditional references and frontend integration. The [verification report](../evals/results/humanizer-20261010.md) records independent sample-copy use, state/structure preservation and corrected routing cases. All twenty tests pass; both seventeen-skill packages build, Claude strict validation passes and Codex 0.5.0 is installed and enabled. The text fixtures do not certify rendered interfaces, translations or reader satisfaction.

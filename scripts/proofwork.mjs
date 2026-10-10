@@ -28,6 +28,7 @@ export function route(task, files = []) {
   if (files.some(file => /\.rs$/i.test(file)) || /\brust\b/i.test(task)) skills.push('rust-best-practices');
   if (files.some(file => /\.pyi?$/i.test(file)) || /\bpython\b/i.test(task)) skills.push('python-best-practices');
   if (files.some(file => /\.(?:tsx|jsx|css|scss|html|vue|svelte)$/i.test(file)) || /\b(frontend|front.end|website|layout|browser|visual|interface)\b/i.test(task)) skills.push('frontend-design');
+  if (skills.includes('frontend-design') || /\b(humani[sz](?:e|er|ing|ation)|microcopy|ux writing|empty[- ]states?)\b/i.test(task) || (/\b(copy|wording|labels?|messages?|tone|headings?|footer|header)\b/i.test(task) && /\b(app|application|page|screen|ui)\b/i.test(task)) || (/\b(buttons?|forms?|notifications?|onboarding|confirmations?|navigation)\b/i.test(task) && /\b(copy|wording|labels?|text|messages?)\b/i.test(task))) skills.push('humanizer');
   if (playbook === 'review' || playbook === 'refactor') skills.push('thermo-nuclear-code-quality-review');
   if (/\b(commit|push|github|shipping)\b/i.test(task)) skills.push('commit-features');
   return {playbook,skills};

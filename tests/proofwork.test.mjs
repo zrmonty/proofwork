@@ -20,6 +20,16 @@ test('routing loads core discipline and affected languages without mutating inpu
 });
 
 const initial = { schemaVersion: 1, owner: 'coordinator', objective: 'fix', criteria: ['works'], revision: 'r1', phase: 'preparing', tasks: [], evidence: [], findings: [] };
+test('routing selects humanizer for interface copy without treating HTTP headers as editorial work', () => {
+  assert.ok(route('Build the account settings page',['src/Settings.tsx']).skills.includes('humanizer'));
+  assert.ok(route('Humanize these error messages').skills.includes('humanizer'));
+  assert.ok(route('Rewrite wording in the application').skills.includes('humanizer'));
+  assert.ok(route('Rewrite the empty state').skills.includes('humanizer'));
+  assert.ok(route('Improve button labels').skills.includes('humanizer'));
+  assert.ok(route('Rewrite notification copy').skills.includes('humanizer'));
+  assert.ok(!route('Fix HTTP response headers',['src/server.ts']).skills.includes('humanizer'));
+  assert.ok(!route('Explain the parser algorithm',['src/parser.rs']).skills.includes('humanizer'));
+});
 test('routing loads measured performance and gated TDD for matching work', () => {
   assert.ok(route('Reduce benchmark runtime and improve throughput').skills.includes('performance-increase'));
   assert.ok(route('Make the parser faster').skills.includes('performance-increase'));
