@@ -26,7 +26,7 @@ test('a promoted typo loads actual full guidance while preserving its original r
   assert.equal(result.recommendedTier, 'light');
   assert.equal(result.tier, 'full');
   assert.ok(result.skills.includes('rust-best-practices'));
-  assert.ok(result.skills.includes('pw-worker-mode'));
+  assert.ok(!result.skills.includes('pw-worker-mode'));
   assert.ok(result.skills.includes('thermo-nuclear-code-quality-review'));
   assert.deepEqual(result.tierOverride, { requested: 'full', applied: 'full', minimum: 'light', constrained: false });
 });
@@ -110,7 +110,7 @@ test('mixed review-and-change requests cannot shed executable verification', () 
   assert.equal(plan.tier, 'standard');
   assert.equal(plan.tierOverride.constrained, true);
   assert.ok(plan.skills.includes('tdd-95'));
-  assert.ok(!route('Review and fix parser rejection', ['src/parser.rs']).skills.includes('tdd-95'));
+  assert.ok(route('Review and fix parser rejection', ['src/parser.rs']).skills.includes('tdd-95'));
   assert.ok(!explainRoute('Review parser module', ['src/parser.rs'], 'standard').skills.includes('tdd-95'));
   assert.ok(!explainRoute('Explain fix for parser rejection', ['src/parser.rs'], 'standard').skills.includes('tdd-95'));
 });

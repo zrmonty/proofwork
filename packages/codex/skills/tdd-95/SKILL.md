@@ -7,6 +7,8 @@ description: When implementing executable behavior test-first with separate line
 
 Protect the real contract with the smallest effective suite. Require at least **95% line coverage and 95% branch coverage** of the independently selected first-party executable target, retaining stricter aggregate/per-file gates. Coverage measures execution; assertions must detect wrong behavior.
 
+A read-only audit measures existing protection and reports gaps; it does not authorize writing tests or changing gates.
+
 ## Establish target and baseline
 
 Inspect affected callers, configuration, collector, CI and exclusions. Select the task's application/package/module before measuring, not only convenient functions. Independently enumerate executable source, including files tests never import, and record metric definitions and thresholds. Keep before/after denominators comparable.

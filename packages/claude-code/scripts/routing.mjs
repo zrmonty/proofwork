@@ -1,16 +1,12 @@
 import { readFileSync } from 'node:fs';
-import { workflowFor, explicitPlaybook, playbookPlan } from './workflow-routing.mjs';
+import { workflowFor, explicitPlaybook, playbookPlan, normalizeTask, isReadOnlyTask } from './workflow-routing.mjs';
 
 const rules = JSON.parse(readFileSync(new URL('../shared/routing.json', import.meta.url)));
 const testPattern = (pattern, value) => new RegExp(pattern, 'i').test(value);
 const matches = (name, task) => testPattern(rules.patterns[name], task);
 const hasExtension = (name, files) => files.some(file => testPattern(rules.extensions[name], file));
 const docsOnly = files => files.length > 0 && files.every(file => testPattern(rules.extensions.docs, file));
-const readonly = task => explicitPlaybook(task)?.id === 'clarify-path' ||
-  matches('readOnly', task) || matches('dryRun', task) ||
-  /\b(?:read[- ]only|report[- ]only|do not (?:edit|change))\b/i.test(task) ||
-  /^\s*how\s+(?:does|do)\b.*\b(?:work|behave|handle|reject|process|flow)\b/i.test(task) ||
-  /^\s*why\s+(?:was|is|does|did|were)\b.*\b(?:chosen|introduced|designed|decided|constraint|decision)\b/i.test(task);
+const readonly = isReadOnlyTask;
 
 function languageChoice(task) {
   if (matches('copyLanguage', task) && !matches('languageFit', task)) return false;
@@ -85,7 +81,8 @@ function auditSkills(task) {
 }
 function qualitySkills(task, files, playbook) {
   const skills = [];
-  const behavior = ['feature', 'bug-fix', 'refactor'].includes(playbook);
+  const behavior = ['feature', 'bug-fix', 'refactor'].includes(playbook) ||
+    (playbook === 'review' && matches('codeRequest', task));
   const executable = hasExtension('executable', files) || matches('codeRequest', task);
   const needsTests = (behavior && (executable || matches('tests', task))) || matches('coverage', task);
   if (!docsOnly(files) && !readonly(task) && needsTests) skills.push('tdd-95');
@@ -115,6 +112,8 @@ export function route(task, files = []) {
   if (!Array.isArray(files) || files.some(file => typeof file !== 'string')) {
     throw new Error('files must be text paths');
   }
+  task = normalizeTask(task);
+  if (!task) throw new Error('task must include an engineering request');
   const playbook = playbookFor(task);
   const tier = tierFor(task, files);
   return { tier, playbook, skills: selectedSkills(task, files, tier, playbook) };
@@ -175,6 +174,7 @@ function principleSlugs(task, tier, playbook, skills) {
 
 export function explainRoute(task, files = [], requestedTier) {
   const recommendation = route(task, files);
+  task = normalizeTask(task);
   if (requestedTier !== undefined && !tiers.includes(requestedTier)) {
     throw new Error('requested tier must be light, standard, or full');
   }
@@ -203,6 +203,8 @@ export function explainRoute(task, files = [], requestedTier) {
     tier, playbook: recommendation.playbook, skills, recommendedTier: recommendation.tier, tierReasons, principles,
     tierOverride: { requested: requestedTier ?? null, applied: tier, minimum, constrained },
     procedure,
+    continuation: { resume: procedure.id === 'resume-work', references: procedure.id === 'resume-work'
+      ? ['skills/use-proofwork/references/recovery.md'] : [] },
     workflow: workflowFor(task, files, tier, recommendation.playbook, procedure.id),
   };
 }

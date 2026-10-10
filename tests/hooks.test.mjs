@@ -219,3 +219,25 @@ test("hook stdin rejects malformed, oversized and unsupported requests without r
   assert.ok(JSON.parse(run("{}", ["--host", "unknown"]).stdout).systemMessage);
   assert.deepEqual(JSON.parse(run('{"hook_event_name":"Unknown"}').stdout), {});
 });
+
+test('hook hints share named playbook and phase decisions with the entry workflow', async t => {
+  const repo = await mkdtemp(path.join(tmpdir(), 'pw integrated hints '));
+  t.after(() => rm(repo, {recursive:true,force:true}));
+  for(const host of ['codex','claude-code']) {
+    const result=await runHook(host,{cwd:repo,session_id:'flow',hook_event_name:'UserPromptSubmit',
+      prompt:'$use-proofwork Follow Explore Options for the parser'});
+    const hint=result.hookSpecificOutput.additionalContext;
+    assert.match(hint,/"procedure":"explore-options"/);
+    assert.match(hint,/option-arena/);assert.match(hint,/"tier":"full"/);
+    assert.doesNotMatch(hint,/pw-worker-mode/);
+  }
+});
+
+test('a new prompt hint does not inherit unrelated previous assignment paths',async t=>{
+ const {record,event}=await boundFixture(t);
+ await record('assign',{id:'old',objective:'Previous subsystem',files:['a.rs','b.ts','c.py'],revision:'r1'});
+ const hint=(await runHook('codex',{...event,hook_event_name:'UserPromptSubmit',prompt:'Fix typo in README'}))
+  .hookSpecificOutput.additionalContext;
+ assert.match(hint,/"tier":"light"/);
+ assert.doesNotMatch(hint,/rust-best-practices|python-best-practices|typescript-best-practices/);
+});

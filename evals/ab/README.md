@@ -111,3 +111,5 @@ the [Claude turn](../results/native-claude-turn-20261010.json) ended at
 authentication before a model response.
 
 The Proofwork arm also injects the selected named playbook guide; context-budget counts that initial input. Deferred review/report and conditional reference costs remain separate.
+
+The staged arm includes the selected procedure guide and required recovery references for Resume Work. It records continuation metadata and deferred review/report entries. This matches the context-budget accounting; conditional references beyond required recovery remain additional. Structural input parity is not evidence of agent adherence or comparative quality.

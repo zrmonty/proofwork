@@ -1,5 +1,14 @@
 # Proofwork changelog
 
+## 0.28.0 — Integrated intent-to-delivery flow
+
+- Share intent normalization and read-only decisions across routing, phases, wrappers and hook hints.
+- Give mixed review/repair the correct guide and verification; reserve worker-only guidance for assignments.
+- Wire measurement and resume to their actual next guidance, with required recovery counted initially.
+- Establish one coordinator and evidence history across skills, alternatives, review and stage handoffs.
+- Refresh the complete reference catalog and remove stale policy wording from the vision.
+
+
 ## 0.27.0 — Named playbooks
 
 - Add 13 original procedures with explained routing and compatible checkpoint stages.

@@ -19,7 +19,7 @@ For high-risk integrated work, read [model patterns](../use-proofwork/references
 correctness and maintainability reviewers with configured supported roles; resolve disagreements through artifact
 evidence and safe counterexamples, not majority votes.
 
-Use [challenge-review](../challenge-review/SKILL.md) for independent angles; feed its findings into this verdict
+Use [challenge-review](../challenge-review/SKILL.md) to organize independent angles in the current review; reuse its reviewers and feed findings into this verdict
 rather than replacing the established lens or accepting a majority vote.
 
 ## Make the concern actionable

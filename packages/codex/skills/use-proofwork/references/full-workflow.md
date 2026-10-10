@@ -7,12 +7,12 @@ Use for full-tier work, parallel ownership and integrated review. Own the user's
 Resolve the package root and read actual [runtime](../../../adapters/runtime.md), [goal](../../../adapters/goal.md) and [tool](../../../scripts/README.md) interfaces. Inspect project instructions, dirty changes, behavior and callers. Preserve authorization/active objectives. Define observable criteria, consequential failures and evidence that could contradict success. Report actual inspected scope, never imply universal coverage.
 
 ```text
-node <plugin-root>/scripts/proofwork.mjs route --task <text> --files <comma-separated paths>
+node <plugin-root>/scripts/proofwork.mjs route --explain --task <text> --files <comma-separated paths>
 ```
 
 Quote task/files separately. Read selected skills/playbook and correct routing using actual intent/artifact. New unresolved direction uses brainstorm; unsettled boundaries use architecture-fit; unsettled technologies use language-fit before scaffolding. Accepted direction proceeds without reopening settled decisions. Investigation/choice-only requests return their scoped deliverable rather than silently implementing/deploying.
 
-Reroute material answers/stage changes with the current subtask; checkpoint selected guidance/next action while retaining objective, authority and unaffected evidence. Missing guidance/tools is a capability gap; use setup where necessary. Full runs load pw-worker-mode, data-driven-development and pw-clean-code; language/UI guidance follows actual scope. Functional guidance is conditional on stateful/shared/retry/cache work, matches incumbent style and extracts for three meaningful states/event types, real partial failure/retry or framework-independent decision testing.
+Reroute material answers/stage changes with the current subtask; checkpoint selected guidance/next action while retaining objective, authority and unaffected evidence. Missing guidance/tools is a capability gap; use setup where necessary. Coordinators load data-driven-development and pw-clean-code; assigned workers load pw-worker-mode; language/UI guidance follows actual scope. Functional guidance is conditional on stateful/shared/retry/cache work, matches incumbent style and extracts for three meaningful states/event types, real partial failure/retry or framework-independent decision testing.
 
 Executable changes use [tdd-95](../../tdd-95/SKILL.md): independent source scope, actual line/branch gates and stricter incumbent requirements. Missing metrics/below-gate legacy targets stay incomplete. Documentation does not need executable coverage. Optimization uses [performance-increase](../../performance-increase/SKILL.md) and reports comparable before/after correctness/timing, variability, practical meaning and regressions or unavailable baselines.
 

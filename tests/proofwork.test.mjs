@@ -11,7 +11,7 @@ test('routing loads core discipline and affected languages without mutating inpu
   const files = ['src/a.tsx', 'src/main.rs', 'tools/fix.py'];
   const result = route('Fix the article layout bug', files);
   assert.equal(result.playbook, 'bug-fix');
-  for (const skill of ['pw-worker-mode', 'data-driven-development', 'pw-clean-code', 'typescript-best-practices', 'rust-best-practices', 'python-best-practices', 'frontend-design']) assert.ok(result.skills.includes(skill));
+  for (const skill of ['data-driven-development', 'pw-clean-code', 'typescript-best-practices', 'rust-best-practices', 'python-best-practices', 'frontend-design']) assert.ok(result.skills.includes(skill));
   assert.deepEqual(files, ['src/a.tsx', 'src/main.rs', 'tools/fix.py']);
   assert.equal(route('Review this change').playbook, 'review');
   assert.equal(route('Investigate latency').playbook, 'investigate');

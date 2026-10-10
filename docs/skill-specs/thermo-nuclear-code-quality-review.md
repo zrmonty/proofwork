@@ -44,3 +44,7 @@ For disputed concerns, trace a concrete rule change and compare a local remedy w
 Evaluation should compare reviewer decisions against deliberately flawed and clean artifacts, including feasible remedies and preservation safeguards. Record actual inspection/checks and limits; do not claim universal security/correctness certification from this verdict.
 
 Original authorship: written to the user's review requirements and Proofwork's maintained specification. No external skill text or workflow was imported or mechanically paraphrased. These scenarios define measurable behavior for subsequent evaluation.
+
+## Integration ownership
+
+Follow the current root handoff contract: keep one objective, coordinator, evidence history and finding list. Referenced contracts do not redispatch the root or launch a duplicate panel/experiment. Preserve actual authority, stage and applicable proof obligations. Read-only audits assess existing checks; worker guidance belongs to explicitly assigned workers.

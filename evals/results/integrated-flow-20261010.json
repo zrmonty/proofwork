@@ -1,0 +1,198 @@
+{
+  "schemaVersion": 1,
+  "version": "0.28.0",
+  "date": "2026-10-10",
+  "environment": {
+    "os": "Windows",
+    "node": "v24.16.0"
+  },
+  "scope": {
+    "roots": [
+      "shared",
+      "adapters",
+      "scripts",
+      "tests",
+      "docs",
+      "evals/ab"
+    ],
+    "textFiles": 351,
+    "words": 148132,
+    "inspection": "Automated canonical inventory, all entry families and targeted integration seam review; not a claim of manual line-by-line review of every reference."
+  },
+  "checks": {
+    "fullCheckPassed": true,
+    "integratedFlowRegressionTests": 7,
+    "standardPackages": [
+      "codex",
+      "claude-code"
+    ],
+    "optionalHookPackagesBuilt": true,
+    "packagedRouting": [
+      {
+        "host": "codex",
+        "task": "Use Proofwork. I want an app to track my invoices",
+        "tier": "standard",
+        "stage": "brainstorm",
+        "procedure": "shape-intent",
+        "resume": false
+      },
+      {
+        "host": "codex",
+        "task": "Use Proofwork to choose persistence for an invoice app",
+        "tier": "standard",
+        "stage": "architecture",
+        "procedure": "justify-structure",
+        "resume": false
+      },
+      {
+        "host": "codex",
+        "task": "/use-proofwork Review and fix the export bug",
+        "tier": "standard",
+        "stage": "review",
+        "procedure": "repair-behavior",
+        "resume": false
+      },
+      {
+        "host": "codex",
+        "task": "Which C file handles login?",
+        "tier": "light",
+        "stage": "investigate",
+        "procedure": "clarify-path",
+        "resume": false
+      },
+      {
+        "host": "codex",
+        "task": "Follow the Resume Work playbook.",
+        "tier": "standard",
+        "stage": "feature",
+        "procedure": "resume-work",
+        "resume": true
+      },
+      {
+        "host": "codex",
+        "task": "The checkout page is slow, make it faster",
+        "tier": "standard",
+        "stage": "investigate",
+        "procedure": "improve-measurement",
+        "resume": false
+      },
+      {
+        "host": "codex",
+        "task": "Use Proofwork. Fix a typo in README.md",
+        "tier": "light",
+        "stage": "bug-fix",
+        "procedure": "quick-fix",
+        "resume": false
+      },
+      {
+        "host": "claude-code",
+        "task": "Use Proofwork. I want an app to track my invoices",
+        "tier": "standard",
+        "stage": "brainstorm",
+        "procedure": "shape-intent",
+        "resume": false
+      },
+      {
+        "host": "claude-code",
+        "task": "Use Proofwork to choose persistence for an invoice app",
+        "tier": "standard",
+        "stage": "architecture",
+        "procedure": "justify-structure",
+        "resume": false
+      },
+      {
+        "host": "claude-code",
+        "task": "/use-proofwork Review and fix the export bug",
+        "tier": "standard",
+        "stage": "review",
+        "procedure": "repair-behavior",
+        "resume": false
+      },
+      {
+        "host": "claude-code",
+        "task": "Which C file handles login?",
+        "tier": "light",
+        "stage": "investigate",
+        "procedure": "clarify-path",
+        "resume": false
+      },
+      {
+        "host": "claude-code",
+        "task": "Follow the Resume Work playbook.",
+        "tier": "standard",
+        "stage": "feature",
+        "procedure": "resume-work",
+        "resume": true
+      },
+      {
+        "host": "claude-code",
+        "task": "The checkout page is slow, make it faster",
+        "tier": "standard",
+        "stage": "investigate",
+        "procedure": "improve-measurement",
+        "resume": false
+      },
+      {
+        "host": "claude-code",
+        "task": "Use Proofwork. Fix a typo in README.md",
+        "tier": "light",
+        "stage": "bug-fix",
+        "procedure": "quick-fix",
+        "resume": false
+      }
+    ],
+    "codexInstalledVersion": "0.28.0",
+    "codexEnabled": true
+  },
+  "coverage": {
+    "passed": true,
+    "threshold": 95,
+    "revision": "scripts-sha256:072b409806d3486f83cbc3b64a34ac1b4b48308a599207d20b304fc4a071b151",
+    "tool": "Node V8 LCOV",
+    "files": 19,
+    "metrics": {
+      "lines": {
+        "covered": 2282,
+        "total": 2311,
+        "percent": 98.74513197749893,
+        "passed": true
+      },
+      "branches": {
+        "covered": 1424,
+        "total": 1464,
+        "percent": 97.26775956284153,
+        "passed": true
+      }
+    }
+  },
+  "skillListing": {
+    "skills": 49,
+    "words": 380,
+    "violations": [],
+    "passed": true
+  },
+  "context": {
+    "scenarios": 92,
+    "previousInitialWords": 169692,
+    "initialWords": 158304,
+    "deferredEntryWords": 14790,
+    "maxLight": 672,
+    "maxStandard": 2754,
+    "selectedGuideAndRequiredRecoveryCountedInitially": true,
+    "conditionalReferencesAndTaskModelTokensAdditional": true
+  },
+  "ci": {
+    "configuration": ".github/workflows/check.yml",
+    "platforms": [
+      "ubuntu-latest",
+      "windows-latest"
+    ],
+    "status": "Awaiting first remote execution"
+  },
+  "limits": [
+    "Executed package routes and runtime fixtures do not establish live agent adherence, cross-model quality or native goal continuation.",
+    "Native Codex hooks and a successfully blocked native Claude Stop remain unverified.",
+    "Coordinator verification, not independent review or human approval.",
+    "No public tag, deployment or global hook installation."
+  ]
+}

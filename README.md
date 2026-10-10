@@ -6,7 +6,7 @@ Install in Codex (Bash or PowerShell 7): `codex plugin marketplace add zrmonty/p
 
 Install in Claude Code 2.1.275+: `/plugin install proofwork --marketplace zrmonty/proofwork`.
 
-See the [skill reference guide](docs/reference-guide.md) for conditional decision guides and worked scenarios across the full skill set.
+See the [integrated workflow](docs/flow.md) and [skill reference guide](docs/reference-guide.md) for conditional decision guides and worked scenarios across the full skill set.
 
 **Our north star: turn a clear intention into useful, distinctive, verified software without making the user manage the engineering machinery.** Purpose, taste and consequential choices stay with you. The plugin supplies the discipline behind them. Read the [product vision](docs/vision.md) for what this means and how we evaluate it.
 
@@ -42,7 +42,7 @@ For example, “I want an app to track my invoices” starts with brainstorming.
 faster” starts with investigation and performance guidance. “Which C file handles login?” is a light, read-only
 investigation; naming a language does not automatically reopen architecture decisions.
 
-Routing returns a **light**, **standard** or **full** tier. Small mechanical edits load a short procedure and relevant language entry. Behavioral or larger work loads shared implementation discipline and executable verification. Security, concurrency, migrations, parallel work and audit-stack use full coordination. Automatic loading of the thermonuclear review lens applies only in full; substantial integrated work still receives independent review. Conditional references load when needed; the budget measures initial guidance, not total model usage.
+Routing returns a **light**, **standard** or **full** tier. Small mechanical edits load a short procedure and relevant language entry. Behavioral or larger work loads shared implementation discipline and executable verification. Worker-only guidance is reserved for assigned workers. Security, concurrency, migrations, parallel work and audit-stack use full coordination. Automatic loading of the thermonuclear review lens applies only in full; substantial integrated work still receives independent review. Conditional references load when needed; the budget measures initial guidance, not total model usage.
 
 Example request:
 
@@ -319,10 +319,12 @@ These are blocked runs, not quality or performance scores. The full 72-run compa
 
 See [verification](docs/verification.md) for exact executed checks, behavioral observations, tested host versions, and unverified release gates. Packaging tests establish packaging behavior; they do not certify agent quality or subjective visual appeal. The run-state guard enforces its recorded evidence contract, not truthfulness of arbitrary input supplied by an operator.
 
-For source version **0.27.0**, the full check passes with **98.73% line coverage and 97.38% branch coverage**
-across 19 runtime scripts. Both host packages contain 49 skills and 13 named playbooks; Codex 0.27.0 is installed
-and enabled. Selected guides count toward the 92-case initial-context corpus: 169,692 words, with another 14,640
-entry words deferred to later stages. See [current checks](evals/results/named-playbooks-20261010.json).
+For source version **0.28.0**, the full check passes with **98.75% line coverage and 97.27% branch coverage**
+across 19 runtime scripts. Both host packages contain 49 skills and 13 named playbooks; Codex 0.28.0 is installed
+and enabled. The same 92-case corpus now loads **158,304 initial words**, down from 169,692 (6.71%).
+Selected guides and required resume guidance count initially; another 14,790 entry words are deferred.
+This is an instruction-word measure, not measured token savings or agent quality. See [current checks](evals/results/integrated-flow-20261010.json).
+Windows/Linux CI runs source checks and both package builds on main pushes and pull requests.
 
 In the historical 0.24 snapshot regression, a standalone Windows Git worktree with 20,000 ignored files fell from **5,036 ms
 to 129 ms**, excluding fixture setup and cleanup. These individual measurements do not establish performance on

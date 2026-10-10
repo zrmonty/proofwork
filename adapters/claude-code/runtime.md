@@ -2,7 +2,7 @@
 
 ## Entry and discovery
 
-Start a local session with `claude --plugin-dir <absolute-path-to-packages/claude-code>`, then invoke `/proofwork:use-proofwork <task>`. Claude namespaces plugin skills; the package does not promise a bare `/use-proofwork` alias. The root skill loads setup, routing and relevant guidance automatically. No user-wide configuration or hooks are installed. Validate with `claude plugin validate <package-path>` when that CLI is available.
+Start a local session with `claude --plugin-dir <absolute-path-to-packages/claude-code>`, then invoke `/proofwork:use-proofwork <task>`. Claude namespaces plugin skills; the package does not promise a bare `/use-proofwork` alias. The root routes the task and loads relevant guidance; capability setup is conditional. No user-wide configuration or hooks are installed. Validate with `claude plugin validate <package-path>` when that CLI is available.
 
 ## Shell, subagents and browser capabilities
 

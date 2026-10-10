@@ -23,4 +23,4 @@ configured roles through pw-setup. Settle material findings on the integrated ar
 read commit-features; enforcement requires opt-in. Apply clear-voice while writing docs/comments and every final
 report. Use evidence-surface to connect outcomes to actual checks, identities and gaps; routine reports stay short.
 
-Novel unmatched operations use procedure-draft before effects.
+Read [handoffs](references/handoffs.md) for stage changes, interacting skills or resume; load continuation.references on resume. Keep one objective, coordinator and finding list. Setup is conditional; worker-mode belongs to assigned workers. Novel unmatched operations use procedure-draft before effects.

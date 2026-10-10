@@ -38,4 +38,4 @@ Evaluate skill compression through paired, comparable tasks: can a newcomer reac
 
 Do not grow the command list merely to appear capable, require stack vocabulary in the initial brief, turn every small request into an engineering questionnaire, conceal unresolved risks for a smooth interaction, or substitute attractive output for correctness. Deep specialist skills belong behind precise routing and progressive disclosure. The user-facing experience should become easier as the engineering underneath becomes more dependable.
 
-This is the current product goal. Existing host permissions, scope, pure-decision defaults, strict typing, coverage and code-size requirements remain in force. Skill compression changes who carries the cognitive burden; it does not create authority or relax evidence.
+This is the current product goal. Existing host permissions, scope, caller-data ownership, conditional functional extraction, strict typing, coverage and explicitly adopted project policies remain in force. Skill compression changes who carries the cognitive burden; it does not create authority or relax evidence.

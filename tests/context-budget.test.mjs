@@ -67,8 +67,8 @@ test('initial context counts the root, light stub and every selected skill once'
     { task: 'Rename a Rust field', files: ['main.rs'] }, { task: 'Implement parser', files: [] },
     { task: 'Harden application', files: [] }, { task: 'Fix retry logic', files: [] }];
   const measured = measureContext(repo, corpus);
-  assert.deepEqual(measured.scenarios.map(scenario => scenario.words), [180, 180, 170, 230, 190]);
-  assert.equal(measured.totalWords, 950);
+  assert.deepEqual(measured.scenarios.map(scenario => scenario.words), [180, 180, 160, 220, 180]);
+  assert.equal(measured.totalWords, 920);
   assert.deepEqual(measured.scenarios.map(scenario => scenario.deferredWords), [10, 20, 20, 30, 20]);
   assert.equal(measured.totalDeferredWords, 100);
 });
@@ -100,4 +100,12 @@ test('new context questions retain bounded light guidance in the real package', 
     assert.ok(scenario.words <= 800, `${scenario.task}: ${scenario.words}`);
     assert.ok(scenario.deferredWords > 0);
   }
+});
+
+test('resume context includes required recovery guidance rather than hiding it as deferred cost', () => {
+ const repo=process.cwd();
+ const measured=measureContext(repo,[{task:'Resume work on the interrupted run',files:[]}]);
+ assert.equal(measured.scenarios[0].tier,'standard');
+ assert.ok(measured.scenarios[0].words>1200);
+ assert.ok(measured.scenarios[0].words<=4000);
 });

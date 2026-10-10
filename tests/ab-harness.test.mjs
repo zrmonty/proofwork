@@ -304,3 +304,9 @@ test("CLI rejects malformed options and prints a public selection error", (t) =>
   assert.equal(ran.status, 0);
   assert.equal(JSON.parse(ran.stdout).rows[0].hiddenAccepted, false);
 });
+
+test('resumed comparative input includes recovery and preserves continuation metadata', () => {
+ const text=harness.profileContext('proofwork',{prompt:'Resume work on the interrupted run',files:[]},{});
+ assert.match(text,/Recovery and evidence/);
+ assert.match(text,/"resume":true/);
+});

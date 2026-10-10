@@ -49,3 +49,7 @@ The reference is original decision guidance. These cases specify observable acce
 ## Evidence and authorship
 
 Original Proofwork instructions and examples. Official Vitest, Coverage.py and Rust documentation was inspected for collector behavior and capability caveats. These acceptance cases specify observable decisions; they do not claim that language projects, mutation campaigns or CI deployments were executed. Evaluation evidence belongs in the parent verification record.
+
+## Integration ownership
+
+Follow the current root handoff contract: keep one objective, coordinator, evidence history and finding list. Referenced contracts do not redispatch the root or launch a duplicate panel/experiment. Preserve actual authority, stage and applicable proof obligations. Read-only audits assess existing checks; worker guidance belongs to explicitly assigned workers.

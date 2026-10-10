@@ -9,6 +9,7 @@ Use for substantial integrated changes whose failure consequences warrant indepe
 identity, preserved contracts and release scope. Read [model patterns](../use-proofwork/references/model-patterns.md)
 before delegation; supported roles and configured limits govern dispatch, not model reputation.
 
+Reuse current independent reviewers when they cover these questions; do not start a second panel.
 Start with two fresh reviewers and a bounded challenger only when justified and supported. Respect maxReviewers,
 maxParallel, time and observed usage limits; declare whether the challenger consumes the reviewer allocation. If capacity
 allows only two assignments, sequence or combine scopes explicitly rather than silently exceeding it.

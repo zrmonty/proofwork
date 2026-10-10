@@ -5,7 +5,7 @@ description: For repeated measured optimization with explicit acceptance and reg
 
 # Measure loop
 
-Use when an observed bottleneck needs iterative experiments. Read
+Use when an observed bottleneck needs iterative experiments; retain one experiment log and coordinator. Read
 [performance increase](../performance-increase/SKILL.md); it owns profiling, comparable benchmarks and before/after
 reporting. Preserve the user's workload and correctness requirements rather than optimizing a convenient surrogate.
 

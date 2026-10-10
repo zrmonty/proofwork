@@ -2,9 +2,16 @@ import { readFileSync } from 'node:fs';
 
 const playbooks = JSON.parse(readFileSync(new URL('../shared/playbooks.json', import.meta.url))).playbooks;
 const matches = (pattern, task) => pattern.test(task);
-const readonly = task => explicitPlaybook(task)?.id === 'clarify-path' ||
-  matches(/^\s*(?:explain|describe|summari[sz]e|how|why|which|what)\b/i, task) ||
-  matches(/\b(?:report[- ]only|read[- ]only|dry[- ]run|do not (?:edit|change))\b/i, task);
+const routeRules = JSON.parse(readFileSync(new URL('../shared/routing.json', import.meta.url)));
+export const normalizeTask = task => task.replace(
+  /^\s*(?:use\s+proofwork(?:[.:]\s*|\s+to\s+|\s+)|\/(?:proofwork:)?use-proofwork\s+|\$use-proofwork\s+)/i, '').trim();
+export const isReadOnlyTask = task => explicitPlaybook(task)?.id === 'clarify-path' ||
+  new RegExp(routeRules.patterns.readOnly, 'i').test(normalizeTask(task)) ||
+  /\b(?:report[- ]only|read[- ]only|dry[- ]run|do not (?:edit|change))\b/i.test(task) ||
+  /^\s*how\s+(?:does|do)\b.*\b(?:work|behave|handle|reject|process|flow)\b/i.test(normalizeTask(task)) ||
+  /^\s*why\s+(?:was|is|does|did|were)\b.*\b(?:chosen|introduced|designed|decided|constraint|decision)\b/i
+    .test(normalizeTask(task));
+const readonly = isReadOnlyTask;
 const docsOnly = files => files.length > 0 && files.every(file => /\.(?:md|txt|rst|adoc)$/i.test(file));
 const mechanical = task => /\b(?:typo|spelling|rename)\b/i.test(task) &&
   !/\b(?:behavior|behaviour|logic|validation|handling|migration)\b/i.test(task);
@@ -38,6 +45,7 @@ const explicitChallenge = task => /\b(?:challenge[- ]review|adversarial|multi[- 
 const integratedWork = task => /\b(?:integrated|substantial|combined|release|migration)\b/i.test(task);
 
 export function workflowFor(task, files, tier, playbook, procedureId) {
+  task = normalizeTask(task);
   const result = { beforeWork: [], options: [], review: [], report: ['clear-voice', 'evidence-surface'] };
   const readOnly = readonly(task);
   const origin = originRequest(task);
@@ -60,7 +68,7 @@ export function workflowFor(task, files, tier, playbook, procedureId) {
   if (!readOnly && substantive && probeRequest(task)) result.beforeWork.push('probe-first');
   if (!readOnly && tier !== 'light') {
     if (arenaRequest(task) || playbook === 'prototype') result.options.push('option-arena');
-    if (measuredWork(task)) result.options.push('measure-loop');
+    if (measuredWork(task) || procedureId === 'improve-measurement') result.options.push('measure-loop');
     if (novelProcedure(task)) result.options.push('procedure-draft');
   }
   if (needsImpact) {
@@ -83,7 +91,7 @@ export function workflowFor(task, files, tier, playbook, procedureId) {
 }
 
 export function explicitPlaybook(task) {
-  const request = task.replace(/^\s*(?:use\s+proofwork[.:]?\s*|\/proofwork:use-proofwork\s+|\$use-proofwork\s+)/i, '');
+  const request = normalizeTask(task);
   return playbooks.find(entry => new RegExp('^\\s*(?:(?:use|run|follow)\\s+(?:the\\s+)?)?'+
     entry.name.replaceAll(' ', '[ -]')+'(?:\\s+playbook)?(?:\\b|:)', 'i').test(request));
 }
@@ -99,10 +107,15 @@ export function playbookPlan(task, tier, stage, skills) {
   else if (tier==='light' && mechanical(task)) id='quick-fix';
   else if (skills.includes('audit-stack')) id='coordinated-audit';
   else if (skills.includes('security-hardening') || stage==='production-finish') id='harden-and-finish';
+  else if (stage === 'review' && /\b(?:fix|repair)\b/i.test(task)) id = 'repair-behavior';
+  else if (stage === 'review' && /\b(?:refactor|rework|simplify|restructure|remove|consolidate)\b/i.test(task)) {
+    id = 'simplify-structure';
+  }
+  else if (stage === 'review' && /\b(?:implement|build|add|change)\b/i.test(task)) id = 'add-or-change-behavior';
   else if (skills.includes('performance-increase')) id='improve-measurement';
   else id=({investigate:'clarify-path','bug-fix':'repair-behavior',refactor:'simplify-structure',
     architecture:'justify-structure',prototype:'explore-options',brainstorm:'shape-intent',
     review:'clarify-path'})[stage] ?? 'add-or-change-behavior';
   const entry=playbooks.find(item=>item.id===id);
-  return {...entry, actualTier:tier, explicit:Boolean(explicit)};
+  return { ...entry, stage, actualTier: tier, explicit: Boolean(explicit) };
 }

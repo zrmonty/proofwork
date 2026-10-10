@@ -2,7 +2,7 @@
 
 ## Entry and discovery
 
-Use the installed `use-proofwork` skill as the entry. `$use-proofwork <task>` is an explicit skill invocation; select the skill through the slash menu where exposed. `/use-proofwork` describes the product entry but is not a guaranteed registered CLI slash command. Repository marketplace/config supplies local loading metadata, but automatic discovery depends on the host's supported discovery and trust behavior; confirm listing in a fresh session before relying on it. Invocation automatically reads the root skill, which performs setup/routing and loads relevant bundled guidance.
+Use the installed `use-proofwork` skill as the entry. `$use-proofwork <task>` is an explicit skill invocation; select the skill through the slash menu where exposed. `/use-proofwork` describes the product entry but is not a guaranteed registered CLI slash command. Repository marketplace/config supplies local loading metadata, but automatic discovery depends on the host's supported discovery and trust behavior; confirm listing in a fresh session before relying on it. Invocation automatically reads the root skill, which routes the task and loads relevant guidance; capability setup is conditional.
 
 ## Shell, subagents and browser capabilities
 

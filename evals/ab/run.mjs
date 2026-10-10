@@ -185,6 +185,7 @@ export function profileContext(arm, task, config) {
       "use-proofwork/SKILL.md",
       ...[...result.skills, ...result.workflow.beforeWork, ...result.workflow.options]
         .map((skill) => `${skill}/SKILL.md`),
+      ...result.continuation.references.map(reference => reference.replace(/^skills\//, '')),
       ...result.principles.map((principle) => `${principle}/SKILL.md`),
     ]),
   ];
@@ -196,7 +197,7 @@ export function profileContext(arm, task, config) {
     })
     .join("\n\n");
   const guide = readFileSync(path.join(skillRoot, '..', result.procedure.path), 'utf8');
-  const staged = `${guide}\n\n${sources}\n\nDeferred workflow guidance: ${JSON.stringify(result.workflow)}`;
+  const staged = `${guide}\n\n${sources}\n\nDeferred workflow guidance: ${JSON.stringify(result.workflow)}\nContinuation: ${JSON.stringify(result.continuation)}`;
   if (!config.modelPlanPath) return staged;
   const plan = modelPlan(config.modelPlanPath);
   return (

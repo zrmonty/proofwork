@@ -73,3 +73,7 @@ Read explained beforeWork and options guidance before the affected action. Load 
 ## Named playbooks
 
 Read procedure.path from explained routing. Canonical procedures cover bounded fixes, read-only understanding, repairs, feature changes, simplification, measurement, architecture, production/security, combined audits, alternatives, extended work, unresolved intent and recovery. Keep the legacy stage identifiers for existing checkpoints. Explicit full procedures have a full floor; read-only scope remains authoritative. Preparation and selected guide cost count initially. Resume requires actual bound state, and Long Task respects existing goal boundaries.
+
+## Integration ownership
+
+Follow the current root handoff contract: keep one objective, coordinator, evidence history and finding list. Referenced contracts do not redispatch the root or launch a duplicate panel/experiment. Preserve actual authority, stage and applicable proof obligations. Read-only audits assess existing checks; worker guidance belongs to explicitly assigned workers.
