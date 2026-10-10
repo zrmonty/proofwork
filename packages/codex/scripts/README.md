@@ -6,6 +6,7 @@ Use Node.js 22 or newer. Resolve the package root from the loaded skill and run 
 - `init`, `status`, `assign`, `result`, `finding` and `checkpoint` coordinate full-tier work.
 - `evidence --command TEXT` executes a check and records its actual exit, duration and stream digests. Manual evidence is marked claimed.
 - `complete` requires current accepted results and current evidence; `--allow-claimed` explicitly accepts the weaker manual form.
+- `preflight` checks the same gates without writes; inspect `{ready, reasons}` rather than its exit status.
 - Writes accept `--break-lock` only for inspected stale or remote locks; live local locks remain protected.
 
 Read [tool interfaces](../contracts/tool-interface.md) when recording state, recovering a run or exporting coverage. It defines input schemas, identity checks and evidence limits. Add `.engineering-team/` to the target repository's ignore rules; initialization reports whether it is already ignored.
@@ -13,3 +14,8 @@ Read [tool interfaces](../contracts/tool-interface.md) when recording state, rec
 `check-coverage.mjs` evaluates an independently enumerated source inventory. `collect-coverage.mjs` normalizes real Node LCOV. In this repository, `verify-coverage.mjs` runs tests and enforces separate 95% line/branch gates. `check-file-lines.mjs` supports an explicit project ceiling and is disabled by default. `check-commits.mjs` reads the Git root's `.proofwork.json` commitFormat: proofwork, conventional or off (default). It returns {format, enabled, commits}, never rewrites history, and enforces no message policy without opt-in. `check-skill-list.mjs` rejects shared three-word trigger phrases; editorial review still decides semantic overlap. Context budgets cap entries at 600 words and references at 800 words.
 
 For development, `npm run check` validates source width, routed context budgets, tests with actual coverage, packaging and the optional project file policy.
+
+Optional lifecycle packages are built separately with `npm run build:hooks`. Associate an existing full run using
+`hook-binding.mjs bind --repo PATH --host codex|claude-code --session ID --run ID --owner ID`;
+`unbind` accepts the same selectors. No newest-run selection occurs. These commands do not enable hooks themselves.
+Review host-specific `hooks/hooks.json` and install through the host's trust flow.

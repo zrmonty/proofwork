@@ -38,6 +38,10 @@ Checkpoint before dispatch, after integration/review/checks and before yielding.
 
 Use native goals only when requested; budgets/pause/blocked follow actual host conditions. No replacement scheduler. Limits preserve incomplete checkpoints.
 
+With an explicitly installed lifecycle package, bind this full run to the actual host session using
+`hook-binding.mjs bind` and the coordinator owner. Never guess session IDs or choose the newest run.
+Hooks recover context; they neither create goals nor authorize resuming stopped work. `preflight` inspects completion without writes.
+
 Commits follow repository convention. [commit-features](../../commit-features/SKILL.md) formatting/checking applies only when `commitFormat` is explicitly enabled; absent means off. Do not automatically rewrite messages or block pushes with an unrequested format. Commit/push still requires existing authorization.
 
 Before completion collect modifying workers, inspect final artifacts, obtain current evidence, settle findings/effects and complete authorized delivery. Run the local completion guard against integrated identity, then perform native completion separately. Structural guards cannot establish evidence honesty or worker liveness. Report outcome, meaningful checks and remaining limits.

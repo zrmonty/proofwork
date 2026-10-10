@@ -173,6 +173,8 @@ These are shell commands for coordinators and contributors. `<plugin-root>` is t
 | `node <plugin-root>/scripts/proofwork.mjs finding --repo <repo> --run <id> --owner <session> --input <record.json>` | Record or resolve a finding. |
 | `node <plugin-root>/scripts/proofwork.mjs checkpoint --repo <repo> --run <id> --owner <session> --input <record.json>` | Save phase, revision, routing and next action. |
 | `node <plugin-root>/scripts/proofwork.mjs complete --repo <repo> --run <id> --owner <session> --revision <identity>` | Check recorded completion gates; does not complete a native goal. |
+| `node <plugin-root>/scripts/proofwork.mjs preflight --repo <repo> --run <id> --owner <session> --revision <identity>` | Read-only readiness JSON; inspect ready, not exit zero. |
+| `node <plugin-root>/scripts/hook-binding.mjs bind --repo <repo> --host codex --session <host-session> --run <id> --owner <owner>` | Explicitly bind a run for optional lifecycle hooks; unbind accepts the same selectors. |
 | `node <plugin-root>/scripts/check-commits.mjs --repo <repo> --range <outgoing-range>` | Check explicitly opted-in commit formatting; absent policy defaults to off. |
 | `node <plugin-root>/scripts/check-coverage.mjs --report <report.json> --inventory <inventory.json> [--threshold 95..100]` | Enforce separate line/branch floors against an independently enumerated source target. |
 | `node <plugin-root>/scripts/check-file-lines.mjs --repo <repo> [--limit <project-ceiling>] [--inventory <additional-code-paths.json>]` | Check an explicitly chosen project file-size policy; disabled by default. |
@@ -210,7 +212,10 @@ These are blocked runs, not quality or performance scores. The full 72-run compa
 
 See [verification](docs/verification.md) for exact executed checks, behavioral observations, tested host versions, and unverified release gates. Packaging tests establish packaging behavior; they do not certify agent quality or subjective visual appeal. The run-state guard enforces its recorded evidence contract, not truthfulness of arbitrary input supplied by an operator.
 
-The plugin has no global hook installation, external publishing automation, credential store, model API client, or background scheduler. See the [hook audit](docs/hook-audit.md) for proposed lifecycle and Git integration points; these hooks are not implemented or installed. Root invocation uses the host's existing agent and tools. User authorization and project instructions govern work.
+Standard packages contain no lifecycle hook configuration. Optional recovery, routing and completion hooks are built
+separately with `npm run build:hooks`; see [setup and limits](docs/hooks.md). They require explicit session binding
+and the host's installation/trust flow. No global hooks are installed automatically. Root invocation uses the host's
+existing agent and tools. User authorization and project instructions govern work.
 
 ## Development
 

@@ -1,0 +1,61 @@
+{
+  "schemaVersion": 1,
+  "version": "0.20.0",
+  "observedAt": "2026-10-10T17:55:03.0562536Z",
+  "coverage": {
+    "passed": true,
+    "threshold": 95,
+    "tool": "Node V8 LCOV",
+    "revision": "scripts-sha256:794680287710892fbbb565c5a109ac3f26f5eb23d6b758b89eb291e7110319e5",
+    "inventory": [
+      "scripts/build.mjs",
+      "scripts/check-commits.mjs",
+      "scripts/check-coverage.mjs",
+      "scripts/check-file-lines.mjs",
+      "scripts/check-skill-list.mjs",
+      "scripts/check-source-lines.mjs",
+      "scripts/collect-coverage.mjs",
+      "scripts/context-budget.mjs",
+      "scripts/hook-binding.mjs",
+      "scripts/hook-policy.mjs",
+      "scripts/host-hook.mjs",
+      "scripts/proofwork.mjs",
+      "scripts/routing.mjs",
+      "scripts/runtime-evidence.mjs",
+      "scripts/runtime-locks.mjs",
+      "scripts/runtime-snapshot.mjs",
+      "scripts/verify-coverage.mjs"
+    ],
+    "metrics": {
+      "lines": {
+        "covered": 1633,
+        "total": 1654,
+        "percent": 98.73035066505442,
+        "passed": true
+      },
+      "branches": {
+        "covered": 932,
+        "total": 957,
+        "percent": 97.3876698014629,
+        "passed": true
+      }
+    }
+  },
+  "standardCodexInstallation": {
+    "version": "0.20.0",
+    "packageFiles": 161,
+    "mismatches": 0,
+    "hookConfigurationPresent": false
+  },
+  "optionalBuilds": {
+    "codex": true,
+    "claudeCode": true
+  },
+  "nativeEvents": {
+    "claudeSessionStart": "observed in isolated init-only session; see native-claude-hooks-smoke-20261010.json",
+    "codex": "not verified",
+    "claudeUserPromptSubmit": "not verified",
+    "claudeStop": "not verified"
+  },
+  "publicRelease": "withheld pending usable Phase 3 results"
+}

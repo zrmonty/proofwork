@@ -46,7 +46,8 @@ async function removeGenerated(target, allowed) {
 }
 export async function build(options = {}) {
   const repository = path.resolve(options.repository ?? path.dirname(path.dirname(fileURLToPath(import.meta.url))));
-  const outputRoot = path.resolve(options.outputRoot ?? path.join(repository, "packages"));
+  const outputRoot = path.resolve(options.outputRoot ?? path.join(repository,
+    options.hooks ? '.engineering-team/hook-packages' : 'packages'));
   const metadata = JSON.parse(await readFile(path.join(repository, "package.json"), "utf8"));
   const skillRoot = path.join(repository, "shared/skills");
   const skills = (await readdir(skillRoot, { withFileTypes: true }))
@@ -116,6 +117,9 @@ export async function build(options = {}) {
         }
       }
       await cp(path.join(repository, "adapters", host), path.join(staging, "adapters"), { recursive: true });
+      await removeGenerated(path.join(staging, 'adapters/hooks'), staging);
+      if (options.hooks) await cp(path.join(repository, 'adapters', host, 'hooks'), path.join(staging, 'hooks'),
+        { recursive: true });
       for (const file of ["LICENSE", "NOTICE.md", "UPSTREAM.md"]) {
         await cp(path.join(repository, file), path.join(staging, file));
       }
@@ -158,7 +162,8 @@ export async function build(options = {}) {
           "Describe the outcome you want; Proofwork carries the engineering detail and verifies the result. " +
           `Start with \`${invocation}\`. Read [runtime](adapters/runtime.md) and [tools](scripts/README.md). ` +
           "These files are generated from our canonical authored source. " +
-          "No global configuration or continuation hooks are installed. " +
+          (options.hooks ? 'Lifecycle hooks require host trust and explicit run binding. '
+            : 'This package has no lifecycle hook configuration. ') +
           "Native goal support follows the live host contract. " +
           "Structural validation does not establish host behavioral certification.\n",
       );
@@ -182,7 +187,9 @@ export async function build(options = {}) {
 }
 if (process.argv[1] && import.meta.url === pathToFileURL(path.resolve(process.argv[1])).href) {
   try {
-    console.log(JSON.stringify(await build(), null, 2));
+    const args = process.argv.slice(2);
+    if (args.length && (args.length !== 1 || args[0] !== '--hooks')) throw new Error('usage: build.mjs [--hooks]');
+    console.log(JSON.stringify(await build({ hooks: args.includes('--hooks') }), null, 2));
   } catch (error) {
     console.error(error.message);
     process.exitCode = 1;

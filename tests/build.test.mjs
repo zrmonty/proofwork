@@ -46,9 +46,9 @@ test("isolated builds stamp versions, preserve skill parity and reject broken so
     ]) {
       await cp(path.join(repository, entry), path.join(root, entry), { recursive: true });
     }
-    const ordinaryPolicy = path.join(root, 'shared/skills/rust-best-practices/agents');
+    const ordinaryPolicy = path.join(root, "shared/skills/rust-best-practices/agents");
     await mkdir(ordinaryPolicy, { recursive: true });
-    await writeFile(path.join(ordinaryPolicy, 'openai.yaml'), 'policy:\n  allow_implicit_invocation: true\n');
+    await writeFile(path.join(ordinaryPolicy, "openai.yaml"), "policy:\n  allow_implicit_invocation: true\n");
     const outputRoot = path.join(root, "output");
     const reports = await build({ repository: root, outputRoot });
     assert.equal(reports.length, 2);
@@ -58,14 +58,19 @@ test("isolated builds stamp versions, preserve skill parity and reject broken so
       ["claude-code", ".claude-plugin"],
     ]) {
       const output = path.join(outputRoot, host);
+      assert.ok(!(await readdir(output)).includes("hooks"));
+      assert.ok(!(await readdir(path.join(output, "adapters"))).includes("hooks"));
       assert.equal(
         JSON.parse(await readFile(path.join(output, manifest, "plugin.json"), "utf8")).version,
         metadata.version,
       );
       assert.ok((await readdir(output)).includes("shared"));
-      assert.match(await readFile(path.join(output, 'README.md'), 'utf8'),
-        host === 'codex' ? /codex plugin add proofwork@proofwork-local/
-          : /\/plugin install proofwork --marketplace zrmonty\/proofwork/);
+      assert.match(
+        await readFile(path.join(output, "README.md"), "utf8"),
+        host === "codex"
+          ? /codex plugin add proofwork@proofwork-local/
+          : /\/plugin install proofwork --marketplace zrmonty\/proofwork/,
+      );
       assert.equal(
         await readFile(path.join(output, "shared/routing.json"), "utf8"),
         await readFile(path.join(root, "shared/routing.json"), "utf8"),
@@ -75,38 +80,76 @@ test("isolated builds stamp versions, preserve skill parity and reject broken so
       await readdir(path.join(outputRoot, "codex/skills")),
       await readdir(path.join(outputRoot, "claude-code/skills")),
     );
-    for (const name of ['pw-setup', 'pw-worker-mode', 'audit-stack']) {
-      const codex = await readFile(path.join(outputRoot, 'codex/skills', name, 'SKILL.md'), 'utf8');
-      const claude = await readFile(path.join(outputRoot, 'claude-code/skills', name, 'SKILL.md'), 'utf8');
-      assert.equal(claude.replace(/disable-model-invocation: true\r?\n/u, ''), codex);
+    for (const name of ["pw-setup", "pw-worker-mode", "audit-stack"]) {
+      const codex = await readFile(path.join(outputRoot, "codex/skills", name, "SKILL.md"), "utf8");
+      const claude = await readFile(path.join(outputRoot, "claude-code/skills", name, "SKILL.md"), "utf8");
+      assert.equal(claude.replace(/disable-model-invocation: true\r?\n/u, ""), codex);
       assert.doesNotMatch(codex, /disable-model-invocation/);
-      assert.match(await readFile(path.join(outputRoot, 'codex/skills', name, 'agents/openai.yaml'), 'utf8'),
-        /allow_implicit_invocation: false/);
+      assert.match(
+        await readFile(path.join(outputRoot, "codex/skills", name, "agents/openai.yaml"), "utf8"),
+        /allow_implicit_invocation: false/,
+      );
     }
-    assert.doesNotMatch(await readFile(
-      path.join(outputRoot, 'claude-code/skills/rust-best-practices/SKILL.md'), 'utf8'),
-      /disable-model-invocation/);
+    assert.doesNotMatch(
+      await readFile(path.join(outputRoot, "claude-code/skills/rust-best-practices/SKILL.md"), "utf8"),
+      /disable-model-invocation/,
+    );
     const marketplace = JSON.parse(await readFile(path.join(root, ".claude-plugin/marketplace.json"), "utf8"));
     assert.equal(marketplace.plugins.find((plugin) => plugin.name === "proofwork").version, metadata.version);
     await build({ repository: root, outputRoot });
-    const cli = spawnSync(process.execPath,[path.join(root,'scripts/build.mjs')],{encoding:'utf8'});
-    assert.equal(cli.status,0,cli.stderr);
-    const canonical = path.join(root,'shared/skills/pw-setup');
-    const linked = path.join(root,'shared/linked');
-    await symlink(canonical,linked,'junction');
-    await assert.rejects(build({repository:root,outputRoot}),/symlink forbidden/);
+    await build({ repository: root, outputRoot, hooks: true });
+    for (const [host, manifestDirectory] of [
+      ["codex", ".codex-plugin"],
+      ["claude-code", ".claude-plugin"],
+    ]) {
+      const output = path.join(outputRoot, host);
+      const config = JSON.parse(await readFile(path.join(output, "hooks/hooks.json"), "utf8"));
+      assert.deepEqual(Object.keys(config), ["hooks"]);
+      assert.deepEqual(Object.keys(config.hooks).sort(), ["SessionStart", "Stop", "UserPromptSubmit"]);
+      assert.ok(!(await readdir(path.join(output, "adapters"))).includes("hooks"));
+      const manifest = JSON.parse(await readFile(path.join(output, manifestDirectory, "plugin.json"), "utf8"));
+      assert.ok(!Object.hasOwn(manifest, "hooks"), "root conventional hooks config must not be registered twice");
+      for (const handlers of Object.values(config.hooks)) {
+        assert.equal(handlers.length, 1);
+        assert.equal(handlers[0].hooks.length, 1);
+        const command = handlers[0].hooks[0];
+        assert.equal(command.type, "command");
+        assert.equal(command.timeout, 15);
+        assert.match(JSON.stringify(command), /host-hook\.mjs/);
+        assert.match(JSON.stringify(command), new RegExp(host));
+      }
+    }
+    // An ordinary rebuild removes opt-in configuration, including stale prior output.
+    await build({ repository: root, outputRoot });
+    for (const host of ["codex", "claude-code"]) {
+      assert.ok(!(await readdir(path.join(outputRoot, host))).includes("hooks"));
+    }
+    for (const args of [["--unknown"], ["--hooks", "--hooks"], ["--hooks", "unexpected"]]) {
+      const invalid = spawnSync(process.execPath, [path.join(root, "scripts/build.mjs"), ...args], {
+        encoding: "utf8",
+        windowsHide: true,
+      });
+      assert.equal(invalid.status, 1);
+      assert.match(invalid.stderr, /usage/);
+    }
+    const cli = spawnSync(process.execPath, [path.join(root, "scripts/build.mjs")], { encoding: "utf8" });
+    assert.equal(cli.status, 0, cli.stderr);
+    const canonical = path.join(root, "shared/skills/pw-setup");
+    const linked = path.join(root, "shared/linked");
+    await symlink(canonical, linked, "junction");
+    await assert.rejects(build({ repository: root, outputRoot }), /symlink forbidden/);
     await rm(linked);
-    const linkedOutput = path.join(root,'linked-output');
-    await symlink(outputRoot,linkedOutput,'junction');
-    await assert.rejects(build({repository:root,outputRoot:linkedOutput}),/cannot be a symlink/);
+    const linkedOutput = path.join(root, "linked-output");
+    await symlink(outputRoot, linkedOutput, "junction");
+    await assert.rejects(build({ repository: root, outputRoot: linkedOutput }), /cannot be a symlink/);
     await rm(linkedOutput);
-    const codex = path.join(outputRoot,'codex');
-    const preserved = path.join(outputRoot,'saved-codex');
-    await rename(codex,preserved);
-    await symlink(preserved,codex,'junction');
-    await assert.rejects(build({repository:root,outputRoot}),/generated target cannot/);
+    const codex = path.join(outputRoot, "codex");
+    const preserved = path.join(outputRoot, "saved-codex");
+    await rename(codex, preserved);
+    await symlink(preserved, codex, "junction");
+    await assert.rejects(build({ repository: root, outputRoot }), /generated target cannot/);
     await rm(codex);
-    await rename(preserved,codex);
+    await rename(preserved, codex);
     await writeFile(path.join(root, "shared/skills/use-proofwork/broken.md"), "[missing](absent.md)");
     await assert.rejects(build({ repository: root, outputRoot }), /missing reference/);
     await rm(path.join(root, "shared/skills/use-proofwork/broken.md"));

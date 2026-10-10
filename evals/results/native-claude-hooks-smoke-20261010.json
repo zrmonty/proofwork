@@ -1,0 +1,46 @@
+{
+  "schemaVersion": 1,
+  "observedAt": "2026-10-10T17:54:27.631146+00:00",
+  "host": "claude-code",
+  "cliVersion": "2.1.296",
+  "packageVersion": "0.20.0",
+  "nativeEvent": "SessionStart",
+  "trigger": "--init-only",
+  "isolation": {
+    "temporaryConfigDirectory": true,
+    "settingSourcesEmpty": true,
+    "strictMcpConfig": true,
+    "offlineCachedCli": true,
+    "credentialEnvironmentExcluded": true,
+    "globalConfigurationUnchanged": true,
+    "modelConversationStarted": false
+  },
+  "unbound": {
+    "exactGeneratedHookConfiguration": true,
+    "nativeDispatchObserved": true,
+    "nativeOutputValidated": true,
+    "exitCode": 0,
+    "output": {}
+  },
+  "bound": {
+    "testOnlyBindingBootstrap": true,
+    "bindsActualIncomingSessionIdentity": true,
+    "invokesUnchangedPackagedHostHook": true,
+    "nativeOutputValidated": true,
+    "exitCode": 0,
+    "checkpointPhase": "preparing",
+    "checkpointContextReturned": true,
+    "checkpointUnchanged": true
+  },
+  "artifactHashes": {
+    "hooks/hooks.json": "6a750be5b0a4b5aceb5fb3baab110156292aaf383dce6f890990b8673b423355",
+    "scripts/host-hook.mjs": "1c47cff62cf2bd35029e61ba6bd51e0303f974953bfcab9c453010a92bfadecd",
+    "scripts/hook-policy.mjs": "20f84cdb0587ed7abd2f609ca360435bbef49236560400438fc754325c893caf",
+    "scripts/hook-binding.mjs": "1df11be0ac50c8c40f37d20885d96a3c44af855ed43cb4eee0c39b604236a54d"
+  },
+  "limits": [
+    "Bound test uses explicit test wrapper to bind actual incoming session before invoking unchanged packaged host hook.",
+    "UserPromptSubmit and Stop not dispatched by init-only.",
+    "Initialization hook smoke is not full engineering workflow verification."
+  ]
+}

@@ -21,3 +21,9 @@ In Codex CLI 0.150.1, from the trusted marketplace checkout, run `codex plugin m
 ## Invocation policy
 
 For a manual-only skill, Codex supports `policy.allow_implicit_invocation: false` in that skill's `agents/openai.yaml`. Explicit `$skill` invocation remains available. This is host metadata, not a portable SKILL.md frontmatter key. See [official skill metadata](https://learn.chatgpt.com/docs/build-skills). Confirm discovery and invocation in the actual host; metadata validation is a separate check.
+
+Standard packages contain no lifecycle configuration. The separately built opt-in package puts host hooks in
+`hooks/hooks.json` and shared handlers in `scripts/`. Review and install through the host's supported trust flow.
+SessionStart recovers an explicitly bound run; UserPromptSubmit recommends a route; Stop performs read-only
+completion preflight with an incomplete-report escape and recursion guard. Bind using `hook-binding.mjs` with
+actual host session identity, repository, run and coordinator owner. Never infer a newest run or restart stopped work.

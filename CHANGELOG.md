@@ -1,5 +1,13 @@
 # Proofwork changelog
 
+## 0.20.0 — optional lifecycle recovery and completion checks
+
+- Added explicit host-session/run binding, read-only completion preflight and shared lifecycle policy.
+- SessionStart restores bound context; UserPromptSubmit supplies routing hints; Stop checks recognized completion claims while respecting incomplete reports and its recursion guard.
+- Build hook-enabled packages separately; standard marketplace packages remain hook-free. No global settings or native Git hooks are installed.
+- Isolated Claude SessionStart dispatch was observed with the packaged handler. Native Codex dispatch and real prompt/Stop turns remain unverified; fixture tests cover their payload behavior.
+- Public release remains gated on usable Phase 3 comparison results.
+
 ## 0.19.0 — smaller guidance and opt-in commit policy
 
 - Shortened all 23 trigger descriptions; renamed generic setup, worker-mode and clean-code commands to pw-setup, pw-worker-mode and pw-clean-code. No duplicate aliases are bundled. Setup, workers and audit-stack require explicit invocation with host-specific metadata; the root may deliberately read their guidance.

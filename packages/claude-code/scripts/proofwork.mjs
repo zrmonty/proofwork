@@ -107,20 +107,32 @@ function checkpoint(next, record) {
 const currentEvidence = (state, criterion) => state.evidence.filter(item =>
   item.criterion === criterion && item.revision === state.revision).at(-1);
 function completionGates(next, record) {
+  if (!Array.isArray(next.criteria) || !next.criteria.length ||
+    next.criteria.some(criterion => typeof criterion !== 'string' || !criterion.trim()) ||
+    new Set(next.criteria).size !== next.criteria.length) fail('invalid completion criteria');
+  for (const field of ['tasks', 'findings', 'evidence']) {
+    if (!Array.isArray(next[field]) || next[field].some(item => !item || typeof item !== 'object'))
+      fail(`invalid completion ${field}`);
+  }
+  if (next.outstandingEffects !== undefined && !Array.isArray(next.outstandingEffects))
+    fail('invalid outstanding effects');
   if (record.revision !== next.revision) fail('completion revision differs from current checkpoint revision');
   if (!next.tasks.length || next.tasks.some(task => task.status !== 'reviewed' ||
-    task.result.revision !== next.revision)) fail('unreviewed task or stale task revision');
+    task.result?.revision !== next.revision)) fail('unreviewed task or stale task revision');
   if (next.findings.some(item => item.material && item.status === 'open')) fail('unresolved material finding');
   if (next.outstandingEffects?.length) fail('outstanding effects require reconciliation');
   if (next.criteria.some(criterion => !currentEvidence(next, criterion)?.passed))
     fail('missing current passing evidence; latest observation must pass');
 }
-function complete(next, record) {
+function completionClaims(next, record) {
   completionGates(next, record);
   const claimed = next.criteria.map(criterion => currentEvidence(next, criterion))
     .filter(item => item.source !== 'executed').map(item => item.id);
   if (!record.allowClaimed && claimed.length) fail('claimed evidence requires --allow-claimed');
-  next.claimedEvidence = claimed; next.phase = 'complete';
+  return claimed;
+}
+function complete(next, record) {
+  next.claimedEvidence = completionClaims(next, record); next.phase = 'complete';
   next.nextAction = 'Report verified result and update native goal under its live contract';
 }
 export function transition(state, command, record, owner) {
@@ -189,9 +201,10 @@ async function initialize(file, repo, run, options) {
   await save(file, state, false);
   return state;
 }
-function validateState(state, repo, run, owner) {
+function validateState(state, repo, run, owner, readOnly = false) {
+  if (!state || typeof state !== 'object' || Array.isArray(state)) fail('invalid checkpoint structure');
   if (state.schemaVersion !== 1 || state.run !== run || state.repo !== repo) fail('invalid checkpoint identity');
-  if (state.phase === 'complete') fail('completed run is immutable; initialize another run');
+  if (!readOnly && state.phase === 'complete') fail('completed run is immutable; initialize another run');
   if (state.owner !== owner) fail('only the coordinator owner may update aggregate state');
 }
 async function prepareEvidence(record, options, repo, state) {
@@ -212,8 +225,6 @@ async function prepareRecord(command, options, repo, state) {
     : JSON.parse(await readFile(text(options.input, 'input'), 'utf8'));
   if (command === 'evidence') await prepareEvidence(record, options, repo, state);
   if (command === 'checkpoint') record.snapshot = await snapshotIdentity(repo);
-  if (command === 'complete' && !sameIdentity(state.snapshot, await snapshotIdentity(repo)))
-    fail('codebase identity changed since checkpoint; checkpoint and verify again');
   return record;
 }
 async function verifyArtifacts(state, repo) {
@@ -224,14 +235,31 @@ async function verifyArtifacts(state, repo) {
       fail(`evidence artifact changed for ${criterion}`);
   }
 }
+async function verifyCompletion(state, record, repo) {
+  if (!sameIdentity(state.snapshot, await snapshotIdentity(repo)))
+    fail('codebase identity changed since checkpoint; checkpoint and verify again');
+  completionClaims(state, record);
+  await verifyArtifacts(state, repo);
+}
+async function preflight(options) {
+  try {
+    const repo = await realpath(text(options.repo, 'repo')), run = id(options.run, 'run');
+    const file = await safePath(repo, `.engineering-team/runs/${run}/state.json`, 'state');
+    const state = JSON.parse(await readFile(file, 'utf8'));
+    validateState(state, repo, run, text(options.owner, 'owner'), true);
+    await verifyCompletion(state, { revision: text(options.revision, 'revision'),
+      allowClaimed: options['allow-claimed'] === true }, repo);
+    return { ready: true, reasons: [] };
+  } catch (error) { return { ready: false, reasons: [redact(error.message)] }; }
+}
 async function updateState(file, repo, run, command, options) {
   const state = JSON.parse(await readFile(file, 'utf8')); validateState(state, repo, run, options.owner);
   const record = await prepareRecord(command, options, repo, state);
+  if (command === 'complete') await verifyCompletion(state, record, repo);
   const next = transition(state, command, record, options.owner);
   if (command === 'checkpoint') {
     validateRevision(repo, next.revision, record.snapshot); next.snapshot = record.snapshot;
   }
-  if (command === 'complete') await verifyArtifacts(next, repo);
   await save(file, next, true);
   return next;
 }
@@ -247,6 +275,7 @@ async function writeState(command, repo, run, directory, options) {
 }
 export async function execute(command, options) {
   if (command === 'route') return route(options.task, (options.files ?? '').split(',').filter(Boolean));
+  if (command === 'preflight') return preflight(options);
   const repo = await realpath(text(options.repo, 'repo')), run = id(options.run, 'run');
   const directory = await safePath(repo, `.engineering-team/runs/${run}`, 'run');
   if (command === 'status')
@@ -261,6 +290,7 @@ status --repo PATH --run ID
 assign|result|evidence|finding|checkpoint --repo PATH --run ID --owner SESSION --input JSON_FILE
 evidence also accepts --command TEXT; command observations belong under .engineering-team/.
 complete --repo PATH --run ID --owner SESSION --revision REV [--allow-claimed]
+preflight --repo PATH --run ID --owner SESSION --revision REV [--allow-claimed] (read-only readiness)
 Any write accepts --break-lock for explicitly verified stale/remote lock recovery.
 See scripts/README.md for schemas and safety limits.`;
 function parseOptions(args) {

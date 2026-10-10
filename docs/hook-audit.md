@@ -2,6 +2,10 @@
 
 Audited 2026-10-10 against Proofwork 0.14.0. This is a design audit; no lifecycle hooks, Git hooks, settings changes or executable handlers were installed.
 
+Implementation update for 0.20.0: the first three lifecycle events now have shared handlers, explicit binding and
+read-only preflight in separate opt-in packages. See [setup and verification limits](hooks.md).
+The observations below describe the original 0.14.0 audit, not the current implementation.
+
 ## Recommendation
 
 Use hooks to preserve a known operating contract at repeatable boundaries: recover context, remind the root of routing, expose changed-code violations, validate handoff and prevent unsupported completion claims. Keep product judgment, architecture selection, design critique and evidence interpretation in the skills. This supports skill compression by carrying routine discipline without taking consequential choices away from the user.

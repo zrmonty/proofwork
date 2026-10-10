@@ -28,6 +28,17 @@ Use `complete --repo PATH --run ID --owner SESSION --revision REV` only after in
 
 Only the coordinator writes state. Workers return records, and the coordinator validates them before import. Existing runs cannot be initialized again; completed runs are immutable. Mutations write a temporary checkpoint and rename it; `state.backup.json` retains the previous valid state. A per-run exclusive `write.lock` rejects concurrent writers. Locks record pid, host, owner and creation time. A live local writer cannot be displaced. For a dead local PID, rerun with --break-lock after inspection. For a different host, verify the remote writer before explicitly breaking the lock; local PID lookup cannot establish its status. For corrupt state, inspect the backup and actual repository before restoring it; do not replay external actions from checkpoint assumptions. Paths reject traversal, absolute paths, alternate data streams and symlinks. Filesystem access by a malicious concurrent process is outside this local coordination boundary.
 
+## Read-only completion and lifecycle binding
+
+`preflight --repo PATH --run ID --owner SESSION --revision REV [--allow-claimed]` uses the same completion checks
+without writing state, locks, backups or directories. It returns `{ready, reasons}`; exit zero means the query ran,
+not that readiness passed. The Stop hook never accepts claimed evidence. Readiness can become stale after any edit.
+
+Optional lifecycle packages use `hook-binding.mjs bind|unbind --repo PATH --host codex|claude-code --session ID
+--run ID --owner SESSION`. Supply the actual host session and an explicit owned run; binding never selects the newest
+checkpoint. Read-only handlers recover context and supply hints; conservative Stop detection has a recursion guard
+and allows incomplete or stopped work. Standard packages do not enable hooks. Host trust and installation remain separate.
+
 ## Coverage gate
 
 Run `node <plugin-root>/scripts/check-coverage.mjs --report REPORT.json --inventory INVENTORY.json [--threshold 95..100]`. Exit 0 means both aggregate metrics meet the threshold; exit 1 means a failed gate, invalid input or missing evidence. A stricter threshold is supported; lowering it below 95 is rejected. This tool only reads inputs and evaluates counts. It does not run tests, collect coverage, verify revision identity or prove the inventory is complete.

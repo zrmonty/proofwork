@@ -1,6 +1,6 @@
 {
   "name": "proofwork",
-  "version": "0.19.0",
+  "version": "0.20.0",
   "private": true,
   "type": "module",
   "scripts": {
@@ -10,7 +10,8 @@
     "check": "npm run check:source-lines && npm run context-budget && npm run check:coverage && npm run build && npm run check:file-lines",
     "context-budget": "node scripts/check-skill-list.mjs && node scripts/context-budget.mjs",
     "check:source-lines": "node scripts/check-source-lines.mjs",
-    "check:coverage": "node scripts/verify-coverage.mjs"
+    "check:coverage": "node scripts/verify-coverage.mjs",
+    "build:hooks": "node scripts/build.mjs --hooks"
   },
   "engines": {
     "node": ">=22"

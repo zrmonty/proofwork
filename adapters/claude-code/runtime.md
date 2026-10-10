@@ -19,3 +19,9 @@ Source: https://code.claude.com/docs/en/plugins-reference . Manifest is `.claude
 ## Invocation policy
 
 For a manual-only skill, Claude Code supports `disable-model-invocation: true` in SKILL.md frontmatter. Explicit namespaced user invocation remains available; the setting also prevents skill preloading into subagents. Keep this host-specific field out of the canonical body and other host packages. `user-invocable: false` has a different purpose: it hides the user command while retaining model invocation. See [official skill configuration](https://code.claude.com/docs/en/skills).
+
+Standard packages contain no lifecycle configuration. The separately built opt-in package puts host hooks in
+`hooks/hooks.json` and shared handlers in `scripts/`. Review and install through the host's supported trust flow.
+SessionStart recovers an explicitly bound run; UserPromptSubmit recommends a route; Stop performs read-only
+completion preflight with an incomplete-report escape and recursion guard. Bind using `hook-binding.mjs` with
+actual host session identity, repository, run and coordinator owner. Never infer a newest run or restart stopped work.
