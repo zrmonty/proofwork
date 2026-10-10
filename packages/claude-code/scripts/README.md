@@ -6,6 +6,7 @@ Use Node.js 22 or newer. Resolve the package root from the loaded skill and run 
 - `init`, `status`, `assign`, `result`, `finding` and `checkpoint` coordinate full-tier work.
 - `init --host codex|claude-code --session ID` automatically binds a known host session; omit both for ordinary runs.
 - `evidence --command TEXT` executes a check and records its actual exit, duration and stream digests. Manual evidence is marked claimed.
+- `--timeout-ms` bounds executed evidence (default 120000; integer 1–3600000). Timeout records a failed observation.
 - `complete` requires current accepted results and current evidence; `--allow-claimed` explicitly accepts the weaker manual form.
 - `preflight` checks the same gates without writes; inspect `{ready, reasons}` rather than its exit status.
 - Writes accept `--break-lock` only for inspected stale or remote locks; live local locks remain protected.

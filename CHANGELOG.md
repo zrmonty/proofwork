@@ -1,5 +1,13 @@
 # Proofwork changelog
 
+## 0.23.0 — bounded evidence and process identity
+
+- Executed evidence has a two-minute default timeout and an explicit bounded override; timeouts never pass.
+- Documented inherited shell authority and why allowlisting the launcher also grants child-command execution.
+- Redaction covers bearer tokens, common cloud key formats, password flags and quoted credential values.
+- Locks compare actual OS process birth to reject reused PIDs, with conservative legacy/unknown handling.
+- Scrubbed private workstation paths from published evidence and documented explicit automation authorship.
+
 ## 0.22.0 — state-based completion hooks
 
 - Reviewing/verifying runs now preflight Stop regardless of wording; natural completion patterns supplement earlier phases.

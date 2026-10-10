@@ -5,12 +5,12 @@
 [
   {
     "host": "codex",
-    "path": "C:\\Users\\zrmon\\OneDrive\\Documents\\ChatGPT\\Proofwork\\packages\\codex",
+    "path": "<checkout>/packages/codex",
     "skills": 12
   },
   {
     "host": "claude-code",
-    "path": "C:\\Users\\zrmon\\OneDrive\\Documents\\ChatGPT\\Proofwork\\packages\\claude-code",
+    "path": "<checkout>/packages/claude-code",
     "skills": 12
   }
 ]

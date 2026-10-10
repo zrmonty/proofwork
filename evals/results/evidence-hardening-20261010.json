@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 1,
+  "version": "0.23.0",
+  "date": "2026-10-10",
+  "environment": "Node 24.16.0 on Windows",
+  "fullCheck": { "command": "npm run check", "exitCode": 0 },
+  "coverage": {
+    "revision": "scripts-sha256:8bf98219aa842fe379da4c63eeb2179335e3eddb89f50e73eddd9067bb6908de",
+    "inventory": "17 canonical scripts/*.mjs",
+    "lines": { "covered": 1759, "total": 1782, "percent": 98.70931537598204 },
+    "branches": { "covered": 998, "total": 1025, "percent": 97.36585365853658 },
+    "threshold": 95,
+    "passed": true
+  },
+  "executedRegressions": [
+    "A never-ending child command times out and persists passed:false through the runtime options interface",
+    "Invalid deadlines reject before execution; default deadline 120000 ms, maximum 3600000 ms",
+    "Bearer tokens, AWS/Google key formats, cloud credential assignments, password flags and quoted values redact",
+    "Actual Windows process birth is recorded independently of lock acquisition",
+    "Different recorded birth for a live PID diagnoses stale and requires explicit break-lock",
+    "Legacy and unknown live process birth never authorize lock breaking",
+    "Linux/macOS process-start parsers pass OS-output fixture checks",
+    "Exported result JSON parses after private path/account scrubbing"
+  ],
+  "commitAuthor": "Proofwork automation <proofwork-automation@example.invalid>",
+  "limits": [
+    "Command execution inherits permissions and environment; no sandbox or child-command allowlist is implemented.",
+    "Termination is requested, not universally proven; detached descendants or external effects may survive.",
+    "Windows termination cleanup may add five seconds to the deadline.",
+    "Redaction recognizes evaluated formats and does not guarantee discovery of every secret.",
+    "Linux/macOS lookup behavior uses fixtures, not native host execution; timestamp resolution and lookup races remain.",
+    "Private identifiers removed from current exports remain in earlier Git history and shared copies.",
+    "Native Stop verification remains blocked by Claude authentication; no host certification inferred."
+  ]
+}

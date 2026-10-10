@@ -104,7 +104,7 @@ No nested delegation by default. The coordinator may authorize bounded nested wo
 
 ## Review and simplification
 
-Author an original thermonuclear review skill as a shared first-class capability. The user's existing skill at `C:/Users/zrmon/.codex/skills/thermo-nuclear-code-quality-review/SKILL.md` informs the requirements below; its text and workflow are not imported or adapted.
+Author an original thermonuclear review skill as a shared first-class capability. The user's existing skill at `<local-skill-catalog>/thermo-nuclear-code-quality-review/SKILL.md` informs the requirements below; its text and workflow are not imported or adapted.
 
 Workers apply its standards. An independent reviewer applies the full skill to substantial full-tier changes and the integrated team diff. Keep its verdicts: meets the bar, needs restructuring, insufficient evidence. Judge clear naming, cohesive responsibilities and actual complexity without universal function or file line ceilings. Preserve evidence requirements, scope discipline and behavior-preservation safeguards when decomposing responsibilities.
 

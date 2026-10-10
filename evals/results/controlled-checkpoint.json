@@ -3,7 +3,7 @@
   "run": "behavior-20261010",
   "owner": "behavior-coordinator",
   "activeMode": "use-proofwork",
-  "repo": "C:\\Users\\zrmon\\AppData\\Local\\Temp\\proofwork-codex-smoke-20261010",
+  "repo": "<temporary-workspace>",
   "baseRevision": "sha256:cd7846d9a678ddd2be3b31166efcdfd6f6739eb87008e0b5a257cd0c4589df57:06788c576d19e7fde009aa72a411763185b5ece4785bb23062861082ef47bedf",
   "designReference": null,
   "skills": [

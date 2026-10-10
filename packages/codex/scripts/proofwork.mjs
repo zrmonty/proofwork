@@ -215,7 +215,8 @@ async function prepareEvidence(record, options, repo, state) {
   transition(state, 'evidence', record, options.owner);
   const snapshot = await snapshotIdentity(repo);
   if (!sameIdentity(snapshot, state.snapshot)) fail('evidence identity differs from checkpoint; checkpoint first');
-  if (options.command) Object.assign(record, await executeEvidence(record, options.command, repo, artifact));
+  if (options.command)
+    Object.assign(record, await executeEvidence(record, options.command, repo, artifact, options['timeout-ms']));
   else record.source = 'claimed';
   record.snapshot = snapshot; record.digest = await digest(artifact);
   if (!sameIdentity(snapshot, await snapshotIdentity(repo))) fail('command changed codebase; checkpoint and rerun');
@@ -301,7 +302,8 @@ init --repo PATH --run ID --owner SESSION --objective TEXT --revision REV --crit
 init also accepts --host codex|claude-code --session HOST_SESSION for automatic hook binding.
 status --repo PATH --run ID
 assign|result|evidence|finding|checkpoint --repo PATH --run ID --owner SESSION --input JSON_FILE
-evidence also accepts --command TEXT; command observations belong under .engineering-team/.
+evidence also accepts --command TEXT [--timeout-ms 1..3600000]; default timeout is 120000 ms.
+Command observations belong under .engineering-team/. This is arbitrary shell execution, not a sandbox.
 complete --repo PATH --run ID --owner SESSION --revision REV [--allow-claimed]
 preflight --repo PATH --run ID --owner SESSION --revision REV [--allow-claimed] (read-only readiness)
 Any write accepts --break-lock for explicitly verified stale/remote lock recovery.

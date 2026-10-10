@@ -230,6 +230,12 @@ existing agent and tools. User authorization and project instructions govern wor
 
 ## Development
 
+Executed evidence commands have a two-minute default deadline; use `--timeout-ms` for an explicit override.
+They run with inherited permissions. Allowlisting the Proofwork launcher also grants child shell execution unless
+the host restricts descendants; see [command authority and deadlines](shared/contracts/tool-interface.md#executed-command-authority-and-deadlines).
+Exported evidence uses placeholders for private paths/account identifiers. Automation commits retain an explicit
+automation identity; see [authorship and export policy](docs/decisions/git-authorship-and-exported-evidence.md).
+
 Edit `shared/` and the relevant `adapters/`; rebuild both packages from canonical authored assets. Each skill has a [specification](docs/skill-specs/) and scenario coverage. Use disposable repositories for lifecycle and integration tests. Never edit generated package copies as the source of a fix.
 
 Skill entry files carry the essential decisions and operating constraints. Their linked `references/` contain focused worked examples, specialist guidance and review procedures; each entry explains when to read them. The root selects relevant skills, and those skills load the detail the task needs. See the [skill depth and evaluation standard](docs/skill-depth-review.md) for authoring and review criteria.

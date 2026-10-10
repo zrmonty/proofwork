@@ -1,6 +1,6 @@
 Unable to perform the fix because the workspace is mounted read-only and process execution is blocked.
 
-- Route: requested `use-proofwork`; discovered Proofwork root: `C:\Users\zrmon\AppData\Local\Temp\proofwork-codex-smoke-20261010\.agents\skills`. The bundled router could not be executed.
+- Route: requested `use-proofwork`; discovered Proofwork root: `<temporary-workspace>/.agents/skills`. The bundled router could not be executed.
 - Skills selected: `use-proofwork`, `functional-programming`, `typescript-best-practices`, `clean-code`, and verification guidance. Their files could not be loaded because even read-only subprocesses were rejected.
 - Reproduction: not obtained. Attempts to launch PowerShell and `cmd.exe` for read-only inspection were rejected before execution.
 - Modification: none. A targeted `apply_patch` probe was rejected explicitly because writing is blocked by the read-only sandbox and approvals are disabled.

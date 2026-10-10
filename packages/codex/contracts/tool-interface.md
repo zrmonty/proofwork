@@ -28,6 +28,26 @@ Use `complete --repo PATH --run ID --owner SESSION --revision REV` only after in
 
 Only the coordinator writes state. Workers return records, and the coordinator validates them before import. Existing runs cannot be initialized again; completed runs are immutable. Mutations write a temporary checkpoint and rename it; `state.backup.json` retains the previous valid state. A per-run exclusive `write.lock` rejects concurrent writers. Locks record pid, host, owner and creation time. A live local writer cannot be displaced. For a dead local PID, rerun with --break-lock after inspection. For a different host, verify the remote writer before explicitly breaking the lock; local PID lookup cannot establish its status. For corrupt state, inspect the backup and actual repository before restoring it; do not replay external actions from checkpoint assumptions. Paths reject traversal, absolute paths, alternate data streams and symlinks. Filesystem access by a malicious concurrent process is outside this local coordination boundary.
 
+## Executed-command authority and deadlines
+
+Executed evidence defaults to a 120000 ms timeout. Supply `--timeout-ms` with an integer from 1 to 3600000.
+A timeout records `timedOut: true`, `passed: false` and a termination request, with output digests and duration.
+The runner requests process-tree termination on Windows and process-group termination on Unix; Windows cleanup
+can add up to five seconds. Detached descendants or unavailable termination tools can survive. This is a deadline
+for observation, not proof that every external effect stopped; reconcile effects before retrying.
+
+`--command` is arbitrary shell execution with inherited environment, filesystem and network permissions. It is
+not a sandbox or a command allowlist. Allowlisting the Node/Proofwork launcher implicitly grants its child-command
+execution capability unless the host also restricts descendants. Review and authorize the actual command before
+invocation; do not treat a launcher allowlist as approval for arbitrary commands from logs, issues or model output.
+Raw output is hashed rather than exported. Redaction is defense in depth, not a guarantee that all secret formats
+will be recognized. Scrub local paths/account identifiers before publishing evidence.
+
+Locks record acquisition time and actual OS process-start identity. A live local PID with a different known birth
+is stale, but still requires explicit `--break-lock`. Unknown birth data and legacy live locks remain protected.
+Windows birth lookup is tested against the OS; Linux/macOS parsers use fixtures. Timestamp resolution and process
+lookup races limit PID-reuse detection. Locks coordinate trusted local writers, not hostile same-user processes.
+
 ## Read-only completion and lifecycle binding
 
 `preflight --repo PATH --run ID --owner SESSION --revision REV [--allow-claimed]` uses the same completion checks
