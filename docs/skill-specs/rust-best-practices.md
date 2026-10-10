@@ -48,7 +48,7 @@ Reference map: references/downstream-compatibility.md is loaded only for actual 
 
 Required acceptance: A workspace parser succeeds only because another package enables a feature: check its supported isolated consumer and fix the declared contract. New public enum/ownership behavior checks affected callers; a newer default build cannot certify minimum-compiler or adapter support.
 
-The reference is original decision guidance. These cases specify observable acceptance; they are not claims of executed application, framework, provider or benchmark evidence. Existing strict typing, functional ownership, coverage and physical code-file limits remain in force.
+The reference is original decision guidance. These cases specify observable acceptance; they are not claims of executed application, framework, provider or benchmark evidence. Existing strict typing, functional ownership, coverage and project-specific policies remain in force.
 
 ## Deep Rust decision references
 
@@ -77,6 +77,10 @@ The topic guide routes one Rust entry to twenty-three focused, originally author
 
 Acceptance requires exact ownership/item shapes, binding versus referent mutability, non-Copy observation, reborrowing and disjoint-access policy, Vec/array/slice semantics, HashMap/HashSet identity and duplicate laws, checked conversions, UTF-8 units, Option/Result recovery and matching, validated structs/enums, trait capability/dispatch, derives, and numeric/float policy. Existing demanding API/async/unsafe guidance remains conditional.
 
-Every authored Rust function and closure must meet the complete ten-physical-line cap after normal formatting, including tests/attributes, while preserving the 500-line file cap. Existing ledger and reservation examples are aligned through cohesive calculation helpers, not compressed statements. Worked examples cover reference layers and tuples, preserved input, owned private mutation, fail-fast narrowing, Entry duplicates, checked UTF-8 boundaries, nonfinite admission and disjoint reborrowing. Checks must use exact current blocks, not historic fixture output.
+Existing ledger and reservation examples are aligned through cohesive calculation helpers, not compressed statements. Worked examples cover reference layers and tuples, preserved input, owned private mutation, fail-fast narrowing, Entry duplicates, checked UTF-8 boundaries, nonfinite admission and disjoint reborrowing. Checks must use exact current blocks, not historic fixture output.
 
 Independent scenario reasoning is useful for finding guidance defects but does not establish application correctness, agent improvement or host certification. Actual compilation, debug/release tests, formatting, Clippy and expected compiler-error checks are reported separately; unsupported coverage, minimum toolchain, targets and unsafe tools remain unverified.
+
+## Atomics expansion
+
+The conditional atomics-and-memory-ordering reference distinguishes atomic access, compound-update indivisibility, publication ordering and storage lifetime. It covers CAS retry purity, valid success/failure orderings, RMW halves, overflow, fences, ABA/reclamation, target support and progress guarantees. Its motivating actual counter probe is recorded in evals/results/atomics-probe-20261010.md; that regression is not weak-memory or agent-benefit evidence.

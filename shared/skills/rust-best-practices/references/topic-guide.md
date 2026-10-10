@@ -6,7 +6,7 @@ Choose the reference that answers the current decision. Keep one Rust entry skil
 
 | Task or symptom | Read | Decision to settle |
 | --- | --- | --- |
-| Basic syntax, type inference, tuples, units, build settings, size rules | [Foundations and toolchain](foundations-and-toolchain.md) | What the expression returns; which edition, compiler, feature and target the caller supports |
+| Basic syntax, type inference, tuples, units, build settings | [Foundations and toolchain](foundations-and-toolchain.md) | What the expression returns; which edition, compiler, feature and target the caller supports |
 | Ownership transfer, borrowing, mutability, lifetime or E0502/E0499 | [Borrowing and reborrowing](borrowing-and-reborrowing.md) | Who owns the place; when each borrow is last used; whether access is disjoint |
 | Dereferencing non-Copy data, cloning a reference, copied/cloned, nested references | [Copy, Clone and reference depth](copy-clone-and-reference-depth.md) | Which layer is copied, borrowed or moved; whether storage is independent |
 | Vec growth/removal, array size, slices, bounds or collection retention | [Vectors, arrays and slices](vectors-arrays-and-slices.md) | Ordering, lifetime, index and allocation requirements |
@@ -39,6 +39,7 @@ Choose the reference that answers the current decision. Keep one Rust entry skil
 
 | Task or symptom | Read | Decision to settle |
 | --- | --- | --- |
+| Atomic counters, publication, CAS, fences, pointer lifetime or reclamation | [Atomics and memory ordering](atomics-and-memory-ordering.md) | Atomicity, synchronization, indivisible updates and storage lifetime are separate obligations |
 | Locks, shared ownership, blocking work and verification tools | [Resources and verification](resources-and-verification.md) | Resource owner, cleanup, observation and tool limits |
 | Futures, tasks, queue bursts, partial I/O, cancellation or shutdown | [Async cancellation and backpressure](async-cancellation-and-backpressure.md) | Admission, task/result bounds, partial progress and supervised completion |
 | Allocation, retained memory, representation, adversarial input or optimization | [Performance and representation](performance-and-representation.md) | Measured cost without changing order, failure or ownership semantics |

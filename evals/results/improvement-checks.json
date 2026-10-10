@@ -1,0 +1,51 @@
+{
+  "schemaVersion": 1,
+  "version": "0.17.0",
+  "node": "24.16.0",
+  "command": "npm run check",
+  "passed": true,
+  "sourceIdentity": "scripts-sha256:f63f2ecb5fcb4e8117a4483748458ed2abfd4f915add17facd74ad3fb69c52e6",
+  "tool": "Node V8 LCOV",
+  "inventory": [
+    "scripts/build.mjs",
+    "scripts/check-commits.mjs",
+    "scripts/check-coverage.mjs",
+    "scripts/check-file-lines.mjs",
+    "scripts/check-source-lines.mjs",
+    "scripts/collect-coverage.mjs",
+    "scripts/context-budget.mjs",
+    "scripts/proofwork.mjs",
+    "scripts/routing.mjs",
+    "scripts/runtime-evidence.mjs",
+    "scripts/runtime-locks.mjs",
+    "scripts/runtime-snapshot.mjs",
+    "scripts/verify-coverage.mjs"
+  ],
+  "threshold": 95,
+  "metrics": {
+    "lines": {
+      "covered": 1191,
+      "total": 1208,
+      "percent": 98.59271523178808,
+      "passed": true
+    },
+    "branches": {
+      "covered": 656,
+      "total": 670,
+      "percent": 97.91044776119404,
+      "passed": true
+    }
+  },
+  "installedPackageFilesVerified": 154,
+  "routerCases": 70,
+  "initialGuidanceMaxWords": {
+    "light": 714,
+    "standard": 3709
+  },
+  "hostGaps": [
+    "Codex comparative pilot blocked by host tools/write restrictions",
+    "Claude authentication unavailable",
+    "Full 72-run comparison unfinished",
+    "Human approval pending"
+  ]
+}

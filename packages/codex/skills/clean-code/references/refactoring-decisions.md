@@ -24,7 +24,7 @@ If a derived value is stored and regularly falls out of sync, consider deriving 
 
 ## Decompose without distributing one responsibility
 
-Before splitting a file, identify its public contract, state owner and distinct reasons for change. A useful boundary can separate domain decisions from persistence or a parser from command execution. Keep the closely related rules together and expose only what actual callers need. Five smaller files that all mutate the same object can be harder to understand than the original; the hard 500-line maximum still applies, so find a cohesive compliant decomposition rather than claiming an exception.
+Before splitting a file, identify its public contract, state owner and distinct reasons for change. A useful boundary can separate domain decisions from persistence or a parser from command execution. Keep the closely related rules together and expose only what actual callers need.
 
 Follow imports and initialization as well as function calls. Moving code can introduce a cycle, move a side effect to import time, create a second state instance or change resource lifetime. Preserve those obligations explicitly. Splitting tests should retain independent discovery, fixtures and teardown; a test that passes alone is insufficient if the shared runner now leaks state between files.
 

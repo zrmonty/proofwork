@@ -27,7 +27,7 @@ Keep separate trust-boundary validation where each boundary genuinely needs it. 
 
 Map each affected test to its behavior. Retain distinct consumer integration, authorization, error and ownership checks after shared domain cases move to a focused suite. Remove redundant implementation-only tests only when equivalent distinguishing coverage remains; use [test economy](../tdd-95/references/test-economy.md). Parameterized cases must retain clear independent failures. Do not replace assertions with snapshots of the new helper or delete a failing consumer to get green.
 
-For executable changes, follow [tdd-95](../tdd-95/SKILL.md), applicable language checks and the 500-line code maximum. Add a distinguishing regression before fixing observed drift; for equivalent extraction, retain existing behavior protection and add a missing consumer/seam check only where necessary. Run the shared implementation and actual affected callers, not only a unit test of the helper. Inspect the final diff for stale copies, changed dependencies and accidental public-contract changes.
+Add a distinguishing regression before fixing observed drift; for equivalent extraction, retain existing behavior protection and add a missing consumer/seam check only where necessary. Run the shared implementation and actual affected callers, not only a unit test of the helper. Inspect the final diff for stale copies, changed dependencies and accidental public-contract changes.
 
 ## Return the decision and evidence
 

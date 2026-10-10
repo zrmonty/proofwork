@@ -33,7 +33,7 @@ Read [verification prerequisites and isolation](references/verification-isolatio
 
 Select shared engineering skills, languages for affected files and frontend guidance for interface work. For each required outcome, name the existing check or observation that can prove it, its expected environment, and any missing capability. Treat builds, unit tests, browser interactions and visual review as different claims. A supported substitute is acceptable only when it proves the same required behavior.
 
-For executable work, inspect both collection and enforcement: source discovery, separate coverage metrics, failure-status propagation and code-file discovery. A threshold in configuration is not evidence that CI runs it. Record how unimported source and ignored/custom generated code enter the respective inventories. If an inherited target cannot meet the required 95% or 500-line gate within scope, state that gap before promising completion and continue authorized useful work without weakening the requirement.
+For executable work, inspect both collection and enforcement: source discovery, separate coverage metrics, failure-status propagation and code-file discovery. A threshold in configuration is not evidence that CI runs it. Record how unimported source and ignored/custom generated code enter the respective inventories.
 
 If browser access is absent for a layout task, code checks can continue but cannot establish rendered quality. If a project test requires an unavailable external service, isolate pure behavior where useful and keep the service-backed criterion unproved. Do not weaken acceptance merely to make the plan pass.
 

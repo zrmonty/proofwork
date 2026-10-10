@@ -17,16 +17,6 @@ Define the user's preserved behaviors and audited paths once. Capture existing f
 
 Load each core skill and use its relevant probes. Record each lens as assessed with findings, assessed with no findings, not applicable with a reason, or unverified with a missing capability. Reading a skill is not executing an audit.
 
-| Lens | Skill and responsibility |
-| --- | --- |
-| Security | [security-hardening](../security-hardening/SKILL.md): trust boundaries, supported vulnerabilities and safe remediation. |
-| Dead code | [dead-code-audit](../dead-code-audit/SKILL.md): supported-root reachability and exclusively attached test/artifact removal. |
-| DRY | [dry-audit](../dry-audit/SKILL.md): duplicated knowledge and a coherent owner without false sharing. |
-| Performance | [performance-increase](../performance-increase/SKILL.md): representative bottlenecks, correctness and comparable measurements. |
-| Tests and coverage | [tdd-95](../tdd-95/SKILL.md): meaningful assertions, separate 95% floors and test economy. |
-| Architecture | [architecture-fit](../architecture-fit/SKILL.md): why each consequential component is needed and simpler adequate alternatives. |
-| Maintainability | [thermonuclear review](../thermo-nuclear-code-quality-review/SKILL.md) and [clean-code](../clean-code/SKILL.md): invariant ownership, structural clarity and hard file-size enforcement. |
-
 Use [functional-programming](../functional-programming/SKILL.md), [data-driven-development](../data-driven-development/SKILL.md) and applicable language guidance across all repairs. Python remains strictly typed. For real UI surfaces, include [frontend-design](../frontend-design/SKILL.md) and [humanizer](../humanizer/SKILL.md), with actual rendered evidence for visual claims. Include [production-finish](../production-finish/SKILL.md) for requested release readiness or relevant delivery/exposure findings; do not invent hosting work for an ordinary library audit. [Commit features](../commit-features/SKILL.md) applies when delivery includes commits/pushes.
 
 ## Merge findings before editing
@@ -43,7 +33,7 @@ Independent inspection can be parallel where the live host permits, with bounded
 
 Follow the owning skill's distinguishing regression and scope rules. Preserve behavior, validation, authorization, cleanup and public compatibility. Remove attached tests only for proven removed responsibilities; DRY consolidation and test economy must retain unique failure detectors. Never delete a failing survivor or disable logging/features merely to produce a clean audit.
 
-After integration, run the affected build/type checks and discovered tests, actual coverage collection with independently enumerated surviving source, relevant security/artifact checks and comparable performance checks. Run the bundled 500-line code gate with additive custom/ignored-source inventory. Revalidate findings after later edits; checks on an earlier identity do not close the final artifact. Missing tools or external actions leave their criteria incomplete while useful independent work continues.
+After integration, run the affected build/type checks and discovered tests, actual coverage collection with independently enumerated surviving source, relevant security/artifact checks and comparable performance checks. Revalidate findings after later edits; checks on an earlier identity do not close the final artifact. Missing tools or external actions leave their criteria incomplete while useful independent work continues.
 
 ## Deliver one audit result
 

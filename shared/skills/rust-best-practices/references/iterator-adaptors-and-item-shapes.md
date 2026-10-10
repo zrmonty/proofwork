@@ -67,7 +67,7 @@ Prefer pure functions for decisions and transformations. This does not require e
 
 Avoid allocating intermediate vectors when their contents are used once and a readable traversal suffices. Conversely, materialize a bounded snapshot when repeatable processing or validation before publication needs it. Measure before claiming that a fused chain improves speed or memory.
 
-Keep each closure and function within the complete 10-line function cap after ordinary formatting. Extract a meaningful predicate or transformation when it has an independent name and contract. Do not replace a readable loop with dense expressions or arbitrary forwarding helpers merely to meet that cap.
+Extract a predicate or transformation when it has a meaningful independent contract. Prefer readable control flow to dense chains or arbitrary forwarding helpers.
 
 ## Proof obligations
 

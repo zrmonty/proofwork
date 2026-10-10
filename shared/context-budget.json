@@ -1,0 +1,10 @@
+{
+  "schemaVersion": 1,
+  "limits": {
+    "light": 800,
+    "standard": 4000
+  },
+  "totalWords": 162098,
+  "description": "Initial entry and routed skill entries only; conditional references add task-dependent context. Rebaseline deliberately after reviewing growth.",
+  "scenarios": 70
+}

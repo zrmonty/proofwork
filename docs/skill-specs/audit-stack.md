@@ -8,8 +8,7 @@ One coordinated entry loads security, dead-code, DRY, performance, TDD/coverage,
 - Merge repeated root causes, keeping distinct obligations. A vulnerable duplicated helper gets one finding/repair, with security and consumer checks preserved.
 - Establish deadness before DRY extraction; prevent overlapping modifying workers and revalidate consumers after integration.
 - Performance receives representative evidence; missing tools remain unverified, with no broad speed claim. Preserve failures and remeasure comparable final work after semantic changes.
-- TDD retains independent inventory and separate 95% line/branch floors; missing branch metrics or below-gate legacy coverage never pass. Dead-source inventory changes remain explicit.
-- Functional decisions, strict Python and the 500-line code maximum apply throughout. UI/copy, production readiness and commit delivery are conditional on actual scope.
+- TDD retains independent inventory and separate 95% line/branch floors; missing branch metrics or below-gate legacy coverage never pass. UI/copy, production readiness and commit delivery are conditional on actual scope.
 - Deliver one prioritized ledger and per-lens verdict with final integrated checks. No quotas, invented blanket pass or exhaustive security/correctness claim.
 - Audit-stack routing loads every core lens once, plus actual languages; unrelated single audits and dry-run operations do not invoke the aggregate.
 

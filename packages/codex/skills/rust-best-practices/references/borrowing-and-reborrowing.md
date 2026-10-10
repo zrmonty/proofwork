@@ -86,11 +86,4 @@ Choose a clone only when independent ownership is required. Record whether it is
 
 ## Acceptance probes
 
-- Retain an observed result through the changed call and compile the real consumer.
-- Exercise sequential and same-location updates separately; do not infer distinctness from pleasant inputs.
-- Check that rejection preserves the promised state, including failure after partial calculations.
-- Compile an intentional overlapping-borrow example and the repaired shape with the expected diagnostic.
-- Verify all used splitting/disjoint APIs on the project's minimum supported compiler, or record that configuration as unverified.
-- Keep complete functions within the ten-line cap using cohesive operations; never hide borrowing complexity in compressed expressions.
-
 These probes establish the tested access and domain contracts. They do not establish unsafe soundness or correctness across concurrent external writers.

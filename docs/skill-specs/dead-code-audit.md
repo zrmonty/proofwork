@@ -15,8 +15,7 @@ Remove proven unreachable/obsolete code and exclusively attached tests as a comp
 - Establish supported roots/configurations and snapshot before classifying candidates. Search, coverage and unused diagnostics alone are insufficient.
 - Check dynamic discovery, side effects, public consumers, generated bindings, migrations and alternate platform/flag paths.
 - Remove complete obsolete responsibilities and dangling registration/import/export/config/docs references. Change generators and use existing package-manager lock maintenance.
-- Map tests to behavior; remove tests and fixtures only when exclusively attached to deleted code. Preserve shared/live/security/compatibility checks and visible unmet requirements.
-- Preserve strict types, functional decisions, separate 95% line/branch floors and the 500-line code limit. Independently update source inventory with explained deletions; no surviving-source exclusions or gate relaxation.
+- Map tests to behavior; remove tests and fixtures only when exclusively attached to deleted code. Independently update source inventory with explained deletions; no surviving-source exclusions or gate relaxation.
 - Verify final discovery, build and surviving behavior. Give supported clean verdicts without quotas, false exhaustive claims or unmeasured performance savings.
 
 ## Acceptance cases

@@ -1,52 +1,30 @@
 ---
 name: thermo-nuclear-code-quality-review
-description: Assess structural maintainability of substantial changes, combined parallel work or an explicit demanding audit; identify supported simplifications and give a clear scoped verdict.
+description: Assess structural maintainability of substantial changes or explicit demanding reviews; identify supported simplifications and give one evidence-bound verdict.
 ---
 
 # Thermonuclear maintainability review
 
-Determine whether the implementation makes the domain easier to understand and change. Look for a smaller model or clearer owner that removes mechanisms while preserving behavior. Give supported findings without a criticism quota, and enforce the project's hard file-size limit.
+Determine whether the implementation makes the domain easier to understand and change. Find a simpler model or clearer owner while preserving behavior. No file/function length ceiling or criticism quota applies.
 
-## Establish what you can judge
+## Establish the reviewed contract
 
-Name the reviewed paths, comparison base and inclusion of uncommitted work. Inspect the diff with relevant callers, contracts, tests and existing utilities. Load applicable language and functional-programming guidance. Review is read-only unless edits are authorized; inspection does not authorize external comments or formal posted reviews. Include older issues only when the change depends on or worsens them.
+Name the reviewed paths, comparison base and dirty content. Inspect callers, tests, configuration and existing utilities. Load relevant language and functional guidance. Reviews are read-only unless repairs are authorized; inspection does not authorize external comments.
 
-Find the important rule before proposing a shape. Where is it represented? Which paths can violate it? Which failure paths and public contracts must survive? Tests help establish behavior; they do not settle whether responsibilities are coherent. Missing code or evidence that prevents evaluating a material restructuring produces an explicit gap.
+Trace a representative success and failure path. Inspect invariant ownership, earned interfaces, explicit states/effects, dependency direction, concurrent writers, partial failure and cleanup. A short function or a split file is not independently evidence of quality.
 
-## Test the structure
+Read [structural review](references/structural-review.md) for applicable probes and clean cases. Read [finding disposition](references/finding-disposition.md) when a concern is disputed or a repair claims closure. Require observed responsibility and current consumer context, not speculative architecture preferences.
 
-Trace a representative success and failure path, then examine the pressure points:
+## Make the concern actionable
 
-- **Invariant ownership:** Is one rule maintained in several places? Can explicit states prevent contradictory fields or repeated predicates? A new type is useful only if callers stop handling invalid combinations themselves.
-- **Earned interfaces:** Does a helper encapsulate a domain operation or resource boundary, or forward arguments through another name? Does an existing utility already own the operation? Identify what becomes easier to change if the interface remains.
-- **Effects and state:** Can domain decisions be pure with explicit dependencies? Are partial failure, cancellation, shared mutation and retry visible? Removing a wrapper is unsafe if it owns cleanup or ordering.
-- **Dependency direction:** Can a reader follow the rule without traversing unrelated layers? Does a module depend on a concrete adapter where a narrow boundary would isolate effects, or is an abstraction adding indirection without a real consumer?
-- **Concurrency:** Are writers and shared outputs actually separated? Are checks and writes susceptible to races? Sequential execution or local mutation can be the clearest correct choice.
+Each finding names a location, observed mechanism, practical maintenance consequence, smallest adequate remedy and behavior to preserve. Distinguish demonstrated defects, supported structural concerns and unanswered questions. Prefer cohesive pure decisions and explicit resource boundaries. Do not manufacture helper chains, compress code or add frameworks to satisfy cosmetic metrics.
 
-For detailed review probes, worked findings and clean cases, read [structural review examples](references/structural-review.md) when the implementation has those shapes. Use its questions to investigate; do not report hypothetical defects as demonstrated findings.
+Verify the changed consumer and failure seam after authorized repairs. Recheck integrated ownership after later changes. Missing runtime evidence remains separate from a source-level maintainability conclusion.
 
-Every project-owned code file must contain at most **500 physical lines**, including blank lines and comments. Exactly 500 passes; 501 fails. This applies to application code, tests, scripts and generated application code, including files that were already oversized before the change. There is no structural exception or grandfathering. Prose and data files are not code; third-party dependencies outside the project's ownership are not project code.
+Give exactly one verdict:
 
-Run `node scripts/check-file-lines.mjs --repo PATH` from the Proofwork installation. Its automatic inventory includes Git-tracked and nonignored untracked source files. Add custom, extensionless or ignored project code with `--inventory PATH`, a JSON file listing additional paths; this supplements the automatic inventory. Record inventory gaps rather than accepting an incomplete scan. The checker is read-only and measures size, not responsibility or behavior.
+- **meets the bar:** the reviewed structure is understandable and appropriate, with no unresolved material structural concern.
+- **needs restructuring:** a demonstrated ownership/model/complexity problem prevents acceptance; name its practical consequence and smallest adequate correction.
+- **insufficient evidence:** missing context prevents judging a material claim; name what observation would resolve it.
 
-Resolve violations through cohesive decomposition that preserves contracts, validation, cleanup and failure behavior. Generated code requires changing the generator or its output boundaries; it has no blanket exemption. Do not minify, compress statements, remove useful comments or manipulate exclusions to pass. If an oversized file is outside the authorized edit scope, report the violation and coordinate scope with its owner. An oversized file within reviewed scope prevents acceptance even when it predates the task; finding it does not authorize an unrelated rewrite.
-
-## Make findings actionable
-
-Apply [clean-code](../clean-code/SKILL.md)'s hard 10-physical-line function cap and complexity review. Inspect complete definitions, including signatures, methods, callbacks and tests; exactly 10 passes and 11 fails. Separate a counted size violation from a supported complexity finding. Require cohesive extraction that preserves contracts rather than compression or trivial helper chains. The bundled file-size checker does not measure function compliance; name the actual inspection scope/tool and unresolved definitions.
-
-Read [finding disposition and counterevidence](references/finding-disposition.md) when a concern is disputed or a revision claims to resolve it. Let demonstrated responsibility change the judgment, inspect the current owner and integrated consumers, and keep structural conclusions separate from unverified runtime claims.
-
-Use the structural reference's concrete-change probe and remedy comparison for disputed findings. Inspect the integrated seam after parallel work, including remaining old owners and consumer assumptions. Prefer a supported local remedy when it fully addresses the concern; fewer layers, pure functions and more files are not independent evidence of better ownership.
-
-Each finding names a location, observed mechanism, practical maintenance cost, feasible remedy and behavior that must survive. Tie the cost to a real kind of change or failure, such as updating a validation rule in three owners. Show what disappears: duplicate rules, contradictory states, forwarding layers or hidden effects. Moving unchanged complexity into more files is not enough.
-
-Distinguish a demonstrated defect, a supported structural concern and an unanswered question. Prioritize by consequence and likelihood, not stylistic intensity. Do not demand a framework, new dependency, whole-system rewrite or unchecked guard deletion without demonstrated need. If the simplest safe improvement is local, recommend it. If a remedy lacks evidence, state the uncertainty rather than disguising it as a prescription.
-
-Lead with material findings and give exactly one maintainability verdict:
-
-- **meets the bar:** scoped structure is understandable and appropriate; no unresolved material structural concern remains. A clean result needs no invented findings.
-- **needs restructuring:** a demonstrated material ownership/model problem or a code file above 500 physical lines within reviewed scope prevents acceptance. Name the smallest adequate change and preservation checks.
-- **insufficient evidence:** missing context prevents judging a material claim. Name the missing artifact or observation and what decision it would resolve.
-
-Report checks actually performed and material gaps. A passing size check does not establish good module boundaries. This verdict covers scoped maintainability, separately from correctness and security. On authorized revisions, verify the changed behavior and review the original finding plus nearby consequences; the coordinator owns final disposition and integrated completion.
+Report actual scope, current-artifact checks and material gaps. A clean result is valid. Project-specific size policies may be measured separately, but counts do not establish maintainability.

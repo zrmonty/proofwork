@@ -106,7 +106,7 @@ No nested delegation by default. The coordinator may authorize bounded nested wo
 
 Author an original thermonuclear review skill as a shared first-class capability. The user's existing skill at `C:/Users/zrmon/.codex/skills/thermo-nuclear-code-quality-review/SKILL.md` informs the requirements below; its text and workflow are not imported or adapted.
 
-Workers apply its standards. An independent reviewer applies the full skill to substantial changes and the integrated team diff. Keep its verdicts: meets the bar, needs restructuring, insufficient evidence. Enforce the hard 500-physical-line maximum for every project code file, including tests, scripts, generated and already oversized code, with no structural exception. Preserve evidence requirements, scope discipline and behavior-preservation safeguards while decomposing cohesive responsibilities.
+Workers apply its standards. An independent reviewer applies the full skill to substantial full-tier changes and the integrated team diff. Keep its verdicts: meets the bar, needs restructuring, insufficient evidence. Judge clear naming, cohesive responsibilities and actual complexity without universal function or file line ceilings. Preserve evidence requirements, scope discipline and behavior-preservation safeguards when decomposing responsibilities.
 
 Correctness and maintainability are distinct review responsibilities. Both can be handled by one independent reviewer for a modest change; separate them when complexity warrants it. Security checks follow the changed trust boundaries. A maintainability verdict never substitutes for correctness or security evidence.
 

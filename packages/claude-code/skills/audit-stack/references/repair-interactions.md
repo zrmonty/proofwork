@@ -40,6 +40,6 @@ After each integration, identify which assumptions changed and invalidate affect
 
 Record one root finding with its lens-specific obligations, remedy and final status. A security fix can be verified while its latency impact remains unmeasured; those are separate conclusions. No finding count, removed-line count or passing aggregate command establishes the audit's completeness.
 
-For unresolved tradeoffs, report the concrete decision needed and available alternatives. Do not introduce queues, distributed caches or migration work solely to satisfy a lens. Keep every resulting code file within 500 physical lines and apply the actual language/type gates to affected consumers and tests.
+For unresolved tradeoffs, report the concrete decision needed and available alternatives. Do not introduce queues, distributed caches or migration work solely to satisfy a lens.
 
 The scenario is illustrative. It supplies no benchmark result, executed security check or target-application verdict.

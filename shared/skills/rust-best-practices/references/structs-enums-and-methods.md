@@ -96,6 +96,6 @@ Compile a realistic caller that observes an owner twice, mutates it and consumes
 
 For transitions, verify unchanged input, a valid proposed next state and rejected outcomes before checking the adapter's authoritative commit behavior.
 
-Inspect each method's complete formatted definition against the ten-line function cap. Extract cohesive domain calculations rather than concealing a long mutation in an oversized closure.
+Extract cohesive domain calculations rather than concealing a long mutation in an oversized closure.
 
 Derive decisions need their own contract review; continue with [derives, equality and hashing](derives-equality-and-hashing.md). Generic APIs continue with [traits and dispatch](generics-traits-and-dispatch.md).

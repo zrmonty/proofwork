@@ -1,1 +1,18 @@
-{"name":"proofwork","version":"0.16.1","private":true,"type":"module","scripts":{"test":"node --test tests/*.test.mjs","build":"node scripts/build.mjs","check:file-lines":"node scripts/check-file-lines.mjs --repo .","check":"npm test && npm run build && npm run check:file-lines"},"engines":{"node":">=22"}}
+{
+  "name": "proofwork",
+  "version": "0.17.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "node --test tests/*.test.mjs",
+    "build": "node scripts/build.mjs",
+    "check:file-lines": "node scripts/check-file-lines.mjs --repo .",
+    "check": "npm run check:source-lines && npm run context-budget && npm run check:coverage && npm run build && npm run check:file-lines",
+    "context-budget": "node scripts/context-budget.mjs",
+    "check:source-lines": "node scripts/check-source-lines.mjs",
+    "check:coverage": "node scripts/verify-coverage.mjs"
+  },
+  "engines": {
+    "node": ">=22"
+  }
+}

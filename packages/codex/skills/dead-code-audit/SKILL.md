@@ -23,7 +23,7 @@ For proven dead candidates within scope, remove the implementation and its obsol
 
 Check dependencies after their final real consumer disappears, including build/dev tools and scripts. Update manifests and lockfiles with the existing package manager and verify the consumed build. Do not upgrade unrelated packages or remove a transitive entry manually. Migration files, public interfaces and release artifacts need their actual retention/compatibility contract checked before removal; absence of a current source caller is insufficient.
 
-Keep the surviving code clean and functional. Derive updated registration/data tables directly from retained behavior rather than adding a generic cleanup framework. Maintain strict language checks and the hard 500-line maximum. Do not force a deletion quota or broad refactor when the correct outcome is no proven dead code.
+Keep the surviving code clean and functional. Derive updated registration/data tables directly from retained behavior rather than adding a generic cleanup framework. Do not force a deletion quota or broad refactor when the correct outcome is no proven dead code.
 
 ## Remove attached tests by behavior ownership
 

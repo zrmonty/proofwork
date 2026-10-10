@@ -4,7 +4,7 @@
 
 Load references/finding-disposition.md for disputed findings or claimed resolutions. Identify the observed mechanism before prescribing a shape; distinguish correctness, structural concern and missing fact. Real transaction/cleanup/public responsibilities can withdraw an unsupported wrapper-removal recommendation.
 
-Acceptance: a pure new cancellation owner does not close the concern while an integrated worker retains its old predicate. Migrated authoritative ownership supports a bounded source conclusion, but untested denied effects remain unverified runtime/security claims. A size-compliant split cannot close distributed policy; an oversized reviewed file still blocks acceptance. Re-review the current artifact and nearby consequences rather than repeating resolved old findings; preserve the existing single-verdict contract.
+Acceptance: a changed cancellation owner does not close a concern while an integrated consumer retains its old predicate. Inspect current authoritative ownership and preserve the single evidence-bound verdict.
 
 ## Purpose and inputs
 
@@ -14,11 +14,11 @@ Give a demanding but calibrated structural maintainability verdict with actionab
 
 Trace actual invariants, interfaces, dependencies, effects and failure behavior. Find feasible simplifications that remove mechanisms rather than relocate unchanged complexity. Findings contain location, observed mechanism, practical cost, remedy and preservation constraints. Maintainability, correctness and security judgments remain distinct. Clean code earns acceptance without a criticism quota; unanswered questions are not disguised as defects.
 
-Every project-owned code file has a hard maximum of 500 physical lines, counting blanks and comments. Exactly 500 passes; 501 fails. Existing oversized files, tests, scripts and generated application code have no exception. Prose/data and third-party dependencies outside project ownership are not code in this inventory. Resolve violations through cohesive decomposition preserving behavior; change the generator for oversized generated code. Do not evade the gate through minification, compressed statements, discarded useful comments or manipulated exclusions.
+Files and functions are judged by cohesive responsibility and demonstrated maintenance costs, without arbitrary length ceilings.
 
-Use `node scripts/check-file-lines.mjs --repo PATH` and the additive `--inventory PATH` JSON path list for custom, extensionless or ignored code. The checker measures size without modifying files or proving code quality. Report incomplete inventory and out-of-edit-scope violations, coordinate authorized ownership, and withhold meets-the-bar for an unresolved oversized file in reviewed scope. Discovering a violation does not authorize an unrelated rewrite.
+Optional size measurement supports an explicit project policy; it does not establish maintainability or authorize unrelated rewrites.
 
-Every complete function definition must also fit within 10 physical lines, as specified by clean-code and references/function-size-and-complexity.md. Count attached attributes/decorators, signatures, comments and blanks; methods, constructors, accessors, closures, tests and generated/existing project functions count. Exactly 10 passes size; 11 fails. Inspect complexity independently below the cap. Preserve contracts through cohesive extraction without compression or arbitrary helper chains. Record language-aware or scoped manual function inspection separately: the file checker does not measure function length. Unresolved in-scope violations prevent acceptance; out-of-edit-scope work requires coordination. Give exactly one verdict: meets the bar, needs restructuring or insufficient evidence. Authorized revisions are rechecked against the original concern and nearby consequences; the coordinator owns disposition.
+Give one verdict: meets the bar, needs restructuring or insufficient evidence. Structural findings require actual consequences and feasible behavior-preserving remedies. Recheck authorized revisions and nearby consumers on the current artifact.
 
 For disputed concerns, trace a concrete rule change and compare a local remedy with a broader model change by mechanisms removed, preserved contracts and introduced costs. Integrated parallel work requires seam inspection and surviving-owner checks; independent worker results are not proof of combined behavior.
 
@@ -28,9 +28,8 @@ For disputed concerns, trace a concrete rule change and compare a local remedy w
 - Independent feature toggles with no invalid combinations do not receive a speculative state-machine demand.
 - A forwarding helper without a useful contract is distinguished from a small wrapper that owns cleanup, transaction lifetime or compatibility.
 - An ambient clock/shared setting in domain decisions is assessed by actual reproduction/change cost; a clock used directly at the output boundary is not automatically a defect.
-- Validation at separate external boundaries is preserved. Review does not delete guards merely because a previous caller validates.
-- A 480-to-501-line change fails; exactly 500 passes the count check without automatically proving good structure. The remedy separates cohesive responsibilities and preserves contracts and failure behavior.
-- A pre-existing 620-line file within reviewed scope fails without grandfathering. If edit scope excludes it, report the violation and coordinate ownership rather than rewriting it or accepting the reviewed scope.
+- Validation at separate external boundaries is preserved. The remedy separates cohesive responsibilities and preserves contracts and failure behavior.
+- A large cohesive file is not a finding on size alone. Identify concrete reader burden, mixed responsibilities or correctness risks.
 - Oversized generated application code requires generator changes and fresh-output verification; tests and scripts receive the same maximum. Custom, extensionless and ignored project code supplements the automatic inventory instead of replacing it.
 - Minification, compressed statements, discarded useful comments and gate-exclusion tricks are rejected. Prose/data and externally owned dependencies do not receive arbitrary code-size findings.
 - A material ownership problem gives needs restructuring with a smallest adequate remedy and preservation checks. A scoped coherent implementation gives meets the bar with no invented findings.

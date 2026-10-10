@@ -30,7 +30,7 @@ Separate debug diagnostics from user-facing output. A derived Debug implementati
 
 ## Apply the size and functional requirements
 
-Every project-owned code file stays at or below 500 physical lines. Every complete function stays at or below ten physical lines after ordinary formatting, including attributes, signatures, braces, comments, blank lines and nested callbacks. Closures are inspected independently and still count within their containing function. Test and generated functions follow the same rule. See [the counting contract](../../clean-code/references/function-size-and-complexity.md).
+Closures are inspected independently and still count within their containing function. Test and generated functions follow the same rule. See [the counting contract](../../clean-code/references/function-size-and-complexity.md).
 
 Split around a named decision or resource responsibility, preserving validation order, borrow scope, error selection and caller compatibility. Do not compress statements, hide a body in a macro or replace a clear calculation with a chain of forwarding helpers. A short function can still be too complex. Existing violations remain violations until the authorized scope resolves them; a file-length pass cannot certify function lengths.
 

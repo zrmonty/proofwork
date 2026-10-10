@@ -126,7 +126,7 @@ test('pure transitions protect ownership, input and completion gates', () => {
   assert.throws(() => transition(evidenced, 'complete', {revision:'r2'}, 'coordinator'), /revision/);
   const finding = transition(evidenced, 'finding', {id:'f', material:true, status:'open', summary:'defect'}, 'coordinator');
   assert.throws(() => transition(finding, 'complete', {revision:'r1'}, 'coordinator'), /finding/);
-  assert.equal(transition(evidenced, 'complete', {revision:'r1'}, 'coordinator').phase, 'complete');
+  assert.equal(transition(evidenced, 'complete', {revision:'r1',allowClaimed:true}, 'coordinator').phase, 'complete');
 });
 
 test('record mutation cannot change checkpoint outputs; latest failed observation blocks completion', () => {
@@ -191,11 +191,13 @@ test('filesystem boundary rejects traversal, duplicate init and changed evidence
     await writeFile(assignment,JSON.stringify({id:'e',criterion:'works',revision:'r1',artifact:'../escape',command:'test',environment:'fixture',observed:'passed',passed:true}));
     await assert.rejects(execute('evidence',{...options,input:assignment}),/artifact/);
     await writeFile(assignment,JSON.stringify({id:'e',criterion:'works',revision:'r1',artifact:'proof.txt',command:'test',environment:'fixture',observed:'passed',passed:true}));
+    await writeFile(assignment + '.checkpoint', JSON.stringify({}));
+    await execute('checkpoint',{...options,input:assignment + '.checkpoint'});
     await execute('evidence',{...options,input:assignment});
     await writeFile(path.join(repo,'proof.txt'),'changed');
-    await assert.rejects(execute('complete',options),/changed/);
+    await assert.rejects(execute('complete',{...options,'allow-claimed':true}),/changed/);
     await writeFile(path.join(repo,'proof.txt'),'pass');
-    assert.equal((await execute('complete',options)).phase,'complete');
+    assert.equal((await execute('complete',{...options,'allow-claimed':true})).phase,'complete');
   } finally { await rm(repo,{recursive:true,force:true}); }
 });
 
@@ -204,7 +206,7 @@ test('fresh CLI processes resume a checkpoint and verify completion without bypa
   const script = fileURLToPath(new URL('../scripts/proofwork.mjs',import.meta.url));
   const cli = (command, ...args) => spawnSync(process.execPath,[script,command,'--repo',repo,'--run','cli-run',...args],{encoding:'utf8',windowsHide:true});
   const success = result => { assert.equal(result.status,0,result.stderr); return JSON.parse(result.stdout); };
-  const input = path.join(repo,'record.json');
+  const input = path.join(repo,'.engineering-team/record.json');
   const record = async (command, value) => {
     await writeFile(input,JSON.stringify(value));
     return success(cli(command,'--owner','coordinator','--input',input));
@@ -229,8 +231,9 @@ test('fresh CLI processes resume a checkpoint and verify completion without bypa
     await record('checkpoint',{phase:'executing',nextAction:'verify restored task a'});
     await record('result',{id:'a',status:'reviewed',revision:'r1',summary:'independently checked'});
     await writeFile(path.join(repo,'proof.txt'),'verified artifact');
+    await record('checkpoint',{});
     await record('evidence',{id:'e',criterion:'works',revision:'r1',artifact:'proof.txt',command:'fixture check',environment:'Node CLI',observed:'passed',passed:true});
-    assert.equal(success(cli('complete','--owner','coordinator','--revision','r1')).phase,'complete');
+    assert.equal(success(cli('complete','--owner','coordinator','--revision','r1','--allow-claimed')).phase,'complete');
     const immutable = cli('checkpoint','--owner','coordinator','--input',input);
     assert.equal(immutable.status,1);
     assert.match(immutable.stderr,/immutable/);

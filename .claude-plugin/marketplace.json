@@ -1,13 +1,15 @@
 {
   "name": "proofwork-local",
   "description": "Proofwork's original engineering-team skills for Claude Code.",
-  "owner": { "name": "Proofwork contributors" },
+  "owner": {
+    "name": "Proofwork contributors"
+  },
   "plugins": [
     {
       "name": "proofwork",
       "source": "./packages/claude-code",
       "description": "Original engineering-team workflows with pure decisions and inspectable evidence.",
-      "version": "0.1.0"
+      "version": "0.17.0"
     }
   ]
 }

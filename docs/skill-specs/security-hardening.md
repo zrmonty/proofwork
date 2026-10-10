@@ -10,8 +10,7 @@ Audit application security and fix reachable vulnerabilities at shared trust/enf
 - Trace relevant authorization, injection, file/URL, exposure, dependency/build and resource-limit paths, including consumers and alternate routes.
 - Distinguish confirmed defects, supported static findings, candidates, intentional behavior and gaps. Rank real impact without invented severity or quotas.
 - Redact before tool output; never expose credential values, fragments or matching source lines.
-- Correct the shared cause using incumbent mechanisms, pure policy/state decisions and current server enforcement. Preserve concurrency, cleanup and legitimate use.
-- Add distinguishing regressions and apply existing type, coverage and 500-line gates. No suppressions or feature shutdown used to manufacture closure.
+- Correct the shared cause using incumbent mechanisms, pure policy/state decisions and current server enforcement. No suppressions or feature shutdown used to manufacture closure.
 - Report fixed/verified, mitigated, unresolved and investigation status; real credential response and live operations remain separately authorized effects.
 
 ## Acceptance cases

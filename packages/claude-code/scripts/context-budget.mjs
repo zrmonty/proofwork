@@ -1,0 +1,51 @@
+import { readFileSync } from 'node:fs';
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
+import { route } from './routing.mjs';
+
+const readJson = file => JSON.parse(readFileSync(file, 'utf8'));
+const wordCount = file => readFileSync(file, 'utf8').split(/\s+/u).filter(Boolean).length;
+
+export function measureContext(repo, corpus) {
+  const skillRoot = path.join(repo, 'shared/skills');
+  const entryWords = wordCount(path.join(skillRoot, 'use-proofwork/SKILL.md'));
+  const lightWords = wordCount(path.join(skillRoot, 'use-proofwork/references/light.md'));
+  const scenarios = corpus.map(scenario => {
+    const result = route(scenario.task, scenario.files);
+    const skills = result.skills.map(skill => wordCount(path.join(skillRoot, skill, 'SKILL.md')));
+    const words = entryWords + skills.reduce((total, count) => total + count, 0);
+    return { task: scenario.task, tier: result.tier, words: words + (result.tier === 'light' ? lightWords : 0) };
+  });
+  return { scenarios, totalWords: scenarios.reduce((total, scenario) => total + scenario.words, 0) };
+}
+
+export function checkContextBudget(measured, baseline) {
+  const positiveCount = value => Number.isSafeInteger(value) && value > 0;
+  if (!positiveCount(baseline.totalWords) || !positiveCount(baseline.limits?.light)
+    || !positiveCount(baseline.limits?.standard)) throw new Error('budget baseline needs positive integer counts');
+  if (!positiveCount(measured.totalWords) || !Array.isArray(measured.scenarios) || !measured.scenarios.length) {
+    throw new Error('measured context needs positive counts and scenarios');
+  }
+  if (measured.scenarios.some(scenario => !['light', 'standard', 'full'].includes(scenario.tier)
+    || !positiveCount(scenario.words))) throw new Error('context scenarios need a known tier and positive word count');
+  const violations = measured.scenarios.filter(scenario =>
+    scenario.tier !== 'full' && scenario.words > baseline.limits[scenario.tier]);
+  if (measured.totalWords > baseline.totalWords * 1.1) {
+    violations.push({ task: 'aggregate corpus context grew more than 10%', words: measured.totalWords });
+  }
+  return violations;
+}
+
+export function contextBudget(repo) {
+  const corpus = readJson(path.join(repo, 'tests/router-corpus.json'));
+  const baseline = readJson(path.join(repo, 'shared/context-budget.json'));
+  const measured = measureContext(repo, corpus);
+  const violations = checkContextBudget(measured, baseline);
+  return { ...measured, violations, passed: violations.length === 0 };
+}
+
+if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {
+  const report = contextBudget(path.resolve(process.argv[2] ?? '.'));
+  process.stdout.write(`${JSON.stringify(report, null, 2)}\n`);
+  process.exitCode = report.passed ? 0 : 1;
+}

@@ -30,6 +30,6 @@ Keep fixtures representative of the criterion while bounded in size and cost. A 
 
 A clean checkout helps identify source; it does not establish the dependency, toolchain or service state. Conversely, an unrelated dirty note does not necessarily invalidate a parser check. Record actual dependencies needed to reuse evidence rather than treating cleanliness as a complete proof.
 
-For coverage, inspect collection, independent executable inventory and exit-status enforcement. Unimported files must not disappear from the target. Missing branch measurement remains unverified; do not replace it with line coverage. For the 500-line gate, include custom or ignored project code through additive inventory rather than assuming standard extensions are exhaustive.
+For coverage, inspect collection, independent executable inventory and exit-status enforcement. Unimported files must not disappear from the target. Missing branch measurement remains unverified; do not replace it with line coverage.
 
 Return which path is executable now, its safe isolation and teardown contract, what it can prove and the exact remaining gap. This plan authorizes no goal, scheduler, external publication or environment mutation beyond the user's existing scope.

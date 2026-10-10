@@ -34,11 +34,11 @@ Do not delete a guard because a previous caller validated once. The preservation
 
 ## File violates the hard maximum
 
-A source file grows from 480 to 501 physical lines. It fails the 500-line maximum even if its behavior is correct. Inspect whether routing, persistence and domain transitions have distinct responsibilities. A coherent remedy might move persistence behind an existing boundary while leaving pure transitions together. Preserve error handling, transaction boundaries and callers, then check both behavior and resulting file sizes. Scattering related cases across tiny forwarding files does not satisfy the structural review.
+Inspect whether routing, persistence and domain transitions have distinct responsibilities. A coherent remedy might move persistence behind an existing boundary while leaving pure transitions together. Preserve error handling, transaction boundaries and callers, then check both behavior and resulting file sizes. Scattering related cases across tiny forwarding files does not satisfy the structural review.
 
-A cohesive protocol table at 501 lines still fails: there is no exception. For generated application code, adjust the generator to emit meaningful bounded modules and verify a fresh generation. Do not reformat several statements onto one line, discard explanations or reclassify code as data to disguise the violation.
+For generated application code, adjust the generator to emit meaningful bounded modules and verify a fresh generation. Do not reformat several statements onto one line, discard explanations or reclassify code as data to disguise the violation.
 
-Exactly 500 lines passes the size gate; it may still contain a material ownership problem. A pre-existing 620-line file within reviewed scope fails without grandfathering. If edits to it are not authorized, report its count, ownership and proposed decomposition for coordination. Do not rewrite unrelated code, and do not give the reviewed scope a meets-the-bar verdict while that violation remains.
+A large cohesive file is not automatically a defect. Identify competing responsibilities or a demonstrated change cost before proposing a split; preserve ownership and authorized scope.
 
 The automatic checker inventory is a starting point. A checked-in `.py` test counts as project code; a project-owned extensionless executable or ignored generated source must be added through the supplementary JSON inventory. A Markdown manual and an external dependency installation are outside the code-file count. Document the inspected boundary and any unavailable generated output; missing inventory evidence cannot support full acceptance.
 

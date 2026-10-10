@@ -32,7 +32,7 @@ Check the assertion boundary after parameterization: the runner must observe eac
 
 Do not build a generic test abstraction merely to save a few repeated assertions. Avoid one broad end-to-end test replacing several isolated detectors: it can increase diagnosis cost and introduce cascading failures. Keep a dedicated test for a distinct regression even when a shared setup helper is used.
 
-Keep every code file at or below 500 physical lines, including tests and generated executable fixtures. Consolidation must not produce an oversized test file: split by cohesive behavior while retaining independent case reporting. Coverage exclusions do not exempt code from the file-size gate, and dense formatting is not a substitute for a clear split.
+Keep consolidated tests cohesive and independently reported. Split when responsibility or discovery becomes unclear; no arbitrary file-length threshold determines this decision.
 
 ## Reduce real elapsed cost
 

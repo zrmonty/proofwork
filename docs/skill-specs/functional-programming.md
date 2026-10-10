@@ -62,7 +62,7 @@ Reference map: references/intent-and-reconciliation.md is loaded only for pure i
 
 Required acceptance: An increment and an absolute replacement from the same stale cart receive their distinct documented conflict decisions. An older failure cannot erase newer pending intent; confirmed/refused/unknown outcomes remain distinct, and rejected candidates issue no effects.
 
-The reference is original decision guidance. These cases specify observable acceptance; they are not claims of executed application, framework, provider or benchmark evidence. Existing strict typing, functional ownership, coverage and physical code-file limits remain in force.
+The reference is original decision guidance. These cases specify observable acceptance; they are not claims of executed application, framework, provider or benchmark evidence. Existing strict typing, functional ownership, coverage and project-specific policies remain in force.
 
 ## Evaluation status and authorship
 

@@ -1,90 +1,91 @@
-const core = ['worker-mode','functional-programming','data-driven-development','clean-code'];
-const taskRoutes = [
-  ['review', /\b(review|audit)\b/i],
-  ['bug-fix', /\b(fix|bug|regression|broken)\b/i],
-  ['refactor', /\b(refactor|simplify|restructure)\b/i],
-  ['investigate', /\b(investigate|diagnose|explain|research)\b/i],
-];
-function ordinaryPlaybook(task) {
-  return taskRoutes.find(([, pattern]) => pattern.test(task))?.[0] ?? 'feature';
-}
-const languageChoices = /\b(?:programming languages?|languages?|runtimes?|frameworks?|fullstack|full.stack|rust|python|typescript|javascript|react|vue|svelte|angular|astro|solid|go|java|kotlin|elixir|ruby|php|zig|csharp|dotnet)\b|c\+\+|c#|\.net|\bC\b/i;
-function languageChoiceIntent(task) {
-  if (/\b(?:which|what)\s+language\b.*\b(?:labels?|copy|wording|translation)\b/i.test(task) && !/\blanguage[- ]fit\b/i.test(task)) return false;
-  return /\blanguage[- ]fit\b/i.test(task) || ((/\b(?:which|what|choose|select|compare|recommend|decide)\b/i.test(task) || /\bshould\b.*\b(?:use|choose)\b/i.test(task)) && languageChoices.test(task));
-}
-function architectureIntent(task) {
-  if (languageChoiceIntent(task)) return true;
-  return /\b(architect(?:ure|ing)?|overengineering|stack)\b/i.test(task) || /\b(which|what|choose|select|compare|recommend|decide)\b.*\b(database|storage|tools?|technolog(?:y|ies)|sqlite|postgres(?:ql)?)\b/i.test(task) || /\bshould\b.*\b(use|choose)\b.*\b(database|storage|sqlite|postgres(?:ql)?)\b/i.test(task);
-}
-function productionIntent(task) {
-  return /\b(production[- ](?:finish|ready|readiness)|deployment|deploy|hosting|docker|containeri[sz](?:e|ation))\b/i.test(task) || /\b(finish|prepare|ready)\b.*\b(production|prod|release)\b/i.test(task) || /\b(finish|prepare)\s+(?:(?:this|the|our|my|an|a)\s+)?(?:app|application)\b/i.test(task);
-}
-function newProjectIntent(task) {
-  return /\bnew\s+(?:project|app|application|website|product)\b/i.test(task) && !/\bapproved\s+(?:design|plan|spec(?:ification)?)\b/i.test(task);
-}
-function selectPlaybook(task) {
-  const ordinary = ordinaryPlaybook(task);
-  if (ordinary !== 'feature') return ordinary;
-  if (/\b(brainstorm(?:ing)?|ideat(?:e|ion))\b|\bexplore\s+(?:an?\s+)?idea\b/i.test(task)) return 'brainstorm';
-  if (architectureIntent(task)) return 'architecture';
-  if (newProjectIntent(task)) return 'brainstorm';
-  if (productionIntent(task)) return 'production-finish';
-  return ordinary;
-}
+import { readFileSync } from 'node:fs';
 
-function auditSkills(task) {
+const rules = JSON.parse(readFileSync(new URL('../shared/routing.json', import.meta.url)));
+const testPattern = (pattern, value) => new RegExp(pattern, 'i').test(value);
+const matches = (name, task) => testPattern(rules.patterns[name], task);
+const hasExtension = (name, files) => files.some(file => testPattern(rules.extensions[name], file));
+const docsOnly = files => files.length > 0 && files.every(file => testPattern(rules.extensions.docs, file));
+const readonly = task => matches('readOnly', task) || matches('dryRun', task);
+
+function languageChoice(task) {
+  if (matches('copyLanguage', task) && !matches('languageFit', task)) return false;
+  return matches('languageFit', task) || (matches('choose', task) && matches('languageWords', task));
+}
+const architecture = task => languageChoice(task) || matches('architecture', task);
+const production = task => !matches('dryRun', task) && matches('production', task);
+function security(task) {
+  return matches('security', task) || (matches('review', task) && matches('securityToken', task));
+}
+function playbookFor(task) {
+  if (readonly(task)) return 'investigate';
+  const ordinary = rules.ordinary.find(rule => matches(rule.pattern, task));
+  if (ordinary) return ordinary.playbook;
+  if (matches('brainstorm', task)) return 'brainstorm';
+  if (architecture(task)) return 'architecture';
+  if (matches('newProject', task) && !matches('approved', task)) return 'brainstorm';
+  return production(task) ? 'production-finish' : 'feature';
+}
+function tierFor(task, files) {
+  if (security(task) || matches('auditStack', task)) return 'full';
+  if (!readonly(task) && matches('fullRisk', task)) return 'full';
+  if (files.length > 2 || languagesFor(task, files).length > 1) return 'standard';
+  const mechanical = matches('small', task) && !matches('behaviorMarkers', task) && !matches('performance', task);
+  if (mechanical || (docsOnly(files) && !matches('review', task))) return 'light';
+  if (readonly(task) && !matches('performance', task) && !matches('dryRun', task)) return 'light';
+  return 'standard';
+}
+function languagesFor(task, files) {
+  if (docsOnly(files)) return [];
+  const affected = rules.extensions.languages.filter(rule => files.some(file => testPattern(rule.files, file)));
+  const selected = affected.length ? affected
+    : rules.extensions.languages.filter(rule => testPattern(rule.keywords, task));
+  return selected.map(rule => rule.skill);
+}
+function domainSkills(task, playbook) {
   const skills = [];
-  if (/\baudit[- ]stack\b/i.test(task)) skills.push('audit-stack','security-hardening','dead-code-audit','dry-audit','performance-increase','tdd-95','architecture-fit','thermo-nuclear-code-quality-review');
-  if (/\bdry[- ]audit\b|\b(?:duplicate|duplicated|duplication of)\s+(?:code|domain rules?|validation|logic|calculations?|implementations?)\b/i.test(task)) skills.push('dry-audit');
-  if (/\bdead[- ]code\b|\b(?:unused|unreachable|obsolete)\s+(?:code|functions?|exports?|modules?|dependencies|tests?)\b|\borphaned\s+(?:tests?|fixtures?)\b/i.test(task)) skills.push('dead-code-audit');
-  if (/\b(harden(?:ing)?|vulnerabilit(?:y|ies)|ssrf|xss|csrf)\b|\bsecurity\s+(?:audit|review|hardening|scan)\b|\b(?:authorization|authentication|auth)\s+bypass\b|\b(?:sql|command|code)\s+injection\b|\b(?:exposed|leaked)\s+(?:credentials?|secrets?|keys?)\b/i.test(task)) skills.push('security-hardening');
+  if (playbook === 'brainstorm') skills.push('brainstorm');
+  if (architecture(task) && !readonly(task)) skills.push('architecture-fit');
+  if (!readonly(task) && (languageChoice(task) || matches('architect', task))) skills.push('language-fit');
+  if (production(task)) skills.push('production-finish');
   return skills;
 }
-
+function auditSkills(task) {
+  const skills = matches('auditStack', task) ? [...rules.auditStack] : [];
+  if (matches('dryAudit', task)) skills.push('dry-audit');
+  if (matches('deadCode', task)) skills.push('dead-code-audit');
+  if (security(task)) skills.push('security-hardening');
+  return skills;
+}
 function qualitySkills(task, files, playbook) {
   const skills = [];
-  if ((['feature','bug-fix','refactor'].includes(playbook) && (files.some(file => /\.(?:tsx?|mts|cts|jsx?|mjs|cjs|rs|pyi?)$/i.test(file)) || /\b(implement|build|fix|bug|refactor|code)\b/i.test(task))) || /\b(tdd|coverage|tests?)\b/i.test(task)) skills.push('tdd-95');
-  if (/\b(performance|benchmarks?|profil(?:e|ing)|latency|throughput|allocations?|faster|slow|optimi[sz](?:e|ation|ing))\b|\bspeed\s+up\b/i.test(task)) skills.push('performance-increase');
+  const behavior = ['feature', 'bug-fix', 'refactor'].includes(playbook);
+  const executable = hasExtension('executable', files) || matches('codeRequest', task);
+  const needsTests = (behavior && (executable || matches('tests', task))) || matches('coverage', task);
+  if (!docsOnly(files) && !readonly(task) && needsTests) skills.push('tdd-95');
+  if (matches('performance', task)) skills.push('performance-increase');
   return skills;
 }
-
-function languageSkills(task, files) {
-  const skills = [];
-  if (files.some(file => /\.(?:tsx?|mts|cts)$/i.test(file)) || /\b(typescript|tsx)\b/i.test(task)) skills.push('typescript-best-practices');
-  if (files.some(file => /\.rs$/i.test(file)) || /\brust\b/i.test(task)) skills.push('rust-best-practices');
-  if (files.some(file => /\.pyi?$/i.test(file)) || /\bpython\b/i.test(task)) skills.push('python-best-practices');
-  return skills;
-}
-
 function experienceSkills(task, files) {
-  const skills = [];
-  if (files.some(file => /\.(?:tsx|jsx|css|scss|html|vue|svelte)$/i.test(file)) || /\b(frontend|front.end|website|layout|browser|visual|interface)\b/i.test(task)) skills.push('frontend-design');
-  if (skills.includes('frontend-design') || /\b(humani[sz](?:e|er|ing|ation)|microcopy|ux writing|empty[- ]states?)\b/i.test(task) || (/\b(copy|wording|labels?|messages?|tone|headings?|footer|header)\b/i.test(task) && /\b(app|application|page|screen|ui)\b/i.test(task)) || (/\b(buttons?|forms?|notifications?|onboarding|confirmations?|navigation)\b/i.test(task) && /\b(copy|wording|labels?|text|messages?)\b/i.test(task))) skills.push('humanizer');
+  const frontend = hasExtension('frontend', files) || matches('frontend', task);
+  const skills = frontend ? ['frontend-design', 'humanizer'] : [];
+  if (matches('humanizer', task)) skills.push('humanizer');
   return skills;
 }
-
-function deliverySkills(task, playbook) {
-  const skills = [];
-  if (playbook === 'review' || playbook === 'refactor') skills.push('thermo-nuclear-code-quality-review');
-  if (/\b(commit|push|github|shipping)\b/i.test(task)) skills.push('commit-features');
-  return skills;
-}
-
-function domainSkills(task) {
-  const skills = [];
-  if (architectureIntent(task)) skills.push('architecture-fit');
-  if (languageChoiceIntent(task) || /\barchitect(?:ure|ing)?\b/i.test(task)) skills.push('language-fit');
-  if (productionIntent(task)) skills.push('production-finish');
-  return skills;
-}
-function stageSkills(playbook) {
-  return { brainstorm: ['brainstorm'], architecture: ['architecture-fit'], 'production-finish': ['production-finish'] }[playbook] ?? [];
+function selectedSkills(task, files, tier, playbook) {
+  const languages = languagesFor(task, files);
+  if (tier === 'light') return languages;
+  const skills = [...rules.core, ...languages, ...domainSkills(task, playbook), ...auditSkills(task),
+    ...qualitySkills(task, files, playbook), ...experienceSkills(task, files)];
+  if (tier === 'full') skills.push('thermo-nuclear-code-quality-review');
+  if (matches('commit', task)) skills.push('commit-features');
+  return [...new Set(skills)].filter(skill => !docsOnly(files) || skill !== 'tdd-95');
 }
 export function route(task, files = []) {
   if (typeof task !== 'string' || !task.trim()) throw new Error('task must be nonempty text');
-  const playbook = selectPlaybook(task);
-  const skills = [...core, ...stageSkills(playbook), ...domainSkills(task), ...auditSkills(task), ...qualitySkills(task, files, playbook),
-    ...languageSkills(task, files), ...experienceSkills(task, files), ...deliverySkills(task, playbook)];
-  return { playbook, skills: [...new Set(skills)] };
+  if (!Array.isArray(files) || files.some(file => typeof file !== 'string')) {
+    throw new Error('files must be text paths');
+  }
+  const playbook = playbookFor(task);
+  const tier = tierFor(task, files);
+  return { tier, playbook, skills: selectedSkills(task, files, tier, playbook) };
 }

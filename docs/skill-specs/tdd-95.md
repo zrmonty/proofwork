@@ -44,7 +44,7 @@ Reference map: references/oracles-and-properties.md is loaded only for independe
 
 Required acceptance: A price test cannot use the changed rounding helper as its only oracle. An always-empty filter must fail a completeness detector despite satisfying order/subset properties. Consolidation retains targeted fault detection and both separately collected >=95% gates over the independent inventory.
 
-The reference is original decision guidance. These cases specify observable acceptance; they are not claims of executed application, framework, provider or benchmark evidence. Existing strict typing, functional ownership, coverage and physical code-file limits remain in force.
+The reference is original decision guidance. These cases specify observable acceptance; they are not claims of executed application, framework, provider or benchmark evidence. Existing strict typing, functional ownership, coverage and project-specific policies remain in force.
 
 ## Evidence and authorship
 

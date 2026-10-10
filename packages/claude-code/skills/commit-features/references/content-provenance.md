@@ -22,7 +22,7 @@ Do not run a checkout/reset or stash as an automatic way to create a clean test 
 
 A strict Python check passes because an unstaged stub supplies a missing dependency contract. The index contains only the implementation. The commit message cannot truthfully say that its strict check passed unless the committed artifact has that contract or the check is rerun on a supported equivalent environment.
 
-The repair may be to include the authorized required stub, use the correct existing package types or remove reliance on an uncommitted fixture. It is not to exclude the affected source, add blanket suppressions or erase the failed observation. Preserve separate 95% line/branch requirements and the 500-line code gate when those apply to delivery.
+The repair may be to include the authorized required stub, use the correct existing package types or remove reliance on an uncommitted fixture. It is not to exclude the affected source, add blanket suppressions or erase the failed observation.
 
 ## Bind claims to each outgoing commit
 

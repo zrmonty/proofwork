@@ -22,7 +22,7 @@ Build, unit tests, screenshots and reviews support different claims. Combine the
 
 For a clean checkout, a commit identifies tracked content. For a dirty checkout, include a snapshot or digest covering relevant source, dependencies, configuration and fixtures. A digest of the log identifies the log, not the implementation. Record both when the distinction matters. Evidence must be attributable to the same target repository and environment as the observed behavior.
 
-The local CLI stores an evidence artifact hash and checks it again at completion. It does not establish that the command ran, that a revision covers the dirty tree, or that the stated observation is true. The coordinator inspects the artifact and claim before import. See [schemas and limits](../scripts/README.md).
+The local CLI can execute a command and record its actual exit, duration and stream digests. It binds evidence to the checkpoint's filesystem/Git snapshot and verifies artifact hashes at completion. Manual records are marked claimed and require an explicit completion override. Neither mode establishes that a successful command proves its mapped criterion; inspect that relationship before acceptance. See [schemas and limits](tool-interface.md).
 
 ## Invalidate selectively and visibly
 

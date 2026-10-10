@@ -8,7 +8,7 @@ Proofwork is a **skill-compression plugin for Codex and Claude Code**. Describe 
 
 Proofwork aims to make software creation accessible through intent and judgment, while helping a team write less, better code. All shipped instructions are originally authored to [our specification](docs/design/2026-10-10-proofwork-design.md). No existing skill files were imported or adapted.
 
-**Hard code-file limit: 500 physical lines.** Exactly 500 is allowed; 501 is a violation. Implementation, tests, scripts, generated application code and existing oversized files follow the same rule. Split cohesive responsibilities rather than compressing code or hiding files. The implementation, review and root workflows enforce this requirement; `npm run check:file-lines` checks this repository, and `npm run check` includes it after building.
+Functions and files have no universal line-count ceiling. Keep names clear, responsibilities cohesive, control flow understandable and safety checks intact. A project can opt into its own file-size policy; the bundled checker is disabled until a limit is explicitly supplied.
 
 ## Start
 
@@ -18,7 +18,7 @@ The root is **use-proofwork**. Supported command spelling depends on the host:
 - Claude Code plugin: `/proofwork:use-proofwork <task>`.
 - Claude Code standalone skill, if deliberately installed in the project's `.claude/skills/use-proofwork/`: `/use-proofwork <task>`. The rest of the package must remain available at the relative paths described in the installation section; copying only the root file is insufficient.
 
-The entry skill considers your prompt and existing context, invokes the bundled router and reads the selected guidance. It reassesses the current stage as the task develops:
+The entry skill considers your prompt and existing context, invokes the bundled router and reads the selected guidance. On an existing codebase it acts with high agency: trace relevant behavior and consumers, pursue supported high-impact improvements, implement within your authority and verify the result. It reassesses the current stage as the task develops:
 
 | Current need | Starting workflow |
 | --- | --- |
@@ -31,6 +31,8 @@ The entry skill considers your prompt and existing context, invokes the bundled 
 | Prepare an app for production | production-finish with actual hosting and release constraints |
 
 You can enter at any stage. An accepted design does not need another brainstorming round; a focused bug fix does not need a new architecture. The root carries the brief forward and selects the next relevant skills within your request. It is an agent workflow, not a daemon intercepting unrelated prompts. Once a run is active, the checkpoint records the root mode and continuation instructions.
+
+Routing returns a **light**, **standard** or **full** tier. Small mechanical edits load a short procedure and relevant language entry. Behavioral or larger work loads shared implementation discipline and executable verification. Security, concurrency, migrations, parallel work and audit-stack use full coordination. Automatic loading of the thermonuclear review lens applies only in full; substantial integrated work still receives independent review. Conditional references load when needed; the budget measures initial guidance, not total model usage.
 
 Example request:
 
@@ -60,7 +62,7 @@ Give any skill a task in the same prompt. In Codex, use `$<skill-name>` or selec
 | `$python-best-practices` | `/proofwork:python-best-practices` | Apply Python guidance to data models, boundaries, resources and tests. |
 | `$functional-programming` | `/proofwork:functional-programming` | Keep domain decisions pure and make state transitions and effects explicit. |
 | `$data-driven-development` | `/proofwork:data-driven-development` | Model invariants and evaluate changes using observed data and repeatable checks. |
-| `$clean-code` | `/proofwork:clean-code` | Enforce ten-line functions and clear responsibilities; simplify complexity while preserving behavior and safety guards. |
+| `$clean-code` | `/proofwork:clean-code` | Clarify responsibilities and naming; simplify complexity while preserving behavior and safety guards. |
 | `$frontend-design` | `/proofwork:frontend-design` | Develop a distinctive visual direction; refine composition, typography, assets and interaction states through rendered critique. |
 | `$humanizer` | `/proofwork:humanizer` | Write natural application copy, simplify unnecessary headings and footer content, and keep interaction wording accurate. |
 | `$security-hardening` | `/proofwork:security-hardening` | Audit trust boundaries, fix supported vulnerabilities and verify repairs with safe adversarial regression checks. |
@@ -161,18 +163,20 @@ These are shell commands for coordinators and contributors. `<plugin-root>` is t
 | `node <plugin-root>/scripts/proofwork.mjs status --repo <repo> --run <id>` | Inspect a checkpoint. |
 | `node <plugin-root>/scripts/proofwork.mjs assign --repo <repo> --run <id> --owner <session> --input <record.json>` | Register task ownership. |
 | `node <plugin-root>/scripts/proofwork.mjs result --repo <repo> --run <id> --owner <session> --input <record.json>` | Record a result or review. |
-| `node <plugin-root>/scripts/proofwork.mjs evidence --repo <repo> --run <id> --owner <session> --input <record.json>` | Record an observation and hash its artifact. |
+| `node <plugin-root>/scripts/proofwork.mjs evidence --repo <repo> --run <id> --owner <session> --input <record.json> [--command <check>]` | Execute a check and record actual exit/duration/digests, or record weaker manual evidence. |
 | `node <plugin-root>/scripts/proofwork.mjs finding --repo <repo> --run <id> --owner <session> --input <record.json>` | Record or resolve a finding. |
 | `node <plugin-root>/scripts/proofwork.mjs checkpoint --repo <repo> --run <id> --owner <session> --input <record.json>` | Save phase, revision, routing and next action. |
 | `node <plugin-root>/scripts/proofwork.mjs complete --repo <repo> --run <id> --owner <session> --revision <identity>` | Check recorded completion gates; does not complete a native goal. |
 | `node <plugin-root>/scripts/check-commits.mjs --repo <repo> --range <outgoing-range>` | Check outgoing feature sections. |
 | `node <plugin-root>/scripts/check-coverage.mjs --report <report.json> --inventory <inventory.json> [--threshold 95..100]` | Enforce separate line/branch floors against an independently enumerated source target. |
-| `node <plugin-root>/scripts/check-file-lines.mjs --repo <repo> [--inventory <additional-code-paths.json>]` | Reject project code files above 500 physical lines; add custom or ignored code paths to discovery. |
+| `node <plugin-root>/scripts/check-file-lines.mjs --repo <repo> [--limit <project-ceiling>] [--inventory <additional-code-paths.json>]` | Check an explicitly chosen project file-size policy; disabled by default. |
 | `npm test` | Run the source repository's tests. |
 | `npm run build` | Regenerate both packages. |
-| `npm run check` | Run tests followed by the build. |
+| `npm run context-budget` | Enforce initial guidance budgets and aggregate growth. |
+| `npm run check:coverage` | Run tests, collect real Node LCOV and enforce separate 95% gates. |
+| `npm run check` | Check source width, context budgets, actual coverage, packaging and optional project policy. |
 
-Use an identity that includes current content: a clean commit or a recorded snapshot/digest for a dirty checkout. These tools store run state; they do not themselves run tests, spawn agents or establish truth from a supplied `passed` record.
+Run state binds observations to Git HEAD/tree and a filesystem digest including dirty and untracked files. Checkpoint after content changes. Executed evidence uses `--command` because `--run` already names the coordination run. Manual evidence is marked `claimed` and blocks completion unless `--allow-claimed` is explicit. A trivial command such as `true` still passes; review whether the command actually proves its criterion. Workers and native goals remain host-managed.
 
 ## Included guidance
 
@@ -187,6 +191,16 @@ Use an identity that includes current content: a clean commit or a recorded snap
 Model roles use actual host capabilities and user-selected settings. Native alternatives are supported where available; mixed-provider routing requires an explicit external bridge and is not bundled. Shell execution and available browser control are reused. Missing capability is reported, never simulated.
 
 ## Verification and limits
+
+The initial guidance for the same TypeScript parser bug fell from **7,036 to 2,534 words** (about 64%). Conditional reference loading is additional; this does not establish model-token savings or agent quality. The comparative harness contains eight tasks and defaults to three repetitions per arm. Its actual pilot produced this result:
+
+| Arm | Attempts | Completed implementations | Wall time | Input / output tokens reported by CLI | Result |
+| --- | ---: | ---: | ---: | ---: | --- |
+| Bare | 1 | 0 | 21.00 s | 64,988 / 705 | Host blocked tools and writes; no files changed |
+| Proofwork | 1 | 0 | 29.36 s | 120,426 / 899 | Same restriction; no files changed |
+| Local reference profile | 0 | — | — | — | Comparison deferred after host failure |
+
+These are blocked runs, not quality or performance scores. The full 72-run comparison remains unfinished. See the [evaluation report](evals/results/improvement-evaluation.md) for measurement scope, claim review and host limitations, and the [harness](evals/ab/README.md) to run it on a supported host. Further skill additions must cite a motivating evaluation.
 
 See [verification](docs/verification.md) for exact executed checks, behavioral observations, tested host versions, and unverified release gates. Packaging tests establish packaging behavior; they do not certify agent quality or subjective visual appeal. The run-state guard enforces its recorded evidence contract, not truthfulness of arbitrary input supplied by an operator.
 
@@ -206,4 +220,4 @@ node scripts/check-commits.mjs --repo . --range origin/main..HEAD
 
 For an initial repository with no base, an explicit revision such as `HEAD` checks the reachable initial history. Review the actual diff too; formatting does not establish correctness.
 
-Rust guidance has one entry and twenty-three focused references. The [Rust topic guide](shared/skills/rust-best-practices/references/topic-guide.md) routes by the actual decision; [topic coverage](docs/rust-topic-coverage.md) maps all readable lessons in the supplied curriculum images.
+Rust guidance has one entry and conditional specialist references, including atomicity, memory ordering and concurrent reclamation. The [Rust topic guide](shared/skills/rust-best-practices/references/topic-guide.md) routes by the actual decision; [topic coverage](docs/rust-topic-coverage.md) maps all readable lessons in the supplied curriculum images.

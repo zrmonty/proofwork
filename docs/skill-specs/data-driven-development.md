@@ -57,7 +57,7 @@ Reference map: references/corrections-and-lineage.md is loaded only for source i
 
 Required acceptance: A count corrected from four to three contributes three under an authoritative replacement policy rather than seven or first-arrival four. Independent equal-valued events remain distinct. Missing snapshot rows cannot imply deletion without completeness evidence; finite retention does not promise unlimited duplicate suppression.
 
-The reference is original decision guidance. These cases specify observable acceptance; they are not claims of executed application, framework, provider or benchmark evidence. Existing strict typing, functional ownership, coverage and physical code-file limits remain in force.
+The reference is original decision guidance. These cases specify observable acceptance; they are not claims of executed application, framework, provider or benchmark evidence. Existing strict typing, functional ownership, coverage and project-specific policies remain in force.
 
 ## Evaluation status and authorship
 

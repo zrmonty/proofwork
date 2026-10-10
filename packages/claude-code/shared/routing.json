@@ -1,0 +1,91 @@
+{
+  "schemaVersion": 1,
+  "patterns": {
+    "readOnly": "^\\s*(?:explain|describe|summarize|summarise)\\b",
+    "dryRun": "\\bdry[- ]run\\b",
+    "review": "\\b(review|audit)\\b",
+    "bugFix": "\\b(fix|bug|regression|broken|typo|spelling)\\b",
+    "refactor": "\\b(refactor|simplify|restructure|rename)\\b",
+    "investigate": "\\b(investigate|diagnose|explain|research)\\b",
+    "brainstorm": "\\b(brainstorm(?:ing)?|ideat(?:e|ion))\\b|\\bexplore\\s+(?:an?\\s+)?idea\\b",
+    "newProject": "\\bnew\\s+(?:project|app|application|website|product)\\b",
+    "approved": "\\bapproved\\s+(?:design|plan|spec(?:ification)?)\\b",
+    "languageWords": "\\b(?:programming languages?|languages?|runtimes?|frameworks?|fullstack|full.stack|rust|python|typescript|javascript|react|vue|svelte|angular|astro|solid|go|java|kotlin|elixir|ruby|php|zig|csharp|dotnet)\\b|c\\+\\+|c#|\\.net|\\bC\\b",
+    "choose": "\\b(?:which|what|choose|select|compare|recommend|decide)\\b|\\bshould\\b.*\\b(?:use|choose)\\b",
+    "languageFit": "\\blanguage[- ]fit\\b",
+    "copyLanguage": "\\b(?:which|what)\\s+language\\b.*\\b(?:labels?|copy|wording|translation)\\b",
+    "architecture": "\\b(architect(?:ure|ing)?|overengineering|stack)\\b|\\b(which|what|choose|select|compare|recommend|decide)\\b.*\\b(database|storage|tools?|technolog(?:y|ies)|sqlite|postgres(?:ql)?)\\b|\\bshould\\b.*\\b(use|choose)\\b.*\\b(database|storage|sqlite|postgres(?:ql)?)\\b",
+    "architect": "\\barchitect(?:ure|ing)?\\b",
+    "production": "\\b(production[- ](?:finish|ready|readiness)|deployment|deploy|hosting|docker|containeri[sz](?:e|ation))\\b|\\b(finish|prepare|ready)\\b.*\\b(production|prod|release)\\b|\\b(finish|prepare)\\s+(?:(?:this|the|our|my|an|a)\\s+)?(?:app|application)\\b",
+    "auditStack": "\\baudit[- ]stack\\b",
+    "dryAudit": "\\bdry[- ]audit\\b|\\b(?:duplicate|duplicated|duplication of)\\s+(?:code|domain rules?|validation|logic|calculations?|implementations?)\\b",
+    "deadCode": "\\bdead[- ]code\\b|\\b(?:unused|unreachable|obsolete)\\s+(?:code|functions?|exports?|modules?|dependencies|tests?)\\b|\\borphaned\\s+(?:tests?|fixtures?)\\b",
+    "security": "\\b(harden(?:ing)?|vulnerabilit(?:y|ies)|ssrf|xss|csrf)\\b|\\bsecurity\\s+(?:audit|review|hardening|scan)\\b|\\b(?:authorization|authentication|auth)\\s+bypass\\b|\\b(?:sql|command|code)\\s+injection\\b|\\b(?:exposed|leaked)\\s+(?:credentials?|secrets?|keys?)\\b",
+    "securityToken": "\\b(security|auth|authentication|authorization|secrets?|injection|credentials?)\\b",
+    "fullRisk": "\\b(concurren(?:t|cy)|atomics?|memory ordering|migrations?|parallel workers?|subagents?|delegat(?:e|ion))\\b",
+    "small": "\\b(rename|typo|spelling)\\b",
+    "codeRequest": "\\b(implement|build|fix|bug|refactor|rename|remove|delete|harden|consolidate)\\b",
+    "tests": "\\b(tdd|coverage|tests?)\\b",
+    "performance": "\\b(performance|benchmarks?|profil(?:e|ing)|latency|throughput|allocations?|faster|slow|optimi[sz](?:e|ation|ing))\\b|\\bspeed\\s+up\\b",
+    "frontend": "\\b(frontend|front.end|website|layout|browser|visual|interface|toggle|dark mode|buttons?|modal|theme|css|ui|typography|accessibility)\\b",
+    "humanizer": "\\b(humani[sz](?:e|er|ing|ation)|microcopy|ux writing|empty[- ]states?)\\b|\\b(?:copy|wording|labels?|messages?|tone|headings?|footer|header)\\b.*\\b(app|application|page|screen|ui)\\b|\\b(?:app|application|page|screen|ui)\\b.*\\b(copy|wording|labels?|messages?|tone|headings?|footer|header)\\b|\\b(buttons?|forms?|notifications?|onboarding|confirmations?|navigation)\\b.*\\b(copy|wording|labels?|text|messages?)\\b",
+    "commit": "\\b(commit|push|github|shipping)\\b",
+    "coverage": "\\b(tdd|coverage)\\b",
+    "behaviorMarkers": "\\b(handling|logic|behavior|behaviour|validation|parsing|crash|implement|add|build)\\b"
+  },
+  "extensions": {
+    "docs": "\\.(?:md|txt|rst|adoc)$",
+    "executable": "\\.(?:tsx?|mts|cts|jsx?|mjs|cjs|rs|pyi?|vue|svelte|css|scss|html|sql|c|cc|cpp|h|go|java|rb|php|ex|exs|sh)$",
+    "frontend": "\\.(?:tsx|jsx|css|scss|html|vue|svelte)$",
+    "languages": [
+      {
+        "skill": "typescript-best-practices",
+        "files": "\\.(?:tsx?|mts|cts)$",
+        "keywords": "\\b(typescript|tsx)\\b"
+      },
+      {
+        "skill": "rust-best-practices",
+        "files": "\\.rs$",
+        "keywords": "\\brust\\b"
+      },
+      {
+        "skill": "python-best-practices",
+        "files": "\\.pyi?$",
+        "keywords": "\\bpython\\b"
+      }
+    ]
+  },
+  "core": [
+    "worker-mode",
+    "functional-programming",
+    "data-driven-development",
+    "clean-code"
+  ],
+  "auditStack": [
+    "audit-stack",
+    "security-hardening",
+    "dead-code-audit",
+    "dry-audit",
+    "performance-increase",
+    "tdd-95",
+    "architecture-fit"
+  ],
+  "ordinary": [
+    {
+      "playbook": "review",
+      "pattern": "review"
+    },
+    {
+      "playbook": "bug-fix",
+      "pattern": "bugFix"
+    },
+    {
+      "playbook": "refactor",
+      "pattern": "refactor"
+    },
+    {
+      "playbook": "investigate",
+      "pattern": "investigate"
+    }
+  ]
+}

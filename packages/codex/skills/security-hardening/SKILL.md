@@ -31,7 +31,7 @@ Read [remediation and verification](references/remediation-and-verification.md) 
 
 Keep policy and state-change decisions pure over validated identity, resource state and explicit policy. Enforce them at the real server/effect boundary against current authoritative state; client checks or a decision computed from stale data cannot authorize a write. Use the existing transaction/version mechanism when authorization and mutation could race. Explicitly own limits, cleanup and uncertain outcomes. Follow applicable language skills, strict Python typing and the project's test-first/coverage gates.
 
-Reproduce the vulnerable behavior safely before editing when feasible, add a regression check that distinguishes the fix, then verify valid behavior still works. Security repairs must retain validation, cleanup, accessibility and useful diagnostics. Do not blanket-disable features or logging to make an alert disappear. Keep every project code file at or below 500 physical lines, including tests and generated code.
+Reproduce the vulnerable behavior safely before editing when feasible, add a regression check that distinguishes the fix, then verify valid behavior still works. Security repairs must retain validation, cleanup, accessibility and useful diagnostics. Do not blanket-disable features or logging to make an alert disappear.
 
 ## Return a bounded verdict
 

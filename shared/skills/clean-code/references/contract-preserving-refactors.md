@@ -28,7 +28,7 @@ Use an input-preservation or alias-sensitive check when ownership changes. Do no
 
 Migrate the relevant consumers to the authoritative implementation, then remove obsolete private paths. A temporary adapter is warranted only by a real compatibility or sequencing need and must delegate to one rule owner. Do not leave two independently maintained policies behind a flag.
 
-Inspect import cycles, side-effect initialization and test discovery after moving files. File-size compliance requires cohesive decomposition at 500 physical lines or fewer; it does not authorize compressing code or distributing one rule through forwarding modules.
+Inspect import cycles, side-effect initialization and test discovery after moving files.
 
 When independently produced edits converge, review the combined caller contract. A changed error shape on one side and unchanged recovery on the other can fail despite passing isolated suites. Use the actual integrated artifact, not worker assurances.
 

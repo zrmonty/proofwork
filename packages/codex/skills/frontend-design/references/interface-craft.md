@@ -50,6 +50,6 @@ Avoid adding interaction merely to animate a static surface. Hover effects shoul
 
 ## Carry the direction through implementation
 
-Reuse tokens and primitives already in the project. Add only the roles needed by the chosen design. Remove superseded overrides and check unused styles, selectors and assets with their actual dynamic consumers before deletion. Keep components cohesive and under the 500-line code maximum; a token layer is not a substitute for clear composition.
+Reuse tokens and primitives already in the project. Add only the roles needed by the chosen design. Remove superseded overrides and check unused styles, selectors and assets with their actual dynamic consumers before deletion.
 
 Check image sizing, font loading, expensive effects and layout shifts against representative devices and existing tools when performance matters. A screenshot cannot establish responsiveness or runtime cost. Do not replace semantic elements with styled generic containers or ship inaccessible controls to match a comp.

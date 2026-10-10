@@ -51,7 +51,7 @@ Reference map: references/cache-lifecycle.md is loaded only for measured cache s
 
 Required acceptance: A total cached only by organization ID cannot survive snapshot/policy/permission changes unchecked. Compare actual cold/warm/miss/invalidation cases including key/copy cost and retained memory; reject a faster stale or cross-caller-mutable result. Prefer local reuse when it solves the measured bottleneck.
 
-The reference is original decision guidance. These cases specify observable acceptance; they are not claims of executed application, framework, provider or benchmark evidence. Existing strict typing, functional ownership, coverage and physical code-file limits remain in force.
+The reference is original decision guidance. These cases specify observable acceptance; they are not claims of executed application, framework, provider or benchmark evidence. Existing strict typing, functional ownership, coverage and project-specific policies remain in force.
 
 ## Evaluation status and authorship
 

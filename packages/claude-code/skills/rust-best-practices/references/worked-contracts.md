@@ -1,6 +1,6 @@
 # Worked ownership and transformation contracts
 
-Read when a concrete example will clarify reference depth, failure policy or a pure transformation. These original examples form one dependency-free fixture when the Rust blocks below are concatenated. Public visibility makes the fixture easy to compile; it is not a recommended application API. Each function and closure follows the ten-physical-line limit after normal rustfmt.
+Read when a concrete example will clarify reference depth, failure policy or a pure transformation. These original examples form one dependency-free fixture when the Rust blocks below are concatenated. Public visibility makes the fixture easy to compile; it is not a recommended application API.
 
 ## Borrowed selection, reference depth and tuples
 

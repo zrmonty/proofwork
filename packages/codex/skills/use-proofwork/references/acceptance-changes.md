@@ -33,7 +33,7 @@ Inform affected live workers before continuing dependent edits. Revise ownership
 
 A new defect can be the real cause of the reported failure, a neighboring preservation obligation or unrelated debt. Fix the first within authority, include the second when the change would otherwise break supported behavior, and report the third without automatically expanding the implementation.
 
-If the smallest supported repair changes a public contract or product policy, make the concrete alternative and consequence reviewable before seeking the required decision. Continue independent authorized work. Urgency does not justify fabricated evidence, a weakened 95% gate, a 501-line exception or unauthorized external operations.
+If the smallest supported repair changes a public contract or product policy, make the concrete alternative and consequence reviewable before seeking the required decision. Continue independent authorized work.
 
 ## Checkpoint the current outcome
 

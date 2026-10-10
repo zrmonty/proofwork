@@ -1,0 +1,66 @@
+[
+  {
+    "id": "last-page",
+    "kind": "bug",
+    "prompt": "Fix formatPages so every input page is preserved, joined by a newline. Empty input returns an empty string. Preserve the input array.",
+    "files": [
+      "module.mjs"
+    ]
+  },
+  {
+    "id": "chunks",
+    "kind": "feature",
+    "prompt": "Implement chunks(values, size): contiguous ordered groups of at most size. Require a positive safe integer size; invalid sizes throw RangeError. Empty values returns [], and input is preserved.",
+    "files": [
+      "module.mjs"
+    ]
+  },
+  {
+    "id": "pricing",
+    "kind": "refactor",
+    "prompt": "Unify retailTotal and wholesaleTotal behind exported priceTotal(rows, discountPercent). Keep existing exports and behavior, validate percent from 0 through 100 inclusive and finite. Do not mutate rows. Each row has nonnegative integer priceCents and quantity.",
+    "files": [
+      "module.mjs"
+    ]
+  },
+  {
+    "id": "safe-path",
+    "kind": "security",
+    "prompt": "Fix resolveAsset(root, decodedRelativePath) to return only paths strictly beneath root. Reject absolute paths, root itself and traversal outside root with Error. Paths are already decoded; support this host path conventions and sibling-prefix attacks.",
+    "files": [
+      "module.mjs"
+    ]
+  },
+  {
+    "id": "theme-control",
+    "kind": "ui",
+    "prompt": "Implement renderThemeControl(enabled, label) as an accessible native button HTML string. Include type=button and aria-pressed=true/false; escape user label text so it cannot create elements or attributes. No framework needed.",
+    "files": [
+      "module.mjs"
+    ]
+  },
+  {
+    "id": "retry-policy",
+    "kind": "effects",
+    "prompt": "Implement async runWithRetry(operation, maxAttempts). Invoke until success or attempt limit, retry only errors with retryable===true, preserve the final error identity. Positive safe integer attempts required; invalid values throw RangeError before calling operation.",
+    "files": [
+      "module.mjs"
+    ]
+  },
+  {
+    "id": "measurement",
+    "kind": "data",
+    "prompt": "Fix summarize(values): ignore null/undefined as missing, retain numeric zero and negative values, reject non-finite or nonnumeric present values with TypeError. Return {count, sum, mean}, with mean:null for no observations. Preserve input.",
+    "files": [
+      "module.mjs"
+    ]
+  },
+  {
+    "id": "patch-presence",
+    "kind": "contract",
+    "prompt": "Implement applyProfilePatch(profile, patch): only own properties of patch may change name or bio. Missing fields preserve values; bio:null clears bio; name must be a nonempty string and bio either null or string. Return a fresh object and preserve inputs.",
+    "files": [
+      "module.mjs"
+    ]
+  }
+]

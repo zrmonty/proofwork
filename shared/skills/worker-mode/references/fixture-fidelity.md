@@ -32,7 +32,7 @@ A fixture that always authorizes, omits invalid items or preloads derived state 
 
 Keep fixture setup and cleanup owned and observable. Resetting shared data or killing another owner's process is outside a bounded assignment. Unhandled asynchronous assertions or leaked work can make a passing command unreliable; inspect completion and teardown through the actual test framework.
 
-Consolidate repeated setup while retaining distinguishing assertions and test discovery. Tests and generated fixtures remain project code with the hard 500-line maximum. Coverage reflects the independently agreed executable inventory with separate line and branch floors; a focused fixture alone does not prove those repository gates.
+Consolidate repeated setup while retaining distinguishing assertions and test discovery. Coverage reflects the independently agreed executable inventory with separate line and branch floors; a focused fixture alone does not prove those repository gates.
 
 ## Handoff what was actually reached
 

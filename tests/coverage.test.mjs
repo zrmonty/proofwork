@@ -47,6 +47,7 @@ test('coverage CLI returns failure for an actual below-gate artifact', async () 
     await writeFile(reportPath,JSON.stringify(report()));
     const args = ['scripts/check-coverage.mjs','--report',reportPath,'--inventory',inventoryPath];
     assert.equal(spawnSync(process.execPath,args,{encoding:'utf8'}).status,0);
+    assert.equal(spawnSync(process.execPath,[...args,'--threshold','96'],{encoding:'utf8'}).status,1);
     const failed = report(); failed.files[0].branches.covered=18;
     await writeFile(reportPath,JSON.stringify(failed));
     const result = spawnSync(process.execPath,args,{encoding:'utf8'});

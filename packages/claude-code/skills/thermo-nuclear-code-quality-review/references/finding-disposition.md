@@ -16,7 +16,7 @@ Inspect evidence that a small wrapper owns transaction lifetime, access enforcem
 
 For a proposed pure transition, verify whether consumers actually use its policy. Pure code can still duplicate knowledge or expose mutable nested aliases. Functional style supports the review; it is not a substitute for traced ownership and preservation.
 
-For a file split, inspect the resulting import graph, state identity and failure owner. A compliant 500-line count remains mandatory but does not close a distributed-policy finding. An oversized file in reviewed scope still prevents acceptance without exception; missing edit authority is a coordination issue, not a passing verdict.
+For a file split, inspect the resulting import graph, state identity, failure owner and actual maintenance benefit. A smaller file alone cannot close the concern.
 
 ## Worked case: overlapping cancellation findings
 
@@ -30,7 +30,7 @@ If only the UI switches to the new rule while the worker retains its predicate, 
 
 Inspect the current artifact, relevant callers and removed owners. Check whether the proposed remedy eliminated the original mechanism, merely renamed it or introduced a nearby cost such as a mutable singleton. Use the original preservation constraints and add checks only for consequences actually created by the revision.
 
-Findings can be resolved, retained with a concrete reason or remain unanswered in the report, but the final skill verdict remains exactly one of meets the bar, needs restructuring or insufficient evidence. An accepted tradeoff is not a license to ignore a material unresolved structural problem or the hard size gate.
+Findings can be resolved, retained with a concrete reason or remain unanswered; give exactly one verdict of meets the bar, needs restructuring or insufficient evidence. A retained tradeoff cannot conceal an unresolved material structural problem.
 
 Do not repeatedly report a resolved finding from an old diff. Record what changed the judgment and the bounded evidence. Separate independent worker checks from integrated seam inspection; neither silently substitutes for the other.
 
