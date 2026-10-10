@@ -1,0 +1,28 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "proofwork",
+  "version": "0.35.1",
+  "description": "Turn intent into verified software with original engineering skills and inspectable evidence.",
+  "author": {
+    "name": "Proofwork contributors"
+  },
+  "license": "MIT",
+  "extensions": {
+    "com.openai": {
+      "interface": {
+        "displayName": "Proofwork",
+        "shortDescription": "Intent into verified software",
+        "longDescription": "Describe an engineering outcome and Proofwork routes proportionate work through implementation, review and verification. Includes language guidance, architecture decisions, security and production checks, recovery workflows and inspectable evidence. Verification reports distinguish observed results from missing checks and operator responsibilities.",
+        "developerName": "Proofwork contributors",
+        "category": "Productivity",
+        "logo": "./assets/brand/proofwork-icon.png",
+        "composerIcon": "./assets/brand/proofwork-icon.png",
+        "logoDark": "./assets/brand/proofwork-icon-dark.png",
+        "composerIconDark": "./assets/brand/proofwork-icon-dark.png",
+        "defaultPrompt": [
+          "Use Proofwork to carry this engineering task through verified completion."
+        ]
+      }
+    }
+  }
+}

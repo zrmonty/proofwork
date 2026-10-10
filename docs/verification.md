@@ -1,4 +1,4 @@
-# Proofwork 0.35.0 verification
+# Proofwork 0.35.1 verification
 
 
 Current host/environment checks are recorded in [the 0.35.0 parity result](../evals/results/host-environment-parity-20261010.md).

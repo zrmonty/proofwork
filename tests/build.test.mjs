@@ -74,6 +74,15 @@ test("isolated builds stamp versions, preserve skill parity and reject broken so
       }
       if (host === "codex") {
         const plugin = JSON.parse(await readFile(path.join(output, manifest, "plugin.json"), "utf8"));
+        assert.ok(plugin.interface.longDescription.trim());
+        assert.ok(plugin.interface.shortDescription.length <= 30);
+        const portable = JSON.parse(await readFile(path.join(output, 'plugin.json'), 'utf8'));
+        assert.equal(portable.$schema, 'https://agent-plugins.org/schemas/1.0.0/plugin.schema.json');
+        assert.equal(portable.name, plugin.name);
+        assert.equal(portable.version, plugin.version);
+        assert.deepEqual(portable.extensions['com.openai'].interface, plugin.interface);
+        for (const field of ['skills', 'mcpServers', 'apps', 'interface'])
+          assert.equal(Object.hasOwn(portable, field), false);
         assert.equal(plugin.interface.logo, "./assets/brand/proofwork-icon.png");
         assert.equal(plugin.interface.composerIcon, plugin.interface.logo);
         assert.equal(plugin.interface.logoDark, "./assets/brand/proofwork-icon-dark.png");

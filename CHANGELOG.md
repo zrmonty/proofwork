@@ -1,5 +1,11 @@
 # Proofwork changelog
 
+## 0.35.1 — Upload manifest compatibility
+
+- Add a portable root manifest and synchronized Codex compatibility metadata.
+- Supply a nonempty long description and keep the listing subtitle within 30 characters.
+- Test required presentation metadata and export a single-plugin upload archive.
+
 ## 0.35.0 — Host and environment parity
 
 - Execute evidence through literal argument arrays or explicitly selected shell commands.

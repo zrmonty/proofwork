@@ -24,6 +24,10 @@ Functions and files have no universal line-count ceiling. Keep names clear, resp
 
 From a reviewed checkout, one command registers, installs and verifies the plugin: `node scripts/install.mjs --host codex` (or `--host claude-code`). Add `--source .` for the local built source. It does not configure model roles or lifecycle hooks. Older supported Claude versions can use the two-step marketplace registration/install flow in [first run](docs/first-run.md).
 
+For a ChatGPT plugin ZIP upload, package the built `packages/codex/` directory alone as `proofwork/`.
+Its portable root `plugin.json` and `.codex-plugin/plugin.json` carry synchronized presentation metadata,
+including a long description. The full repository ZIP is for source review, rather than plugin installation.
+
 ## Host and environment parity
 
 Use Node 22 or 24 and Git on Windows, Linux or macOS. The same routing, evidence, recovery and package checks run

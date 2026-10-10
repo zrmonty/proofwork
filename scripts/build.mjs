@@ -152,7 +152,11 @@ export async function build(options = {}) {
       if (host === "codex")
         manifest.interface = {
           displayName: "Proofwork",
-          shortDescription: "Your intent. Verified software.",
+          shortDescription: "Intent into verified software",
+          longDescription: "Describe an engineering outcome and Proofwork routes proportionate work through " +
+            "implementation, review and verification. Includes language guidance, architecture decisions, " +
+            "security and production checks, recovery workflows and inspectable evidence. " +
+            "Verification reports distinguish observed results from missing checks and operator responsibilities.",
           developerName: "Proofwork contributors",
           category: "Productivity",
           logo: "./assets/brand/proofwork-icon.png",
@@ -162,6 +166,12 @@ export async function build(options = {}) {
           defaultPrompt: ["Use Proofwork to carry this engineering task through verified completion."],
         };
       await writeFile(path.join(staging, manifestDirectory, "plugin.json"), `${JSON.stringify(manifest, null, 2)}\n`);
+      if (host === 'codex') {
+        const { skills, interface: presentation, ...identity } = manifest;
+        const portable = { $schema: 'https://agent-plugins.org/schemas/1.0.0/plugin.schema.json', ...identity,
+          extensions: { 'com.openai': { interface: presentation } } };
+        await writeFile(path.join(staging, 'plugin.json'), `${JSON.stringify(portable, null, 2)}\n`);
+      }
       const invocation =
         host === "codex"
           ? "$use-proofwork <task> (or select the skill from the host menu)"
