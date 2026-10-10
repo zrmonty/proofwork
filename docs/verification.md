@@ -125,3 +125,7 @@ Version 0.10.1 strengthens frontend-design with actionable direction, reference 
 ## Follow-up: references across every skill
 
 Version 0.11.0 adds twenty-one conditional references across all twenty-one skills, expanding the collection to fifty-five references. Entries and specifications map the new decision support; a [reference guide](reference-guide.md) makes it discoverable. The [verification report](../evals/results/references-expansion-20261010.md) records independent source review, separate hypothetical scenario reasoning, all twenty-five passing tests, both package builds, all skill validators, strict Claude validation and installed parity across seventy-six skill/reference files. These checks do not establish application-level behavioral certification or comparative improvement.
+
+## Follow-up: deep Rust decisions and checked example
+
+Version 0.12.0 expands Rust guidance to seven references with deeper API/error, pure-transition, async/backpressure, performance/representation and unsafe/FFI decisions. The [verification report](../evals/results/rust-depth-20261010.md) records independent source review, an original eight-test red/green Cargo fixture passing debug/release, formatting and Clippy, all twenty-five package tests, both builds, strict Claude validation and installed parity across eighty skill/reference files. The synthetic version gate does not establish real transactions or delivery; async, unsafe, benchmark, numerical coverage and minimum-toolchain claims remain unverified.

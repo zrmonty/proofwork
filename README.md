@@ -40,7 +40,7 @@ Give any skill a task in the same prompt. In Codex, use `$<skill-name>` or selec
 | `$worker-mode` | `/proofwork:worker-mode` | Execute a bounded assignment and return a reviewable result. |
 | `$thermo-nuclear-code-quality-review` | `/proofwork:thermo-nuclear-code-quality-review` | Audit maintainability and report concrete structural findings with a verdict. |
 | `$typescript-best-practices` | `/proofwork:typescript-best-practices` | Apply TypeScript guidance to types, validation, effects and tests. |
-| `$rust-best-practices` | `/proofwork:rust-best-practices` | Apply Rust guidance to ownership, errors, boundaries and verification. |
+| `$rust-best-practices` | `/proofwork:rust-best-practices` | Design ownership, pure state transitions and public errors; bound async/concurrent work and verify performance, unsafe and FFI contracts. |
 | `$python-best-practices` | `/proofwork:python-best-practices` | Apply Python guidance to data models, boundaries, resources and tests. |
 | `$functional-programming` | `/proofwork:functional-programming` | Keep domain decisions pure and make state transitions and effects explicit. |
 | `$data-driven-development` | `/proofwork:data-driven-development` | Model invariants and evaluate changes using observed data and repeatable checks. |

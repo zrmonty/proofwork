@@ -50,5 +50,23 @@ Required acceptance: A workspace parser succeeds only because another package en
 
 The reference is original decision guidance. These cases specify observable acceptance; they are not claims of executed application, framework, provider or benchmark evidence. Existing strict typing, functional ownership, coverage and physical code-file limits remain in force.
 
+## Deep Rust decision references
+
+Load references/api-errors-and-transitions.md for public signatures, domain errors, validated construction and pure versioned proposals. Load references/async-cancellation-and-backpressure.md for supervised task lifetime, partial I/O, admission/result bounds and shutdown. Load references/performance-and-representation.md for measured ownership/collection/layout costs. Load references/unsafe-ffi-and-invariants.md for safe-wrapper obligations, native ownership, callbacks, pinning and manual thread-safety contracts. Existing ownership/resource/downstream references remain the starting point; these guides are conditional, not a mandatory new runtime architecture.
+
+Required decisions: preserve recovery categories and source causes; keep arithmetic independent of build mode; express changed state decisions as pure next-value/effect proposals; enforce current authority and conditional commit at the real boundary. Independent owned work is preferred where it removes sharing. Bounds apply to queued, in-flight, blocking and retained output work, not only currently running futures. Unsafe invariants cover all callers of a safe wrapper, including error, cancellation and destruction; tests alone cannot prove soundness.
+
+Additional acceptance cases:
+
+- Two valid reservations calculated from one snapshot: only the accepted version can issue effects; preserve insufficient-stock and overflow errors, unchanged input and deterministic output.
+- Cancelled framed I/O or a waiter over ongoing blocking work: account for partial progress, permit/resource ownership and unknown effects; dropping an await cannot prove rollback.
+- A burst of tasks has bounded execution but unbounded queued buffers/results: identify and bound the actual retained work rather than declaring the system bounded.
+- Borrowed parse fields retain a large source buffer or a faster collection loses order/duplicate policy: measure retained cost and preserve semantics before selecting a representation.
+- A safe FFI wrapper accepts a null/invalid range or outlives a callback owner: restore enforceable validity/lifetime bounds; document allocator, unwind and thread contracts.
+- Atomic publication lacks an object-lifetime/reclamation argument: do not claim an ordering change establishes safety. Prefer a supported safe mechanism where it meets the need.
+- Default tests pass but affected consumer/features, branch metrics or unsafe tooling are unavailable: keep the exact unsupported claim unverified and preserve source/gate definitions.
+
+These acceptance cases are authored guidance. The verification report separately identifies any executed snippet, feature/target matrix, tool result or application integration.
+
 ## Authorship and evaluation
 Requirements originate in the approved Proofwork design and user preferences. The instructional text and workflow were written for these requirements; no upstream skill assets were imported or adapted. Official documentation linked in the skill supplies technical grounding only. Coordinator supplied a fresh Codex pre-skill baseline at evals/results/baseline.txt: pure input handling, Python mutable-default avoidance, Rust recoverable input errors, and generic frontend critique already worked. It did not establish Proofwork-specific routing, rendered design iteration, integration, or host parity. Detailed scenario prompts/rubrics were recorded before authoring; that broad baseline does not count as running every listed case. Guided evaluation and full language/browser fixtures remain pending until artifacts demonstrate them.
