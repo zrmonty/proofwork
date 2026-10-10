@@ -2,7 +2,7 @@
 
 ## Purpose and trigger
 
-Use pure domain decisions and explicit effects as the default for transformations and stateful logic. Do not impose a framework or reject clear local loops/private mutation.
+Load only for stateful workflows, retries, concurrency, caching or shared mutable state. Skip typo fixes, ordinary UI tweaks and simple CRUD. Match the existing codebase's dominant style before any functional preference. Do not impose a framework or reject clear local loops/private mutation.
 
 ## Inputs and scope
 
@@ -16,7 +16,7 @@ Read caller contracts, domain rules, ownership, effect boundaries, and project c
 - Preserve caller-owned data under the actual contract, distinguishing shallow copies, nested aliases, and immutable sharing.
 - Choose direct data shapes and meaningful states/errors rather than speculative generic abstractions.
 - Separate state transition decisions from existing effect execution and persistence ownership.
-- Inventory writes in changed create/update/delete, UI, workflow, retry, reconciliation and cache paths; express as many decisions as possible as pure next-state/effect calculations. Explain inseparable resource/framework decisions without layering trivial setters.
+- Extract a pure transition only when the changed workflow has at least three meaningful states or at least three meaningful event types, a real partial-failure/retry path, or domain logic needing tests without its framework. Otherwise follow surrounding code. Fit qualifying extractions into the established style; ordinary setters and CRUD do not require reducers.
 - Derive views from canonical state, keep snapshots genuinely stable and reject effects from stale/version-conflicted candidates. Feed observed outcomes back as events; pure plans create no authorization or delivery guarantee.
 - Keep concurrency/version/transaction mechanisms at the boundary; pure computation alone supplies none of those guarantees.
 - Handle uncertain effects through actual provider lookup/idempotency contracts. Cancellation/timeout is not proof of non-delivery.
@@ -67,3 +67,10 @@ The reference is original decision guidance. These cases specify observable acce
 ## Evaluation status and authorship
 
 Original Proofwork guidance. Examples are instructional and need their stated contracts; they are not production libraries or proof of general correctness. Parent evaluation records executed checks. Existing broad baseline already handled pure input preservation; no incremental efficacy claim follows from adding this reference.
+
+## Conditional loading acceptance
+
+- Typo fixes, button spacing and simple customer CRUD omit functional-programming from routing. Ownership protection remains in the always-read root.
+- Stateful approval, cache invalidation, retries and shared mutable state load the skill. A CRUD endpoint with retries qualifies through the retry path.
+- Two straightforward states without retries or framework-independent testing needs stay in the existing style. Three meaningful states or event types justify a bounded pure transition.
+- A dominant object-oriented or framework style takes precedence over a functional preference; qualifying calculations fit existing modules rather than forcing a style migration.

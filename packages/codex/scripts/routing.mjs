@@ -76,6 +76,9 @@ function selectedSkills(task, files, tier, playbook) {
   if (tier === 'light') return languages;
   const skills = [...rules.core, ...languages, ...domainSkills(task, playbook), ...auditSkills(task),
     ...qualitySkills(task, files, playbook), ...experienceSkills(task, files)];
+  const statefulWork = matches('stateful', task) &&
+    (!matches('statefulCosmetic', task) || matches('statefulBehavior', task));
+  if (!docsOnly(files) && statefulWork) skills.push('functional-programming');
   if (tier === 'full') skills.push('thermo-nuclear-code-quality-review');
   if (matches('commit', task)) skills.push('commit-features');
   return [...new Set(skills)].filter(skill => !docsOnly(files) || skill !== 'tdd-95');

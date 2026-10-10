@@ -5,11 +5,11 @@ description: Simplify implementations through clear responsibilities, understand
 
 # Clean code
 
-Make behavior easier to locate and the next change safer. Prefer subtraction, clear domain names and one appropriate owner. Judge files and functions by cohesive responsibility, understandable control flow and preserved contracts; Proofwork imposes no arbitrary length ceiling.
+Match the existing codebase's dominant style. Make behavior easier to locate and the next change safer. Prefer subtraction, clear domain names and one appropriate owner. Judge cohesive responsibility, control flow and preserved contracts without arbitrary length ceilings.
 
 Trace the requested behavior through its callers and effect boundaries. Identify a concrete reader or change cost: duplicated policy, unclear state ownership, obsolete compatibility code, forwarding layers or mixed domain/transport decisions. A class or long function is not independently a defect.
 
-Remove dead responsibilities only after checking supported roots and consumers. Share rules only when their meaning, owner and reason to change are the same. Keep distinct policies and necessary boundary validation separate. Prefer pure calculations with explicit effects; private loops are valid. Do not manufacture helper chains, compress statements or change a public API solely to shorten code.
+Remove dead responsibilities only after checking supported roots and consumers. Share rules only when their meaning, owner and reason to change are the same. Keep distinct policies and necessary boundary validation separate. Use functional extraction only when its concrete criteria apply; private loops are valid. Do not manufacture helper chains, compress statements or change a public API solely to shorten code.
 
 Before moving structure, preserve outputs, validation, errors, ordering, precision, aliases, initialization, authorization, cleanup and resource lifetime. Verify actual migrated callers, not only a new helper. Existing tests may already protect the change; add meaningful missing checks rather than tests of incidental shape.
 

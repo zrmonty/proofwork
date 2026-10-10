@@ -31,7 +31,10 @@
     "humanizer": "\\b(humani[sz](?:e|er|ing|ation)|microcopy|ux writing|empty[- ]states?)\\b|\\b(?:copy|wording|labels?|messages?|tone|headings?|footer|header)\\b.*\\b(app|application|page|screen|ui)\\b|\\b(?:app|application|page|screen|ui)\\b.*\\b(copy|wording|labels?|messages?|tone|headings?|footer|header)\\b|\\b(buttons?|forms?|notifications?|onboarding|confirmations?|navigation)\\b.*\\b(copy|wording|labels?|text|messages?)\\b",
     "commit": "\\b(commit|push|github|shipping)\\b",
     "coverage": "\\b(tdd|coverage)\\b",
-    "behaviorMarkers": "\\b(handling|logic|behavior|behaviour|validation|parsing|crash|implement|add|build)\\b"
+    "behaviorMarkers": "\\b(handling|logic|behavior|behaviour|validation|parsing|crash|implement|add|build)\\b",
+    "stateful": "\\b(stateful|workflows?|retries|retry|backoff|concurren(?:t|cy)|atomics?|memory ordering|cach(?:e|es|ing)|shared mutable state|state machines?|partial[- ]failures?)\\b|\\btest\\b.*\\bwithout\\b.*\\bframework\\b|\\bfunctional[- ]programming\\b",
+    "statefulCosmetic": "\\b(typo|spelling|spacing|typography|wording|labels?|colou?rs?|icons?)\\b",
+    "statefulBehavior": "\\b(handling|logic|policy|backoff|invalidation|consistency|recovery|transitions?)\\b"
   },
   "extensions": {
     "docs": "\\.(?:md|txt|rst|adoc)$",
@@ -57,7 +60,6 @@
   },
   "core": [
     "worker-mode",
-    "functional-programming",
     "data-driven-development",
     "clean-code"
   ],

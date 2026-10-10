@@ -1,10 +1,10 @@
 # Detailed functional-programming workflow
 
-Read the applicable sections for the current transformation, restructuring, interface or writing decision. These details do not create a mandatory workflow for every small edit.
+Read applicable sections only after the entry skill's stateful-work trigger and extraction test apply. Match the existing dominant style first; typo fixes, ordinary UI tweaks and simple CRUD do not load this workflow.
 
 # Functional programming
 
-Make the decision understandable as supplied values becoming a result. Keep I/O and mutable lifecycle machinery at an explicit boundary. This is the default way to shape new logic, not permission to rewrite the application or reject idiomatic framework APIs.
+Make the decision understandable as supplied values becoming a result. Keep I/O and mutable lifecycle machinery at an explicit boundary. Use this shape for a qualifying extraction within the established style, without rewriting the application or rejecting idiomatic framework APIs.
 
 ## Require clear names
 
@@ -40,7 +40,7 @@ When a process genuinely has state, distinguish the current state and incoming e
 
 For optimistic changes, stale edits, rebasing intent or partial-result projections, read [intent and reconciliation](../references/intent-and-reconciliation.md). It distinguishes a requested operation from a replacement calculated using old state.
 
-Apply this default to as much changed stateful behavior as possible: create/update/delete rules, UI selection and form state, workflow progress, permissions, retry eligibility, reconciliation, cache invalidation and derived views. Inventory the writes in the changed path. Move the decision for each write into a pure transition or transformation unless it depends on an inseparable framework/resource operation; state that reason in the handoff. Do not extract trivial setters into layers merely to satisfy a pattern.
+Extract a pure transition when the changed workflow has at least three meaningful states or at least three meaningful event types, a real partial-failure/retry path, or domain logic that needs testing without its framework. Otherwise follow surrounding code. Match the dominant style even when extracting. Keep routine setters, simple CRUD and ordinary UI tweaks in their existing shape; a real retry or shared-state protocol can make those paths qualify.
 
 Supply an owned snapshot, typed event and explicit policy/observations. Return the next value and any necessary effect requests as data; never invoke I/O, mutate a store, emit telemetry or consult hidden current state inside the transition. Feed actual effect results back as events. Distinguish proposed, committed, confirmed and uncertain states where they change behavior. Keep validation and authorization authoritative at the real boundary.
 
@@ -56,4 +56,4 @@ Test decisions with supplied inputs and inspect the returned result. For a chang
 
 Use a meaningful event sequence when single-step tests miss lifecycle defects: stale or duplicate outcomes, invalid transitions, partial success, conflict and recovery as relevant. Check deterministic replay from the same snapshot/observations and input preservation. Replay tests evaluate decision logic; they must not replay real writes. Pure transitions need not be idempotent for every event: establish duplicate handling for the operations that actually require it.
 
-Return the changed decision/effect boundary, ownership contract, behavior evidence tied to the current artifact, and justified deviations from the default. A valid type signature or deterministic unit test does not establish durable recovery, cleanup, or external delivery.
+Return the changed decision/effect boundary, ownership contract, behavior evidence tied to the current artifact, and the extraction decision and fit with the existing style. A valid type signature or deterministic unit test does not establish durable recovery, cleanup, or external delivery.

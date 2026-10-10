@@ -116,9 +116,9 @@ Lightweight cleanup is part of implementation. Specify our own simplification wo
 
 These are first-release requirements. Setup inventories languages, manifests, toolchain versions, project guidance, and existing check commands. The coordinator selects skills per assignment, and workers and reviewers explicitly load them. Mixed-language changes load each affected language's guidance and check the contracts between them. Do not dump every language manual into every agent's context.
 
-### Functional programming as the default
+### Conditional functional programming
 
-Author an original functional-programming skill and make its principles part of worker mode and all three language skills. Prefer pure functions, explicit inputs and outputs, and data transformations over mutable object lifecycles, hidden state, or sequences of commands that repeatedly alter shared state. This is the default programming approach, not a requirement to rewrite existing architecture or introduce a functional library. Visual design and evidence-based engineering still iterate; the preference concerns how code represents behavior and change.
+Author original conditional functional guidance. Match an existing codebase's dominant style before applying a functional preference. Load it for stateful workflows, retries, concurrency, caching or shared mutable state; skip typo fixes, ordinary UI tweaks and simple CRUD. Extract a pure transition for at least three meaningful states or event types, a real partial-failure/retry path, or domain logic needing tests without its framework; otherwise follow surrounding code. Preserve caller-owned data and name each mutable-value owner in the always-read core.
 
 Domain calculations, validation rules, decisions, and transformations should be pure when practical: the same inputs produce the same outputs, with no observable mutation or I/O. Supply time, randomness, configuration, and relevant state as inputs rather than reading globals inside domain logic. Compose small functions where composition clarifies the flow; avoid point-free puzzles, unnecessary wrappers, abstraction-heavy combinator chains, and dependency additions solely for functional syntax.
 

@@ -13,7 +13,7 @@ Read domain examples, current artifact, caller/interchange contracts, permitted 
 - Identify fields, units, valid states, ownership, invariants, and boundary trust.
 - Preserve distinctions among missing, empty, zero, unknown, and malformed when behavior depends on them.
 - Use simple data-driven rules where they express stable facts; avoid a generic interpreter for a few conditions.
-- Require clean functional domain transformations and state transitions by default. Separate effectful collection from pure normalization, summaries and decisions over stable snapshots and explicit policy; preserve raw rows and return owned results.
+- Match the existing dominant style, preserve raw observations and caller-owned values, and name mutable owners. Functional extraction is conditional on the functional-programming skill's stateful-work trigger and concrete complexity/failure/testing test.
 - For empirical work, state hypothesis, primary outcome, workload, meaningful target, and correctness guardrails before selecting a favorable result.
 - Capture an observed baseline and repeatable comparison, preserving relevant environment, distribution, failures, and variation.
 - Distinguish fixture observation, production trend, causal experiment, and inference. Accept, reject, or investigate rather than manufacturing a favorable story.

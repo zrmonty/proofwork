@@ -1,5 +1,12 @@
 # Proofwork changelog
 
+## 0.18.0 — 2026-10-10
+
+- Made functional-programming conditional on stateful workflows, retries, concurrency, caching or shared mutable state; typo fixes, ordinary UI tweaks and simple CRUD skip it.
+- Put the existing codebase's dominant style before a functional preference. Pure transitions require at least three meaningful states or event types, a real partial-failure/retry path, or logic needing tests without its framework.
+- Kept caller-data preservation and named mutable-value ownership in the always-read core. Removed unconditional functional loading from workers, full coordination and audit repairs, and aligned language/data references.
+- Added 12 routing scenarios, including cosmetic retry-button changes and CRUD with actual retries. Local checks passed and both host packages rebuilt; no new model-quality evaluation is claimed.
+
 ## 0.17.0 — 2026-10-10
 
 - Removed universal file and function line-count ceilings; retained clear naming, cohesive responsibilities and behavioral safeguards.

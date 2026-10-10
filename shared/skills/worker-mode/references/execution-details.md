@@ -6,7 +6,7 @@ The coordinator owns translation between user intent and engineering work. Resol
 
 ## Understand before writing
 
-Read the [assignment](../../../contracts/assignment.md), this skill and every selected skill explicitly; inherited context may omit constraints. Load [functional-programming](../../functional-programming/SKILL.md), [clean-code](../../clean-code/SKILL.md), [data-driven-development](../../data-driven-development/SKILL.md) and affected language guidance. UI work also reads [frontend-design](../../frontend-design/SKILL.md) and the agreed design direction.
+Read the [assignment](../../../contracts/assignment.md), this skill and every selected skill explicitly; inherited context may omit constraints. Load [functional-programming](../../functional-programming/SKILL.md) only for stateful workflows, retries, concurrency, caching or shared mutable state; apply its extraction test and match the dominant style. Load [clean-code](../../clean-code/SKILL.md), [data-driven-development](../../data-driven-development/SKILL.md) and affected language guidance. UI work also reads [frontend-design](../../frontend-design/SKILL.md) and the agreed design direction.
 
 Confirm the allowed checkout, owned paths, base/content identity, criteria and result destination. Inspect current changes before edits. If ownership or acceptance is missing, resolve that gap before writes rather than interpreting broad task language as permission to edit another worker's files.
 
@@ -32,6 +32,6 @@ Read [fixture fidelity and boundary evidence](fixture-fidelity.md) when reproduc
 
 Edit only assigned paths. If a needed change belongs to another owner, report the required interface or path to the coordinator and continue independent assigned work. Do not overwrite shared/generated output, revert another worker, write aggregate run state, conclude the team goal or start nested workers without authorization.
 
-Before returning, inspect the actual diff and remove demonstrated duplication, unnecessary forwarding and misleading names. Preserve failure handling and observable behavior while simplifying. Explain material departures from the agreed design or functional default; a useful reason names the clarity, compatibility or measured performance tradeoff.
+Before returning, inspect the actual diff and remove demonstrated duplication, unnecessary forwarding and misleading names. Preserve failure handling and observable behavior while simplifying. Explain material departures from the agreed design or established style; a useful reason names the clarity, compatibility or measured performance tradeoff.
 
 Return the [worker-result](../../../contracts/worker-result.md) with checkout/content identity, changed paths, fulfilled criteria, actual commands and observations, evidence locations, unresolved findings and next action. Include requested/actual models only when exposed; otherwise say unknown. Never label unexecuted checks as passing. `ready-for-review` means the artifact is ready to evaluate, not that the team's objective is complete.

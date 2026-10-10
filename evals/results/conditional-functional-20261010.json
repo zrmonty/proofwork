@@ -1,0 +1,33 @@
+{
+  "schemaVersion": 1,
+  "version": "0.18.0",
+  "command": "npm run check",
+  "passed": true,
+  "sourceIdentity": "scripts-sha256:3f5fab75c41d69b5a94f983e0a338a87fdc9b566ef69f7b6b92aace3f00feafb",
+  "coverage": {
+    "lines": {
+      "covered": 1194,
+      "total": 1211,
+      "percent": 98.5962014863749,
+      "passed": true
+    },
+    "branches": {
+      "covered": 662,
+      "total": 676,
+      "percent": 97.92899408284023,
+      "passed": true
+    }
+  },
+  "threshold": 95,
+  "routerCases": 82,
+  "initialContext": {
+    "maxLight": 797,
+    "maxStandard": 3511,
+    "aggregateWords": 183585
+  },
+  "motivation": "Original functional-programming core loaded on UI tweaks and simple CRUD. Routing regressions failed before conditional selection and pass after the change.",
+  "unverified": [
+    "New model-level evaluation of conditional guidance",
+    "Automatic fresh-session host invocation"
+  ]
+}

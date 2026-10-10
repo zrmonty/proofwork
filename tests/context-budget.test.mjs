@@ -57,10 +57,10 @@ test('initial context counts the root, light stub and every selected skill once'
   t.after(() => rmSync(repo, { recursive: true, force: true }));
   const corpus = [{ task: 'Fix typo in README', files: ['README.md'] },
     { task: 'Rename a Rust field', files: ['main.rs'] }, { task: 'Implement parser', files: [] },
-    { task: 'Harden application', files: [] }];
+    { task: 'Harden application', files: [] }, { task: 'Fix retry logic', files: [] }];
   const measured = measureContext(repo, corpus);
-  assert.deepEqual(measured.scenarios.map(scenario => scenario.words), [150, 160, 150, 170]);
-  assert.equal(measured.totalWords, 630);
+  assert.deepEqual(measured.scenarios.map(scenario => scenario.words), [150, 160, 140, 160, 150]);
+  assert.equal(measured.totalWords, 760);
 });
 
 test('budget command reports a failure and success from the actual selected entries', t => {

@@ -34,7 +34,7 @@ Closures are inspected independently and still count within their containing fun
 
 Split around a named decision or resource responsibility, preserving validation order, borrow scope, error selection and caller compatibility. Do not compress statements, hide a body in a macro or replace a clear calculation with a chain of forwarding helpers. A short function can still be too complex. Existing violations remain violations until the authorized scope resolves them; a file-length pass cannot certify function lengths.
 
-Keep as much changed stateful policy as possible in pure functions over explicit observations. Private mutation of newly owned data is compatible with a pure interface. Changes through `&mut`, interior mutability, I/O and storage are effects when they alter state observable outside the function. Make those contracts explicit instead of calling every iterator pipeline functional.
+Match the existing dominant style. Extract a pure transition when the changed workflow has at least three meaningful states or event types, a real partial-failure/retry path, or domain logic needing tests without its framework; otherwise follow surrounding code. Effects retain their authoritative owner. Private mutation of newly owned data is compatible with a pure interface. Changes through `&mut`, interior mutability, I/O and storage are effects when they alter state observable outside the function. Make those contracts explicit instead of calling every iterator pipeline functional.
 
 ## Choose checks by the claim
 

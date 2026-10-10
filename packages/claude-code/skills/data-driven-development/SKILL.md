@@ -1,13 +1,13 @@
 ---
 name: data-driven-development
-description: Model domain data with clean pure transformations and state transitions; evaluate decisions with representative observations and reproducible comparisons.
+description: Model domain data in the existing codebase style; preserve ownership and evaluate decisions with representative observations and reproducible comparisons.
 ---
 
 # Data-driven development
 
 Model the facts needed for the decision; measure outcomes when the task makes an empirical claim. Do not build an experiment for an obvious defect already settled by a meaningful regression.
 
-Name units, owners, identities and valid states clearly. Preserve distinctions between absent, empty, zero, invalid and unknown when behavior differs. Decode and validate external values before pure transformations. Stateful decisions return next values and intended effects; adapters own collection, commits and observed outcomes. Preserve raw observations and caller inputs.
+Match the existing codebase's dominant style before any functional preference. Name units, owners, identities and valid states clearly. Preserve distinctions between absent, empty, zero, invalid and unknown when behavior differs. Decode and validate external values at the boundary. Load functional-programming for stateful workflows, retries, concurrency, caching or shared mutable state and apply its concrete extraction test; otherwise follow surrounding code. Preserve raw observations and caller inputs.
 
 Read [data workflow details](references/workflow-details.md) for cross-language contracts, empirical comparisons or evidence delivery. Read [domain models](references/domain-models.md) for shared invariants, [corrections and lineage](references/corrections-and-lineage.md) for replacement or incomplete snapshots, and [measurement](references/measurement.md) for representative workloads, selection policy and uncertainty.
 

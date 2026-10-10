@@ -5,6 +5,8 @@ description: "Use for Python implementation or review; require strict static typ
 
 # Python best practices
 
+Match the existing codebase's dominant style before a functional preference. Load functional-programming only for stateful workflows, retries, concurrency, caching or shared mutable state and apply its extraction test; otherwise follow surrounding code.
+
 Inspect supported interpreters, configuration, imports, dependencies and affected callers. Use compatible APIs and the project's existing tools.
 
 Strict typing is required. Annotate every function/method's parameters and return, including `-> None`; fully parameterize generics and callable contracts. Retain precise inference for locals. Run mypy `--strict`, strict Pyright or the documented equivalent over changed implementation, callers and tests, retaining stronger settings. Missing or failing strict checks leave completion unverified.

@@ -5,6 +5,8 @@ description: "Use for TypeScript and TSX changes or reviews; preserve runtime co
 
 # TypeScript best practices
 
+Match the existing codebase's dominant style before a functional preference. Load functional-programming only for stateful workflows, retries, concurrency, caching or shared mutable state and apply its extraction test; otherwise follow surrounding code.
+
 Inspect affected callers, compiler/configuration, module format, generated schemas and runtime environment. State the invariant the change must preserve before selecting a type.
 
 Use `unknown` at untrusted boundaries and validate runtime values. Casts, generated responses, predicates and non-null assertions carry proof obligations; none replaces missing validation. Prefer concrete public types and local inference. Use discriminated unions for mutually exclusive states and generics only to preserve useful relationships.

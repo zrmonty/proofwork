@@ -60,7 +60,7 @@ Give any skill a task in the same prompt. In Codex, use `$<skill-name>` or selec
 | `$typescript-best-practices` | `/proofwork:typescript-best-practices` | Apply TypeScript guidance to types, validation, effects and tests. |
 | `$rust-best-practices` | `/proofwork:rust-best-practices` | Apply deep Rust guidance for borrowing, collections, iterator types, conversions, traits, numeric contracts and pure transitions; verify async, performance and unsafe/FFI obligations. |
 | `$python-best-practices` | `/proofwork:python-best-practices` | Apply Python guidance to data models, boundaries, resources and tests. |
-| `$functional-programming` | `/proofwork:functional-programming` | Keep domain decisions pure and make state transitions and effects explicit. |
+| `$functional-programming` | `/proofwork:functional-programming` | Match existing style; extract pure transitions for qualifying stateful, retry, concurrency, caching or shared-state work. |
 | `$data-driven-development` | `/proofwork:data-driven-development` | Model invariants and evaluate changes using observed data and repeatable checks. |
 | `$clean-code` | `/proofwork:clean-code` | Clarify responsibilities and naming; simplify complexity while preserving behavior and safety guards. |
 | `$frontend-design` | `/proofwork:frontend-design` | Develop a distinctive visual direction; refine composition, typography, assets and interaction states through rendered critique. |
@@ -182,7 +182,7 @@ Run state binds observations to Git HEAD/tree and a filesystem digest including 
 
 - Team root, worker discipline, setup, and task playbooks for brainstorming, architecture, investigation, bug fixes, features, refactoring, reviews and production finishing.
 - TypeScript, Rust, and Python practices selected by task/files.
-- Functional programming as the default: pure decisions, explicit state transitions, effects at boundaries, and clear language-native code.
+- Conditional functional programming: match the codebase's dominant style first. Extract a pure transition for at least three meaningful states or event types, a real partial-failure/retry path, or domain logic needing tests without the framework. Otherwise follow surrounding code. Caller-data preservation and named mutable owners apply in every tier.
 - Data-driven development and clean code: model invariants, measure meaningful changes, remove unnecessary mechanisms, and test observed behavior.
 - Frontend design: content-specific editorial identity, coherent softer shapes, accessible responsive behavior, meaningful visual iteration, and rendered evidence.
 - Thermonuclear maintainability review: concrete opportunities to simplify structure, strict scope/evidence rules, and an explicit verdict.

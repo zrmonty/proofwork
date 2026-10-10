@@ -5,6 +5,8 @@ description: "Use for Rust implementation or demanding review; design ownership 
 
 # Rust best practices
 
+Match the existing codebase's dominant style before a functional preference. Load functional-programming only for stateful workflows, retries, concurrency, caching or shared mutable state and apply its extraction test; otherwise follow surrounding code.
+
 Make ownership, valid states and failure policy clear to callers. Inspect Cargo manifests, minimum compiler version, edition, feature/target assumptions and affected consumers before changing a contract.
 
 Borrow for observation, own consumed or retained values, and clone only for intended ownership semantics. Shared references and Arc clones do not create independent referents. Keep checked numeric policy, recoverable errors and validated construction explicit.

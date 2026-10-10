@@ -10,7 +10,7 @@ Each entry should identify its inputs, the decisions it owns, the evidence its o
 
 A new reference needs a distinct decision area, not another phrasing of the entry. Show a representative trigger, competing options, the mechanism that makes one fail, a bounded remedy and the evidence needed to accept it. A worked scenario is instructional evidence only; label it separately from executed verification. Check nearby references before adding shared policy, and link the existing owner instead of creating competing rules.
 
-A useful rule explains a consequence or tradeoff: which state to represent, which responsibility to remove, which observation would disprove a hypothesis, or which effect remains uncertain after a timeout. Examples must be originally written and internally consistent. Technical examples follow the project's toolchain and are checked where tools are available. An idiomatic loop or useful local mutation is not a violation of the functional default.
+A useful rule explains a consequence or tradeoff: which state to represent, which responsibility to remove, which observation would disprove a hypothesis, or which effect remains uncertain after a timeout. Examples must be originally written and internally consistent. Technical examples follow the project's toolchain and are checked where tools are available. An idiomatic loop or useful local mutation is not a violation of a qualifying functional extraction.
 
 Descriptions should route a task accurately before loading the body. Writing should be direct, specific and proportionate to the work. Avoid universal architecture prescriptions, novelty quotas, bureaucratic steps for trivial work and declarations of success without observations.
 
@@ -19,11 +19,11 @@ Descriptions should route a task accurately before loading the body. Writing sho
 - Every canonical skill has a corresponding specification and all package-local references resolve in both builds.
 - References are reachable from their entry through a specific loading trigger. Specifications describe their decisions and acceptance cases. Avoid orphan files, mandatory loading of every reference, duplicated checklists and unverifiable claims of improvement.
 - Runtime contracts, command forms, ownership and native goal semantics remain compatible with the existing tools.
-- Architecture challenges every consequential component against a simpler adequate arrangement. Functional defaults permit private loops. Review clear naming, cohesive responsibilities and actual complexity; no universal function or file line ceiling applies.
+- Architecture challenges every consequential component against a simpler adequate arrangement. Existing dominant style takes precedence; qualifying functional extractions permit private loops. Review clear naming, cohesive responsibilities and actual complexity; no universal function or file line ceiling applies.
 - Coverage uses separate 95% line/branch floors, independent source discovery and truthful collection provenance. Consolidation retains unique failure detectors; performance comparisons preserve workload, completed work and resource tradeoffs.
 - Release and UI wording describe actual states and consequences. Secret checks redact before output; a source review, fixture or package validator never becomes an exhaustive safety, rendered or production-readiness guarantee.
 - Language guidance distinguishes runtime validation from static types, caller data from owned data, and domain decisions from resource/effect management.
-- Python requires an actual strict type gate over implementation, affected callers and tests. Functional defaults cover data transformations and as much changed stateful decision logic as possible, with authoritative effect boundaries preserved.
+- Python requires an actual strict type gate over implementation, affected callers and tests. Functional guidance loads for qualifying stateful work and uses its concrete state/event, failure or testing criterion, with authoritative effect boundaries preserved.
 - Frontend guidance derives composition from content and tasks, supports coherent softer forms, and requires actual rendered evidence for visual claims.
 - Review guidance permits a clean verdict and makes each finding concrete, scoped and behavior-preserving.
 - Commit guidance preserves shared history, describes actual outgoing changes and keeps feature size independent of version semantics.
