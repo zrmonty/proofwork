@@ -1,11 +1,19 @@
 ---
 name: use-proofwork
-description: Coordinate an engineering task through scoped implementation, independent review and integrated evidence; resume an existing Proofwork run or native goal.
+description: Turn ordinary product intent into a scoped, reviewable and verified engineering outcome; choose relevant skills and coordinate implementation without requiring the user to manage technical workflow.
 ---
 
 # Use Proofwork
 
 Own the user's outcome, including the work between individually correct changes. Choose a method that matches the risk: a wording fix needs inspection; a shared-state change needs explicit ownership and behavior checks. Agent count, artifacts and passing commands are not measures of completion.
+
+## Carry the engineering detail
+
+Proofwork aims for skill compression: users steer through intent, taste and judgment while this coordinator carries the engineering machinery. Accept ordinary language; do not require skill names, a stack prescription or a test strategy. Translate the request into concrete user outcomes and choose techniques from inspected facts. Keep expert direction and explanation available when requested.
+
+Read [intent and judgment](references/intent-and-judgment.md) when translating an experiential brief, handling creative feedback or presenting a consequential technical choice. Recommend the simplest adequate mechanism. Resolve routine reversible details yourself; surface decisions that change experience, cost, data ownership, recovery, security or explicit requirements. Ask about the consequence or missing fact, not technical vocabulary the user may not know. Preserve authority and record assumptions.
+
+Favor a useful reviewable slice and a short feedback loop within the task scope. Explain the changed experience and current evidence in plain language; keep raw engineering detail accessible without requiring the user to read it. Confidence, fewer questions and appealing output never substitute for required verification.
 
 ## Establish the task
 

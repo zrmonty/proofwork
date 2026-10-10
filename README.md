@@ -2,9 +2,11 @@
 
 See the [skill reference guide](docs/reference-guide.md) for conditional decision guides and worked scenarios across the full skill set.
 
-An engineering workflow plugin for Codex and Claude Code. Give it a task; its entry skill selects a playbook, loads the relevant language and design skills, coordinates bounded workers when useful, and checks the integrated result against evidence.
+Proofwork is a **skill-compression plugin for Codex and Claude Code**. Describe what you want to make, judge the result and refine it. Proofwork carries the engineering detail: choosing relevant skills, making proportionate implementation decisions, coordinating workers when useful and verifying the integrated result.
 
-Proofwork aims to help a team write less, better code. All shipped instructions are originally authored to [our specification](docs/design/2026-10-10-proofwork-design.md). No existing skill files were imported or adapted.
+**Our north star: turn a clear intention into useful, distinctive, verified software without making the user manage the engineering machinery.** Purpose, taste and consequential choices stay with you. The plugin supplies the discipline behind them. Read the [product vision](docs/vision.md) for what this means and how we evaluate it.
+
+Proofwork aims to make software creation accessible through intent and judgment, while helping a team write less, better code. All shipped instructions are originally authored to [our specification](docs/design/2026-10-10-proofwork-design.md). No existing skill files were imported or adapted.
 
 **Hard code-file limit: 500 physical lines.** Exactly 500 is allowed; 501 is a violation. Implementation, tests, scripts, generated application code and existing oversized files follow the same rule. Split cohesive responsibilities rather than compressing code or hiding files. The implementation, review and root workflows enforce this requirement; `npm run check:file-lines` checks this repository, and `npm run check` includes it after building.
 
@@ -21,8 +23,8 @@ The entry skill automatically invokes the bundled router and reads the selected 
 Example request:
 
 ```text
-Use Proofwork to fix the interrupted export. Reproduce it first, preserve the
-existing file format, and prove the final page survives. Use independent review.
+Use Proofwork to fix the export. It sometimes loses the final page.
+Keep the current file format and show me that the full document survives.
 ```
 
 ## Skill commands

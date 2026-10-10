@@ -66,11 +66,11 @@ export async function build() {
       for (const file of ['proofwork.mjs','check-commits.mjs','check-coverage.mjs','check-file-lines.mjs','README.md']) await cp(path.join(repository,'scripts',file),path.join(staging,'scripts',file));
       const manifestDirectory = host === 'codex' ? '.codex-plugin' : '.claude-plugin';
       await mkdir(path.join(staging,manifestDirectory));
-      const manifest = {name:'proofwork',version:metadata.version,description:'Coordinated engineering with original skills, bounded parallel work and inspectable evidence.',author:{name:'Proofwork contributors'},license:'MIT',skills:'./skills/'};
-      if (host === 'codex') manifest.interface = {displayName:'Proofwork',shortDescription:'Less code. Better evidence.',developerName:'Proofwork contributors',category:'Productivity',defaultPrompt:['Use Proofwork to carry this engineering task through verified completion.']};
+      const manifest = {name:'proofwork',version:metadata.version,description:'Turn intent into verified software with original engineering skills and inspectable evidence.',author:{name:'Proofwork contributors'},license:'MIT',skills:'./skills/'};
+      if (host === 'codex') manifest.interface = {displayName:'Proofwork',shortDescription:'Your intent. Verified software.',developerName:'Proofwork contributors',category:'Productivity',defaultPrompt:['Use Proofwork to carry this engineering task through verified completion.']};
       await writeFile(path.join(staging,manifestDirectory,'plugin.json'),`${JSON.stringify(manifest,null,2)}\n`);
       const invocation = host === 'codex' ? '$use-proofwork <task> (or select the skill from the host menu)' : '/proofwork:use-proofwork <task>';
-      await writeFile(path.join(staging,'README.md'),`# Proofwork ${metadata.version} for ${host}\n\nStart with \`${invocation}\`. Read [runtime](adapters/runtime.md) and [tools](scripts/README.md). These files are generated from our canonical authored source. No global configuration or continuation hooks are installed. Native goal support follows the live host contract. Structural validation does not establish host behavioral certification.\n`);
+      await writeFile(path.join(staging,'README.md'),`# Proofwork ${metadata.version} for ${host}\n\nDescribe the outcome you want; Proofwork carries the engineering detail and verifies the result. Start with \`${invocation}\`. Read [runtime](adapters/runtime.md) and [tools](scripts/README.md). These files are generated from our canonical authored source. No global configuration or continuation hooks are installed. Native goal support follows the live host contract. Structural validation does not establish host behavioral certification.\n`);
       await validateLinks(staging);
       await removeGenerated(destination);
       await rename(staging,destination);

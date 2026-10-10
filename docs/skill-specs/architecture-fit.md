@@ -59,3 +59,7 @@ Return a reasoned selected architecture or explicitly conditional recommendation
 ## Evaluation status and authorship
 
 Original Proofwork instructions and examples. Official documentation was inspected to verify SQLite constraints. Acceptance cases define intended observable decisions; their presence is not evidence that workload tests or restoration were executed. Evaluator results and limitations belong in the parent verification record.
+
+## Accessible decisions
+
+Explain architecture through user workflows, durability, operating responsibility and cost. Recommend the mechanism from inspected requirements; ask about a material missing fact rather than requiring database/framework expertise. Preserve explicit technical constraints. Simpler conversation must not conceal maintenance burdens or weaken recovery/security obligations.

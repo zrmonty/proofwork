@@ -2,6 +2,8 @@
 
 This standard covers all twenty-one Proofwork skills. Depth means the skill helps an agent choose and verify a better approach in a real task. Additional length alone is not a quality measure. Earlier revisions remain recorded separately; full reviews include language, functional/data logic, product/design, security, cleanup and coordinated audit/delivery workflows.
 
+The [product vision](vision.md) makes skill compression the main goal. A deeper skill should reduce the mechanism-specific knowledge a user needs while preserving inspectable engineering quality. Evaluate whether the root can select and apply it from ordinary intent; more commands, detail or agent activity alone is not progress.
+
 ## Authoring standard
 
 Each entry should identify its inputs, the decisions it owns, the evidence its outputs need and the boundaries it must preserve. Conditional examples and specialist procedures belong in linked references, with a clear reason to load each. Shared coordination and evidence rules live in contracts rather than being repeated in every entry.

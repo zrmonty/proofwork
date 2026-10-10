@@ -35,3 +35,16 @@ Code delivery includes the hard 500-physical-line maximum as a completion criter
 Code delivery also includes the hard 10-physical-line maximum for complete function definitions, following clean-code. Track function inspection method and covered scope separately from the file gate, which cannot establish function compliance. Coordinate unresolved violations outside edit ownership; do not claim a repository-wide pass from a partial inspection or accept dense, overly complex functions solely because they fit the count. Packaging validation proves resource structure only. Never invent execution, model metadata, installation, aliases or host support. No implicit external publication or expansion of user authorization.
 
 Original authorship: this skill and its references were written to Proofwork's requirements and current runtime contract. No external skill text or workflow was imported or mechanically paraphrased. Acceptance cases above are specifications until actual evaluation records establish behavior.
+
+## Skill-compression acceptance
+
+The root owns engineering translation; users may supply ordinary intent without selecting skill names, patterns, models or verification methods. Load references/intent-and-judgment.md for experiential briefs, creative revisions and consequential choices. Preserve expert control and current authority. Completion remains evidence-bound.
+
+Authored acceptance cases:
+- An export brief names a missing final page without a test strategy: root traces consumers, defines preserved format/final-page criteria and selects regression/integration methods without demanding engineering vocabulary.
+- A calmer publication brief produces a content-grounded provisional direction and an authorized reviewable slice; missing browser access remains an explicit visual-evidence gap.
+- Simultaneous editing is unknown and changes correctness: ask about the actual editing workflow, recommend a mechanism from the answer and do not ask the user to design a locking algorithm.
+- A cheaper hosting request does not silently weaken backups, buy a service or migrate data. Surface the consequence and actual missing authority.
+- Expert requests for implementation reasoning receive traceable code and evidence; an intuitive default never suppresses inspection.
+
+Evaluate newcomer task completion, avoidable technical choices delegated back, clarification burden, useful-slice latency and delivered defects on comparable tasks. These cases are requirements, not executed behavioral measurements or proof of improvement.

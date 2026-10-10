@@ -2,6 +2,7 @@
 
 These are canonical Proofwork defaults. User requirements, host permissions, and applicable project instructions take precedence. Workers and reviewers apply relevant principles to the actual assignment.
 
+- Carry engineering detail so users can steer through intent, taste and judgment. Translate ordinary requests into observable outcomes, choose relevant methods and expose consequential tradeoffs in practical terms. Keep expert inspection available; compress cognitive burden without concealing uncertainty, weakening evidence or assuming authority.
 - Locate the behavior and its consumers before editing. Complete the changed contract across callers, tests, fixtures, and exports.
 - Keep domain decisions, data analysis and as much changed stateful behavior as possible pure. Compute the next state and intended effects from supplied snapshots/events/policy; the owning boundary commits and executes, then returns observed outcomes. Preserve caller inputs and derive views from canonical state. Explain inseparable effectful decisions; loops and private mutation are valid.
 - Give each mutable or persisted value one responsible owner. Coordinate independent work through agreed contracts; never overwrite another worker's changes.

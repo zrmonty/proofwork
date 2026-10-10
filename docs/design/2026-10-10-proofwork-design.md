@@ -4,7 +4,7 @@ Design specification, October 10, 2026. Product name: Proofwork. Root skill: `us
 
 ## Purpose and finish line
 
-Turn Codex and Claude Code into a coordinated engineering team that ships less, better code through rigorous parallel work and deliberate use of model strengths.
+The current [product vision](../vision.md) is skill compression: a person turns a clear intention into useful, distinctive, verified software without managing the engineering machinery. Users steer through purpose, taste and judgment; Proofwork carries implementation discipline, proportionate coordination and evidence. The engineering-team model supports this goal rather than defining the user experience.
 
 Every worker must carry the engineering discipline. The coordinator owns decomposition, integration, and the final result. Independent review tests assumptions and implementation quality. Completion requires evidence against the user's objective.
 

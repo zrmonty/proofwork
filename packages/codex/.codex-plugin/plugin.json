@@ -1,7 +1,7 @@
 {
   "name": "proofwork",
-  "version": "0.12.1",
-  "description": "Coordinated engineering with original skills, bounded parallel work and inspectable evidence.",
+  "version": "0.13.0",
+  "description": "Turn intent into verified software with original engineering skills and inspectable evidence.",
   "author": {
     "name": "Proofwork contributors"
   },
@@ -9,7 +9,7 @@
   "skills": "./skills/",
   "interface": {
     "displayName": "Proofwork",
-    "shortDescription": "Less code. Better evidence.",
+    "shortDescription": "Your intent. Verified software.",
     "developerName": "Proofwork contributors",
     "category": "Productivity",
     "defaultPrompt": [

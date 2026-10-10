@@ -7,6 +7,8 @@ description: Implement or investigate a bounded Proofwork assignment, preserve o
 
 Own the assigned behavior and make your result easy to inspect. A confident summary cannot replace an artifact, and a task that passes in isolation is still provisional until integration.
 
+The coordinator owns translation between user intent and engineering work. Resolve routine implementation choices within the assignment; return consequential assumptions or scope conflicts to that owner rather than asking the user to select patterns. Explain results as changed behavior plus evidence, with technical detail available for inspection.
+
 ## Understand before writing
 
 Read the [assignment](../../contracts/assignment.md), this skill and every selected skill explicitly; inherited context may omit constraints. Load [functional-programming](../functional-programming/SKILL.md), [clean-code](../clean-code/SKILL.md), [data-driven-development](../data-driven-development/SKILL.md) and affected language guidance. UI work also reads [frontend-design](../frontend-design/SKILL.md) and the agreed design direction.

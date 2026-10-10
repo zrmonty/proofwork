@@ -13,6 +13,8 @@ Recommend the least burdensome complete architecture the responsible people can 
 
 Use this skill for a new project's architecture, a consequential tool choice, or a proposed infrastructure expansion. For a focused bug fix, preserve the demonstrated stack unless the defect requires an architectural decision. Recommendations do not authorize dependency installation, data migration, deployment, or a rewrite.
 
+Present choices through their practical consequences: what people can do, what data survives, who maintains it and what it costs. Recommend a supported fit rather than asking a nontechnical user to choose a database or framework. Preserve explicit expert preferences, and surface missing facts that change the recommendation. Simpler interaction never permits undisclosed operating burdens or weaker requirements.
+
 ## Establish what the system must do
 
 Inspect the repository and existing deployment evidence before asking questions. Identify the product's main workflows, data ownership, current components, and anything the user has already chosen. Separate a hard requirement from a preference and an untested assumption. Audit the proposed stack and relevant incumbent components, not just its database. For each major choice, identify the behavior it supports, its extra maintenance or failure burden, a simpler credible arrangement and what would fail without it. Popularity, habit and unspecified future scale are not requirements.

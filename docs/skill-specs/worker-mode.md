@@ -33,3 +33,7 @@ The worker verifies the hard 500-line limit for owned code, tests and generated 
 Evaluate through actual artifact/diff, checks and conflict/resume decisions, not matching prescribed headings. A summary is not test evidence. Preserve existing user work and the project's toolchain/architecture. Do not infer actual model metadata when the host omits it.
 
 Original authorship: independently written to Proofwork's worker specification and current contracts. No external skill content was imported or adapted. These cases require recorded forward evaluation before claiming behavioral certification.
+
+## User-facing burden
+
+Workers resolve routine implementation decisions inside assigned ownership and return consequential assumptions to the coordinator. Handoffs explain changed behavior and actual evidence; they do not require the user to pick a pattern or treat a concise result as proof. Coordinator translation and explicit expert preferences remain authoritative.
