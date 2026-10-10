@@ -1,4 +1,4 @@
-# Proofwork 0.29.0 verification
+# Proofwork 0.30.0 verification
 
 October 10, 2026. This matrix describes current evidence and its limits. Earlier release observations are preserved in [verification history](../CHANGELOG.md).
 
