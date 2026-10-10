@@ -183,11 +183,85 @@
   },
   "ci": {
     "configuration": ".github/workflows/check.yml",
-    "platforms": [
-      "ubuntu-latest",
-      "windows-latest"
+    "status": "completed",
+    "conclusion": "success",
+    "url": "https://github.com/zrmonty/proofwork/actions/runs/38082851449",
+    "testedCommit": "d943842e006a506d32233b43f8141714dd7f211e",
+    "jobs": [
+      {
+        "name": "verify (ubuntu-latest)",
+        "conclusion": "success",
+        "steps": [
+          {
+            "name": "Run npm run check",
+            "conclusion": "success"
+          },
+          {
+            "name": "Run npm run build:hooks",
+            "conclusion": "success"
+          },
+          {
+            "name": "Check generated package parity",
+            "conclusion": "success"
+          }
+        ],
+        "coverage": {
+          "revision": "scripts-sha256:25c3c0183cf0b67e17af89d4408c314b3db1d8548f87d298670eb6a5cea32129",
+          "lines": {
+            "covered": 2281,
+            "total": 2311,
+            "percent": 98.7018606663782
+          },
+          "branches": {
+            "covered": 1422,
+            "total": 1462,
+            "percent": 97.2640218878249
+          }
+        }
+      },
+      {
+        "name": "verify (windows-latest)",
+        "conclusion": "success",
+        "steps": [
+          {
+            "name": "Run npm run check",
+            "conclusion": "success"
+          },
+          {
+            "name": "Run npm run build:hooks",
+            "conclusion": "success"
+          },
+          {
+            "name": "Check generated package parity",
+            "conclusion": "success"
+          }
+        ],
+        "coverage": {
+          "revision": "scripts-sha256:25c3c0183cf0b67e17af89d4408c314b3db1d8548f87d298670eb6a5cea32129",
+          "lines": {
+            "covered": 2282,
+            "total": 2311,
+            "percent": 98.74513197749893
+          },
+          "branches": {
+            "covered": 1424,
+            "total": 1464,
+            "percent": 97.26775956284153
+          }
+        }
+      }
     ],
-    "status": "Awaiting first remote execution"
+    "priorFailures": [
+      {
+        "run": 38082636830,
+        "reason": "Packaged tools README linked to an unshipped repository documentation file."
+      },
+      {
+        "run": 38082713382,
+        "reason": "Failure-only diagnostics reproduced the same missing packaged reference on both platforms."
+      }
+    ],
+    "correction": "Use the public repository flow guide link in packaged tools documentation; rebuild and reinstall. Pin current official checkout/setup-node action releases."
   },
   "limits": [
     "Executed package routes and runtime fixtures do not establish live agent adherence, cross-model quality or native goal continuation.",

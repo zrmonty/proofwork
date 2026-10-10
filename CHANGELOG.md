@@ -7,6 +7,7 @@
 - Wire measurement and resume to their actual next guidance, with required recovery counted initially.
 - Establish one coordinator and evidence history across skills, alternatives, review and stage handoffs.
 - Refresh the complete reference catalog and remove stale policy wording from the vision.
+- Execute Windows/Linux CI source, package and generated-parity checks; fix the packaged flow-guide link and pin current official actions.
 
 
 ## 0.27.0 — Named playbooks

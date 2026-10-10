@@ -324,7 +324,8 @@ across 19 runtime scripts. Both host packages contain 49 skills and 13 named pla
 and enabled. The same 92-case corpus now loads **158,304 initial words**, down from 169,692 (6.71%).
 Selected guides and required resume guidance count initially; another 14,790 entry words are deferred.
 This is an instruction-word measure, not measured token savings or agent quality. See [current checks](evals/results/integrated-flow-20261010.json).
-Windows/Linux CI runs source checks and both package builds on main pushes and pull requests.
+[Windows/Linux CI](https://github.com/zrmonty/proofwork/actions/runs/38082851449) passes source checks, both package builds and generated-package parity.
+It runs on main pushes, pull requests and manual dispatch.
 
 In the historical 0.24 snapshot regression, a standalone Windows Git worktree with 20,000 ignored files fell from **5,036 ms
 to 129 ms**, excluding fixture setup and cleanup. These individual measurements do not establish performance on

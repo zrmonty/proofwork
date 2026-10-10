@@ -24,8 +24,10 @@ read-only decisions, mixed repair, coordinator ownership, resume guidance, stage
 criterion through checkpoint, evidence, read-only preflight and completion. Both built host layouts execute seven
 representative routes. The same 92-case initial corpus totals 158,304 words, down 6.71% from 0.27; light/standard
 maxima are 672/2,754. Another 14,790 entry words are deferred. Required recovery and selected guide costs count
-initially; other conditional references and task/model tokens are additional. Windows/Linux CI is configured;
-its remote execution status is recorded in the current evidence file.
+initially; other conditional references and task/model tokens are additional. [Windows/Linux CI](https://github.com/zrmonty/proofwork/actions/runs/38082851449) passes source checks, both standard packages, optional hook builds and generated-package parity
+on commit d943842. Ubuntu coverage is 98.70% lines/97.26% branches; Windows CI is recorded separately
+in the evidence file. Two earlier failed runs exposed a packaged documentation link added after local checks;
+the corrected packaged reference was rebuilt, reinstalled and reverified.
 
 Historical 0.27 [named-playbook checks](../evals/results/named-playbooks-20261010.json) pass across 19 canonical scripts:
 2,262/2,291 lines (98.73%) and 1,412/1,450 branches (97.38%). Eight named-playbook tests cover all 13 guides,
