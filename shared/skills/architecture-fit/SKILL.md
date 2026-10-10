@@ -25,6 +25,8 @@ Ask the material unanswered questions early, grouped so the user can answer natu
 
 Registered users, simultaneous sessions, concurrent writes, and background jobs describe different loads. Audience size is context, not a database recommendation. Consider peak overlap and transaction duration, data volume and growth, query needs, batch jobs, acceptable delays, and any availability or recovery target. Use representative measurements when the decision turns on capacity rather than inventing a per-user limit.
 
+When languages, runtimes or frameworks are undecided, load [language fit](../language-fit/SKILL.md). Establish which responsibilities and boundaries are necessary here; use that skill to compare implementation technology across systems, scripting and fullstack work without a habitual language default.
+
 ## Compare credible options
 
 Include the existing tool, the least complex adequate alternative and another option only when it addresses a material requirement. Treat “use no additional component” as an option when existing code or a simpler delivery model can meet the need. Evaluate equivalent requirements, including development effort, hosting cost, persistent storage, updates, migrations, access control, backup and tested restore, incident recovery, and the owner's expertise. A managed service can be simpler for this team than a smaller self-operated component.

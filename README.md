@@ -47,6 +47,7 @@ Give any skill a task in the same prompt. In Codex, use `$<skill-name>` or selec
 | --- | --- | --- |
 | `$use-proofwork` | `/proofwork:use-proofwork` | Carry a task through discovery, routing, bounded workers, review and evidence. |
 | `$setup` | `/proofwork:setup` | Inspect host capabilities, toolchains, model roles and repository checks. |
+| `$language-fit` | `/proofwork:language-fit` | Compare languages, runtimes and frameworks across systems, scripting and fullstack needs; justify each choice and mixed-language boundary. |
 | `$architecture-fit` | `/proofwork:architecture-fit` | Challenge every major stack component, compare simpler adequate alternatives and justify tools from real requirements. |
 | `$production-finish` | `/proofwork:production-finish` | Prepare an app for production, inspect secret exposure, establish hosting and build a suitable container when needed. |
 | `$performance-increase` | `/proofwork:performance-increase` | Profile and optimize with actual before/after benchmarks, clear savings and resource tradeoffs. |
@@ -76,6 +77,7 @@ $thermo-nuclear-code-quality-review Review the current diff and its callers. Rep
 $frontend-design Refine the article page with a content-led editorial identity and verify desktop/mobile behavior.
 $humanizer Rewrite this application's copy in a natural, direct voice. Reduce repetitive headings and footer sections while preserving useful navigation, facts and behavior.
 $commit-features Prepare a commit message from the staged diff and check the outgoing history.
+$language-fit Choose languages and frameworks for this project from actual workload, safety, integrations and maintenance needs. Compare systems, scripting and fullstack options without defaulting to TypeScript.
 $architecture-fit Challenge this proposed stack. Explain why each major tool is needed, recommend simpler adequate alternatives and omit unearned complexity.
 $production-finish Prepare this app for production. Check for exposed secrets, ask about hosting and build a Docker image if it fits.
 $performance-increase Improve this parser's throughput and shorten its benchmark run. Preserve correctness and report comparable measurements.

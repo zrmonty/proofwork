@@ -8,7 +8,13 @@ const taskRoutes = [
 function ordinaryPlaybook(task) {
   return taskRoutes.find(([, pattern]) => pattern.test(task))?.[0] ?? 'feature';
 }
+const languageChoices = /\b(?:programming languages?|languages?|runtimes?|frameworks?|fullstack|full.stack|rust|python|typescript|javascript|react|vue|svelte|angular|astro|solid|go|java|kotlin|elixir|ruby|php|zig|csharp|dotnet)\b|c\+\+|c#|\.net|\bC\b/i;
+function languageChoiceIntent(task) {
+  if (/\b(?:which|what)\s+language\b.*\b(?:labels?|copy|wording|translation)\b/i.test(task) && !/\blanguage[- ]fit\b/i.test(task)) return false;
+  return /\blanguage[- ]fit\b/i.test(task) || ((/\b(?:which|what|choose|select|compare|recommend|decide)\b/i.test(task) || /\bshould\b.*\b(?:use|choose)\b/i.test(task)) && languageChoices.test(task));
+}
 function architectureIntent(task) {
+  if (languageChoiceIntent(task)) return true;
   return /\b(architect(?:ure|ing)?|overengineering|stack)\b/i.test(task) || /\b(which|what|choose|select|compare|recommend|decide)\b.*\b(database|storage|tools?|technolog(?:y|ies)|sqlite|postgres(?:ql)?)\b/i.test(task) || /\bshould\b.*\b(use|choose)\b.*\b(database|storage|sqlite|postgres(?:ql)?)\b/i.test(task);
 }
 function productionIntent(task) {
@@ -68,6 +74,7 @@ function deliverySkills(task, playbook) {
 function domainSkills(task) {
   const skills = [];
   if (architectureIntent(task)) skills.push('architecture-fit');
+  if (languageChoiceIntent(task) || /\barchitect(?:ure|ing)?\b/i.test(task)) skills.push('language-fit');
   if (productionIntent(task)) skills.push('production-finish');
   return skills;
 }

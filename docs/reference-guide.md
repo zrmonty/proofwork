@@ -1,12 +1,13 @@
 # Skill reference guide
 
-Proofwork has twenty-two skills. Their entry points select the relevant detail; references are conditional reading, not a checklist to load in full for every task.
+Proofwork has twenty-three skills. Their entry points select the relevant detail; references are conditional reading, not a checklist to load in full for every task.
 
 Open a skill for its workflow and loading triggers. Each linked reference supplies decisions, worked scenarios and verification boundaries. Examples and acceptance cases are guidance unless a verification report explicitly records execution.
 
 | Skill | References |
 | --- | --- |
 | [architecture-fit](../shared/skills/architecture-fit/SKILL.md) | [Component decisions](../shared/skills/architecture-fit/references/component-decisions.md); [Exit cost and operating ownership](../shared/skills/architecture-fit/references/exit-cost-and-ownership.md); [Storage and deployment fit](../shared/skills/architecture-fit/references/storage-fit.md) |
+| [language-fit](../shared/skills/language-fit/SKILL.md) | [Systems and boundaries](../shared/skills/language-fit/references/systems-and-boundaries.md); [Frontend and application fit](../shared/skills/language-fit/references/frontend-and-application.md) |
 | [audit-stack](../shared/skills/audit-stack/SKILL.md) | [Repair interactions](../shared/skills/audit-stack/references/repair-interactions.md) |
 | [clean-code](../shared/skills/clean-code/SKILL.md) | [Contract-preserving refactors](../shared/skills/clean-code/references/contract-preserving-refactors.md); [Function size and complexity](../shared/skills/clean-code/references/function-size-and-complexity.md); [Refactoring decisions](../shared/skills/clean-code/references/refactoring-decisions.md) |
 | [commit-features](../shared/skills/commit-features/SKILL.md) | [Commit content provenance](../shared/skills/commit-features/references/content-provenance.md); [Messages and outgoing history](../shared/skills/commit-features/references/messages-and-history.md) |

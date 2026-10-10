@@ -63,3 +63,7 @@ Original Proofwork instructions and examples. Official documentation was inspect
 ## Accessible decisions
 
 Explain architecture through user workflows, durability, operating responsibility and cost. Recommend the mechanism from inspected requirements; ask about a material missing fact rather than requiring database/framework expertise. Preserve explicit technical constraints. Simpler conversation must not conceal maintenance burdens or weaken recovery/security obligations.
+
+## Implementation technology
+
+Load language-fit for unresolved languages, runtimes or frameworks. Architecture-fit retains responsibility for component necessity and boundaries; language-fit compares implementation technology and mixed-language ownership costs without forcing extra services.
