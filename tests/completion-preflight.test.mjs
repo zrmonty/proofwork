@@ -132,7 +132,8 @@ test('malformed completion collections are refused by the same core gates withou
       await writeFile(context.file, JSON.stringify({ ...baseline, ...patch }));
       const result = await unchangedPreflight(context);
       assert.equal(result.ready, false, JSON.stringify(patch));
-      assert.match(result.reasons.join(), /invalid completion|invalid outstanding|unreviewed task/);
+      assert.match(result.reasons.join(),
+        /invalid completion|invalid checkpoint|invalid outstanding|unreviewed task|must be a text array/);
     }
     await writeFile(context.file, JSON.stringify(baseline));
     const absentOwner = await unchangedPreflight(context, { owner: '' });

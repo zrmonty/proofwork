@@ -47,3 +47,5 @@ not request continuation of a reviewing/verifying run.
 Commits follow repository convention. [commit-features](../../commit-features/SKILL.md) formatting/checking applies only when `commitFormat` is explicitly enabled; absent means off. Do not automatically rewrite messages or block pushes with an unrequested format. Commit/push still requires existing authorization.
 
 Before completion collect modifying workers, inspect final artifacts, obtain current evidence, settle findings/effects and complete authorized delivery. Run the local completion guard against integrated identity, then perform native completion separately. Structural guards cannot establish evidence honesty or worker liveness. Report outcome, meaningful checks and remaining limits.
+
+Produce the [systems outcome](../../../contracts/systems-outcome.md) before final delivery, including incomplete runs. Link actual evidence, recovery, input/drift and signal records, residual risks and operator ownership. This artifact does not replace preflight or native completion.

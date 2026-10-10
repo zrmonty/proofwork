@@ -23,3 +23,5 @@ read commit-features; enforcement requires opt-in. Apply clear-voice while writi
 report. Skip setup for routine work. Explain before/after, checks, uncertainty and operator actions without technique names. Use evidence-surface to connect outcomes to actual checks, identities and gaps; routine reports stay short.
 
 Read [handoffs](references/handoffs.md) for material stage changes or interacting skills; on resume load continuation.references first. Light recovery stays light. Keep one objective, coordinator and finding list.
+
+Every full-tier or Harden-and-Finish delivery writes and links one [systems outcome](../../contracts/systems-outcome.md), including incomplete delivery. Reuse evidence and release notes; do not imply production readiness from scoped success.

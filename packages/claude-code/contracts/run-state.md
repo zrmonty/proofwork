@@ -21,6 +21,6 @@ For an interrupted export, the next action might be "inspect the output manifest
 
 ## Recovery is an explicit operation
 
-The local tooling saves a prior valid checkpoint and uses a per-run lock. If current JSON is corrupt, inspect the backup and actual repository before manually restoring it. If a lock remains after a crash, establish that no live writer owns it before removing it. Restoring local state does not undo external effects, recover unsaved source edits or prove that older evidence is current.
+The local tooling saves a prior valid checkpoint and uses a per-run lock. If current JSON is corrupt, inspect the backup and actual repository, then use `recover --repo PATH --run ID --owner SESSION`. Recovery preserves damaged bytes, validates backup identity/structure and retains outstanding effects. It adds a reconciliation gap and stops incomplete; inspect actions after the backup before clearing that gap. Never automatically restore a backup or initialize a replacement run. If a lock remains after a crash, establish that no live writer owns it before removing it. Restoring local state does not undo external effects, recover unsaved source edits or prove that older evidence is current.
 
 Save an actionable `nextAction`: the specific check or integration step and its owner. Keep uncertain external effects in `outstandingEffects` until observed reconciliation. A checkpoint describes work state; it is not a scheduler and cannot supply a missing host capability.

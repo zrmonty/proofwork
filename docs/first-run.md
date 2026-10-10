@@ -25,3 +25,17 @@ Start a fresh session. Describe your outcome through `$use-proofwork` in Codex o
 The agent should inspect the relevant mechanism, reproduce the failure, make a proportionate repair and return the observed before/after, actual check and remaining operating limits. It should not ask you to select a playbook or model. Missing consequential facts or authority remain legitimate questions; a smooth first run does not justify guessing them.
 
 Inspect routing or configure roles only when useful. See the README's uninstall/reset instructions for host removal and local run-state cleanup. Hook trust and live deployment remain separate actions.
+
+## Recognize the first useful outcome
+
+Choose a bounded real task in your project. A small fix needs no setup or ledger. Expect the changed behavior, an actual check on the delivered output, and an explicit operating boundary. For the invoice example: the last page was missing before the repair; the exported file now contains all input pages; the report links the check. A passing build alone is insufficient. Ask to inspect the evidence when the report omits it.
+
+If execution is unavailable, the useful result is the inspected change plus the exact unchecked behavior and next action. It must not say verified. Hosting, credential rotation, deployment and live operation remain with the authorized operator unless explicitly included and observed.
+
+## Resume without restarting
+
+Continue in the same conversation: “Resume the invoice export repair; verify the delivered pages.” Preserve accepted criteria and existing edits. The agent inspects the current diff, recovers the next action and reruns only affected checks. Interrupted checks do not become passes. Light tasks use conversation/diff recovery; full tasks use their explicitly bound checkpoint. Never select the newest unrelated run.
+
+For a damaged full-run checkpoint, inspect the backup and run the packaged `recover` command with the existing repository, run and coordinator owner. It retains damaged bytes and the backup and returns stopped-incomplete with a reconciliation gap. Inspect current files and uncertain effects since the backup, then checkpoint the real next action and revalidate affected evidence. Missing or invalid backups remain a visible gap; do not overwrite them or discard source work.
+
+Full-tier and Harden-and-Finish reports link a [systems outcome](../shared/contracts/systems-outcome.md). It is the reusable operational handoff; unavailable checks and unassigned owners remain visible.

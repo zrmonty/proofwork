@@ -274,3 +274,56 @@ test('existing or missing-parent evidence output prevents command execution befo
     assert.equal((await execute('status', optionsFor(repo))).evidence.length, 0);
   } finally { await rm(repo, { recursive: true, force: true }); }
 });
+
+test('explicit backup recovery preserves work and effects while rejecting implicit completion', async t => {
+  const repo = await createRepo();
+  t.after(() => rm(repo, { recursive: true, force: true }));
+  const options = optionsFor(repo);
+  await execute('init', options);
+  await record(repo, 'checkpoint', { nextAction: 'Inspect export', outstandingEffects: ['Reconcile export receipt'] });
+  await record(repo, 'checkpoint', { nextAction: 'Verify export pages' });
+  const directory = path.join(repo, '.engineering-team/runs/hardening');
+  const file = path.join(directory, 'state.json');
+  const backup = await readFile(path.join(directory, 'state.backup.json'), 'utf8');
+  await assert.rejects(execute('recover', options), /valid; resume/);
+  await assert.rejects(execute('recover', { ...options, owner: 'other' }), /coordinator/);
+  await writeFile(file, '{interrupted');
+  await assert.rejects(execute('status', options), /JSON/);
+  const recovered = await execute('recover', options);
+  assert.equal(recovered.phase, 'stopped-incomplete');
+  assert.ok(recovered.outstandingEffects.includes('Reconcile export receipt'));
+  assert.ok(recovered.outstandingEffects.some(item => /Recovery gap/.test(item)));
+  assert.equal(await readFile(path.join(directory, 'state.backup.json'), 'utf8'), backup);
+  assert.equal((await execute('preflight', options)).ready, false);
+  assert.equal(recovered.objective, 'verify');
+  await assert.rejects(execute('recover', options), /valid; resume/);
+  await writeFile(file, JSON.stringify({ ...recovered, tasks: 'corrupt' }));
+  await assert.rejects(execute('status', options), /checkpoint tasks/);
+  assert.equal((await execute('recover', options)).phase, 'stopped-incomplete');
+  await writeFile(file, '{broken');
+  await writeFile(path.join(directory, 'state.backup.json'), '{broken backup');
+  await assert.rejects(execute('recover', options), /JSON/);
+  assert.equal(await readFile(file, 'utf8'), '{broken');
+});
+
+test('missing checkpoint recovery validates backup identity and never fabricates a new run', async t => {
+  const repo = await createRepo();
+  t.after(() => rm(repo, { recursive: true, force: true }));
+  const options = optionsFor(repo);
+  await execute('init', options);
+  await record(repo, 'checkpoint', { nextAction: 'Verify receipt' });
+  const directory = path.join(repo, '.engineering-team/runs/hardening');
+  const file = path.join(directory, 'state.json');
+  const backupFile = path.join(directory, 'state.backup.json');
+  const backup = JSON.parse(await readFile(backupFile, 'utf8'));
+  await rm(file);
+  await writeFile(backupFile, JSON.stringify({ ...backup, repo: path.join(repo, 'other') }));
+  await assert.rejects(execute('recover', options), /identity/);
+  await writeFile(backupFile, JSON.stringify(backup));
+  assert.equal((await execute('recover', options)).phase, 'stopped-incomplete');
+  await rm(file);
+  await writeFile(backupFile, JSON.stringify({ ...backup, phase: 'complete' }));
+  await assert.rejects(execute('recover', options), /immutable/);
+  await rm(backupFile);
+  await assert.rejects(execute('recover', options), /ENOENT/);
+});

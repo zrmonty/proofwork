@@ -1,5 +1,12 @@
 # Proofwork changelog
 
+## 0.33.0 — First outcomes and systems handoff
+
+- Execute a real export-repair fixture through failed evidence, interruption, resume and current-artifact completion.
+- Validate checkpoint structure on status and writes; add explicit locked backup recovery with preserved damaged bytes and a reconciliation gap.
+- Require one reusable systems outcome for full-tier and Harden-and-Finish delivery, including incomplete work.
+- Connect first-run, recovery and operator handoff documentation without adding skills or ceremony to light work.
+
 ## 0.32.0 — Proportionate recovery
 
 - Keep documentation-only edits light across larger file inventories, preserving risk floors.

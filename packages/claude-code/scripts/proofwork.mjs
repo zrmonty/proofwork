@@ -207,6 +207,41 @@ function validateState(state, repo, run, owner, readOnly = false) {
   if (state.schemaVersion !== 1 || state.run !== run || state.repo !== repo) fail('invalid checkpoint identity');
   if (!readOnly && state.phase === 'complete') fail('completed run is immutable; initialize another run');
   if (state.owner !== owner) fail('only the coordinator owner may update aggregate state');
+  text(state.owner, 'checkpoint owner');
+  if (!['preparing', 'executing', 'reviewing', 'verifying', 'awaiting-input',
+    'stopped-incomplete', 'complete'].includes(state.phase)) fail('invalid checkpoint phase');
+  text(state.objective, 'checkpoint objective'); text(state.revision, 'checkpoint revision');
+  text(state.nextAction, 'checkpoint next action');
+  for (const field of ['criteria', 'skills', 'outstandingEffects']) textArray(state[field], field);
+  if (!state.criteria.length || new Set(state.criteria).size !== state.criteria.length)
+    fail('invalid checkpoint criteria');
+  for (const field of ['tasks', 'findings', 'evidence']) {
+    if (!Array.isArray(state[field]) || state[field].some(item => !item || typeof item !== 'object'))
+      fail(`invalid checkpoint ${field}`);
+  }
+}
+async function recoverState(file, repo, run, options) {
+  try {
+    const current = JSON.parse(await readFile(file, 'utf8'));
+    validateState(current, repo, run, options.owner, true);
+    fail('checkpoint is valid; resume it without recovery');
+  } catch (error) {
+    if (error.message === 'checkpoint is valid; resume it without recovery') throw error;
+    if (/checkpoint identity|coordinator owner/.test(error.message)) throw error;
+    if (error.code && error.code !== 'ENOENT') throw error;
+  }
+  const backup = await safePath(repo, `.engineering-team/runs/${run}/state.backup.json`, 'backup');
+  const state = JSON.parse(await readFile(backup, 'utf8'));
+  validateState(state, repo, run, options.owner);
+  const recovered = structuredClone(state);
+  recovered.phase = 'stopped-incomplete';
+  recovered.nextAction = 'Inspect checkout and actions since backup; reconcile effects and revalidate evidence';
+  recovered.outstandingEffects.push('Recovery gap: reconcile actions after the last valid backup');
+  const damaged = `${file}.damaged-${randomUUID()}`;
+  try { await copyFile(file, damaged); }
+  catch (error) { if (error.code !== 'ENOENT') throw error; }
+  await save(file, recovered, false);
+  return recovered;
 }
 async function prepareEvidence(record, options, repo, state) {
   const artifact = await safePath(repo, record.artifact, 'artifact');
@@ -271,6 +306,7 @@ async function writeState(command, repo, run, directory, options) {
   const raw = await acquireLock(lock, options.owner, options['break-lock'] === true);
   try {
     const file = await safePath(repo, `.engineering-team/runs/${run}/state.json`, 'state');
+    if (command === 'recover') return await recoverState(file, repo, run, options);
     return command === 'init' ? await initialize(file, repo, run, options)
       : await updateState(file, repo, run, command, options);
   } finally { await releaseLock(lock, raw); }
@@ -284,9 +320,12 @@ export async function execute(command, options) {
   if (command === 'preflight') return preflight(options);
   const repo = await realpath(text(options.repo, 'repo')), run = id(options.run, 'run');
   const directory = await safePath(repo, `.engineering-team/runs/${run}`, 'run');
-  if (command === 'status')
-    return JSON.parse(await readFile(
+  if (command === 'status') {
+    const state = JSON.parse(await readFile(
       await safePath(repo, `.engineering-team/runs/${run}/state.json`, 'state'), 'utf8'));
+    validateState(state, state.repo, run, state.owner, true);
+    return state;
+  }
   const autoBind = command === 'init' && (options.host !== undefined || options.session !== undefined);
   if (autoBind) {
     validateSelection(options.host, options.session);
@@ -305,6 +344,7 @@ route --task TEXT [--files comma,separated,paths] [--explain] [--tier light|stan
 init --repo PATH --run ID --owner SESSION --objective TEXT --revision REV --criteria criterion,ids
 init also accepts --host codex|claude-code --session HOST_SESSION for automatic hook binding.
 status --repo PATH --run ID
+recover --repo PATH --run ID --owner SESSION (explicit corrupt/missing-state backup restoration)
 assign|result|evidence|finding|checkpoint --repo PATH --run ID --owner SESSION --input JSON_FILE
 evidence also accepts --command TEXT [--timeout-ms 1..3600000]; default timeout is 120000 ms.
 Command observations belong under .engineering-team/. This is arbitrary shell execution, not a sandbox.

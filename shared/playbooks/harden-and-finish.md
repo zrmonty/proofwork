@@ -6,3 +6,5 @@ Produce one operator handoff: source/lock/artifact input record, classified envi
 failure and containment map, code-linked signals and short recovery procedure. Use production-finish's readiness
 gates to decide ready for staging and ready for production independently. Unavailable observations and residual
 risks retain an owner and blocking gate. A staging pass does not establish live verification.
+
+Write this as the [systems outcome](../contracts/systems-outcome.md), including when readiness remains incomplete.

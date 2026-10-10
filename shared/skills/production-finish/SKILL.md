@@ -47,3 +47,5 @@ Return explicit ready-for-staging and ready-for-production decisions, then disti
 Link artifact/lock identities, parity differences, the recovery note and exercised log/metric/alert signals. List
 residual risks with consequence, mitigation, owner, blocking gate and next check; unknowns remain pending.
 Finish when scoped criteria pass with accountable dispositions. A clean scan proves only its inspected scope.
+
+Write and link the reusable [systems outcome](../../contracts/systems-outcome.md); its reached state, gaps and owners must match the release record.

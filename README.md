@@ -31,6 +31,14 @@ passes full checks and package parity. See the [operator-guidance verification r
 
 For release work, Proofwork connects resolved dependencies to the inspected artifact, compares effective environment configuration, maps failure propagation and recovery, and generates useful logs, metrics and alerts with the change. It returns separate ready-for-staging and ready-for-production decisions with owned residual risks. See [operational scenarios](docs/operational-scenarios.md) and [production-finish](shared/skills/production-finish/SKILL.md). Live deployment and verification remain separate observations.
 
+## First outcomes and operational handoff
+
+Codex 0.33.0 is installed locally. See the [executed first-outcome and recovery record](evals/results/first-outcome-recovery-20261010.md).
+
+Start with a bounded real task and describe the behavior you want. The report should show the changed result, a check on the actual output, what remains uncertain and what you still own. See [first run and recovery](docs/first-run.md).
+
+Every full-tier or Harden-and-Finish delivery links one [systems outcome](shared/contracts/systems-outcome.md): artifact-bound verification, failure/recovery steps, configuration and dependency drift notes, observability, and owned residual risks. Incomplete work produces the same handoff with explicit gaps. It is a reusable operator record, not a certification or deployment permission.
+
 ## Small tasks and interruptions
 
 Codex 0.32.0 is installed locally. [Windows/Ubuntu CI](https://github.com/zrmonty/proofwork/actions/runs/38087156819) passes; see the [recovery verification record](evals/results/proportionate-recovery-20261010.md).

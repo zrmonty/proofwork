@@ -10,7 +10,7 @@ On continuation or uncertain effects, inspect present reality before acting. Use
 4. Reconcile live workers/processes through available host tools. Saved IDs alone do not establish running status. Before reopening work, resolve current ownership; a formerly reviewed task may now overlap an active assignment.
 5. Inspect external actions and evidence, then set one useful next action. If a required fact is unknown, collect it rather than replaying the whole workflow.
 
-A crash does not establish stale locks. Check live writers; remove only through explicit supported recovery. Inspect backups/checkout before restoring corrupt state; preserve subsequent work.
+A crash does not establish stale locks. Inspect writers and backup/checkout; use explicit `recover` for corrupt state. Preserve subsequent work and reconcile its recovery gap before completion.
 
 ## Interrupted push
 
