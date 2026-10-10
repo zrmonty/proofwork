@@ -17,3 +17,5 @@ Up to three rules live in `.proofwork.json`. Literal phrases, route stages and r
 The entry applies selected rules and records IDs, dispositions, evidence/gaps and ownership in existing reports or systems outcomes. Resume reloads policy and reassesses affected decisions on content changes. Invalid policy fails visibly rather than silently dropping a requirement.
 
 Executed tests establish resolver, CLI, adapter-policy and packaging behavior. They do not prove native host dispatch, model adherence, the adequacy of a team's restore test or enforcement of every organizational requirement. Team policy is an instruction/evidence contract; existing runtime guards are not extended into arbitrary policy or push enforcement. The operator retains authority over material exceptions and deployment.
+
+[Windows and Ubuntu CI](https://github.com/zrmonty/proofwork/actions/runs/38088199570) passed full checks and optional-hook package parity for source commit `8a1a70f`.

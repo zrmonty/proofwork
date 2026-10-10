@@ -33,7 +33,7 @@ For release work, Proofwork connects resolved dependencies to the inspected arti
 
 ## Team principles without a fork
 
-Codex 0.34.0 is installed locally; see the [team-policy verification record](evals/results/team-policy-20261010.md).
+Codex 0.34.0 is installed locally; [Windows/Ubuntu CI](https://github.com/zrmonty/proofwork/actions/runs/38088199570) passes. See the [team-policy verification record](evals/results/team-policy-20261010.md).
 
 Add two or three team rules to `.proofwork.json`, such as requiring an architecture decision before introducing a database or an executed restore test for migrations. Explained routing selects relevant rules and their required evidence; final reports and systems outcomes record their dispositions. Rules are host-agnostic, skip light work unless opted in and cannot grant deployment authority. See the [configuration and selector examples](shared/contracts/team-policy.md).
 
