@@ -184,10 +184,9 @@ a direct path. Different brands do not establish independence, and combined cand
 See [model patterns](shared/skills/use-proofwork/references/model-patterns.md) and
 [comparison protocol](docs/model-role-evaluation.md). No multi-model quality gain has yet been demonstrated.
 
-The root selectively reads [15 original principle skills](docs/principles.md), then names a principle when it changes
-a material decision. Each is callable as `$pw-principle-<slug>` in Codex or `/proofwork:pw-principle-<slug>` in Claude
-Code; the linked index lists exact names. These small lenses cover effort, contracts, earned components, boundaries,
-language fit, real journeys, reproduction, verifiable units and honest operational evidence.
+The root selects [seven decision references](docs/principles.md) when relevant. They are not separately callable
+skills. Design economy combines the former simplicity, subtraction and component-justification rules; tier policy
+owns proportionate effort. Explained routing exposes stable principle IDs and loadable reference paths.
 
 `node scripts/proofwork.mjs route --explain --task "<outcome>"` reports tier reasons and selected principles.
 Add `--tier light|standard|full` to override; reported security/concurrency and behavioral floors retain necessary
@@ -309,7 +308,7 @@ Model roles use actual host capabilities and user-selected settings. Native alte
 
 ## Verification and limits
 
-Codex 0.29.0 is installed and enabled through the new installer. [Windows/Linux CI](https://github.com/zrmonty/proofwork/actions/runs/38084090159) passes full checks and package parity. Current 0.29 evidence is in the [systems-outcome record](evals/results/systems-outcomes-20261010.json). The [executed configuration repair](evals/examples/release-config/README.md) shows a public-safe before/after; [user-outcome evaluation](docs/user-outcome-evaluation.md) measures avoidable decisions, corrections, verified-slice time and feedback without inventing missing results. See [contributing](CONTRIBUTING.md) and the [opt-in feedback process](docs/early-user-feedback.md).
+Current source is 0.30.0: 34 skill entries and seven conditional decision references. See the [consolidation record](evals/results/principle-consolidation-20261010.md). The preceding 0.29.0 installer verification is retained below. [Windows/Linux CI](https://github.com/zrmonty/proofwork/actions/runs/38084090159) passes full checks and package parity. Current 0.29 evidence is in the [systems-outcome record](evals/results/systems-outcomes-20261010.json). The [executed configuration repair](evals/examples/release-config/README.md) shows a public-safe before/after; [user-outcome evaluation](docs/user-outcome-evaluation.md) measures avoidable decisions, corrections, verified-slice time and feedback without inventing missing results. See [contributing](CONTRIBUTING.md) and the [opt-in feedback process](docs/early-user-feedback.md).
 
 The initial guidance for the same TypeScript parser bug fell from **7,036 to 2,534 words** (about 64%). Conditional reference loading is additional; this does not establish model-token savings or agent quality. The comparative harness contains nine tasks and defaults to three repetitions per arm. Its actual pilot produced this result:
 

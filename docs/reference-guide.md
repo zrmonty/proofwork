@@ -1,6 +1,6 @@
 # Skill reference guide
 
-Proofwork has 49 skills. The entry chooses a named playbook, then applicable skills and phases. Read only detail needed for the current decision. Entries have a 600-word budget; conditional references have an 800-word budget. Setup, worker-mode and audit-stack remain manually invoked; the coordinator may deliberately read relevant contracts without dispatching another workflow.
+Proofwork has 34 skills. The entry chooses a named playbook, then applicable skills and phases. Read only detail needed for the current decision. Entries have a 600-word budget; conditional references have an 800-word budget. Setup, worker-mode and audit-stack remain manually invoked; the coordinator may deliberately read relevant contracts without dispatching another workflow.
 
 See the [integrated flow](flow.md), [playbooks](playbooks.md) and [worked context scenario](context-worked-scenario.md). Examples are guidance unless a verification record identifies actual execution. Application copy uses humanizer; engineering reports and documentation use clear-voice; evidence-surface preserves observations and gaps.
 
@@ -30,21 +30,6 @@ See the [integrated flow](flow.md), [playbooks](playbooks.md) and [worked contex
 | [procedure-draft](../shared/skills/procedure-draft/SKILL.md) | For novel repeatable operations lacking an adequate existing workflow. | Self-contained entry |
 | [production-finish](../shared/skills/production-finish/SKILL.md) | When preparing hosting, deployment artifacts, secret handling and recovery. | [Exposure checks and response](../shared/skills/production-finish/references/exposure-and-response.md); [Hosting and containers](../shared/skills/production-finish/references/hosting-and-containers.md); [Release readiness gates](../shared/skills/production-finish/references/readiness-gates.md); [Release observation and uncertain writes](../shared/skills/production-finish/references/release-observation.md) |
 | [pw-clean-code](../shared/skills/pw-clean-code/SKILL.md) | For maintainability refactors clarifying responsibilities and control flow. | [Contract-preserving refactors](../shared/skills/pw-clean-code/references/contract-preserving-refactors.md); [Selecting a cleanup lens](../shared/skills/pw-clean-code/references/detailed-workflow.md); [Function cohesion and complexity](../shared/skills/pw-clean-code/references/function-size-and-complexity.md); [Refactoring decisions](../shared/skills/pw-clean-code/references/refactoring-decisions.md) |
-| [pw-principle-boundary-discipline](../shared/skills/pw-principle-boundary-discipline/SKILL.md) | For validation across external boundaries. | Self-contained entry |
-| [pw-principle-earn-the-component](../shared/skills/pw-principle-earn-the-component/SKILL.md) | For proposed services or dependencies. | Self-contained entry |
-| [pw-principle-explain-what-is-proved](../shared/skills/pw-principle-explain-what-is-proved/SKILL.md) | For completion claims requiring evidence. | Self-contained entry |
-| [pw-principle-intent-stays-with-user](../shared/skills/pw-principle-intent-stays-with-user/SKILL.md) | For ambiguous requests or corrections. | Self-contained entry |
-| [pw-principle-language-fit](../shared/skills/pw-principle-language-fit/SKILL.md) | For undecided runtime or framework. | Self-contained entry |
-| [pw-principle-no-concealment-risk](../shared/skills/pw-principle-no-concealment-risk/SKILL.md) | For failures or missing evidence. | Self-contained entry |
-| [pw-principle-preserve-contracts](../shared/skills/pw-principle-preserve-contracts/SKILL.md) | For behavior and interface changes. | Self-contained entry |
-| [pw-principle-production-artifact-first](../shared/skills/pw-principle-production-artifact-first/SKILL.md) | For release and deployment preparation. | Self-contained entry |
-| [pw-principle-proportionate-effort](../shared/skills/pw-principle-proportionate-effort/SKILL.md) | For investigation and verification scope. | Self-contained entry |
-| [pw-principle-prove-the-journey](../shared/skills/pw-principle-prove-the-journey/SKILL.md) | For changes spanning user journeys. | Self-contained entry |
-| [pw-principle-reproduce-before-fix](../shared/skills/pw-principle-reproduce-before-fix/SKILL.md) | For reported or observed defects. | Self-contained entry |
-| [pw-principle-reveal-consequential-decisions](../shared/skills/pw-principle-reveal-consequential-decisions/SKILL.md) | For consequential cost or access. | Self-contained entry |
-| [pw-principle-sequence-verifiable-units](../shared/skills/pw-principle-sequence-verifiable-units/SKILL.md) | For dependent changes sharing ownership. | Self-contained entry |
-| [pw-principle-smallest-adequate](../shared/skills/pw-principle-smallest-adequate/SKILL.md) | For competing adequate implementation choices. | Self-contained entry |
-| [pw-principle-subtract-before-expanding](../shared/skills/pw-principle-subtract-before-expanding/SKILL.md) | For additions introducing another mechanism. | Self-contained entry |
 | [pw-setup](../shared/skills/pw-setup/SKILL.md) | For explicit host-capability discovery and repository verification setup. | [Capability and role decisions](../shared/skills/pw-setup/references/capabilities.md); [Configure model roles](../shared/skills/pw-setup/references/model-roles.md); [Verification prerequisites and isolation](../shared/skills/pw-setup/references/verification-isolation.md) |
 | [pw-worker-mode](../shared/skills/pw-worker-mode/SKILL.md) | For explicitly assigned, bounded implementation work. | [Worker mode](../shared/skills/pw-worker-mode/references/execution-details.md); [Execution and handoff](../shared/skills/pw-worker-mode/references/execution.md); [Fixture fidelity and boundary evidence](../shared/skills/pw-worker-mode/references/fixture-fidelity.md) |
 | [python-best-practices](../shared/skills/python-best-practices/SKILL.md) | For Python changes requiring strict typing and resource discipline. | [Data and boundaries](../shared/skills/python-best-practices/references/data-and-boundaries.md); [Effects and verification](../shared/skills/python-best-practices/references/effects-and-verification.md); [Python best practices](../shared/skills/python-best-practices/references/implementation-contracts.md); [Strict typing at integration seams](../shared/skills/python-best-practices/references/typed-integrations.md) |
@@ -59,6 +44,9 @@ See the [integrated flow](flow.md), [playbooks](playbooks.md) and [worked contex
 All links derive from canonical source. Audit lenses retain their proof obligations; orchestration does not waive them. The native host owns goals, permissions and continuation. No model mapping establishes actual dispatch or review independence.
 
 ## Conditional operational references
+
+Decision rules live in the [seven conditional references](principles.md), outside skill discovery. They link to
+their workflow owners instead of maintaining parallel skill procedures. Light work does not load this collection.
 
 - [Configuration and drift](../shared/skills/production-finish/references/configuration-and-drift.md): effective environment contracts and startup validation.
 - [Failure modes and runbooks](../shared/skills/production-finish/references/failure-modes-and-runbooks.md): actual fault drills, observability and code-linked recovery.

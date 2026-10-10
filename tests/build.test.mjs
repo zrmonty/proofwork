@@ -207,7 +207,14 @@ test("both installed layouts execute explained routing and model planning", asyn
       "route", "--explain", "--task", "Prototype invoice search"], { encoding: "utf8" });
     assert.equal(routed.status, 0, routed.stderr);
     assert.equal(JSON.parse(routed.stdout).playbook, "prototype");
-    assert.ok(JSON.parse(routed.stdout).principles.includes("pw-principle-smallest-adequate"));
+    assert.ok(JSON.parse(routed.stdout).principles.includes("design-economy"));
+    const result = JSON.parse(routed.stdout);
+    assert.deepEqual(result.principles, ["design-economy"]);
+    assert.equal(result.principleReferences.length, 1);
+    const reference = await readFile(path.join(root, host, result.principleReferences[0]), "utf8");
+    assert.match(reference, /current requirement/);
+    const entries = await readdir(path.join(root, host, "skills"));
+    assert.ok(!entries.some(name => name.startsWith("pw-principle-")));
     const planned = spawnSync(process.execPath, [path.join(root, host, "scripts/model-roles.mjs"),
       "plan", "--repo", root, "--host", host, "--inventory", "inventory.json"], { encoding: "utf8" });
     assert.equal(planned.status, 0, planned.stderr);

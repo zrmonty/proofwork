@@ -1,5 +1,13 @@
 # Proofwork changelog
 
+## 0.30.0 — Consolidated decision guidance
+
+- Remove all fifteen standalone principle skills and their redundant discovery/specification entries.
+- Combine overlapping design, evidence and user-authority judgments into seven conditional decision references.
+- Keep effort policy in tier selection and detailed implementation rules with their owning skills.
+- Return principle IDs and explicit reference paths; update both host packages, evaluation injection and budget accounting.
+- Light routes load no additional principle reference; preserve plain routing compatibility.
+
 ## 0.29.0 — Systems outcomes
 
 - Add a bounded one-invocation installer with enabled/version verification and correct Claude one-command version guidance.

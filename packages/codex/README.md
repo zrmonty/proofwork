@@ -1,4 +1,4 @@
-# Proofwork 0.29.0 for codex
+# Proofwork 0.30.0 for codex
 
 Install: `codex plugin add proofwork@proofwork-local` (register the Codex marketplace first).
 

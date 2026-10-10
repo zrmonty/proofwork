@@ -1,25 +1,19 @@
-# Proofwork principle skills
+# Decision references
 
-These fifteen original decision lenses compress recurring engineering judgments into small, separately callable skills. Cite the slug when explaining a material decision. Load only principles that answer the current question; no request needs the entire catalog by default. The index groups are inexpensive selection hints, not a required lifecycle or permission grant.
+Principles are conditional references, not independent skills. Fifteen separately listed entries made closely related judgments compete for discovery and loaded overlapping instructions together. Seven references now answer distinct questions and defer detailed procedure to its owning skill. Light work loads none: core instructions and tier policy already cover effort, caller ownership and honest reporting. Record a principle only when it changes a decision.
 
-Detailed workflows keep their own safety, language, testing and release contracts. [Existing engineering defaults](../shared/principles/engineering.md) remain intact; these lenses give individual judgments a stable invocation and citation. Evidence descriptions identify useful observations, not mandatory new tests for every edit.
+| Reference | Distinct question | Detailed owner |
+| --- | --- | --- |
+| [Design economy](../shared/skills/use-proofwork/references/principles/design-economy.md) | Which current requirement justifies this mechanism over reuse, consolidation or removal? | architecture-fit, language-fit, dead-code-audit, dry-audit |
+| [Preserve contracts](../shared/skills/use-proofwork/references/principles/preserve-contracts.md) | Which supported guarantees must survive the change? | trace-path, impact-map, language guidance |
+| [Evidence boundaries](../shared/skills/use-proofwork/references/principles/evidence-boundaries.md) | What does this observation establish, and what remains unknown? | evidence-surface, tdd-95, performance-increase |
+| [Reproduce before fix](../shared/skills/use-proofwork/references/principles/reproduce-before-fix.md) | What distinguishes the failure from correct behavior? | Repair Behavior, tdd-95 |
+| [Production readiness](../shared/skills/use-proofwork/references/principles/production-readiness.md) | Has the delivery artifact been checked in the claimed environment? | production-finish, security-hardening |
+| [User authority](../shared/skills/use-proofwork/references/principles/user-authority.md) | Which consequential choice needs intent, facts or authority? | brainstorm, host action rules |
+| [Staged work](../shared/skills/use-proofwork/references/principles/staged-work.md) | Which prerequisite must settle before another unit integrates? | full coordination, recovery |
 
-| Citable slug and callable skill | Trigger |
-| --- | --- |
-| `smallest-adequate` · [pw-principle-smallest-adequate](../shared/skills/pw-principle-smallest-adequate/SKILL.md) | Use when several implementations satisfy the request. |
-| `proportionate-effort` · [pw-principle-proportionate-effort](../shared/skills/pw-principle-proportionate-effort/SKILL.md) | Use when selecting investigation, delegation or checks. |
-| `subtract-before-expanding` · [pw-principle-subtract-before-expanding](../shared/skills/pw-principle-subtract-before-expanding/SKILL.md) | Use when a change introduces another mechanism. |
-| `preserve-contracts` · [pw-principle-preserve-contracts](../shared/skills/pw-principle-preserve-contracts/SKILL.md) | Use when altering behavior, interfaces or ownership. |
-| `earn-the-component` · [pw-principle-earn-the-component](../shared/skills/pw-principle-earn-the-component/SKILL.md) | Use before adding a service, layer or dependency. |
-| `boundary-discipline` · [pw-principle-boundary-discipline](../shared/skills/pw-principle-boundary-discipline/SKILL.md) | Use when untrusted inputs or external effects cross a boundary. |
-| `language-fit` · [pw-principle-language-fit](../shared/skills/pw-principle-language-fit/SKILL.md) | Use when a language, runtime or framework remains undecided. |
-| `prove-the-journey` · [pw-principle-prove-the-journey](../shared/skills/pw-principle-prove-the-journey/SKILL.md) | Use when a change spans user actions or surfaces. |
-| `reproduce-before-fix` · [pw-principle-reproduce-before-fix](../shared/skills/pw-principle-reproduce-before-fix/SKILL.md) | Use when correcting a reported or observed defect. |
-| `sequence-verifiable-units` · [pw-principle-sequence-verifiable-units](../shared/skills/pw-principle-sequence-verifiable-units/SKILL.md) | Use when work has dependent changes or shared ownership. |
-| `explain-what-is-proved` · [pw-principle-explain-what-is-proved](../shared/skills/pw-principle-explain-what-is-proved/SKILL.md) | Use when reporting a result or accepting completion. |
-| `production-artifact-first` · [pw-principle-production-artifact-first](../shared/skills/pw-principle-production-artifact-first/SKILL.md) | Use when preparing release, hosting or deployment. |
-| `reveal-consequential-decisions` · [pw-principle-reveal-consequential-decisions](../shared/skills/pw-principle-reveal-consequential-decisions/SKILL.md) | Use when a choice changes cost, access, recovery or experience. |
-| `intent-stays-with-user` · [pw-principle-intent-stays-with-user](../shared/skills/pw-principle-intent-stays-with-user/SKILL.md) | Use when interpreting an ambiguous request or later correction. |
-| `no-concealment-risk` · [pw-principle-no-concealment-risk](../shared/skills/pw-principle-no-concealment-risk/SKILL.md) | Use when a result has failures, uncertain effects or missing evidence. |
+Design economy combines smallest-adequate, subtract-before-expanding and earn-the-component. Proportionate-effort belongs to tier selection. Evidence boundaries combines prove-the-journey, explain-what-is-proved and no-concealment-risk. User authority combines intent-stays-with-user and reveal-consequential-decisions. Boundary-discipline and the language-fit principle defer to existing core, security and language-fit guidance; their actual implementation rules remain intact.
 
-[Selection index](../shared/principles/index.json) maps slugs to skills and groups: mechanical, behavior, architecture, language, bug, verification, production and consequential. Explicit invocation remains available even when a group does not select a principle. No principle changes user intent, grants external-action authority or certifies a missing observation.
+The [index](../shared/principles/index.json) uses schema version 2: slugs map to references. Explained routing returns `principles` as IDs and `principleReferences` as package-relative paths. Context budgets and evaluation injection read each selected reference once. Plain routing is unchanged.
+
+The old `$pw-principle-*` and `/proofwork:pw-principle-*` commands are removed. Use the ordinary Proofwork entry or the owning skill. Aliases would reintroduce discovery overhead. Historical run records keep their original IDs; past evidence is not rewritten. No reference grants permission or certifies an unobserved result.

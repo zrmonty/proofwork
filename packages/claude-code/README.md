@@ -1,4 +1,4 @@
-# Proofwork 0.29.0 for claude-code
+# Proofwork 0.30.0 for claude-code
 
 Install: `/plugin install proofwork --marketplace zrmonty/proofwork` (register the Codex marketplace first).
 

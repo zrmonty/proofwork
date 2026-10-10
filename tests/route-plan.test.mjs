@@ -6,7 +6,6 @@ import { fileURLToPath } from 'node:url';
 import { route, explainRoute } from '../scripts/routing.mjs';
 import { transition } from '../scripts/proofwork.mjs';
 
-const principle = slug => `pw-principle-${slug}`;
 const corpus = JSON.parse(readFileSync(new URL('./router-corpus.json', import.meta.url)));
 
 test('explanation preserves every legacy route and does not mutate file inputs', () => {
@@ -61,19 +60,19 @@ test('safe requested tiers apply and malformed requests fail explicitly', () => 
 
 test('principle selection follows the actual stage without loading the catalog', () => {
   const cases = [
-    ['Fix typo', ['README.md'], undefined, ['proportionate-effort']],
-    ['Fix parser rejection', ['src/parser.rs'], undefined, ['reproduce-before-fix', 'prove-the-journey']],
-    ['Choose database for app', [], undefined, ['earn-the-component', 'smallest-adequate']],
-    ['Choose Rust or Python runtime', [], undefined, ['earn-the-component', 'language-fit']],
-    ['Prepare production release', [], undefined, ['production-artifact-first', 'boundary-discipline']],
-    ['Brainstorm a booking app', [], undefined, ['intent-stays-with-user', 'smallest-adequate']],
-    ['Implement parser behavior', ['src/parser.rs'], undefined, ['preserve-contracts', 'prove-the-journey']],
-    ['Explain parser', ['src/parser.rs'], 'standard', ['explain-what-is-proved', 'no-concealment-risk']],
+    ['Fix typo', ['README.md'], undefined, []],
+    ['Fix parser rejection', ['src/parser.rs'], undefined, ['reproduce-before-fix', 'evidence-boundaries']],
+    ['Choose database for app', [], undefined, ['design-economy']],
+    ['Choose Rust or Python runtime', [], undefined, ['design-economy']],
+    ['Prepare production release', [], undefined, ['production-readiness', 'evidence-boundaries']],
+    ['Brainstorm a booking app', [], undefined, ['user-authority', 'design-economy']],
+    ['Implement parser behavior', ['src/parser.rs'], undefined, ['preserve-contracts', 'evidence-boundaries']],
+    ['Explain parser', ['src/parser.rs'], 'standard', ['evidence-boundaries']],
     ['Fix concurrent parser', ['src/parser.rs'], undefined,
-      ['reproduce-before-fix', 'prove-the-journey', 'sequence-verifiable-units', 'no-concealment-risk']],
+      ['reproduce-before-fix', 'evidence-boundaries', 'staged-work']],
   ];
   for (const [task, files, tier, expected] of cases) {
-    assert.deepEqual(explainRoute(task, files, tier).principles, expected.map(principle), task);
+    assert.deepEqual(explainRoute(task, files, tier).principles, expected, task);
   }
 });
 
@@ -84,7 +83,7 @@ test('bounded candidate exploration selects prototype guidance without forcing p
     assert.equal(plan.playbook, 'prototype');
     assert.equal(plan.tier, 'standard');
     assert.ok(plan.skills.includes('explore-options'));
-    assert.deepEqual(plan.principles, ['smallest-adequate', 'earn-the-component'].map(principle));
+    assert.deepEqual(plan.principles, ['design-economy']);
   }
   assert.equal(explainRoute('Prototype concurrent queue', ['src/queue.rs']).tier, 'full');
   const readonly = explainRoute('Explain prototype results', ['notes.md']);

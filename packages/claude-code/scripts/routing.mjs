@@ -162,18 +162,16 @@ function recommendationReasons(task, files, recommendation) {
   return ['The task requires standard stage guidance rather than a bounded mechanical edit.'];
 }
 
-function principleSlugs(task, tier, playbook, skills) {
-  if (tier === 'light') return ['proportionate-effort'];
-  let pair;
-  if (readonly(task) || playbook === 'investigate') pair = ['explain-what-is-proved', 'no-concealment-risk'];
-  else if (playbook === 'bug-fix') pair = ['reproduce-before-fix', 'prove-the-journey'];
-  else if (playbook === 'architecture') {
-    pair = ['earn-the-component', skills.includes('language-fit') ? 'language-fit' : 'smallest-adequate'];
-  } else if (playbook === 'production-finish') pair = ['production-artifact-first', 'boundary-discipline'];
-  else if (playbook === 'brainstorm') pair = ['intent-stays-with-user', 'smallest-adequate'];
-  else if (playbook === 'prototype') pair = ['smallest-adequate', 'earn-the-component'];
-  else pair = ['preserve-contracts', 'prove-the-journey'];
-  return [...new Set(tier === 'full' ? [...pair, 'sequence-verifiable-units', 'no-concealment-risk'] : pair)];
+function principleSlugs(task, tier, playbook) {
+  if (tier === 'light') return [];
+  let selected;
+  if (readonly(task) || playbook === 'investigate') selected = ['evidence-boundaries'];
+  else if (playbook === 'bug-fix') selected = ['reproduce-before-fix', 'evidence-boundaries'];
+  else if (playbook === 'architecture' || playbook === 'prototype') selected = ['design-economy'];
+  else if (playbook === 'production-finish') selected = ['production-readiness', 'evidence-boundaries'];
+  else if (playbook === 'brainstorm') selected = ['user-authority', 'design-economy'];
+  else selected = ['preserve-contracts', 'evidence-boundaries'];
+  return [...new Set(tier === 'full' ? [...selected, 'staged-work', 'evidence-boundaries'] : selected)];
 }
 
 export function explainRoute(task, files = [], requestedTier) {
@@ -197,14 +195,16 @@ export function explainRoute(task, files = [], requestedTier) {
     tierReasons.push(`The requested ${tier} tier replaces the ${recommendation.tier} recommendation.`);
   }
   const index = JSON.parse(readFileSync(new URL('../shared/principles/index.json', import.meta.url)));
-  const principles = principleSlugs(task, tier, recommendation.playbook, skills).map(slug => {
+  const principles = principleSlugs(task, tier, recommendation.playbook);
+  const principleReferences = principles.map(slug => {
     const entry = index.principles.find(principle => principle.slug === slug);
     if (!entry) throw new Error(`principle missing from index: ${slug}`);
-    return entry.skill;
+    return entry.reference;
   });
   const procedure = playbookPlan(task, tier, recommendation.playbook, skills);
   return {
-    tier, playbook: recommendation.playbook, skills, recommendedTier: recommendation.tier, tierReasons, principles,
+    tier, playbook: recommendation.playbook, skills, recommendedTier: recommendation.tier, tierReasons,
+    principles, principleReferences,
     tierOverride: { requested: requestedTier ?? null, applied: tier, minimum, constrained },
     procedure,
     continuation: { resume: procedure.id === 'resume-work', references: procedure.id === 'resume-work'

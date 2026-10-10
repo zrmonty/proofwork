@@ -186,7 +186,7 @@ export function profileContext(arm, task, config) {
       ...[...result.skills, ...result.workflow.beforeWork, ...result.workflow.options]
         .map((skill) => `${skill}/SKILL.md`),
       ...result.continuation.references.map(reference => reference.replace(/^skills\//, '')),
-      ...result.principles.map((principle) => `${principle}/SKILL.md`),
+      ...result.principleReferences.map(reference => reference.replace(/^skills\//, '')),
     ]),
   ];
   if (result.tier === "light") files.push("use-proofwork/references/light.md");

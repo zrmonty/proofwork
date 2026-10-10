@@ -12,7 +12,7 @@ export function measureContext(repo, corpus) {
   const lightWords = wordCount(path.join(skillRoot, 'use-proofwork/references/light.md'));
   const scenarios = corpus.map(scenario => {
     const result = explainRoute(scenario.task, scenario.files);
-    const initial = [...new Set([...result.skills, ...result.principles,
+    const initial = [...new Set([...result.skills,
       ...result.workflow.beforeWork, ...result.workflow.options])];
     const skills = initial.map(skill => wordCount(path.join(skillRoot, skill, 'SKILL.md')));
     const deferred = [...new Set([...result.workflow.review, ...result.workflow.report])]
@@ -22,7 +22,10 @@ export function measureContext(repo, corpus) {
     const playbookWords = wordCount(path.join(repo, 'shared', result.procedure.path));
     const recoveryWords = result.continuation.references.reduce((total, reference) =>
       total + wordCount(path.join(repo, 'shared', reference)), 0);
-    const words = entryWords + playbookWords + recoveryWords + skills.reduce((total, count) => total + count, 0);
+    const principleWords = result.principleReferences.reduce((total, reference) =>
+      total + wordCount(path.join(repo, 'shared', reference)), 0);
+    const words = entryWords + playbookWords + recoveryWords + principleWords
+      + skills.reduce((total, count) => total + count, 0);
     return { task: scenario.task, tier: result.tier, deferredWords,
       words: words + (result.tier === 'light' ? lightWords : 0) };
   });

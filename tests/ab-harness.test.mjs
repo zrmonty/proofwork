@@ -61,8 +61,8 @@ test("Proofwork context includes selected principle sources and optional unresol
   const modelPlanPath = path.join(root, "plan.json");
   writeFileSync(modelPlanPath, JSON.stringify(plan));
   const ordinary = harness.profileContext("proofwork", task, {});
-  for (const principle of explainRoute(task.prompt, task.files).principles) {
-    assert.ok(ordinary.includes(`${principle}${path.sep}SKILL.md`));
+  for (const principle of explainRoute(task.prompt, task.files).principleReferences) {
+    assert.ok(ordinary.includes(principle.replace(/^skills\//, '').split('/').join(path.sep)));
   }
   plan.budgets.maxCandidates = 3;
   writeFileSync(modelPlanPath, JSON.stringify(plan));

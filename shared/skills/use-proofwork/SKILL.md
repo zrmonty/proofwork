@@ -9,7 +9,7 @@ Inspect, decide, edit, verify and finish authorized outcomes. Resolve routine ch
 Preserve caller data and nested aliases; name mutable owners.
 
 Run `node <plugin-root>/scripts/proofwork.mjs route --explain --task <text> --files <paths>`.
-Read procedure.path, selected skills, principles and workflow.beforeWork; load other workflow phases when reached. Record the principle that changes a decision in internal decision/evidence notes; expose it on inspection. Correct intent routing; preserve risk floors on overrides.
+Read procedure.path, selected skills, principleReferences and workflow.beforeWork; load other workflow phases when reached. Record a principle only when it changes a decision in internal decision/evidence notes; expose it on inspection. Correct intent routing; preserve risk floors on overrides.
 
 - **light:** [light procedure](references/light.md); bounded change and check, no ledger/team.
 - **standard:** relevant guidance; conditional functional extraction for qualifying state/retry/concurrency work;
