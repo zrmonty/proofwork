@@ -32,3 +32,12 @@ Open a skill for its workflow and loading triggers. Each linked reference suppli
 The combined `$audit-stack` / `/proofwork:audit-stack` entry coordinates applicable audits; it does not make every specialist reference mandatory. Existing project requirements, user scope and host permissions remain authoritative. Missing tools and unexecuted checks stay explicit.
 
 The [brainstorm entry](../shared/skills/brainstorm/SKILL.md) is self-contained: it shapes a direction and hands the working brief to the next relevant stage without loading a separate reference.
+
+## Model roles and decision principles
+
+[Setup role configuration](../shared/skills/pw-setup/references/model-roles.md) resolves observed capabilities without
+changing global defaults. [Explore options](../shared/skills/explore-options/SKILL.md) compares bounded artifacts;
+[model patterns](../shared/skills/use-proofwork/references/model-patterns.md) defines blind panels and adversarial checks.
+[Principle index](principles.md) lists all 15 original callable decision lenses.
+[Operational scenarios](operational-scenarios.md) demonstrates architecture/release procedures, and
+[model-role evaluation](model-role-evaluation.md) separates planned comparisons from observed results.

@@ -125,6 +125,9 @@ export async function build(options = {}) {
       }
       await mkdir(path.join(staging, "shared"));
       await cp(path.join(repository, "shared/routing.json"), path.join(staging, "shared/routing.json"));
+      await mkdir(path.join(staging, "shared/principles"));
+      await cp(path.join(repository, "shared/principles/index.json"),
+        path.join(staging, "shared/principles/index.json"));
       await mkdir(path.join(staging, "scripts"));
       for (const file of (await readdir(path.join(repository, "scripts"))).filter(
         (file) => (file.endsWith(".mjs") && file !== "build.mjs") || file === "README.md",

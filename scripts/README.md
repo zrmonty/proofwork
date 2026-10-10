@@ -3,6 +3,9 @@
 Use Node.js 22 or newer. Resolve the package root from the loaded skill and run `node <package-root>/scripts/proofwork.mjs --help`. Commands use built-ins and return JSON; failures exit nonzero.
 
 - `route --task TEXT [--files paths]` returns tier, playbook and selected skill names.
+  Add `--explain` for reasons and selected principles; `--tier light|standard|full` overrides subject to risk floors.
+- `model-roles.mjs plan --repo PATH --host codex|claude-code --inventory PATH` resolves opted-in roles read-only.
+  Inventories describe observed capabilities; plans never prove dispatch or enforce token budgets.
 - `init`, `status`, `assign`, `result`, `finding` and `checkpoint` coordinate full-tier work.
 - `init --host codex|claude-code --session ID` automatically binds a known host session; omit both for ordinary runs.
 - `evidence --command TEXT` executes a check and records its actual exit, duration and stream digests. Manual evidence is marked claimed.

@@ -60,6 +60,7 @@ Give any skill a task in the same prompt. In Codex, use `$<skill-name>` or selec
 | Codex invocation | Claude Code invocation | Use it for |
 | --- | --- | --- |
 | `$use-proofwork` | `/proofwork:use-proofwork` | Carry a task through discovery, routing, bounded workers, review and evidence. |
+| `$explore-options` | `/proofwork:explore-options` | Compare two isolated prototypes against fixed acceptance, select with evidence and reverify integration. |
 | `$pw-setup` | `/proofwork:pw-setup` | Inspect host capabilities, toolchains, model roles and repository checks. |
 | `$language-fit` | `/proofwork:language-fit` | Compare languages, runtimes and frameworks across systems, scripting and fullstack needs; justify each choice and mixed-language boundary. |
 | `$architecture-fit` | `/proofwork:architecture-fit` | Challenge every major stack component, compare simpler adequate alternatives and justify tools from real requirements. |
@@ -111,6 +112,40 @@ Run the combined workflow in Claude Code with `/proofwork:audit-stack` or in Cod
 [Production finish](shared/skills/production-finish/SKILL.md) establishes hosting with the user, checks the actual production artifact for public secret exposure, and verifies the relevant build, runtime and recovery behavior. When containers fit, it can build and smoke-test a Docker image. It treats packaging, scaling and live deployment as distinct deliverables and reports any missing evidence or required credential response.
 
 [Performance increase](shared/skills/performance-increase/SKILL.md) measures the real workload before changing code and distinguishes application improvements from shorter benchmark execution. [TDD 95](shared/skills/tdd-95/SKILL.md) requires at least 95% line coverage and 95% branch coverage over the agreed executable target, preserving stricter existing gates. Its bundled checker rejects missing files, unavailable metrics and below-threshold results. Tests are consolidated by behavior and repeated cost; distinct failures and reliable diagnostics remain covered. These workflows use the project's real tools; the coverage checker evaluates exported counts and does not itself collect coverage or establish test quality.
+
+## Model roles, principles and alternatives
+
+Run `$pw-setup` in Codex or `/proofwork:pw-setup` in Claude Code to configure repository-local model roles.
+Proofwork supports implementer, reasoner, reviewer, challenger and writer roles, optional reasoning levels and
+bounded candidate/review/concurrency budgets. Explicit observed model IDs override capability preferences. Without
+configuration, roles inherit your session; `"modelRoles": {}` opts into capability selection from observed inventory.
+No provider or model is presumed available. Setup merges `.proofwork.json` and preserves global defaults and credentials.
+
+The [configuration guide](shared/skills/pw-setup/references/model-roles.md) includes an example. The read-only planner
+is `node scripts/model-roles.mjs plan --repo . --host codex --inventory <observed-inventory.json>`; use `claude-code`
+for that host. Unavailable models and unsupported reasoning are explicit gaps. Plans do not prove dispatch.
+Token budgets are advisory unless host-enforced; coordinators bound scheduling and report unknown usage.
+
+Use economical implementation where observed results support it, stronger reasoning for difficult tradeoffs, blind
+reviewers for high-risk integration and challengers for costly failure assumptions. Two candidates can explore an
+unresolved approach; two reviewers can inspect correctness and maintainability independently. Mechanical edits use
+a direct path. Different brands do not establish independence, and combined candidate patches need fresh checks.
+See [model patterns](shared/skills/use-proofwork/references/model-patterns.md) and
+[comparison protocol](docs/model-role-evaluation.md). No multi-model quality gain has yet been demonstrated.
+
+The root selectively reads [15 original principle skills](docs/principles.md), then names a principle when it changes
+a material decision. Each is callable as `$pw-principle-<slug>` in Codex or `/proofwork:pw-principle-<slug>` in Claude
+Code; the linked index lists exact names. These small lenses cover effort, contracts, earned components, boundaries,
+language fit, real journeys, reproduction, verifiable units and honest operational evidence.
+
+`node scripts/proofwork.mjs route --explain --task "<outcome>"` reports tier reasons and selected principles.
+Add `--tier light|standard|full` to override; reported security/concurrency and behavioral floors retain necessary
+checks. Plain `route` preserves its JSON contract. The context budget counts selected principle files too.
+
+Production-finish distinguishes local build, staging rehearsal and authorized live checks, with observability,
+recovery, migration and secret-rotation guidance across static, serverless, container, VM and managed hosting.
+Architecture and language choices require measurable fit. See [worked operational scenarios](docs/operational-scenarios.md);
+these are illustrative procedures, not executed deployments.
 
 ## Build and local installation
 
@@ -235,8 +270,11 @@ These are blocked runs, not quality or performance scores. The full 72-run compa
 
 See [verification](docs/verification.md) for exact executed checks, behavioral observations, tested host versions, and unverified release gates. Packaging tests establish packaging behavior; they do not certify agent quality or subjective visual appeal. The run-state guard enforces its recorded evidence contract, not truthfulness of arbitrary input supplied by an operator.
 
-For source version **0.24.0**, the full check passes with 98.54% line coverage and 96.80% branch coverage across
-17 runtime scripts. A standalone Windows snapshot of a Git worktree with 20,000 ignored files fell from **5,036 ms
+For source version **0.25.0**, the full check passes with **98.75% line coverage and 97.19% branch coverage**
+across 18 runtime scripts. Both package layouts execute explained routing and model planning; Codex 0.25.0 is
+installed and enabled. See [current checks](evals/results/model-roles-20261010.json).
+
+In the historical 0.24 snapshot regression, a standalone Windows Git worktree with 20,000 ignored files fell from **5,036 ms
 to 129 ms**, excluding fixture setup and cleanup. These individual measurements do not establish performance on
 every repository or host. See the [snapshot evidence](evals/results/git-snapshot-20261010.json).
 

@@ -58,3 +58,10 @@ Router tests exercise brainstorm, architecture and production-finishing playbook
 ## Language and framework selection
 
 Route explicit language-fit and material language/framework choices to architecture with language-fit. Before scaffolding a new implementation, inspect unresolved technology decisions even when the brief names no language. Preserve adequate incumbent choices for focused work. Existing language files select implementation guidance, not permission to reopen the stack or favor TypeScript.
+
+## Inspectable decisions and roles
+
+The entry reads route explanations and selected principle files, naming a principle when it changes a decision.
+Light stays bounded; overrides retain security/concurrency and executable behavior floors. Consequential choices and
+independent reviews load model patterns conditionally. Configured roles respect observed host capabilities and budgets;
+missing access remains explicit. Prototypes compare isolated artifacts; integrated candidates need fresh evidence.

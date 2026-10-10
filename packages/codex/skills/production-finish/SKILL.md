@@ -29,7 +29,7 @@ For persistent data, verify restart/replacement survival, release migrations and
 
 When containers fit and local building is authorized, build, inspect and smoke-test the actual image. Missing daemons or denied execution remain gaps. Recheck combined-artifact changes.
 
-Load [release observation](references/release-observation.md) for live checks and uncertain durable effects; reconcile unknown writes before retrying. Promote the tested artifact when deployment is authorized and verify through actual public routing/access boundaries.
+Load [readiness gates](references/readiness-gates.md) for release decisions and [release observation](references/release-observation.md) for live checks or uncertain writes. Reconcile unknown effects before retrying; promote only with deployment authority.
 
 ## Return the reached release state
 

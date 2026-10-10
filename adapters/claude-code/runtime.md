@@ -12,6 +12,28 @@ Discover live delegation tools, shell access and browser integrations. Use suppo
 
 Keep the session model by default. Configured role models must be supported by the actual Claude host; report unavailable mappings before dispatch. Cross-provider workers need an external bridge and are outside this package. Use [goal lifecycle](goal.md), [CLI control](control-cli.md), [browser control](control-ui.md), and [checkpoint interface](../scripts/README.md).
 
+## Model-role dispatch
+
+Run `node <plugin>/scripts/model-roles.mjs plan --repo <project> --host claude-code --inventory <inventory.json>`.
+Supply an observed inventory array with `id`, `strengths`, supported `reasoning` levels and `available` for each model.
+Without `.proofwork.json` `modelRoles`, all roles inherit. An explicit empty object opts into capability selection;
+role overrides contain `model` and `reasoning`. Read each role's `requested`, `resolved` and `capabilityMissing`;
+never dispatch unresolved roles. Sibling `modelBudgets` limits candidates, reviewers, parallel workers and optional
+tokens. The plan does not execute workers or enforce budgets; the coordinator must enforce available limits.
+
+Use the observed Agent tool's per-invocation `model` parameter or an authorized session-local subagent definition.
+Claude supports model aliases and full provider model IDs; aliases can resolve differently across accounts and
+providers. Do not translate a Codex model ID into an assumed Claude equivalent. Map resolved reasoning to `effort`
+only when the current tool, version and selected model support it; omit inherited fields. Per-invocation effort
+requires Claude Code 2.1.292 or later. Managed allowlists or environment overrides can substitute models or effort.
+Inspect warnings and `/tasks` where available; record the actual resolved ID/effort or `unknown`, and report a
+substitution instead of silently accepting it. Preserve global settings and environment.
+See [official subagent model and effort selection](https://code.claude.com/docs/en/sub-agents).
+
+Use a non-fork reviewer with fresh context: acceptance criteria, the actual diff and verification artifacts.
+Omit the implementer's persuasive rationale. Distinct aliases do not establish distinct underlying models, and
+distinct models do not establish independent review; evaluate findings against the code and tests.
+
 ## Installation and host contract
 
 Source: https://code.claude.com/docs/en/plugins-reference . Manifest is `.claude-plugin/plugin.json`, skills live in `skills/<name>/SKILL.md` and invocation is namespaced. Host behavior still requires real-session evaluation.

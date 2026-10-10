@@ -9,6 +9,9 @@ Produce a distinctive, usable interface grounded in the actual product, content 
 
 Inspect the task, users, primary journey, real content and current artifact. Establish a specific visual direction: typography, density, hierarchy, rhythm, material and selective softness. Use references to understand composition rather than copy a template. Avoid habitual hero/card/dashboard arrangements, decorative gradients and generic AI copy when the content calls for a different structure.
 
+When direction is unresolved and materially affects the journey, use explore-options for two bounded visual
+candidates under the same brief. Compare rendered observations before selecting; skip settled designs.
+
 Build a representative working slice with real states and content. Reuse existing primitives and tokens; introduce only useful roles. Favor authentic editorial composition and inviting rounded forms where they serve the product. Design empty, loading, error, success, disabled and overflow states with truthful copy. Preserve accessibility, keyboard operation, focus, contrast, responsive behavior and reduced motion.
 
 Read [detailed workflow](references/detailed-workflow.md) for direction and implementation decisions. Read [composition](references/composition.md) for layout/type choices, [interface craft](references/interface-craft.md) for refinement, [journey continuity](references/journey-continuity.md) for connected flows and [rendered review](references/rendered-review.md) for visual verification.

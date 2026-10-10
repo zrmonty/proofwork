@@ -24,6 +24,10 @@ Use [exit cost and ownership](exit-cost-and-ownership.md) for provider dependenc
 
 ## Choose and verify
 
+Build a small decision matrix for consequential choices: requirement, acceptance threshold, incumbent result, simpler candidate result, operational cost and uncertainty. Use project targets for peak simultaneous writes, p95 latency, restore time, monthly cost and maintenance hours; do not invent universal cutoffs. Count migration and custom replacement work. Reject a component whose claimed benefit has no unmet requirement.
+
+For a difficult or costly-to-reverse choice, request an independent challenge only when configured models, host capability, authority and a bounded budget permit it. Give the challenger the same constraints and ask which premise or measurement could overturn the choice. A different model's agreement is not evidence; resolve disputed claims through a representative experiment. If no second model is available, label a separate-role check as single-model.
+
 Walk an action and consequential failure through the simplest complete arrangement. Locate required responsibilities/custom mechanisms and a cheap falsifying observation. Preserve genuine tool mandates and explain constraints. Missing decisive evidence makes recommendations conditional.
 
 For incumbents, compare simplification with migration, compatibility and recovery risk. Affordable, understood PostgreSQL with required shared state may deserve retention; explain why. Avoid moving data merely to remove boxes.

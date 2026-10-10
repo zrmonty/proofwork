@@ -30,3 +30,10 @@ Probe the actual required path after inspecting command effects and fixture isol
 Use real tool outcomes and inspected project commands, then observe the resulting plan/actions. Static packaging does not prove host access. A failed path should not be generalized to all host capability. Native lifecycle and permissions take precedence.
 
 Original authorship: authored for Proofwork's capability/role needs and runtime boundaries without imported skill content. These acceptance cases are not claims that every host scenario has already run.
+
+## Model-role setup
+
+Explicit setup merges repository-local modelRoles/modelBudgets without overwriting unrelated options or global
+settings. Missing configuration inherits session policy; empty modelRoles opts into observed capability preferences.
+The read-only planner reports unresolved mappings, advisory budgets and unverified dispatch. Actual host observations
+resolve access claims; unavailable models cannot fall back silently.

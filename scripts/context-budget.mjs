@@ -1,7 +1,7 @@
 import { readFileSync, readdirSync } from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { route } from './routing.mjs';
+import { explainRoute } from './routing.mjs';
 
 const readJson = file => JSON.parse(readFileSync(file, 'utf8'));
 const wordCount = file => readFileSync(file, 'utf8').split(/\s+/u).filter(Boolean).length;
@@ -11,8 +11,9 @@ export function measureContext(repo, corpus) {
   const entryWords = wordCount(path.join(skillRoot, 'use-proofwork/SKILL.md'));
   const lightWords = wordCount(path.join(skillRoot, 'use-proofwork/references/light.md'));
   const scenarios = corpus.map(scenario => {
-    const result = route(scenario.task, scenario.files);
-    const skills = result.skills.map(skill => wordCount(path.join(skillRoot, skill, 'SKILL.md')));
+    const result = explainRoute(scenario.task, scenario.files);
+    const skills = [...result.skills, ...result.principles]
+      .map(skill => wordCount(path.join(skillRoot, skill, 'SKILL.md')));
     const words = entryWords + skills.reduce((total, count) => total + count, 0);
     return { task: scenario.task, tier: result.tier, words: words + (result.tier === 'light' ? lightWords : 0) };
   });

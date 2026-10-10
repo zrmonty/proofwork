@@ -2,7 +2,7 @@ import { readFile, writeFile, mkdir, rename, copyFile, realpath, lstat, unlink }
 import path from 'node:path';
 import { createHash, randomUUID } from 'node:crypto';
 import { pathToFileURL } from 'node:url';
-import { route } from './routing.mjs';
+import { route, explainRoute } from './routing.mjs';
 import { acquireLock, releaseLock } from './runtime-locks.mjs';
 import { snapshotIdentity, sameIdentity, ignoreHint, validateRevision } from './runtime-snapshot.mjs';
 import { executeEvidence, redact } from './runtime-evidence.mjs';
@@ -100,7 +100,7 @@ function checkpoint(next, record) {
   checkpointPhase(next, record); checkpointContext(next, record);
   if (record.playbook !== undefined) {
     const names = ['brainstorm', 'architecture', 'production-finish', 'investigate',
-      'bug-fix', 'feature', 'refactor', 'review'];
+      'bug-fix', 'feature', 'refactor', 'review', 'prototype'];
     if (!names.includes(record.playbook)) fail('invalid playbook');
     next.playbook = record.playbook;
   }
@@ -276,7 +276,11 @@ async function writeState(command, repo, run, directory, options) {
   } finally { await releaseLock(lock, raw); }
 }
 export async function execute(command, options) {
-  if (command === 'route') return route(options.task, (options.files ?? '').split(',').filter(Boolean));
+  if (command === 'route') {
+    const files = (options.files ?? '').split(',').filter(Boolean);
+    return options.explain || options.tier
+      ? explainRoute(options.task, files, options.tier) : route(options.task, files);
+  }
   if (command === 'preflight') return preflight(options);
   const repo = await realpath(text(options.repo, 'repo')), run = id(options.run, 'run');
   const directory = await safePath(repo, `.engineering-team/runs/${run}`, 'run');
@@ -297,7 +301,7 @@ export async function execute(command, options) {
   return state;
 }
 const help = `Proofwork local tools (Node >=22). JSON on stdout; failures exit 1.
-route --task TEXT [--files comma,separated,paths]
+route --task TEXT [--files comma,separated,paths] [--explain] [--tier light|standard|full]
 init --repo PATH --run ID --owner SESSION --objective TEXT --revision REV --criteria criterion,ids
 init also accepts --host codex|claude-code --session HOST_SESSION for automatic hook binding.
 status --repo PATH --run ID
@@ -314,7 +318,7 @@ function parseOptions(args) {
     const name = args[index++];
     if (!/^--[a-z]+(?:-[a-z]+)*$/.test(name) || Object.hasOwn(options, name.slice(2)))
       fail('invalid or duplicate option');
-    options[name.slice(2)] = ['--break-lock', '--allow-claimed'].includes(name) ? true : args[index++];
+    options[name.slice(2)] = ['--break-lock', '--allow-claimed', '--explain'].includes(name) ? true : args[index++];
     if (options[name.slice(2)] === undefined || String(options[name.slice(2)]).startsWith('--'))
       fail('options require --name value pairs');
   }

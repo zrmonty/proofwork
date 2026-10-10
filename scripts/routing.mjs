@@ -11,13 +11,28 @@ function languageChoice(task) {
   if (matches('copyLanguage', task) && !matches('languageFit', task)) return false;
   return matches('languageFit', task) || (matches('choose', task) && matches('languageWords', task));
 }
-const architecture = task => languageChoice(task) || matches('architecture', task);
-const production = task => !matches('dryRun', task) && matches('production', task);
+const componentNecessity = task => /\bdo\s+we\s+need\s+(?:an?\s+)?(?:database|service|cache|queue)\b/i.test(task);
+const architecture = task => languageChoice(task) || matches('architecture', task) || componentNecessity(task);
+const prototypePattern = '\\b(?:prototype|explore (?:options|alternatives)|' +
+  'compare (?:approaches|implementations|candidates))\\b';
+const prototype = task => testPattern(prototypePattern, task);
+const operationalPattern = [
+  '\\b(?:staging|release)\\s+readiness\\b', '\\b(?:recovery|rollback)\\s+plans?\\b',
+  '\\bplan\\s+(?:recovery|rollback)\\b', '\\b(?:set\\s+up|setup|configure)\\s+observability\\b',
+  '\\bobservability\\s+setup\\b', '\\bsecret\\s+rotation\\b', '\\brotate\\s+(?:production\\s+)?secrets\\b',
+  '\\bget\\b.{0,120}\\bready\\b.{0,80}\\b(?:host|hosting)\\b',
+].join('|');
+const operationalPreparation = task => testPattern(operationalPattern, task);
+const production = task => !readonly(task) && (matches('production', task) || operationalPreparation(task));
+const activePreparation = task => production(task) &&
+  /\b(?:prepare|finish|check|plan|configure|rotate|set\s+up|get)\b/i.test(task) &&
+  !matches('small', task) && !/\b(?:documentation|docs|guides?)\b/i.test(task);
 function security(task) {
   return matches('security', task) || (matches('review', task) && matches('securityToken', task));
 }
 function playbookFor(task) {
   if (readonly(task)) return 'investigate';
+  if (prototype(task)) return 'prototype';
   const ordinary = rules.ordinary.find(rule => matches(rule.pattern, task));
   if (ordinary) return ordinary.playbook;
   if (matches('brainstorm', task)) return 'brainstorm';
@@ -28,6 +43,8 @@ function playbookFor(task) {
 function tierFor(task, files) {
   if (security(task) || matches('auditStack', task)) return 'full';
   if (!readonly(task) && matches('fullRisk', task)) return 'full';
+  if (activePreparation(task)) return 'standard';
+  if (prototype(task) && !readonly(task)) return 'standard';
   if (files.length > 2 || languagesFor(task, files).length > 1) return 'standard';
   const mechanical = matches('small', task) && !matches('behaviorMarkers', task) && !matches('performance', task);
   if (mechanical || (docsOnly(files) && !matches('review', task))) return 'light';
@@ -43,6 +60,7 @@ function languagesFor(task, files) {
 }
 function domainSkills(task, playbook) {
   const skills = [];
+  if (playbook === 'prototype') skills.push('explore-options');
   if (playbook === 'brainstorm') skills.push('brainstorm');
   if (architecture(task) && !readonly(task)) skills.push('architecture-fit');
   if (!readonly(task) && (languageChoice(task) || matches('architect', task))) skills.push('language-fit');
@@ -91,4 +109,86 @@ export function route(task, files = []) {
   const playbook = playbookFor(task);
   const tier = tierFor(task, files);
   return { tier, playbook, skills: selectedSkills(task, files, tier, playbook) };
+}
+
+const tiers = ['light', 'standard', 'full'];
+const mechanical = task => matches('small', task) &&
+  !matches('behaviorMarkers', task) && !matches('performance', task);
+
+function minimumTier(task, files, playbook) {
+  if (security(task) || matches('auditStack', task) || (!readonly(task) && matches('fullRisk', task))) return 'full';
+  if (activePreparation(task)) return 'standard';
+  const behavioral = ['feature', 'bug-fix', 'refactor'].includes(playbook) ||
+    matches('performance', task) || matches('behaviorMarkers', task) || matches('codeRequest', task);
+  const executable = hasExtension('executable', files) || matches('codeRequest', task);
+  return !readonly(task) && !docsOnly(files) && !mechanical(task) && behavioral && executable
+    ? 'standard' : 'light';
+}
+
+function recommendationReasons(task, files, recommendation) {
+  if (security(task)) return ['The task mentions security-sensitive work requiring the full review tier.'];
+  if (matches('auditStack', task)) return ['The task requests the combined audit stack requiring the full tier.'];
+  if (!readonly(task) && matches('fullRisk', task)) {
+    const risk = new RegExp(rules.patterns.fullRisk, 'i').exec(task)[0].toLowerCase();
+    return [`The task mentions ${risk}, requiring the full risk tier.`];
+  }
+  if (activePreparation(task)) return ['The task requests operational preparation requiring production checks.'];
+  if (files.length > 2) {
+    return [`The supplied scope contains ${files.length} paths, recommending standard coordination.`];
+  }
+  if (languagesFor(task, files).length > 1) return ['The supplied scope spans multiple language guides.'];
+  if (mechanical(task)) {
+    return ['The task describes a bounded mechanical edit without matched behavior or risk markers.'];
+  }
+  if (docsOnly(files) && !matches('review', task)) return ['The supplied paths are documentation-only.'];
+  if (recommendation === 'light') {
+    return ['The task requests a read-only explanation without matched performance work.'];
+  }
+  if (matches('performance', task)) return ['The task requests performance work requiring measured verification.'];
+  return ['The task requires standard stage guidance rather than a bounded mechanical edit.'];
+}
+
+function principleSlugs(task, tier, playbook, skills) {
+  if (tier === 'light') return ['proportionate-effort'];
+  let pair;
+  if (readonly(task) || playbook === 'investigate') pair = ['explain-what-is-proved', 'no-concealment-risk'];
+  else if (playbook === 'bug-fix') pair = ['reproduce-before-fix', 'prove-the-journey'];
+  else if (playbook === 'architecture') {
+    pair = ['earn-the-component', skills.includes('language-fit') ? 'language-fit' : 'smallest-adequate'];
+  } else if (playbook === 'production-finish') pair = ['production-artifact-first', 'boundary-discipline'];
+  else if (playbook === 'brainstorm') pair = ['intent-stays-with-user', 'smallest-adequate'];
+  else if (playbook === 'prototype') pair = ['smallest-adequate', 'earn-the-component'];
+  else pair = ['preserve-contracts', 'prove-the-journey'];
+  return [...new Set(tier === 'full' ? [...pair, 'sequence-verifiable-units', 'no-concealment-risk'] : pair)];
+}
+
+export function explainRoute(task, files = [], requestedTier) {
+  const recommendation = route(task, files);
+  if (requestedTier !== undefined && !tiers.includes(requestedTier)) {
+    throw new Error('requested tier must be light, standard, or full');
+  }
+  const minimum = minimumTier(task, files, recommendation.playbook);
+  const tier = requestedTier === undefined ? recommendation.tier
+    : tiers[Math.max(tiers.indexOf(requestedTier), tiers.indexOf(minimum))];
+  const skills = selectedSkills(task, files, tier, recommendation.playbook);
+  const changesBehavior = !mechanical(task) && (matches('codeRequest', task) || matches('behaviorMarkers', task));
+  const executable = hasExtension('executable', files) || matches('codeRequest', task);
+  if (tier !== 'light' && !readonly(task) && !docsOnly(files) && executable && changesBehavior &&
+    recommendation.playbook === 'review' && !skills.includes('tdd-95')) skills.push('tdd-95');
+  const tierReasons = recommendationReasons(task, files, recommendation.tier);
+  const constrained = requestedTier !== undefined && tier !== requestedTier;
+  if (constrained) tierReasons.push(`The requested ${requestedTier} tier is constrained by the ${minimum} risk floor.`);
+  else if (requestedTier !== undefined && tier !== recommendation.tier) {
+    tierReasons.push(`The requested ${tier} tier replaces the ${recommendation.tier} recommendation.`);
+  }
+  const index = JSON.parse(readFileSync(new URL('../shared/principles/index.json', import.meta.url)));
+  const principles = principleSlugs(task, tier, recommendation.playbook, skills).map(slug => {
+    const entry = index.principles.find(principle => principle.slug === slug);
+    if (!entry) throw new Error(`principle missing from index: ${slug}`);
+    return entry.skill;
+  });
+  return {
+    tier, playbook: recommendation.playbook, skills, recommendedTier: recommendation.tier, tierReasons, principles,
+    tierOverride: { requested: requestedTier ?? null, applied: tier, minimum, constrained },
+  };
 }

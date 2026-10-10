@@ -15,6 +15,10 @@ Trace a representative success and failure path. Inspect invariant ownership, ea
 
 Read [structural review](references/structural-review.md) for applicable probes and clean cases. Read [finding disposition](references/finding-disposition.md) when a concern is disputed or a repair claims closure. Require observed responsibility and current consumer context, not speculative architecture preferences.
 
+For high-risk integrated work, read [model patterns](../use-proofwork/references/model-patterns.md). Use blind
+correctness and maintainability reviewers with configured supported roles; resolve disagreements through artifact
+evidence and safe counterexamples, not majority votes.
+
 ## Make the concern actionable
 
 Each finding names a location, observed mechanism, practical maintenance consequence, smallest adequate remedy and behavior to preserve. Distinguish demonstrated defects, supported structural concerns and unanswered questions. Prefer cohesive pure decisions and explicit resource boundaries. Do not manufacture helper chains, compress code or add frameworks to satisfy cosmetic metrics.

@@ -6,7 +6,7 @@ const hosts = ['codex','claude-code'];
 const documents = ['runtime.md','control-cli.md','control-ui.md','goal.md'];
 const requiredHeadings = {
   'runtime.md': ['Proofwork runtime','Entry and discovery','Shell, subagents and browser capabilities',
-    'Models and evidence','Installation and host contract','Invocation policy'],
+    'Models and evidence','Model-role dispatch','Installation and host contract','Invocation policy'],
   'control-cli.md': ['CLI verification','Commands and processes','Interactive verification and cleanup'],
   'control-ui.md': ['Browser verification','Capability discovery','Rendered verification and limits'],
   'goal.md': ['Goal lifecycle','Native ownership','Continuation and recovery','Completion and limits','Host contract'],

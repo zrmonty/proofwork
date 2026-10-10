@@ -1,5 +1,16 @@
 # Proofwork changelog
 
+## 0.25.0 — model roles and inspectable decisions
+
+- Repository-local five-role model plans resolve observed capabilities with explicit reasoning and advisory budgets;
+  unset configuration preserves session policy and unsupported mappings never silently fall back.
+- Added 15 short original principle skills, selective routing citations and context accounting.
+- Route explanations expose reasons and constrained tier overrides while preserving plain route JSON.
+- Added bounded prototype comparison, blind review panels and safe adversarial checks using supported host roles.
+- Operational guidance separates local/staging/live readiness and measures architecture/language decisions.
+- Comparative evaluation records selected principles and optional requested role plans; documented paired comparisons
+  distinguish observed model dispatch, runner time, unknown usage and quality gains still awaiting live evidence.
+
 ## 0.24.0 — Git-aware snapshot identity
 
 - Snapshot inventory uses tracked and nonignored untracked Git files; non-Git folders retain a recursive inventory.

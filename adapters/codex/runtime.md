@@ -12,6 +12,27 @@ Discover live tool availability before dispatch. In the desktop host, native col
 
 Keep user model settings by default. A role mapping may select only models the host actually supports. Record requested and actual model metadata when available; report unknown values. Cross-provider orchestration is not provided by this package. Run artifacts and recorded evidence live in the target repository, not the installed package. Use [goal lifecycle](goal.md), [CLI control](control-cli.md), [browser control](control-ui.md), and [checkpoint interface](../scripts/README.md).
 
+## Model-role dispatch
+
+Run `node <plugin>/scripts/model-roles.mjs plan --repo <project> --host codex --inventory <inventory.json>`.
+Supply an observed inventory array with `id`, `strengths`, supported `reasoning` levels and `available` for each model.
+Without `.proofwork.json` `modelRoles`, all roles inherit. An explicit empty object opts into capability selection;
+role overrides contain `model` and `reasoning`. Read each role's `requested`, `resolved` and `capabilityMissing`;
+never dispatch unresolved roles. Sibling `modelBudgets` limits candidates, reviewers, parallel workers and optional
+tokens. The plan does not execute workers or enforce budgets; the coordinator must enforce available limits.
+
+Translate resolved roles through the live spawn tool's supported model/effort fields, under its override and context
+rules. Omit fields marked `inherit`; the host can use the selected model's default effort. Custom agent definitions
+can override requested settings, so inspect actual metadata and report mismatches before accepting results.
+An authorized CLI worker can use per-invocation `codex exec --model <observed-id>` and
+`-c model_reasoning_effort=<supported-level>` when supported; preserve user configuration and account boundaries.
+Do not substitute an unsupported model or assume another provider is accessible.
+See [official subagent model precedence](https://learn.chatgpt.com/docs/agent-configuration/subagents).
+
+Give reviewers fresh bounded context: acceptance criteria, the actual diff and verification artifacts. Omit the
+implementer's persuasive rationale. Record requested versus observed model and effort, or `unknown`. A different
+model is a useful preference, not proof of independent review; evaluate findings against the code and tests.
+
 ## Installation and host contract
 
 Packaging source: https://developers.openai.com/plugins/build/plugins ; skills: https://developers.openai.com/plugins/concepts/skills . Manifest uses `.codex-plugin/plugin.json` with `skills: "./skills/"`. Local loading is evaluated separately from structural validation.

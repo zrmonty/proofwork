@@ -49,6 +49,10 @@ function fixture() {
     'tdd-95', 'security-hardening', 'thermo-nuclear-code-quality-review', 'rust-best-practices']) {
     putFile(repo, `shared/skills/${skill}/SKILL.md`, 'skill '.repeat(10));
   }
+  for (const name of ['proportionate-effort', 'preserve-contracts', 'prove-the-journey',
+    'sequence-verifiable-units', 'no-concealment-risk', 'reproduce-before-fix']) {
+    putFile(repo, `shared/skills/pw-principle-${name}/SKILL.md`, 'principle '.repeat(10));
+  }
   return repo;
 }
 
@@ -59,8 +63,8 @@ test('initial context counts the root, light stub and every selected skill once'
     { task: 'Rename a Rust field', files: ['main.rs'] }, { task: 'Implement parser', files: [] },
     { task: 'Harden application', files: [] }, { task: 'Fix retry logic', files: [] }];
   const measured = measureContext(repo, corpus);
-  assert.deepEqual(measured.scenarios.map(scenario => scenario.words), [150, 160, 140, 160, 150]);
-  assert.equal(measured.totalWords, 760);
+  assert.deepEqual(measured.scenarios.map(scenario => scenario.words), [160, 170, 160, 200, 170]);
+  assert.equal(measured.totalWords, 860);
 });
 
 test('budget command reports a failure and success from the actual selected entries', t => {
@@ -76,7 +80,7 @@ test('budget command reports a failure and success from the actual selected entr
   assert.equal(contextBudget(repo).passed, true);
   const passed = spawnSync(process.execPath, [command, repo], { encoding: 'utf8' });
   assert.equal(passed.status, 0);
-  assert.equal(JSON.parse(passed.stdout).totalWords, 150);
+  assert.equal(JSON.parse(passed.stdout).totalWords, 160);
   putFile(repo, 'shared/skills/use-proofwork/references/large.md', 'word '.repeat(801));
   assert.equal(contextBudget(repo).passed, false);
   assert.ok(contextBudget(repo).violations.some(file => file.limit === 800));

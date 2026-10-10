@@ -35,6 +35,10 @@ Vue/Python/Rust is a candidate only when each responsibility earns its complexit
 
 ## Recommend with evidence
 
+For each serious candidate, record a project-specific acceptance threshold and observed result for the deciding constraints: p95/p99 latency, throughput at stated concurrency, peak memory, startup, correctness, deployment support and maintenance burden. Include boundary serialization and dependency costs. Use equivalent algorithms, release settings, data and hardware; publish commands and variability. A faster microbenchmark does not justify rewriting an I/O-bound journey.
+
+When uncertainty could change an expensive choice, generate two bounded prototypes against one acceptance brief, preferably with distinct configured models when host capability and authority permit. Keep candidates isolated; cap trials, time and spend before dispatch. An independent reviewer compares anonymized artifacts and measurements. Preserve the cheapest adequate incumbent unless a demonstrated requirement justifies replacement; do not combine winners without rerunning the shared checks. Label unavailable cross-model execution and unmeasured estimates explicitly.
+
 Return responsibility/workload, candidates, selected/provisional choice, serious exclusions, tradeoffs, operating owner and missing decisive evidence. Respect explicit user mandates while exposing unmet needs. Give a recommendation, not an unranked catalog.
 
 When performance decides, use [performance-increase](../../performance-increase/SKILL.md) for representative comparable release trials, variability, correctness and the actual user-facing comparison table. Greenfield estimates stay hypotheses with bounded measurement plans, never invented benchmarks.

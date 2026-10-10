@@ -19,6 +19,10 @@ Read [capability and role decisions](references/capabilities.md) for unfamiliar 
 
 ## Preserve model policy and ownership
 
+For requested role setup, read [model-role configuration](references/model-roles.md), merge repository-local options
+and run the read-only planner against observed host inventory. Load
+[model patterns](../use-proofwork/references/model-patterns.md) only when alternatives or independent checks justify them.
+
 Keep the configured session model unless the user permits a supported role mapping or fallback. Record requested/actual models where exposed, unknown otherwise. Names in an inventory do not prove dispatch support for this account/session. Report unavailable mappings before dispatch; authorized fallback remains per-invocation unless settings changes are authorized.
 
 Assign roles to uncertainty: investigation, bounded implementation, correctness or maintainability review. A small task can combine roles. Independence requires challenging the actual artifact and assumptions, not selecting a different brand. Where model choice is authorized, use observed relevant performance and actual tool/context, latency and cost constraints.

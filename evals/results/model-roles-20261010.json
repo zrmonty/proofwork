@@ -1,0 +1,106 @@
+{
+  "schemaVersion": 1,
+  "version": "0.25.0",
+  "date": "2026-10-10",
+  "environment": {
+    "os": "Windows",
+    "node": "24.16.0"
+  },
+  "checks": {
+    "fullCheckPassed": true,
+    "standardPackages": [
+      "codex",
+      "claude-code"
+    ],
+    "skillsPerPackage": 39,
+    "packagedExplainedRoutingExecuted": true,
+    "packagedModelPlanningExecuted": true,
+    "optionalHookPackagesBuilt": true,
+    "codexInstalledVersion": "0.25.0",
+    "codexEnabled": true
+  },
+  "coverage": {
+    "passed": true,
+    "threshold": 95,
+    "revision": "scripts-sha256:0b257729f93b39ce8261342285d459e9f827ec9f5d24840e1ff8c693e596b934",
+    "tool": "Node V8 LCOV",
+    "files": 18,
+    "metrics": {
+      "lines": {
+        "covered": 2133,
+        "total": 2160,
+        "percent": 98.75,
+        "passed": true
+      },
+      "branches": {
+        "covered": 1282,
+        "total": 1319,
+        "percent": 97.1948445792267,
+        "passed": true
+      }
+    },
+    "inventory": [
+      "scripts/build.mjs",
+      "scripts/check-commits.mjs",
+      "scripts/check-coverage.mjs",
+      "scripts/check-file-lines.mjs",
+      "scripts/check-skill-list.mjs",
+      "scripts/check-source-lines.mjs",
+      "scripts/collect-coverage.mjs",
+      "scripts/context-budget.mjs",
+      "scripts/hook-binding.mjs",
+      "scripts/hook-policy.mjs",
+      "scripts/host-hook.mjs",
+      "scripts/model-roles.mjs",
+      "scripts/proofwork.mjs",
+      "scripts/routing.mjs",
+      "scripts/runtime-evidence.mjs",
+      "scripts/runtime-locks.mjs",
+      "scripts/runtime-snapshot.mjs",
+      "scripts/verify-coverage.mjs"
+    ]
+  },
+  "initialContext": {
+    "scenarios": 92,
+    "aggregateWords": 168410,
+    "maxLightWords": 702,
+    "maxStandardWords": 2902,
+    "principlesCounted": true,
+    "budgetsPassed": true,
+    "previousRootWords": 460,
+    "currentRootWords": 312,
+    "discoverySkills": 39,
+    "discoveryWords": 285
+  },
+  "review": {
+    "kind": "independent-agent and coordinator artifact checks",
+    "humanApproval": false,
+    "correctedFindings": [
+      "Standard consequential work can load model patterns.",
+      "Component-necessity and image-host prompts select architecture/production guidance.",
+      "Mixed review and executable fixes retain TDD in explained plans.",
+      "Read-only concurrency tier overrides stay light.",
+      "Operational preparation keeps its skill with documentation-only supplied paths.",
+      "Both package layouts include the executable principle index."
+    ]
+  },
+  "modelRoleComparison": {
+    "status": "no usable completed live pairs",
+    "qualityGain": null,
+    "defectRateDifference": null,
+    "timeToVerifiedSliceDifference": null,
+    "actualMultiModelDispatchVerified": false,
+    "existingBlockers": [
+      "Codex comparative pilot lacked writable execution.",
+      "Claude native turn stopped at authentication before a model response."
+    ],
+    "protocol": "docs/model-role-evaluation.md"
+  },
+  "limits": [
+    "Fake runners prove evaluation mechanics, not model quality.",
+    "Model plans are read-only requests; inventories do not prove dispatch.",
+    "Token budgets are advisory unless enforced by the host.",
+    "Worked operational scenarios are illustrative; no deployment was performed.",
+    "Optional hooks were built, not globally installed or natively verified."
+  ]
+}

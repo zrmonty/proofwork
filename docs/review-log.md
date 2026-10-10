@@ -17,3 +17,8 @@ Rust fixture review (0.21.0): independent agent source review checked the initia
 guard, reservation scope, function-cap exception and edition notes. It found a missing static_mut_refs migration rule;
 that rule was added and final reference budgets/packages revalidated. Execution results are separate recorded observations,
 not independent reruns by that reviewer or a general unsafe soundness certification.
+
+Model-role review (0.25.0): independent agent inspection and coordinator checks exposed missing standard-tier
+model-pattern access, realistic architecture/hosting routes, mixed-review verification, readonly concurrency floors,
+documentation-scope production guidance and the packaged principle index. Fixes received focused regressions and
+current-artifact full checks. This is agent review, not human approval, native multi-model proof or a quality gain.

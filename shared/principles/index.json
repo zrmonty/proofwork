@@ -1,0 +1,172 @@
+{
+  "schemaVersion": 1,
+  "groups": {
+    "mechanical": [
+      "smallest-adequate",
+      "proportionate-effort",
+      "preserve-contracts"
+    ],
+    "behavior": [
+      "proportionate-effort",
+      "preserve-contracts",
+      "boundary-discipline",
+      "prove-the-journey",
+      "sequence-verifiable-units"
+    ],
+    "architecture": [
+      "smallest-adequate",
+      "subtract-before-expanding",
+      "earn-the-component",
+      "sequence-verifiable-units"
+    ],
+    "language": [
+      "language-fit"
+    ],
+    "bug": [
+      "reproduce-before-fix"
+    ],
+    "verification": [
+      "prove-the-journey",
+      "explain-what-is-proved",
+      "no-concealment-risk"
+    ],
+    "production": [
+      "boundary-discipline",
+      "production-artifact-first"
+    ],
+    "consequential": [
+      "reveal-consequential-decisions",
+      "intent-stays-with-user",
+      "no-concealment-risk"
+    ]
+  },
+  "principles": [
+    {
+      "slug": "smallest-adequate",
+      "skill": "pw-principle-smallest-adequate",
+      "trigger": "Use when several implementations satisfy the request.",
+      "groups": [
+        "mechanical",
+        "architecture"
+      ]
+    },
+    {
+      "slug": "proportionate-effort",
+      "skill": "pw-principle-proportionate-effort",
+      "trigger": "Use when selecting investigation, delegation or checks.",
+      "groups": [
+        "mechanical",
+        "behavior"
+      ]
+    },
+    {
+      "slug": "subtract-before-expanding",
+      "skill": "pw-principle-subtract-before-expanding",
+      "trigger": "Use when a change introduces another mechanism.",
+      "groups": [
+        "architecture"
+      ]
+    },
+    {
+      "slug": "preserve-contracts",
+      "skill": "pw-principle-preserve-contracts",
+      "trigger": "Use when altering behavior, interfaces or ownership.",
+      "groups": [
+        "mechanical",
+        "behavior"
+      ]
+    },
+    {
+      "slug": "earn-the-component",
+      "skill": "pw-principle-earn-the-component",
+      "trigger": "Use before adding a service, layer or dependency.",
+      "groups": [
+        "architecture"
+      ]
+    },
+    {
+      "slug": "boundary-discipline",
+      "skill": "pw-principle-boundary-discipline",
+      "trigger": "Use when untrusted inputs or external effects cross a boundary.",
+      "groups": [
+        "behavior",
+        "production"
+      ]
+    },
+    {
+      "slug": "language-fit",
+      "skill": "pw-principle-language-fit",
+      "trigger": "Use when a language, runtime or framework remains undecided.",
+      "groups": [
+        "language"
+      ]
+    },
+    {
+      "slug": "prove-the-journey",
+      "skill": "pw-principle-prove-the-journey",
+      "trigger": "Use when a change spans user actions or surfaces.",
+      "groups": [
+        "behavior",
+        "verification"
+      ]
+    },
+    {
+      "slug": "reproduce-before-fix",
+      "skill": "pw-principle-reproduce-before-fix",
+      "trigger": "Use when correcting a reported or observed defect.",
+      "groups": [
+        "bug"
+      ]
+    },
+    {
+      "slug": "sequence-verifiable-units",
+      "skill": "pw-principle-sequence-verifiable-units",
+      "trigger": "Use when work has dependent changes or shared ownership.",
+      "groups": [
+        "behavior",
+        "architecture"
+      ]
+    },
+    {
+      "slug": "explain-what-is-proved",
+      "skill": "pw-principle-explain-what-is-proved",
+      "trigger": "Use when reporting a result or accepting completion.",
+      "groups": [
+        "verification"
+      ]
+    },
+    {
+      "slug": "production-artifact-first",
+      "skill": "pw-principle-production-artifact-first",
+      "trigger": "Use when preparing release, hosting or deployment.",
+      "groups": [
+        "production"
+      ]
+    },
+    {
+      "slug": "reveal-consequential-decisions",
+      "skill": "pw-principle-reveal-consequential-decisions",
+      "trigger": "Use when a choice changes cost, access, recovery or experience.",
+      "groups": [
+        "consequential"
+      ]
+    },
+    {
+      "slug": "intent-stays-with-user",
+      "skill": "pw-principle-intent-stays-with-user",
+      "trigger": "Use when interpreting an ambiguous request or later correction.",
+      "groups": [
+        "consequential"
+      ]
+    },
+    {
+      "slug": "no-concealment-risk",
+      "skill": "pw-principle-no-concealment-risk",
+      "trigger": "Use when a result has failures, uncertain effects or missing evidence.",
+      "groups": [
+        "verification",
+        "consequential"
+      ]
+    }
+  ]
+}

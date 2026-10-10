@@ -195,3 +195,22 @@ test("build refuses to ship packages missing required legal and authorship files
     await rm(root, { recursive: true, force: true });
   }
 });
+
+test("both installed layouts execute explained routing and model planning", async t => {
+  const root = await mkdtemp(path.join(tmpdir(), "proofwork-runtime-package-"));
+  t.after(() => rm(root, { recursive: true, force: true }));
+  const repository = path.dirname(path.dirname(fileURLToPath(import.meta.url)));
+  await build({ repository, outputRoot: root });
+  await writeFile(path.join(root, "inventory.json"), "[]");
+  for (const host of ["codex", "claude-code"]) {
+    const routed = spawnSync(process.execPath, [path.join(root, host, "scripts/proofwork.mjs"),
+      "route", "--explain", "--task", "Prototype invoice search"], { encoding: "utf8" });
+    assert.equal(routed.status, 0, routed.stderr);
+    assert.equal(JSON.parse(routed.stdout).playbook, "prototype");
+    assert.ok(JSON.parse(routed.stdout).principles.includes("pw-principle-smallest-adequate"));
+    const planned = spawnSync(process.execPath, [path.join(root, host, "scripts/model-roles.mjs"),
+      "plan", "--repo", root, "--host", host, "--inventory", "inventory.json"], { encoding: "utf8" });
+    assert.equal(planned.status, 0, planned.stderr);
+    assert.equal(JSON.parse(planned.stdout).dispatchUnverified, true);
+  }
+});
