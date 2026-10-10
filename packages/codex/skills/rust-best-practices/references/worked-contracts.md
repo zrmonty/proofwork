@@ -1,10 +1,10 @@
 # Worked ownership and transformation contracts
 
-Read when a concrete example will clarify reference depth, failure policy or a pure transformation. These original examples form one dependency-free fixture when the Rust blocks below are concatenated. Public visibility makes the fixture easy to compile; it is not a recommended application API.
+These original Rust blocks concatenate into one dependency-free fixture. Public visibility serves demonstration, not an application API recommendation.
 
-## Borrowed selection, reference depth and tuples
+## Borrowed selection
 
-Filtering borrows an iterator item to decide whether to retain it; mapping receives the item itself. Explicit patterns expose the extra reference level. Copying a numeric value removes a reference; it does not consume the caller's collection. Enumeration before filtering keeps original positions.
+Enumeration before filtering preserves source positions. `filter` receives a reference to the item; `map` receives the item. `copied()` removes `&&str` reference depth; only `to_owned` creates independent text.
 
 ```rust
 pub fn positive_positions(values: &[i32]) -> Vec<(usize, i32)> {
@@ -36,11 +36,9 @@ fn copied_reference_then_owned_text() {
 }
 ```
 
-`copied()` here changes `&&str` into `&str`. Only `to_owned` creates independent string storage. Do not generalize this into a claim that copied or cloned references duplicate the referent. See [reference depth](copy-clone-and-reference-depth.md) and [iterator item shapes](iterator-adaptors-and-item-shapes.md).
+## Private mutation
 
-## Private mutation inside a pure interface
-
-The caller retains its original slice. The calculation owns its output, applies a defined saturation policy and exposes no intermediate writes. Saturation is an example policy for capped counters; it would be wrong for a ledger that must reject overflow.
+Owned output preserves the input. Saturation suits capped counters, not a ledger requiring rejected overflow. Admission limits still precede untrusted allocation; loops do not imply faster execution.
 
 ```rust
 pub fn increment_capped(values: &[u8]) -> Vec<u8> {
@@ -59,11 +57,9 @@ fn private_mutation_is_bounded_by_owned_output() {
 }
 ```
 
-Mutation is justified by clear ownership, not by claiming loops always outperform iterators. The input and output sizes are bounded by the caller's contract; an untrusted count still needs admission limits before allocation.
+## Fallible narrowing
 
-## Fallible conversion without disappearing records
-
-Every accepted count fits u8. The first invalid count rejects the entire result; no partial collection is returned. Conversion failure is different from capacity exhaustion, and this fixture does not promise graceful handling of allocation failure.
+The first invalid count rejects the entire collection without effects or partial output. Casts and discarded errors change this contract. Allocation-failure recovery is not promised.
 
 ```rust
 pub fn narrow_counts(values: &[u16]) -> Result<Vec<u8>, std::num::TryFromIntError> {
@@ -79,11 +75,9 @@ fn narrowing_checks_the_boundary() {
 }
 ```
 
-An `as u8` cast or `filter_map(Result::ok)` changes this contract. For reporting every rejected index, design a typed partial-result policy instead of reusing this fail-fast signature.
+## Borrowed keys
 
-## Entry updates, duplicate policy and borrowed keys
-
-The example counts exact, case-sensitive identifiers. `Entry` owns the absent/present decision while each borrowed key remains tied to the input. Returning this map is appropriate only while those names remain alive. A durable result would need owned keys. Checked arithmetic preserves the same overflow policy in every profile.
+Case-sensitive keys retain input lifetimes; durable results need owned keys. Entry centralizes duplicate handling. Hash iteration has no presentation order. This tiny fixture does not exercise the u32 overflow branch.
 
 ```rust
 use std::collections::HashMap;
@@ -107,11 +101,9 @@ fn duplicate_names_are_counted_without_changing_case() {
 }
 ```
 
-Hash iteration order is not a presentation contract. Assertions use lookup, not whichever element happens to appear first. The tiny fixture cannot reach the u32 count limit in ordinary execution; it does not claim that overflow branch was tested or a coverage gate passed.
+## Text and floats
 
-## Checked UTF-8 offsets and explicit float admission
-
-External offsets can be out of range or inside a multibyte scalar. This prefix operation counts bytes and rejects either invalid boundary. It does not implement visible-character truncation.
+Checked byte offsets reject invalid UTF-8 boundaries, not visible-character limits. Finite floats still round; signed-zero equality does not establish identical hashing, serialization or total ordering.
 
 ```rust
 pub fn byte_prefix(text: &str, end: usize) -> Option<&str> {
@@ -140,11 +132,9 @@ fn nonfinite_measurements_are_rejected() {
 }
 ```
 
-Finite floats still carry rounding error. Equality of signed zeros does not establish interchangeable representations for hashing, total ordering or serialization. Choose the actual domain policy in [numeric contracts](numeric-and-float-contracts.md).
+## Exclusive access
 
-## Reborrow, disjoint slices and non-Copy observation
-
-An immutable binding can hold an exclusive reference and mutate its referent. Passing a temporary reborrow lets the exclusive reference be used again after the call. Splitting a slice makes disjointness explicit without unsafe code or copies.
+Temporary reborrowing preserves later exclusive use; safe slice splitting establishes disjointness. Fixed-size input guarantees positions exist. `assert_eq!` borrows operands, so observing a non-Copy String does not move it.
 
 ```rust
 pub fn swap_counts(values: &mut [u32; 2]) {
@@ -170,10 +160,8 @@ fn noncopy_referent_can_be_observed_without_moving() {
 }
 ```
 
-The fixed-size input guarantees both positions exist, and the slice split establishes independent mutable places. Swapping preserves the values without arithmetic overflow. A transfer between counters would need its own checked arithmetic and failure policy, as in [the reservation proposal](api-errors-and-transitions.md). `assert_eq!` borrows its arguments; this test does not move the String out of its shared reference.
+## Evidence limits
 
-## Evidence boundaries
+Execute exact blocks on the supported toolchain with configured formatting/Clippy. Pair compile-fail E0502/E0499/non-Copy-move probes with accepted solutions. These examples do not certify application coverage, MSRV, throughput, allocation failures, unsafe code or concurrency.
 
-Execute these exact blocks with the supported toolchain, then run rustfmt and configured Clippy checks. A separate compile-fail fixture should challenge E0502, E0499 and moving a non-Copy value out of a borrowed place, paired with accepted solutions that preserve the ownership contract. Expected rejection is evidence of that compiler rule, not proof that every borrow failure is fixed by the same recipe.
-
-These examples exercise mechanisms under declared synthetic inputs. They do not certify an application, minimum compiler, unsafe code, concurrency, throughput, allocation-failure behavior or numerical line/branch coverage. Primary contracts are [checked string access](https://doc.rust-lang.org/std/primitive.str.html#method.get), [fallible integer conversion](https://doc.rust-lang.org/std/convert/trait.TryFrom.html) and [split mutable access](https://doc.rust-lang.org/std/primitive.slice.html#method.split_at_mut).
+Primary sources: [checked text](https://doc.rust-lang.org/std/primitive.str.html#method.get), [TryFrom](https://doc.rust-lang.org/std/convert/trait.TryFrom.html) and [disjoint mutable slices](https://doc.rust-lang.org/std/primitive.slice.html#method.split_at_mut). Detailed policies: [numeric contracts](numeric-and-float-contracts.md), [reference depth](copy-clone-and-reference-depth.md) and [versioned proposals](api-errors-and-transitions.md).

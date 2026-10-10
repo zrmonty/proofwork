@@ -1,113 +1,19 @@
-# Derives, identity, equality and hashing
+# Derives are public contracts
 
-Read when adding attributes, copying values, comparing collections or using domain values as keys. A derive is an API and behavior decision; it is not a decoration every type should receive.
+Choose only the observation, duplication and comparison promises the domain needs. Field-based derives suit some values, not necessarily resource identity or capabilities. Enum equality includes variants/payloads. Representation, cfg and lint attributes are separate decisions; broad allow attributes must not hide the triggering diagnostic. Check [derive behavior](https://doc.rust-lang.org/reference/attributes/derive.html) and third-party macro contracts.
 
-## Decide the meaning before the attribute
+## Disclosure and duplication
 
-List what callers should be able to observe, duplicate and compare. Then select the smallest trait set that promises those operations. Deriving Debug, Clone, Copy, PartialEq, Eq and Hash together can expose more than the domain intends.
+[Debug](https://doc.rust-lang.org/std/fmt/trait.Debug.html) is diagnostic, not stable serialization or secret-safe output. Derived/nested formatters and error chains can disclose fields; failed assertions and snapshots can store both compared values. Use harmless synthetic secrets, deliberate redaction, and inspect actual consumers before changing formats.
 
-For a struct, a field-based implementation may fit a plain value object. For a resource owner, identity or handle semantics may require a different contract. Do not derive because a nearby unrelated type does.
+Copy/Clone ownership, reference layers and independence are canonical in [copy semantics](copy-clone-and-reference-depth.md). Derives are durable caller commitments: removing Copy or adding generic Clone bounds can break legitimate consumers. Manual Clone is justified only when actual field semantics permit a less restrictive contract, not as routine boilerplate. Pointers must not replace owners merely to obtain Copy.
 
-Enum comparisons distinguish variants as well as their payloads. Decide whether variants with equal-looking data are actually distinct domain states before relying on automatic comparison.
+## Equality, order and hashing
 
-An attribute can also change compilation, representation or lint behavior. Keep unrelated attributes out of a routine derive change. Do not add broad allow attributes to suppress the useful diagnostic that triggered the review.
+[PartialEq](https://doc.rust-lang.org/std/cmp/trait.PartialEq.html) allows non-reflexive values; [Eq](https://doc.rust-lang.org/std/cmp/trait.Eq.html) promises reflexivity without checking it automatically. Ordinary equality borrows non-Copy operands, so copying strings solely for comparison is unnecessary. Defined cross-type relationships must remain symmetric/transitive where required. Ignored metadata needs an explicit identity policy. Approximate float tolerance generally cannot supply transitive key equality; use [numeric contracts](numeric-and-float-contracts.md).
 
-Use the [derive reference](https://doc.rust-lang.org/reference/attributes/derive.html) for supported behavior. Third-party derive macros require their own documentation and a boundary review.
+[Hash](https://doc.rust-lang.org/std/hash/trait.Hash.html) must agree with equality: equal keys hash equally; unequal keys may collide. Do not hash an equality-ignored field or require distinct hashes for every unequal pair. Stored key identity must not change through interior mutation. Hash output is neither portable persistence nor cryptographic identity. Borrowed lookup identity and representatives are covered in [map/set laws](maps-sets-and-key-laws.md).
 
-## Debug must not leak secrets
+Vector positional equality, set membership and map logical contents differ. Replacing a vector with a set changes order/duplicate semantics. Ord, Eq and PartialOrd must agree for ordered keys; sorting and deduplicating under different identity rules can surprise consumers. Comparison itself may be expensive, and earlier destructuring can move values even when equality does not.
 
-Derived Debug exposes field-level diagnostic content. A type containing access tokens, private messages or other sensitive values should not gain that exposure simply to make a test assertion convenient.
-
-Prefer redacted diagnostics that retain safe operational context. Verify the actual formatter for nested wrappers and error chains; redacting one outer field does not establish that every log path is safe.
-
-Do not treat Debug formatting as a stable protocol or persistence format. It is for diagnosis, not an API for extracting fields or comparing production messages.
-
-A failed assertion can print both compared values through Debug. Use harmless fixtures and avoid embedding real credentials in tests. Snapshot tests can also permanently store sensitive output.
-
-For an exported type, changing Debug output can affect diagnostic consumers even when it is not a compatibility guarantee. Search actual log and snapshot uses before changing it.
-
-The [Debug contract](https://doc.rust-lang.org/std/fmt/trait.Debug.html) explains formatting behavior. Security review must inspect where the output goes.
-
-## Copy is a durable promise
-
-Copy permits implicit duplication rather than a move. Derive it only for values whose duplication is semantically ordinary and whose fields support it. Small size is not enough reason to copy a capability or resource identity.
-
-Types with Drop cannot implement Copy. An owning string is not Copy; a shared reference can be copied without duplicating its referent. A mutable reference is not a duplicable exclusive capability.
-
-Adding Copy changes how caller expressions behave. Removing it later can break code that relied on implicit duplication. Treat it as a public commitment rather than a temporary convenience.
-
-For a compact identifier, point or immutable count wrapper, Copy may fit the meaning. A tiny token that is intentionally consumed once may need move semantics even if its storage could otherwise support copying.
-
-Do not convert an owner into a pointer merely to obtain Copy. That changes lifetime, ownership and validity obligations and can introduce a dangling reference or unsafe access.
-
-See [Copy](https://doc.rust-lang.org/std/marker/trait.Copy.html) for the trait's requirements. Use [ownership and domain contracts](ownership-and-domain.md) when deciding whether callers should retain a value.
-
-## Clone must describe what becomes independent
-
-Clone is explicit, but its cost and independence depend on the implementation. Cloning an owned string duplicates its contents; cloning a shared smart pointer generally creates another handle to the same underlying allocation.
-
-Cloning a reference can duplicate the reference rather than its referent. Method resolution and the expected output type matter. Inspect the resulting type before claiming an owned snapshot was created.
-
-A cloned container can still contain shared handles or references. It is not automatically a deep independent copy. State whether later mutation through another owner can affect what the clone observes.
-
-Use borrowing for an observation when ownership need not change. Clone when the consumer needs a retained independent value or shared handle under an explicit contract. Do not clone merely to conceal a borrow conflict.
-
-Generic derived Clone can introduce bounds that a custom implementation might not need. Change to a manual implementation only when a legitimate caller is blocked and the field semantics justify it; avoid boilerplate as a default.
-
-The [Clone contract](https://doc.rust-lang.org/std/clone/trait.Clone.html) defines the trait. Check [Rc cloning](https://doc.rust-lang.org/std/rc/struct.Rc.html#method.clone) or [Arc cloning](https://doc.rust-lang.org/std/sync/struct.Arc.html#method.clone) when sharing is involved.
-
-## PartialEq and Eq have laws
-
-PartialEq models equality that need not be reflexive; floats with NaN are a familiar case. Eq adds the promise that each accepted value equals itself. Eq has no method that automatically verifies this law.
-
-Ordinary equality operators borrow their operands for comparison; comparing non-Copy strings or collections does not inherently consume them. Do not clone both sides just to compare their contents.
-
-Cross-type equality implementations must remain consistent where symmetric or transitive relationships are defined. Avoid ad hoc conversions that make equalities depend on which operand is on the left.
-
-If identity excludes a timestamp or cache field, automatic field comparison may not fit. Choose an explicit identity key or a carefully implemented comparison, then ensure hashing uses the same identity.
-
-Do not use tolerance-based float agreement to implement Eq without proving an equivalence relation. A relation that says A is near B and B is near C while A is not near C violates transitivity.
-
-The [PartialEq laws](https://doc.rust-lang.org/std/cmp/trait.PartialEq.html) and [Eq law](https://doc.rust-lang.org/std/cmp/trait.Eq.html) are obligations for implementors. Numerical input policy belongs in [numeric contracts](numeric-and-float-contracts.md).
-
-## Hash must follow equality
-
-Equal keys must produce equal hash contributions under the same hashing setup. Unequal keys may collide. Tests must not assert that different values always have different hash results.
-
-If equality ignores a field, hashing that field breaks the key contract. A custom equality implementation deserves a paired hash review; deriving Hash independently is not always compatible.
-
-Do not alter a stored key's equality or hash through interior mutability. Remove and reinsert under the collection's contract when identity genuinely changes. Mutable key identity can make lookup behavior inconsistent even without a compiler error.
-
-Hash outputs are not a portable persistence format. Do not store a DefaultHasher result as a stable identifier or use it as a cryptographic digest. Select an explicit documented algorithm for those separate requirements.
-
-When borrowing a lookup key through Borrow, the borrowed form's equality and hash semantics must agree with the owned key. Case-insensitive owned equality with case-sensitive borrowed lookup is not a harmless optimization.
-
-The [Hash contract](https://doc.rust-lang.org/std/hash/trait.Hash.html), [Borrow contract](https://doc.rust-lang.org/std/borrow/trait.Borrow.html) and [HashMap key rules](https://doc.rust-lang.org/std/collections/struct.HashMap.html) define these relationships.
-
-## Collection equality is domain-sensitive
-
-A vector's positional equality answers a different question from a set's membership equality. A map's logical contents differ from its traversal order. Choose the collection whose equality matches the promised meaning.
-
-If duplicates or order matter, replacing a vector with a set changes behavior even when every retained element compares equal. A deduplication pass needs a clear identity policy and an accepted representative-selection rule.
-
-Equality of a collection requires suitable element or key/value comparisons. That does not make comparison cheap: consider the actual size and use pattern before repeatedly comparing large containers.
-
-Non-Copy equality is not a move, but iteration or destructuring performed before the comparison can still consume values. Inspect the complete expression rather than assuming the equality operation caused an ownership error.
-
-For custom ordered keys, Ord, Eq and PartialOrd must agree under their respective contracts. Sorting under one policy and deduplicating under another can silently produce surprising results.
-
-Use [collection documentation](https://doc.rust-lang.org/std/collections/index.html) to select representation; benchmark only when the equality operation is an actual bottleneck.
-
-## Proof checks
-
-Compile a comparison of non-Copy values and then use both values afterward. This catches needless ownership workarounds without asserting how the compiler optimizes comparison.
-
-For custom equality and hashing, test reflexivity where Eq is promised, representative symmetry/transitivity and equal-hash consistency. Property tests can broaden inputs; targeted examples still need the domain's tricky cases.
-
-Test canonicalized identifiers, ignored metadata and alternate accepted spellings if those policies exist. Include lookup through a borrowed key when supported.
-
-Inspect Debug output using harmless synthetic secrets and assert the marker cannot appear through direct, nested or error formatting paths. This is a formatter check, not a complete production logging audit.
-
-For Clone, change an independent owner or shared referent in a controlled fixture and verify the intended observation. Do not report a deep copy when only a handle was duplicated.
-
-Compile a downstream caller for exported derive changes. A passing local test does not establish public trait compatibility or confirm the full numeric and key law space.
+Compile non-Copy comparisons followed by reuse. For custom traits probe reflexivity where promised, symmetry/transitivity, equal hashes, normalization, ignored metadata and borrowed lookup. Check Clone independence/shared observation and Debug redaction through direct/nested/error paths. Compile affected downstream consumers for exported derive changes. Property testing broadens observations, not proof of every numeric/key law or production logging path.

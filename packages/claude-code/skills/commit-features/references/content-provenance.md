@@ -1,41 +1,37 @@
 # Commit content provenance
 
-Read for partial staging, hooks that alter files, generated output or delivery to several refs. Verification applies to content, while Git messages and remote updates describe specific identities.
+Read for partial staging, content-changing hooks, generated output or delivery to several refs. Evidence concerns a specific artifact independently of its chosen message format.
 
-## Identify three potentially different artifacts
+## Distinguish the working tree, index and commit
 
-The working tree, index and committed tree can differ. A passing test run may rely on an unstaged configuration or fixture that the commit omits. A hook may rewrite staged content after the last check. Inspect these differences before assigning a validation claim to the outgoing commit.
+A passing check may rely on unstaged configuration or a fixture the commit omits. A hook may alter staged content after verification. Inspect relevant differences before attributing evidence to the outgoing commit.
 
-Choose a proportionate response:
-
-| Situation | Useful action |
+| Situation | Appropriate response |
 | --- | --- |
-| All relevant content is staged and unchanged by hooks | Inspect the resulting commit and connect the existing evidence to its actual content. |
-| Partial staging changes behavior | Exercise the staged/committed artifact in an isolated checkout where available, or disclose the exact unproved claim. |
-| Hook changes relevant files | Inspect the resulting tree and rerun affected checks before claiming they passed for that commit. |
-| Generated files are required delivery inputs | Verify generation and source/output consistency; do not manually repair output owned by a generator. |
-| Unrelated unstaged user work exists | Preserve it and exclude it from the commit without resetting or discarding it. |
+| Relevant content is staged and hooks leave it intact | Inspect the resulting commit and connect applicable evidence to that tree. |
+| Partial staging changes the tested behavior | Check an isolated supported staged/committed artifact, or describe the precise unverified claim. |
+| A hook changes relevant content | Inspect the new tree and rerun affected checks. |
+| Generated files are required delivery inputs | Verify generation and source/output agreement; preserve generator ownership. |
+| Unrelated user work remains unstaged | Preserve it and keep it out of the commit without resetting or discarding it. |
 
-Do not run a checkout/reset or stash as an automatic way to create a clean test surface. Those operations can disturb active owners or user's work. Isolation must follow current ownership and permissions, and does not silently import omitted local files.
+Do not automatically checkout, reset or stash work to manufacture a clean verification surface. Isolation follows actual ownership and permissions. It must not silently import omitted local files.
 
-## Example: a false validation claim
+A strict Python check that needs an unstaged stub does not verify the committed implementation without that dependency contract. Include an authorized required input, use the real installed types, or limit the claim. Do not hide the problem by excluding source or suppressing diagnostics.
 
-A strict Python check passes because an unstaged stub supplies a missing dependency contract. The index contains only the implementation. The commit message cannot truthfully say that its strict check passed unless the committed artifact has that contract or the check is rerun on a supported equivalent environment.
+## Bind each claim to its commit
 
-The repair may be to include the authorized required stub, use the correct existing package types or remove reliance on an uncommitted fixture. It is not to exclude the affected source, add blanket suppressions or erase the failed observation.
+Describe each message against its own diff. A later implementation does not turn an earlier documentation commit into a feature. State series-wide integration results as applying to the final integrated tree when intermediate commits were not independently exercised.
 
-## Bind claims to each outgoing commit
+When `commitFormat` is Proofwork, keep both sections meaningful and nonempty; use None where appropriate. When Conventional is selected, match the type and description to the actual change and describe breaking compatibility under the adopted policy. With off selected, impose no plugin formatting. Truthful evidence and existing project obligations remain relevant in every mode.
 
-Review each message against its own diff. A later commit implementing a feature does not make an earlier documentation commit a major feature. A series-wide integration result can be stated as applying to the final integrated tree, rather than implying every intermediate tree independently passed.
-
-Keep Major features and Minor features concrete and nonempty, with None where appropriate. Describe compatibility separately. Distinguish observed checks from planned checks, retained upstream evidence and checks that cannot run in this environment. Message formatting validation does not inspect any of those claims.
+The format checker reads syntax only. It does not establish whether tests ran, which tree they exercised, whether a release breaks consumers, or whether a push is authorized. A disabled result is explicitly not evidence of conformance.
 
 ## Reconcile each destination
 
-Record the observed source and each actual destination ref. A push can target more than the configured upstream. Validate newly outgoing authored history against observed remote state before the authorized operation, then inspect its result per destination.
+Record the observed source and each actual destination ref. Check an opted-in format over the real newly outgoing set before authorized delivery, then inspect outcomes per target.
 
-The [Git push documentation](https://git-scm.com/docs/git-push) describes per-ref status and the optional atomic mode. Do not assume several updates are all-or-nothing, or introduce an atomic option without confirming server support and the requested delivery contract. A transport interruption can leave an accepted update; inspect remote identities before retrying.
+The [Git push documentation](https://git-scm.com/docs/git-push) describes per-ref status and optional atomic updates. Do not assume several destinations update together or add atomic mode without checking server support and the delivery contract. An interrupted transport may follow an accepted update; inspect remote identities before repeating it.
 
-If one target succeeds and another fails, report the separate outcomes and preserve normal push safety. Remote advancement calls for inspection and integration; it does not authorize force-pushing. Do not change published history, global hooks, signing or credentials merely to make delivery easier.
+If one ref accepts an update and another fails, report those outcomes separately. Remote advancement calls for inspection and integration, never automatic force-pushing. Do not change history, global hooks, signing or credentials merely to simplify delivery.
 
-Completion names the actually delivered identities and unresolved targets. An example message, format-only checker pass or planned push is not evidence of publication.
+Completion identifies the delivered revisions and unresolved destinations. A fictional message, a checker pass or a planned push is not evidence of publication.

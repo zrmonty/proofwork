@@ -1,6 +1,6 @@
 ---
 name: language-fit
-description: Choose languages, runtimes and frameworks by workload, safety, ecosystem and operating needs across systems, scripting and fullstack responsibilities; challenge habitual TypeScript or framework defaults and justify mixed-language boundaries.
+description: When comparing languages, runtimes and frameworks against workload requirements.
 ---
 
 # Language fit

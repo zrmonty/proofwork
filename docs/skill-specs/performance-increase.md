@@ -16,7 +16,7 @@ Inspect callers, production configuration, toolchain, existing profiling/benchma
 - Maintain pure domain decisions and explicit effects. Permit measured owned local loops or accumulators without exposing mutation or mandating a blanket functional rewrite.
 - Establish correctness and ownership equivalence before trusting timings. Cover semantic risks introduced by the change; reuse meaningful existing tests.
 - Measure repeated comparable runs, report the statistic and variation, and distinguish inconclusive results from demonstrated improvements. Do not cherry-pick runs or hide adverse cases.
-- Reduce benchmark overhead by diagnosing compilation/setup/execution/reporting, safely amortizing owned setup, using targeted iteration and maintaining adequate confirmation.
+- Reduce benchmark overhead by diagnosing compilation/pw-setup/execution/reporting, safely amortizing owned setup, using targeted iteration and maintaining adequate confirmation.
 - Preserve the measured workload, operation count, output consumption and unit definitions; prevent lazy or compiler-eliminated work and exclude changed boundaries from false speedup claims.
 - Separate harness wall-time gains from per-operation gains. Shortened diagnostic samples are not full certification; sample controls and flags must match the installed harness.
 - Inspect relevant memory, tail latency, write load and contention tradeoffs. Reject or revert ineffective complexity and stop at the agreed target.

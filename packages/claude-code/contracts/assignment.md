@@ -15,7 +15,7 @@ authorization / constraints / limits:
 result location / coordinator contact:
 ```
 
-Workers explicitly read worker-mode and the selected skill files; inherited chat context is insufficient. Shared contract changes return to the coordinator before implementation. Reviewers are read-only unless their assignment explicitly authorizes edits. No nested dispatch unless the coordinator grants bounded ownership and capacity.
+Workers explicitly read pw-worker-mode and the selected skill files; inherited chat context is insufficient. Shared contract changes return to the coordinator before implementation. Reviewers are read-only unless their assignment explicitly authorizes edits. No nested dispatch unless the coordinator grants bounded ownership and capacity.
 
 ## Make ownership executable
 
@@ -30,7 +30,7 @@ Own: src/export.ts, tests/export.test.ts
 Goal: export every supplied page in input order, including a one-page document.
 Preserve: caller array and existing file format; do not change unrelated options.
 Dependency: shared/config.ts belongs to another worker; report required changes.
-Read: <installed package>/skills/worker-mode/SKILL.md and selected skills.
+Read: <installed package>/skills/pw-worker-mode/SKILL.md and selected skills.
 Check: reproduce omission; test empty, one-page and multi-page inputs.
 Return: changed paths, content identity, observed commands and unresolved gaps.
 Do not: edit generated packages, aggregate state, commit or publish.

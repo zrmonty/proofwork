@@ -1,86 +1,52 @@
 # Coverage and CI
 
-Use this reference to make the 95% requirement measurable. Follow the project's installed collector and supported language versions rather than introducing a new runner by default.
+Use the installed collector/supported versions to make the 95% gate measurable; do not introduce a runner by default.
 
-## Define the denominator once
+## Independent denominator
 
-Record the first-party executable source roots, exclusions, collector/version, build mode and metric definitions. Enumerate the intended sources and compare them with the report: a missing unimported file is a measurement defect, not proof it has no uncovered code. Remap transformed code to original sources where the tool supports it; generated output must not double-count the same code.
+Record executable source roots, exclusions, collector/version, build mode and metrics. Enumerate sources independently and compare reports: absent unimported code is missing measurement, not coverage. Remap transformed sources; do not count generated duplicates.
 
-Line and branch coverage are separate ratios:
+Require passing tests plus covered/executable lines >=95% and covered/possible branch outcomes >=95%, preserving stricter existing/package/per-file floors. Compare sufficient precision/counts: rounded 94.96% fails. Statements, functions, regions and conditions are not interchangeable metrics. A genuinely zero-branch target needs an explicit verified zero denominator; absent branch data is different.
 
-```text
-line rate = covered executable lines / executable lines
-branch rate = covered branch outcomes / branch outcomes
-pass = tests passed AND line rate >= required line rate
-                    AND branch rate >= required branch rate
-```
+Measure every selected language component without averaging incompatible models. Large unrelated modules cannot justify leaving critical changed behavior untested.
 
-The default required rates are 0.95; keep an existing 0.98 or 1.00 requirement. Compare counts or sufficient precision so 94.96% displayed as 95% does not pass. Statement, function, region and condition coverage are useful additional metrics, but do not relabel them as lines or branches. Where the selected target genuinely has zero branch opportunities, record its zero denominator and verify it with a working branch collector; an absent branch field is different.
+## Failure-propagating gate
 
-A multi-language target needs a supported report for every selected component. Do not average incompatible branch models into a persuasive but meaningless global number. Preserve existing per-file or package constraints. The default aggregate target floor does not justify leaving a critical changed component untested because a large unrelated module offsets it.
+Fail on failed/unexecuted/unexpectedly skipped tests; absent, stale, malformed or incomplete reports; missing metrics; or either insufficient ratio. Generate fresh reports from final source/configuration identity, including dirty inputs. Segregate prior output so failed collection cannot reuse it. Preserve test exit through pipelines. Exercise the gate with an isolated failing fixture/stricter threshold, restore it and show ordinary checks passing; never publish a failing production change for this demonstration.
 
-## Make the gate a real process result
+Merge only intentional shards from matching source/configuration using supported collector operations. Count overlapping opportunities once, never sum counts/average percentages. Every intended shard must pass; partial unions cannot replace missing behavioral checks. Coverage.py [combine](https://coverage.readthedocs.io/en/latest/commands/cmd_combine.html) supports paths/data merging, but path equivalence does not prove content equivalence. Watch/subset runs help iteration, not final selected-target acceptance; never accept success with no tests.
 
-Use the existing runner's separate line and branch thresholds where supported. Otherwise use a small repository-owned check over its machine-readable report, with these outcomes:
+## Bundled report check
 
-| Observation | CI outcome |
-|---|---|
-| Tests fail, do not execute, or selected cases are unexpectedly skipped | Nonzero exit |
-| Report absent, stale, malformed, missing selected source files or missing required metric | Nonzero exit; describe measurement failure |
-| Either required ratio below its threshold | Nonzero exit; report counts and gap |
-| Both ratios meet thresholds and required tests pass | Zero exit |
-
-Generate fresh reports from the final source identity. Do not merge an old successful run into new evidence; combine only intentionally partitioned runs of the same source and configuration. Preserve the test command's exit status through pipelines and report generation. Exercise the gate once with a deliberately failing small fixture or an isolated temporarily stricter threshold, restore configuration, and show the ordinary command passing. Do not publish a known failing production change just to test CI.
-
-The Git commit alone is not an identity for a dirty working tree. Record relevant source and coverage-configuration content identities, including uncommitted inputs, or collect from the exact clean artifact being released. Bind the report to that selection and runner invocation. Delete or segregate prior output before collection so a failed command cannot leave an old report eligible for the gate.
-
-Combine shard coverage through the collector's supported merge, keeping distinct line and branch opportunities counted once and marked covered when a compatible shard covers them. Adding each shard's covered/total counts double-counts overlapping sources; averaging shard percentages weights them incorrectly. Require every intended shard to succeed and match source/configuration before normalization. A numerically passing partial union does not replace a missing shard's behavioral checks.
-
-For Coverage.py, consult its [combine command](https://coverage.readthedocs.io/en/latest/commands/cmd_combine.html) for supported data files and path mapping. Path equivalence does not establish that different jobs measured the same source contents; preserve provenance separately.
-
-Watch-mode subsets and changed-file filters are useful during red/green work; they do not replace the final selected-target measurement. Never enable success with no tests as a route to the gate.
-
-## Use the bundled report checker
-
-When the existing collector cannot enforce both ratios independently, export its actual file counts into the normalized format and run:
+Export actual counts when the collector cannot enforce separate gates:
 
 ```text
 node <plugin-root>/scripts/check-coverage.mjs --report coverage-normalized.json --inventory coverage-inventory.json --threshold 95
 ```
 
-`coverage-inventory.json` is a JSON array of repository-relative executable source file paths, using forward slashes. Enumerate it from the selected source roots before collection and apply the agreed exclusions; do not derive it solely from the files imported by tests. The normalized report has this shape:
+Inventory is an independently enumerated JSON array of repository-relative executable paths using forward slashes, selected before collection with agreed exclusions. Example report:
 
 ```json
 {
   "schemaVersion": 1,
-  "revision": "source identity measured by this run",
-  "tool": "collector name and version",
-  "files": [
-    {
-      "path": "src/rules.ts",
-      "lines": { "covered": 98, "total": 100 },
-      "branches": { "covered": 38, "total": 40 }
-    }
-  ]
+  "revision": "measured source identity",
+  "tool": "collector/version",
+  "files": [{
+    "path": "src/rules.ts",
+    "lines": { "covered": 98, "total": 100 },
+    "branches": { "covered": 38, "total": 40 }
+  }]
 }
 ```
 
-Use a higher threshold when the project already requires it. Missing, extra or duplicated source files, invalid counts, absent branch measurements and insufficient ratios fail the check. An actual zero-branch file still supplies an explicit branch object with zero counts. The checker validates aggregate counts over the explicit target; preserve stricter project-specific per-file checks separately.
+Missing/extra/duplicate paths, invalid counts, absent branches and insufficient ratios fail. Zero-branch files still provide zero-count objects. Preserve stricter per-file gates separately. This checker neither runs tests nor authenticates identity. Retain original collector artifact, invocation/provenance and faithful normalization; fabricated/stale reports can be structurally valid. Chain tests, collection, normalization and checking with failure propagation.
 
-The checker does not run tests, collect coverage or authenticate the report's source identity. Keep the original collector artifact, generating command and measured revision with the normalized report. Verify that the export preserves counts and that the independently selected inventory is complete. A fabricated report or a stale report can be structurally valid; neither is acceptable evidence. Chain successful tests, collection, normalization and this check with failure propagation rather than treating the final command as the entire workflow.
+## Language traps
 
-## Language-specific traps
+**TypeScript/JavaScript:** configure explicit inclusion, source maps and transpiled branches. Existing Vitest projects inspect separate lines/branches thresholds, preserve stronger values and disable automatic rewriting. Follow [coverage configuration](https://vitest.dev/config/coverage) for the installed version.
 
-**TypeScript and JavaScript.** Read the installed runner's coverage-provider documentation. Configure explicit source inclusion because import-only collection can hide untouched files. Check source-map remapping and branches produced by transpilation. For a project already using Vitest, inspect `coverage.include` and separate `coverage.thresholds.lines` / `coverage.thresholds.branches`; preserve higher values and disable automatic threshold rewriting. The [official coverage configuration](https://vitest.dev/config/coverage) documents these options. Verify their behavior against the installed version rather than copying a configuration for an incompatible release.
+**Python:** enable branches/explicit sources and inspect namespace omissions. Coverage.py overall branch percentage combines statements and branches; fail-under=95 alone does not prove separate floors. Check actual statement/branch counts, explaining executable-line accounting. Read [branches](https://coverage.readthedocs.io/en/latest/branch.html), [sources](https://coverage.readthedocs.io/en/latest/source.html) and [JSON](https://coverage.readthedocs.io/en/latest/commands/cmd_json.html). Subprocesses/shards retain matching identity.
 
-**Python.** Enable branch collection and an explicit source target. Coverage.py can discover unexecuted sources when source is configured; inspect namespace-package behavior and report omissions. Its overall percentage under branch collection combines statement and branch opportunities, so a single `--fail-under=95` is not proof of two separate 95% gates. Use the machine-readable counts to check covered statements and covered branches independently, explaining that its source statement accounting is the collector's executable-line model. Read [branch measurement](https://coverage.readthedocs.io/en/latest/branch.html), [source selection](https://coverage.readthedocs.io/en/latest/source.html) and [JSON reporting](https://coverage.readthedocs.io/en/latest/commands/cmd_json.html). Keep subprocess coverage and intentionally combined shards aligned with the same identity.
+**Rust:** match LLVM/compiler/toolchain. Stable instrumentation does not establish supported branch metrics. Read [instrumentation](https://doc.rust-lang.org/rustc/instrument-coverage.html) and [unstable branch options](https://doc.rust-lang.org/unstable-book/compiler-flags/coverage-options.html), checking actual output. Line-only cannot pass branches; do not silently switch stable projects to nightly.
 
-**Rust.** Match coverage tooling to the compiler's LLVM version and the project's supported toolchain. Stable instrumentation does not establish that the installed toolchain exposes the required branch model. The [rustc coverage guide](https://doc.rust-lang.org/rustc/instrument-coverage.html) covers instrumentation; the [coverage options documentation](https://doc.rust-lang.org/unstable-book/compiler-flags/coverage-options.html) describes branch options under an unstable interface. Inspect actual collector capabilities and output. A line-only report cannot pass this skill's branch gate. Do not silently switch a stable project to nightly; report the unsupported gate and propose the smallest compatible measurement path.
-
-## Examples of honest decisions
-
-- 98% lines and 91% branches: fails; focus on missing alternatives rather than adding more happy paths.
-- 96% lines and 96% branches with no negative authorization assertion: numerical gate passes, behavior verification remains incomplete.
-- 100% imported files while an executable unimported module is absent: report incomplete; correct source inclusion before deciding.
-- Legacy target at 72%, changed behavior covered: useful progress, selected-target gate still fails. Report the remaining work rather than declaring completion.
-- Unsupported Rust branch collection: line evidence can be reported, 95% gate remains unverified pending a supported approach.
+Numerical coverage is separate from behavior: 98% lines/91% branches fails; 96% both without permission assertions may pass numbers but leave acceptance incomplete. Legacy below-gate targets and unsupported metrics remain incomplete despite useful scoped progress.

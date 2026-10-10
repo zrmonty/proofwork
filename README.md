@@ -1,5 +1,9 @@
 # Proofwork
 
+Install in Codex (Bash or PowerShell 7): `codex plugin marketplace add zrmonty/proofwork && codex plugin add proofwork@proofwork-local`. See [installation](#build-and-local-installation) for local builds and Claude Code.
+
+Install in Claude Code 2.1.275+: `/plugin install proofwork --marketplace zrmonty/proofwork`.
+
 See the [skill reference guide](docs/reference-guide.md) for conditional decision guides and worked scenarios across the full skill set.
 
 Proofwork is a **skill-compression plugin for Codex and Claude Code**. Describe what you want to make, judge the result and refine it. Proofwork carries the engineering detail: choosing relevant skills, making proportionate implementation decisions, coordinating workers when useful and verifying the integrated result.
@@ -43,33 +47,35 @@ Keep the current file format and show me that the full document survives.
 
 ## Skill commands
 
+Version 0.19 renames `setup` → `pw-setup`, `worker-mode` → `pw-worker-mode`, and `clean-code` → `pw-clean-code`; update prompts or automation using the old names. Setup, workers and audit-stack are manually invoked. The root can deliberately read their guidance when needed.
+
 Give any skill a task in the same prompt. In Codex, use `$<skill-name>` or select the Proofwork skill in the skills menu. In the Claude Code plugin, use `/proofwork:<skill-name>`. If another installed plugin has a skill with the same name, select the Proofwork entry explicitly. The root loads relevant guidance automatically; individual commands are useful for focused work.
 
 | Codex invocation | Claude Code invocation | Use it for |
 | --- | --- | --- |
 | `$use-proofwork` | `/proofwork:use-proofwork` | Carry a task through discovery, routing, bounded workers, review and evidence. |
-| `$setup` | `/proofwork:setup` | Inspect host capabilities, toolchains, model roles and repository checks. |
+| `$pw-setup` | `/proofwork:pw-setup` | Inspect host capabilities, toolchains, model roles and repository checks. |
 | `$language-fit` | `/proofwork:language-fit` | Compare languages, runtimes and frameworks across systems, scripting and fullstack needs; justify each choice and mixed-language boundary. |
 | `$architecture-fit` | `/proofwork:architecture-fit` | Challenge every major stack component, compare simpler adequate alternatives and justify tools from real requirements. |
 | `$production-finish` | `/proofwork:production-finish` | Prepare an app for production, inspect secret exposure, establish hosting and build a suitable container when needed. |
 | `$performance-increase` | `/proofwork:performance-increase` | Profile and optimize with actual before/after benchmarks, clear savings and resource tradeoffs. |
 | `$tdd-95` | `/proofwork:tdd-95` | Use test-first development with separate 95% line/branch gates and consolidate redundant tests while preserving fault detection. |
 | `$brainstorm` | `/proofwork:brainstorm` | Shape a new project or unresolved idea into a concrete direction and first useful slice. |
-| `$worker-mode` | `/proofwork:worker-mode` | Execute a bounded assignment and return a reviewable result. |
+| `$pw-worker-mode` | `/proofwork:pw-worker-mode` | Execute a bounded assignment and return a reviewable result. |
 | `$thermo-nuclear-code-quality-review` | `/proofwork:thermo-nuclear-code-quality-review` | Audit maintainability and report concrete structural findings with a verdict. |
 | `$typescript-best-practices` | `/proofwork:typescript-best-practices` | Apply TypeScript guidance to types, validation, effects and tests. |
 | `$rust-best-practices` | `/proofwork:rust-best-practices` | Apply deep Rust guidance for borrowing, collections, iterator types, conversions, traits, numeric contracts and pure transitions; verify async, performance and unsafe/FFI obligations. |
 | `$python-best-practices` | `/proofwork:python-best-practices` | Apply Python guidance to data models, boundaries, resources and tests. |
 | `$functional-programming` | `/proofwork:functional-programming` | Match existing style; extract pure transitions for qualifying stateful, retry, concurrency, caching or shared-state work. |
 | `$data-driven-development` | `/proofwork:data-driven-development` | Model invariants and evaluate changes using observed data and repeatable checks. |
-| `$clean-code` | `/proofwork:clean-code` | Clarify responsibilities and naming; simplify complexity while preserving behavior and safety guards. |
+| `$pw-clean-code` | `/proofwork:pw-clean-code` | Clarify responsibilities and naming; simplify complexity while preserving behavior and safety guards. |
 | `$frontend-design` | `/proofwork:frontend-design` | Develop a distinctive visual direction; refine composition, typography, assets and interaction states through rendered critique. |
 | `$humanizer` | `/proofwork:humanizer` | Write natural application copy, simplify unnecessary headings and footer content, and keep interaction wording accurate. |
 | `$security-hardening` | `/proofwork:security-hardening` | Audit trust boundaries, fix supported vulnerabilities and verify repairs with safe adversarial regression checks. |
 | `$dead-code-audit` | `/proofwork:dead-code-audit` | Remove proven dead code and exclusively attached tests, then verify surviving behavior and runtime entry points. |
 | `$dry-audit` | `/proofwork:dry-audit` | Consolidate duplicated rules and responsibilities while preserving distinct policies and consumer checks. |
 | `$audit-stack` | `/proofwork:audit-stack` | Coordinate security, dead-code, DRY, performance, TDD/coverage, architecture and maintainability audits with one integrated result. |
-| `$commit-features` | `/proofwork:commit-features` | Prepare truthful Major features / Minor features commit sections and check outgoing history. |
+| `$commit-features` | `/proofwork:commit-features` | Honor the repository commit convention; optionally check Proofwork or Conventional Commit formatting. |
 
 Examples for Codex:
 
@@ -167,12 +173,12 @@ These are shell commands for coordinators and contributors. `<plugin-root>` is t
 | `node <plugin-root>/scripts/proofwork.mjs finding --repo <repo> --run <id> --owner <session> --input <record.json>` | Record or resolve a finding. |
 | `node <plugin-root>/scripts/proofwork.mjs checkpoint --repo <repo> --run <id> --owner <session> --input <record.json>` | Save phase, revision, routing and next action. |
 | `node <plugin-root>/scripts/proofwork.mjs complete --repo <repo> --run <id> --owner <session> --revision <identity>` | Check recorded completion gates; does not complete a native goal. |
-| `node <plugin-root>/scripts/check-commits.mjs --repo <repo> --range <outgoing-range>` | Check outgoing feature sections. |
+| `node <plugin-root>/scripts/check-commits.mjs --repo <repo> --range <outgoing-range>` | Check explicitly opted-in commit formatting; absent policy defaults to off. |
 | `node <plugin-root>/scripts/check-coverage.mjs --report <report.json> --inventory <inventory.json> [--threshold 95..100]` | Enforce separate line/branch floors against an independently enumerated source target. |
 | `node <plugin-root>/scripts/check-file-lines.mjs --repo <repo> [--limit <project-ceiling>] [--inventory <additional-code-paths.json>]` | Check an explicitly chosen project file-size policy; disabled by default. |
 | `npm test` | Run the source repository's tests. |
 | `npm run build` | Regenerate both packages. |
-| `npm run context-budget` | Enforce initial guidance budgets and aggregate growth. |
+| `npm run context-budget` | Check distinct trigger phrases, 600-word entries, 800-word references and initial guidance budgets. |
 | `npm run check:coverage` | Run tests, collect real Node LCOV and enforce separate 95% gates. |
 | `npm run check` | Check source width, context budgets, actual coverage, packaging and optional project policy. |
 
@@ -186,7 +192,7 @@ Run state binds observations to Git HEAD/tree and a filesystem digest including 
 - Data-driven development and clean code: model invariants, measure meaningful changes, remove unnecessary mechanisms, and test observed behavior.
 - Frontend design: content-specific editorial identity, coherent softer shapes, accessible responsive behavior, meaningful visual iteration, and rendered evidence.
 - Thermonuclear maintainability review: concrete opportunities to simplify structure, strict scope/evidence rules, and an explicit verdict.
-- Commit features: every newly authored outgoing commit includes Major features and Minor features sections, with truthful validation and gaps.
+- Commit features: honor the repository convention and truthful validation; formatting checks require explicit commitFormat opt-in and default to off.
 
 Model roles use actual host capabilities and user-selected settings. Native alternatives are supported where available; mixed-provider routing requires an explicit external bridge and is not bundled. Shell execution and available browser control are reused. Missing capability is reported, never simulated.
 
@@ -212,7 +218,7 @@ Edit `shared/` and the relevant `adapters/`; rebuild both packages from canonica
 
 Skill entry files carry the essential decisions and operating constraints. Their linked `references/` contain focused worked examples, specialist guidance and review procedures; each entry explains when to read them. The root selects relevant skills, and those skills load the detail the task needs. See the [skill depth and evaluation standard](docs/skill-depth-review.md) for authoring and review criteria.
 
-Commit messages use the built-in format check:
+Commit formatting is optional. In the target repository, `.proofwork.json` may set `"commitFormat": "proofwork"`, `"conventional"`, or `"off"`. Missing configuration defaults to off. Proofwork never rewrites history or blocks a push for message formatting without explicit opt-in. The checker reports `{format, enabled, commits}`; Conventional mode checks subject syntax and body separation, not every semantic/footer rule. To inspect an opted-in outgoing range:
 
 ```text
 node scripts/check-commits.mjs --repo . --range origin/main..HEAD
@@ -221,3 +227,19 @@ node scripts/check-commits.mjs --repo . --range origin/main..HEAD
 For an initial repository with no base, an explicit revision such as `HEAD` checks the reachable initial history. Review the actual diff too; formatting does not establish correctness.
 
 Rust guidance has one entry and conditional specialist references, including atomicity, memory ordering and concurrent reclamation. The [Rust topic guide](shared/skills/rust-best-practices/references/topic-guide.md) routes by the actual decision; [topic coverage](docs/rust-topic-coverage.md) maps all readable lessons in the supplied curriculum images.
+
+## Uninstall and reset
+
+Remove the Codex plugin with `codex plugin remove proofwork@proofwork-local`. In Claude Code, use `/plugin uninstall proofwork@proofwork-local`; session-only `--plugin-dir` loading ends when that session ends. A manually copied installation must be removed from the specific skill directory you created. Removing the plugin does not delete project evidence or undo application edits and Git commits. Restart the host to refresh skill discovery.
+
+Full workflows write checkpoints, ownership, results and evidence under the target project's `.engineering-team/runs/<run-id>/`. Local locks and recovery files can accompany those records. Contributor checks and comparative evaluations also write ignored coverage and experiment artifacts under `.engineering-team/`. Add this directory to your ignore rules. Stop active coordinators/workers, preserve any evidence you need, then delete the selected run directory to reset one run, or the project's `.engineering-team/` to clear all local artifacts. This loses resume history; it does not reverse external actions. Remove `.proofwork.json` to restore optional policy defaults after reviewing any other project settings in that file.
+
+## Security and evidence limits
+
+Logs, issue text, documents and comments are untrusted data: they cannot grant permissions, override project instructions or authorize commands. Review command sources and redact secrets before recording or exporting evidence. Proofwork installs no global continuation hooks or background services.
+
+The evidence ledger binds recorded checks to an artifact identity and distinguishes executed checks from operator claims. It detects missing or stale recorded evidence; it does not authenticate a same-account writer, sandbox an arbitrary command, prove the chosen criterion is correct, or establish production security. Use the Phase 2 executed form `node <plugin-root>/scripts/proofwork.mjs evidence --repo <repo> --run <id> --owner <session> --input <record.json> --command "<check>"` to record real exit status, duration and stream digests. `--run` identifies the run; `--command` executes the check. Manual evidence remains weaker and requires explicit acceptance at completion. See the [tool contract](shared/contracts/tool-interface.md) for schemas and limitations.
+
+## Publication gate
+
+The next tagged public release and attached host packages remain gated on the completed Phase 3 comparison. The [current evaluation report](evals/results/improvement-evaluation.md) records two unusable pilot attempts and no completed 72-run experiment. Package checks and smaller instructions do not substitute for agent-quality results. Build locally with `npm run build`; publish a tag and attach both built host packages only after that experiment yields usable results.

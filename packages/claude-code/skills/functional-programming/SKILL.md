@@ -1,6 +1,6 @@
 ---
 name: functional-programming
-description: Use for stateful workflows, retries, concurrency, caching or shared mutable state; match the existing codebase's style first and extract pure transitions only when concrete complexity or testing needs justify them.
+description: For stateful workflows, retries, concurrency, caching or shared mutation.
 ---
 
 # Functional programming

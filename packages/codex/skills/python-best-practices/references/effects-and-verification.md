@@ -2,7 +2,7 @@
 
 ## Translate failures without disguising success
 
-A loader returning `[]` after catching every exception makes corrupt data indistinguishable from an empty dataset. Catch the failure you can handle, translate it to the established application convention, and preserve its cause. This original adapter closes its file on both success and decode failure:
+Returning [] on every exception disguises corruption as empty data. Translate handled failures while preserving causes and cleanup:
 
 ```python
 import json
@@ -55,6 +55,6 @@ Select a timeout and output policy from the operation, rather than buffering unl
 - Async/process: failure, cancellation/timeout, shutdown, and relevant partial effects.
 - Public interface: an affected consumer, configured type checks, and import/runtime compatibility.
 
-Use existing tooling and the supported interpreter. Report actual checks and gaps separately. A passing snippet on one interpreter is not evidence for every supported version or for a full application integration.
+Use existing tooling/supported interpreters; snippets do not prove all versions or application integration. Report checks and gaps.
 
 Run the project's strict static gate over implementation, affected callers and Python tests. Record the effective configuration and included paths, not just a successful command against a convenient snippet. Mypy strict mode or Pyright strict mode is the minimum; retain stronger checks for explicit `Any` where configured. Reject untyped functions, incomplete generics and unknown values escaping adapters. Check overrides, optional values, async return contracts and test helpers when those contracts change. Keep narrowly justified third-party exceptions visible; blanket ignores or relaxed strict settings cannot satisfy the gate. Runtime tests still establish validation, cleanup and effect behavior that static checks cannot prove.

@@ -1,6 +1,6 @@
 ---
 name: python-best-practices
-description: "Use for Python implementation or review; require strict static typing and explicit ownership, resource lifetime, and error contracts."
+description: For Python changes requiring strict typing and resource discipline.
 ---
 
 # Python best practices

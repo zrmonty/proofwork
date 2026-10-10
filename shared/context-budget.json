@@ -4,7 +4,7 @@
     "light": 800,
     "standard": 4000
   },
-  "totalWords": 183585,
-  "description": "Initial entries only. Rebaselined for conditional functional routing, always-read ownership rules and 82 scenarios (12 new); per-route ceilings remain 800/4000 and aggregate growth remains 10%. Conditional references add task-dependent context.",
+  "totalWords": 155239,
+  "description": "Initial entries only, rebaselined after 0.19 pruning for the same 82 scenarios. Light/standard ceilings remain 800/4000; aggregate growth stays 10%. All entries additionally cap at 600 words and each conditional reference at 800.",
   "scenarios": 82
 }

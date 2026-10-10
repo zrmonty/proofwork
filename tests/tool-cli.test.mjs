@@ -10,6 +10,7 @@ test("commit checker CLI checks real outgoing commits and rejects invalid argume
   const git = (args) => spawnSync("git", ["-C", root, ...args], { encoding: "utf8" });
   const run = (args) => spawnSync(process.execPath, ["scripts/check-commits.mjs", ...args], { encoding: "utf8" });
   try {
+    await writeFile(path.join(root, ".proofwork.json"), JSON.stringify({ commitFormat: "proofwork" }));
     for (const args of [
       ["init"],
       ["config", "user.name", "Fixture"],

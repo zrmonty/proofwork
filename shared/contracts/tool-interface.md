@@ -51,3 +51,5 @@ No universal file or function ceiling is enforced. The file checker is disabled 
 ## Build
 
 `node scripts/build.mjs` regenerates both local packages from **our** authored canonical assets, verifies package-local Markdown references and manifests, and produces `packages/codex` and `packages/claude-code`. These generated package directories are wholly build-owned; do not edit them. No global settings, accounts, remote publication or native goals are modified.
+
+Commit formatting is separate from completion evidence. `check-commits.mjs --repo PATH --range RANGE` consults the Git root's `.proofwork.json` commitFormat (proofwork, conventional or off; missing means off), returning `{format, enabled, commits}`. No hook is installed and no history is rewritten. Apply a formatting gate only after explicit opt-in; see [commit guidance](../skills/commit-features/SKILL.md). Invalid configuration is reported rather than silently selecting a format.

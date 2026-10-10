@@ -1,0 +1,52 @@
+{
+  "version": "0.19.0",
+  "command": "npm run check",
+  "passed": true,
+  "sourceIdentity": "scripts-sha256:8ae28ec1da7fcdaced3b0683ebf6b24d7704322f07b79fcedd25a4835a5aee54",
+  "coverage": {
+    "lines": {
+      "covered": 1302,
+      "total": 1319,
+      "percent": 98.71114480667173,
+      "passed": true
+    },
+    "branches": {
+      "covered": 724,
+      "total": 740,
+      "percent": 97.83783783783784,
+      "passed": true
+    }
+  },
+  "skills": 23,
+  "references": 94,
+  "descriptionWords": {
+    "before": 520,
+    "after": 200
+  },
+  "contentWords": {
+    "before": 94488,
+    "after": 60223
+  },
+  "entryMaxWords": 580,
+  "referenceMaxWords": 795,
+  "phase3Completed": false,
+  "publicReleasePublished": false,
+  "installedCodex": {
+    "version": "0.19.0",
+    "filesMatching": 158,
+    "routeExecuted": true
+  },
+  "claudeManifestValidated": true,
+  "archives": [
+    {
+      "name": "proofwork-codex-v0.19.0.zip",
+      "sha256": "11931b1b6c6e587a34901288fed11346a94600232e27b58b258bba9f0f610452",
+      "files": 158
+    },
+    {
+      "name": "proofwork-claude-code-v0.19.0.zip",
+      "sha256": "052b8d03ade8ecb842d314593ea32dfc90c782ff4df1019522361845d8fdde8a",
+      "files": 158
+    }
+  ]
+}

@@ -1,79 +1,59 @@
-# Messages and outgoing history
+# Message choices and outgoing history
 
-Use this reference when classifying a change or verifying a push's outgoing set. Examples describe fictional outcomes; substitute only claims supported by the staged artifact.
+Read when selecting an opted-in format or establishing what an authorized push will send. Examples are fictional drafts, not executed changes or tests.
 
-## Message examples
+## Select policy before syntax
 
-A substantial capability with a distinct focused improvement:
+The target repository controls the plugin gate through `.proofwork.json`:
 
-```text
-feat: recover interrupted exports
-
-Major features
-- Resume an interrupted export from its validated checkpoint.
-
-Minor features
-- Show the rejected checkpoint field in the recovery error.
-
-Validation
-- Interrupted-export regression passed on the staged implementation.
-- Browser recovery flow was not exercised.
+```json
+{ "commitFormat": "proofwork" }
 ```
 
-A focused fix:
+Allowed values are `proofwork`, `conventional` and `off`. Missing policy means off. A selected format does not authorize commits or pushes, and off does not disable existing repository hooks or independent project requirements. Do not edit configuration merely to obtain a passing check.
+
+With Proofwork selected, a focused fix could read:
 
 ```text
-fix: preserve the final exported page
+Fix the last page omission
 
 Major features
 - None.
 
 Minor features
-- Return every page in the original order, including a single-page export.
+- Preserve the final page when assembling an export.
 
 Validation
-- Export regression passed for empty, single-page, and multi-page inputs.
+- Single-page and multi-page regression checks passed on the committed artifact.
+- Browser behavior was not exercised.
 ```
 
-A compatibility change:
+A small change can enable a substantial capability; a large behavior-preserving cleanup can be minor. Use the actual outcome, and do not repeat one change in both sections. Describe breaking compatibility separately without deriving a release bump from these categories.
+
+With Conventional selected, a focused fix could read:
 
 ```text
-refactor: remove the deprecated report adapter
+fix(export): preserve the final page
 
-Major features
-- None.
-
-Minor features
-- Route internal report readers through the maintained loader.
-
-Breaking changes
-- External imports of the removed adapter need migration.
-
-Validation
-- Internal consumer integration passed.
-- External consumer compatibility was not verified.
+Keep the original page order when assembling the output.
 ```
 
-The last example is not permission to make that breaking change. The task must authorize it. Feature category does not select a release bump; use the project's compatibility/version policy independently.
+The [Conventional Commits specification](https://www.conventionalcommits.org/en/v1.0.0/) defines the optional scope and breaking marker. Type and scope casing are not intrinsically restricted by that specification. Our checker accepts typed subjects with optional scope and `!`, a nonempty description and a blank separator before a body. It does not determine whether a type describes the diff, infer breaking behavior, validate every footer, or choose a release.
 
-## Determine the actual range
+With off selected, an ordinary subject such as `Preserve the final exported page` remains acceptable to the plugin. Preserve the project's existing form or the user's requested draft; do not append mandatory sections.
 
-Inspect the configured push target and observed remote refs. Refresh or otherwise inspect remote state when authorized and available. Validate both the source revision and destination; a branch's upstream and its push destination can differ.
+## Establish the outgoing set
 
-For a normal update to a known remote branch, a range such as `<observed-destination-tip>..<source-tip>` selects commits reachable from the source and absent from that destination. Confirm whether the update is a fast-forward. Divergence is a history decision, not a reason to force-push.
+Inspect the configured destination and observed remote refs. A branch's upstream can differ from its push target. For a known branch, compare the observed destination tip with the actual source tip and check normal fast-forward safety.
 
-For a new branch in an existing repository, inspect the known remote history and identify commits newly introduced by the source. A comparison to the known base can be appropriate, but record that base and check whether other remote refs affect which commits are new. Do not check the entire inherited history merely because the destination branch is new.
+A new branch on a nonempty remote does not make every inherited commit newly authored. Establish its known base and relevant remote history. For an empty remote, an explicit source revision can select reachable initial history. Multiple destinations need separate observed ranges and outcomes.
 
-For an empty remote repository, checking the source's reachable history may be appropriate; `HEAD` includes ancestors as well as the tip. For multiple source refs, inspect each actual outgoing set. Do not pass an invented range just to get a passing result.
+When a format is enabled, validate all newly outgoing commits selected by the explicit range; checking only the tip can miss an earlier incompatible message. With the gate off, skip this plugin's format enforcement. Remote inspection and normal push safety still apply to an authorized delivery.
 
-The checker accepts an explicit revision/range and checks every selected commit's message. It does not discover push targets, verify remote freshness, identify authorship, certify a fast-forward, or compare claims with diffs. Those are the coordinator's responsibilities.
+The checker does not discover push targets, identify authorship, refresh remotes or certify a fast-forward. An unavailable remote leaves the outgoing set unverified. An empty checked range proves only that comparison has no commits; a disabled result proves no format was enforced.
 
-Freeze the source identity after checks; if another worker advances the branch or a new commit appears, inspect and validate the added outgoing work before sending it. Use explicit destination refs when the requested destination could differ from Git's configured default. If the remote moves and a normal push is rejected, refresh its observed state and re-evaluate the range and integration; rejection does not create force-push authority.
+Freeze the source identity after checks. If it advances or the destination moves, inspect the changed set and re-evaluate. A rejected push does not create force-push permission.
 
-For multiple destinations, treat success separately. One remote branch accepting an update does not prove every target was updated. An ambiguous network result requires inspecting the remote identity before claiming success or repeating effects. Report the accepted source/destination identities and any unresolved target without inventing an all-or-nothing outcome.
+## Preserve history
 
-## Message repairs
-
-Before correcting local history, establish which commits were authored here and remain unpublished. If another worker authored a commit, coordinate rather than rewriting their work independently. Preserve signatures and hooks under the project's policy; changing a commit changes its identity.
-
-If published history has malformed headings, disclose it and proceed only within authorized repository policy. Never amend another person's history or use a force push as automatic format repair. A valid message on a new commit does not retroactively repair an old malformed message.
+Never rewrite messages automatically to satisfy either format. Report the offending commit and a proposed correction. Explicitly authorized unpublished-history repair must preserve intended content, active owners, hooks and signing policy. Shared or published history also requires explicit rewrite authority. A new valid message cannot repair old history retroactively.

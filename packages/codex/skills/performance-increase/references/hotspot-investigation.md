@@ -1,43 +1,35 @@
 # Investigate the work that dominates
 
-Read this reference for product-code optimization. Select the measurements that explain the symptom; do not run every instrument or change every item below.
+Select instruments explaining the symptom. Separate request queue wait, computation, downstream calls, transfer and rendering; retained memory from transient allocations/peak buffers; saturation, retries, contention and backpressure; startup from steady-state work. Idle CPU may mean I/O wait.
 
-## Follow cost through the operation
+Use representative sanitized/synthetic distributions. Repeated versus unique keys, data exceeding memory, contention and cold caches change bottlenecks. Never export private production data for convenience.
 
-For a slow request, separate queue wait, computation, downstream calls, data transfer and rendering. For memory pressure, distinguish retained objects from transient allocations and peak buffer size. For poor throughput, inspect saturation, retries, contention and backpressure; an idle CPU can indicate an I/O wait rather than inefficient arithmetic. For startup, inspect module loading, initialization and first-use work separately from steady-state execution.
+## Connect observations to bounded changes
 
-Measure the relevant path with representative inputs, including the shape that makes it expensive. A thousand records with repeated keys behaves differently from a thousand unique records. A dataset larger than memory or a shared resource under contention can reveal a different bottleneck from an isolated hot-cache microbenchmark. Use sanitized or synthetic inputs with the relevant distribution; do not export private production data for convenience.
-
-An optimization opportunity should connect an observation to a change and a check:
-
-| Observation | Candidate change | Semantics and cost to verify |
+| Observed work | Candidate | Contracts/costs to preserve |
 | --- | --- | --- |
-| Repeated scans grow with two input dimensions | Build an owned lookup once; use an algorithm with less repeated work | Equality rules, duplicates, output order, index construction and memory |
-| Repeated parsing or serialization dominates a request | Parse once at the boundary; retain a suitable internal representation | Validation, lifecycle, exact wire contract and retained memory |
-| Many tiny I/O operations dominate | Batch within the operation's ownership boundary | Partial failures, retry behavior, ordering, transaction size and latency |
-| Large intermediate arrays or copied buffers dominate allocations | Fuse local transformations, stream where appropriate, or borrow safely | Caller ownership, buffer lifetime, cleanup and peak memory |
-| Database time dominates | Inspect queries and plans; remove repeated queries or add a justified index | Results, transaction behavior, write/storage overhead and production cardinality |
-| Duplicate expensive work repeats across requests | Consider a scoped cache only after measuring reuse | Invalidation, freshness, authorization scope, bounded memory and cold misses |
-| Work waits on independent bounded I/O | Consider bounded concurrency | Downstream capacity, backpressure, cancellation, ordering and failure cleanup |
+| Repeated multidimensional scans | One owned lookup/improved algorithm | Equality, duplicates, order, construction and memory |
+| Repeated parsing/serialization | Parse once at boundary | Validation, wire format, lifecycle and retention |
+| Tiny repeated I/O | Ownership-bounded batching | Partial failures, retries, order, transaction size and latency |
+| Intermediate arrays/copied buffers | Fusion, streaming or safe borrowing | Caller ownership, lifetime, cleanup and peak memory |
+| Database cost | Inspect plans/queries/justified indexes | Results, transactions, write/storage cost and cardinality |
+| Repeated cross-request work | Measured scoped cache | Authorization, freshness, invalidation, bounds and misses |
+| Independent waiting I/O | Bounded concurrency | Capacity, backpressure, cancellation, order and cleanup |
 
-Do not assume a constant-factor rewrite beats the existing implementation. Index construction can lose for small inputs. A larger batch can increase latency or lock duration. Concurrency can make a shared resource slower. Record the actual useful range instead of concealing the crossover.
+Indexes can lose on small inputs; batches can increase latency/locks; concurrency can worsen saturation. Report crossover ranges. Probe collisions/skew, long strings, misses and partial failures where mechanisms warrant them. Bound retention/lifetime, not just allocation count. Tiny warmed fixtures can conceal growth.
 
-Test distributions that exercise the changed mechanism: collisions or skew for lookups, long strings for parsing, repeated misses for caches, and partial downstream failures for batching. Bound retained memory and lifetime, not just the allocation count in one operation. A cache warmed with a tiny fixture can hide unbounded growth; a batch that succeeds only when every item succeeds has not preserved error semantics. Evaluate only the relevant risks rather than expanding each task into a generic stress campaign.
+## Incumbent language tools
 
-## Preserve the language's useful tools
+**TypeScript/JavaScript:** measure emitted production code on its actual runtime. [Node performance APIs](https://nodejs.org/api/perf_hooks.html) and existing profiling distinguish CPU, event-loop delay and async waits. Await completed work/consume results; include relevant JIT/GC variation. Node timings do not prove browser flows. Avoid blocking the main thread to save Promise overhead.
 
-Read only the subsection matching the implementation. Check the installed tool and repository conventions before using version-dependent flags.
+**Rust:** inspect target/features and [Cargo's bench contract](https://doc.rust-lang.org/cargo/commands/cargo-bench.html). Optimized profiles do not make unstable #[bench] available on stable; retain established custom harnesses. Prevent optimized-away work through consumption/black-box boundaries, verifying outputs outside timing. Optimize clones/formatting/conversions only when observed. Safe borrowing/private accumulators outrank speculative unsafe rewrites.
 
-**TypeScript and JavaScript.** Measure the emitted production code under its actual runtime. In Node, [performance measurement APIs](https://nodejs.org/api/perf_hooks.html) provide timing and observation facilities; use existing runtime profiling to distinguish CPU, event-loop delays and asynchronous waits. Await the operation being measured and consume its result. Include JIT warm-up and garbage-collection variation where relevant. A fast Node function does not prove a browser interaction is fast; measure the actual browser flow for frontend claims. Avoid making the main thread do more blocking work to reduce Promise overhead.
+**Python:** separate interpreter, library, startup, serialization and I/O costs. [timeit](https://docs.python.org/3/library/timeit.html) excludes setup and normally disables GC; disclose boundaries/account for collection. Best-case numbers do not prove service tails. Include conversions/intermediate allocations in library comparisons. Processes add serialization/lifecycle costs.
 
-**Rust.** Inspect the configured benchmark target and features. [Cargo's benchmark command](https://doc.rust-lang.org/cargo/commands/cargo-bench.html) uses an optimized bench profile by default; its built-in `#[bench]` facility is unstable, so preserve an existing stable custom harness. Prevent optimized-away work with the harness's result-consumption mechanism or an appropriate black-box boundary, and validate outputs outside the timed region. Repeated clones, formatting and owned conversions are candidates only when their cost is observed. Borrowing or an owned private accumulator is preferable to introducing unsafe code for a marginal result.
+**SQL:** inspect actual plans with realistic statistics. SQLite [EXPLAIN QUERY PLAN](https://www.sqlite.org/eqp.html) is diagnostic, version-dependent text, not a stable parser contract. Measure equivalent results/read benefit plus write cost. Caching cannot replace required transactions/freshness.
 
-**Python.** Separate interpreter work from library calls, process startup, serialization and I/O. [timeit](https://docs.python.org/3/library/timeit.html) supports repeated small-code measurements but excludes setup and normally disables garbage collection; disclose those boundaries and account for collection when it matters. A timeit best-case number does not establish service tail latency. Prefer existing data structures or library operations when they remove interpreted repeated work; include conversion and intermediate-allocation costs. Verify behavior before choosing processes, which introduce serialization and lifecycle costs.
+Check installed versions/conventions before flags. One local improvement does not justify a universal cache/service layer.
 
-**SQL.** Inspect a plan for the actual query and realistic statistics before choosing an index. SQLite's [EXPLAIN QUERY PLAN](https://www.sqlite.org/eqp.html) distinguishes scan and search strategies; its output is diagnostic and may change, so do not build a durable machine parser around its text. Measure result equivalence and read benefit together with write cost. Caching a result cannot replace a required transaction or freshness guarantee.
+## Membership example
 
-## Example of a bounded improvement
-
-A request builds an ordered list of members allowed by a set of identifiers. The implementation scans every identifier for every member. A per-request set may reduce repeated membership work while keeping the member traversal in the same order. First establish identifier equality and duplicate behavior, then compare empty, small and representative large inputs. Include construction of the set in the operation timing. If only an artificially reused set wins, it is not evidence that this request became faster.
-
-Keep the resulting implementation proportionate. One local index does not justify a universal cache layer or a new service.
+A per-request identifier set may replace repeated scans while preserving member order. Establish equality/duplicates; compare empty, small and representative large inputs. Include set construction in operation timing. An artificially reused set winning does not prove the actual request improved. Report workload limits rather than a universal claim.

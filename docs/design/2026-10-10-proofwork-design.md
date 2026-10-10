@@ -43,11 +43,11 @@ Proposed source layout for a dedicated repository:
 ```text
 shared/
   skills/use-proofwork/SKILL.md
-  skills/worker-mode/SKILL.md
+  skills/pw-worker-mode/SKILL.md
   skills/thermo-nuclear-code-quality-review/SKILL.md
-  skills/setup/SKILL.md
+  skills/pw-setup/SKILL.md
   skills/{typescript-best-practices,rust-best-practices,python-best-practices}/SKILL.md
-  skills/{data-driven-development,clean-code}/SKILL.md
+  skills/{data-driven-development,pw-clean-code}/SKILL.md
   skills/functional-programming/SKILL.md
   skills/commit-features/SKILL.md
   skills/frontend-design/SKILL.md
@@ -230,7 +230,7 @@ First-release gates:
 8. An unavailable model/browser and an overlapping-file assignment are handled explicitly. Ownership and review gates remain effective.
 9. Independently started workers load the same standards; workers without a team assignment do not write a team's aggregate state.
 10. TypeScript, Rust, and Python fixtures each demonstrate language-appropriate implementation and review. Existing project checks are respected, and no unrelated dependency/configuration changes are introduced. A mixed-language fixture verifies its shared serialization/API contract.
-11. A data-driven fixture includes a baseline and experiment supporting the accepted decision. A clean-code fixture demonstrates a concrete simplification with behavior preservation; an already simple implementation does not receive invented abstraction demands.
+11. A data-driven fixture includes a baseline and experiment supporting the accepted decision. A pw-clean-code fixture demonstrates a concrete simplification with behavior preservation; an already simple implementation does not receive invented abstraction demands.
 12. Every shipped skill and instructional asset has a project specification and behavioral acceptance cases. An authorship review confirms no existing skill text, workflow, or supporting instructional asset was copied or adapted. Shared assets replicated between our own platform packages come from our canonical authored source.
 13. Frontend fixtures cover a content-led public page and a task-led application interface with distinct briefs. Each demonstrates a reasoned direction, content-specific composition, responsive rendering, keyboard-accessible primary flows, and required loading/empty/error states. A refinement fixture preserves its incumbent identity. Review flags an intentionally generic composition and a deliberate usability defect with concrete remedies, while accepting justified standard patterns. Parallel UI slices remain coherent after integration.
 14. An editorial fixture uses long headlines, author metadata, article content, and relevant imagery to test the preferred authentic, softer direction. Its index and detail layouts remain readable on desktop and mobile; radius choices are coherent without boxing every region. A before/after visual iteration addresses a seeded hierarchy or density defect with a substantive improvement and preserves keyboard usability. Acceptance evaluates our brief, not pixel similarity to Substack.
@@ -242,7 +242,7 @@ Delivery sequence: trustworthy worker mode and shared principles; platform packa
 
 ## Boundaries and open decisions
 
-Every outgoing commit uses the original commit-features skill. Its message contains explicit `Major features` and `Minor features` sections describing the actual staged change, using `None` when a category has no changes, plus validation and material limitations when applicable. Major describes a substantial user-facing capability or architectural milestone; minor describes a smaller improvement, fix, documentation, or tooling change. These categories do not determine semantic version bumps; breaking compatibility is called out separately. Inspect the staged diff and relevant evidence, avoid invented features, and never claim tests not run. Existing commits are not rewritten merely to change formatting. Before pushing new commits, validate their message structure and review the actual outgoing range. Push only within the user's authorization; the skill does not grant publication permission.
+Outgoing commits honor project conventions. The optional commitFormat policy defaults to off; proofwork and conventional modes require explicit repository opt-in. Formatting never grants permission to rewrite history or publish. Inspect the staged diff and report only observed validation.
 
 Out of first-release scope: a hosted dashboard, global daemon, autonomous deployment, native desktop/TUI control, an automatic cross-provider bridge, and importing existing skills. Keep a capability inventory with specified/deferred decisions and evaluation coverage. Choose the project's license explicitly; retain any notices required by actual non-skill dependencies.
 

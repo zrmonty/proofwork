@@ -1,101 +1,33 @@
-# Structs, enums and methods that preserve meaning
+# Structs, enums and method contracts
 
-Read for data shapes, wrappers, implementation blocks and method receiver changes. A type should clarify the domain and its ownership; extra abstraction requires a concrete reason.
+Use when selecting domain representations, enforcing construction or choosing receiver ownership. Representation should make the actual valid states and consumer obligations clear.
 
-## Choose the shape from valid states
+## Products, alternatives and validated construction
 
-A struct means its fields coexist. An enum means one alternative is active. Start with valid examples and invalid combinations before selecting either representation.
+Struct fields coexist; enum variants describe alternatives and can carry only the payload each state needs. Replace coupled flags that admit impossible combinations, while retaining independent booleans for independent facts. Newtypes distinguish real roles or units; aliases do not create a distinct type. Avoid wrappers with no domain or compatibility benefit.
 
-If a job can be queued, running or finished, place each state's required data in that variant. A single struct with status plus several optional fields allows a running job without its worker and a queued job with a completion result.
+Tuple structs suit a compact single role. Named fields suit separately meaningful values and evolving APIs. Public fields enable caller construction and maintenance obligations; private fields plus constructors can protect invariants only if every construction route obeys them. Check decoding, conversions, defaults, migrations, tests and persistence adapters. A derived Default must represent a valid state. Public enum payloads can bypass internal validation too; use validated payload types where needed.
 
-Keep raw input and validated domain data separate when the boundary can receive invalid combinations. Reject or translate them once under a clear policy. A type name alone does not prove validation occurred.
+Separate legacy wire/storage representations from internal domain values when compatibility requires accepting old forms. Reject malformed data at that boundary rather than weakening every internal consumer. Struct-update syntax moves non-Copy fields; it does not silently clone them. Partial moves interact with later whole-value use and Drop; inspect the actual lifetime and cleanup contract.
 
-Do not convert every flag into a state machine. A simple independent property can remain a boolean. Use variants when alternatives change permitted data, transitions or recovery actions.
+## Receiver choice describes ownership
 
-When variants only wrap another value, decide whether the wrapper establishes a meaningful domain distinction or merely duplicates the underlying type. Retain a wrapper when it prevents an actual mix-up or models a closed choice.
+- `&self` observes or shares access. Interior mutation still needs an explicit effect/synchronization contract.
+- `&mut self` grants exclusive access for a mutation; preserve invariants on success and failure.
+- `self` consumes ownership, suitable for conversion, finalization or transitions that invalidate the previous value.
 
-The [enum reference](https://doc.rust-lang.org/reference/items/enumerations.html) describes representation forms. The application decides which combinations belong in the domain.
+Return a borrowed field when its owner/lifetime remains useful; return a small owned result when independence simplifies callers or avoids retaining a large owner. Check method resolution and downstream call sites before changing receivers, return lifetimes or trait implementations.
 
-## Tuples are local shorthand, not unnamed domain models
+Borrow the required fields rather than an entire struct when a helper needlessly blocks disjoint access. Temporary reborrows can preserve later exclusive use. Splitting safe disjoint regions can express valid access; do not clone or reach for unsafe merely to silence a borrow error. See [borrowing](borrowing-and-reborrowing.md).
 
-Tuples have fixed positions that can hold different types. Use a tuple for a brief local result such as a split position and remainder when the roles are evident at the call site.
+## Associated and trait APIs
 
-A public tuple of several strings or numbers asks every caller to memorize positions. A named struct gives those positions stable meaning and improves changes and review. Avoid switching shapes solely for stylistic uniformity.
+An associated function belongs to a type's creation or operation contract; a free function is clearer when no type owns the policy. Associated constants describe fixed type-level facts, not runtime configuration. A setter must preserve cross-field invariants; prefer an atomic domain operation when separate setters expose invalid intermediate states.
 
-A tuple struct can distinguish one domain value from its underlying representation. Make its field private if construction must enforce an invariant. A public field allows callers to bypass a checked constructor.
+Inherent methods describe the type's own API. Trait methods fulfill a shared consumer contract; implement only meaningful behavior and account for blanket implementations, coherence and method-name ambiguity. Read [generics and dispatch](generics-traits-and-dispatch.md) before generalizing and [derive laws](derives-equality-and-hashing.md) before deriving comparison, hashing or cloning.
 
-`type UserId = String` does not create a distinct type; a wrapper can. Check whether this distinction prevents accidental mixing before adding it. Wrappers should not introduce a network of forwarding methods without a useful domain boundary.
+## Verification
 
-Unit-like structs can represent a stateless value or marker. They should not become global service holders merely because no fields are needed today.
+Probe rejected construction across every affected entry route, valid variant payloads, ownership after calls, failure-preserved invariants and representative consumers. Transition tests need adapter authority/version/effect checks when those guarantees are claimed; an enum or unit test alone cannot prove them. Use [APIs and transitions](api-errors-and-transitions.md) and [downstream checks](downstream-compatibility.md) for those boundaries.
 
-See [tuple types](https://doc.rust-lang.org/reference/types/tuple.html) and [struct items](https://doc.rust-lang.org/reference/items/structs.html) for the language forms.
-
-## Construction must establish the same invariant everywhere
-
-Use associated construction functions to centralize validation that every value must satisfy. A fallible constructor should identify what the caller can correct. Name constructors by their actual promise; `new` is not automatically safe or validated.
-
-Check alternate construction paths: deserialization, defaults, struct literals in sibling modules, conversion traits, test factories and migrations. A validated constructor followed by a derived decoder that bypasses it leaves the invariant unenforced.
-
-`Default` is useful only if its value is meaningful for the type. Do not create an invalid placeholder that every caller must remember to repair. An uninitialized domain object is better represented explicitly when needed.
-
-Struct update syntax can move fields from its source. Inspect whether later callers still need that source and whether excluded fields carry important ownership. It is not an implicit clone or a validation step.
-
-An enum's variant construction must obey its payload invariants too. If public variants expose unchecked primitives, internal validation cannot guarantee that downstream callers constructed safe values.
-
-The [struct-expression reference](https://doc.rust-lang.org/reference/expressions/struct-expr.html) defines construction and update behavior. Keep invariant enforcement within actual visibility and module boundaries.
-
-## Select the receiver from the operation
-
-`&self` normally observes a value without consuming it. `&mut self` grants exclusive access during the call. `self` transfers ownership to the method. Choose the contract the caller needs before choosing a convenient receiver.
-
-An observing receiver is not proof that the method is pure. Interior mutability, synchronization or external effects may still change state. Name and document those behaviors where callers rely on them.
-
-A consuming method fits a conversion or transition where the old value should no longer be used. Do not consume a large owner merely to avoid explaining a borrow in a small calculation.
-
-An exclusive receiver can update one value efficiently. Keep local mutation private and bounded; compute proposed next state before external commits when the decision can be pure. Borrowing exclusively does not make an external multi-step update atomic.
-
-Returning a reference ties the result to its source lifetime. Decide whether this keeps a large owner or lock alive unnecessarily. Prefer an owned small result where it materially simplifies the real consumer.
-
-Inspect the [method-call rules](https://doc.rust-lang.org/reference/expressions/method-call-expr.html) when automatic borrowing or dereferencing makes the receiver unclear. Do not infer the called implementation from the visible punctuation alone.
-
-## Split field observations before borrowing the whole owner
-
-Rust can recognize disjoint field borrows in many direct expressions. A helper receiving the entire owner may hide that disjointness and extend the access its signature requests.
-
-If a method needs one field, consider a focused parameter or a short local borrow instead of granting access to the complete object. Do not introduce an elaborate projection framework for a straightforward field split.
-
-Keep a mutable field reference scoped to its last required use. Do not retain references into a collection while an operation can reallocate or otherwise invalidate the relationship.
-
-Taking a reference to a field does not copy or clone it. Moving a non-Copy field out changes which parts remain usable; owners implementing Drop restrict such partial moves. Let the compiler reject the unsupported operation rather than working around it with raw pointers.
-
-For conflicting accesses, first identify the actual owner and required access interval. Clone only when an independent owned snapshot is part of the contract, not as a habitual response to a borrow error.
-
-Use the ownership references for the detailed borrowing repair path; preserve this file's focus on domain shapes and APIs.
-
-## Associated functions and constants
-
-An associated function without a receiver belongs to a type's API but does not act on an existing instance. Use it for meaningful construction or type-related calculations; a free function can be clearer when no type owns the responsibility.
-
-An associated constant expresses a type-level value. It is not mutable per-instance configuration. Do not place a deployment setting in a constant when users must select it at runtime.
-
-Use methods to give callers useful operations, not just a getter and setter for every field. A setter that can violate an invariant undermines a validated constructor; prefer a checked domain operation where change is permitted.
-
-Inherent implementation blocks and trait implementations have different roles. An inherent method defines the type's own API; a trait implementation fulfills a shared contract. Do not add a trait only to rename one private method.
-
-Keep public method ownership, panic behavior and error cases documented where consumers depend on them. Adding a similarly named method or changing a receiver can affect resolution and callers even when the defining crate compiles.
-
-The [implementation reference](https://doc.rust-lang.org/reference/items/implementations.html) supplies the language rules. Use [downstream compatibility](downstream-compatibility.md) before changing exported methods or types.
-
-## Proof checks
-
-List invalid combinations that the old representation admitted. Establish which are now impossible to construct and which still require runtime validation.
-
-Exercise every permitted constructor and decoder with valid and invalid input. Include defaulting and persistence migration only when those paths actually exist.
-
-Compile a realistic caller that observes an owner twice, mutates it and consumes it under the intended API. This detects receiver changes hidden by defining-crate tests.
-
-For transitions, verify unchanged input, a valid proposed next state and rejected outcomes before checking the adapter's authoritative commit behavior.
-
-Extract cohesive domain calculations rather than concealing a long mutation in an oversized closure.
-
-Derive decisions need their own contract review; continue with [derives, equality and hashing](derives-equality-and-hashing.md). Generic APIs continue with [traits and dispatch](generics-traits-and-dispatch.md).
+Primary sources: [structs](https://doc.rust-lang.org/reference/items/structs.html), [enums](https://doc.rust-lang.org/reference/items/enumerations.html) and [associated items](https://doc.rust-lang.org/reference/items/associated-items.html).

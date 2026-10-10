@@ -11,7 +11,7 @@ test('routing loads core discipline and affected languages without mutating inpu
   const files = ['src/a.tsx', 'src/main.rs', 'tools/fix.py'];
   const result = route('Fix the article layout bug', files);
   assert.equal(result.playbook, 'bug-fix');
-  for (const skill of ['worker-mode', 'data-driven-development', 'clean-code', 'typescript-best-practices', 'rust-best-practices', 'python-best-practices', 'frontend-design']) assert.ok(result.skills.includes(skill));
+  for (const skill of ['pw-worker-mode', 'data-driven-development', 'pw-clean-code', 'typescript-best-practices', 'rust-best-practices', 'python-best-practices', 'frontend-design']) assert.ok(result.skills.includes(skill));
   assert.deepEqual(files, ['src/a.tsx', 'src/main.rs', 'tools/fix.py']);
   assert.equal(route('Review this change').playbook, 'review');
   assert.equal(route('Investigate latency').playbook, 'investigate');
@@ -24,7 +24,7 @@ test('routing ties audit-stack to core audits and routes DRY without dry-run con
   for (const task of ['/proofwork:audit-stack Audit and fix this repo', '$audit-stack', 'Run the audit stack']) {
     const result = route(task, ['src/main.py']);
     assert.equal(result.playbook, 'review');
-    for (const skill of ['audit-stack', 'security-hardening', 'dead-code-audit', 'dry-audit', 'performance-increase', 'tdd-95', 'architecture-fit', 'thermo-nuclear-code-quality-review', 'data-driven-development', 'clean-code', 'python-best-practices']) assert.ok(result.skills.includes(skill), `${task}: ${skill}`);
+    for (const skill of ['audit-stack', 'security-hardening', 'dead-code-audit', 'dry-audit', 'performance-increase', 'tdd-95', 'architecture-fit', 'thermo-nuclear-code-quality-review', 'data-driven-development', 'pw-clean-code', 'python-best-practices']) assert.ok(result.skills.includes(skill), `${task}: ${skill}`);
     assert.equal(result.skills.length, new Set(result.skills).size);
     assert.ok(!result.skills.includes('production-finish'));
     assert.ok(!result.skills.includes('frontend-design'));
@@ -148,7 +148,7 @@ test('checkpoints retain run context, reject unsafe paths and invalidate stale t
   for (const file of ['../a.ts','.. /a.ts','NUL.txt','a.ts:stream','C:/a.ts','a\\b.ts']) assert.throws(() => transition(initial,'assign',{id:'a',objective:'fix',files:[file],revision:'r1'},'coordinator'),/path/);
   const assigned = transition(initial,'assign',{id:'a',objective:'fix',files:['src'],revision:'r1'},'coordinator');
   assert.throws(() => transition(assigned,'assign',{id:'b',objective:'fix',files:['src/a.ts'],revision:'r1'},'coordinator'),/overlap/);
-  const checkpoint = transition(assigned,'checkpoint',{activeMode:'use-proofwork',designReference:'docs/design.md',skills:['clean-code'],playbook:'feature',limits:{workers:2},outstandingEffects:['inspect external action'],revision:'r2',hostStatus:'active'},'coordinator');
+  const checkpoint = transition(assigned,'checkpoint',{activeMode:'use-proofwork',designReference:'docs/design.md',skills:['pw-clean-code'],playbook:'feature',limits:{workers:2},outstandingEffects:['inspect external action'],revision:'r2',hostStatus:'active'},'coordinator');
   assert.equal(checkpoint.designReference,'docs/design.md');
   assert.deepEqual(checkpoint.limits,{workers:2});
   assert.equal(checkpoint.revision,'r2');

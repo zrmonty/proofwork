@@ -1,56 +1,42 @@
 # Coordination and integration
 
-Read before substantial delegation, shared-interface work or combined design implementation. Use the assignment contract as the record format; the examples below explain decisions rather than adding schema fields.
+Read before substantial delegation, shared interfaces or combined design work. Use the assignment contract for records, not a second schema.
 
-## Choose a useful split
+## Independent slices need stable contracts
 
-Ask whether each slice can proceed from the same stable contract without editing the same owner or guessing another slice's behavior. Separate files are necessary for a shared checkout but do not establish independent semantics. Two modules can still compete over a schema, error format, cache or transaction.
+Separate files alone do not make work independent: schemas, error formats, caches, transactions and state policies cross paths. Resolve shared interfaces before dependent edits.
 
-| Situation | Useful choice | Why |
-| --- | --- | --- |
-| Fix one export boundary condition | One implementer, focused review if warranted | Splitting reproduction and implementation across concurrent editors adds coordination without independence |
-| Unclear failure across several consumers | Read-only investigators for distinct questions; one owner fixes the rule | Independent evidence is useful before choosing edits |
-| API plus UI using an agreed response | Separate owned slices after agreeing shape, errors and states | Both workers can implement without designing incompatible contracts |
-| Competing implementations of one module | Isolated checkouts and bounded comparison | Shared writes would corrupt the comparison |
-| Generator plus generated packages | Generator owner; coordinator rebuilds after collection | Output cannot be treated as an independently maintained slice |
-| Two workers both need a shared type | Coordinator resolves ownership/interface first | “Only a small edit” still creates conflicting writes |
+- One boundary-condition fix: one owner; additional editors rarely help.
+- Unclear failures: distinct read-only investigators, then one rule owner.
+- API/UI with agreed responses: disjoint ownership after shape/error/state agreement.
+- Competing implementations: isolated checkouts and bounded comparison.
+- Generator/output: generation owner; coordinator rebuilds after collection.
+- Shared type/style: one owner or isolated work with sequential integration.
 
-An assignment states excluded work as concretely as owned work. “Implement pagination in src/export.ts; do not edit the shared response type or regenerated packages” is reviewable. “Handle the data side” is not. If a contract changes, tell affected workers and revise assignments before they continue dependent writes.
+Assignments state owned and excluded work concretely: “Pagination in src/export.ts; exclude shared response type and regenerated packages.” Revise affected assignments when contracts change, before dependent writes. Never overwrite another owner's changes.
 
-## Small task: export truncation
+## Example scales
 
-The request is to include the final page. Inspect the export owner and callers, reproduce multi-page truncation, and verify single-page and empty input where they exercise the changed boundary. Keep input mutation behavior unchanged. A coordinator can implement directly and return the regression evidence; a second implementation agent adds little. Do not launch architecture, security and visual reviews merely because those roles exist.
+For final-page export truncation, inspect owner/callers, reproduce multipage failure, check single-page/empty behavior when meaningful and preserve input mutation. Direct implementation plus evidence is enough; available review roles do not make every role necessary. An unavailable regression stays unproved, not passing by inspection.
 
-If the check cannot run, report why and which criterion remains unproved. A code inspection can support the diagnosis but cannot be labeled a passing regression.
+For article index/detail views, agree content fields, URLs, loading/errors and design direction. Workers own separate views; coordinator owns shared schema/tokens/generated output. UI workers share frontend guidance and typography/spacing/radius decisions. Integrate sequentially and inspect consumers. Verify combined navigation, long headlines, empty/error states, desktop/mobile and keyboard flow; separate screenshots do not establish coherence.
 
-## Substantial task: article index and reading view
+## Role and model evidence
 
-Set the shared content fields, URL behavior, loading/error states and design direction before dispatch. Give one worker ownership of index files and another of article-detail files; a coordinator owns shared tokens/schema and final generated output. Each UI worker reads the frontend skill and direction. Do not allow each slice to choose independent typography, spacing or radius systems.
+Preserve session model unless supported selection is authorized. Match roles to demonstrated context/tool/reasoning capability, not named-model stereotypes. Honor supplied limits and record requested/actual metadata when exposed; unknown stays unknown. Cross-provider work requires a configured bridge.
 
-Integrate the first slice, inspect changed consumers, then integrate the second. Exercise navigation, long headlines, empty/error content, desktop/mobile and keyboard flow on the combined artifact. A visual reviewer compares rendered hierarchy against the agreed brief. Separate worker screenshots do not prove the combined routes or shared styling remain coherent.
+Independent reviewers receive objective, contract, artifact and raw evidence without an implementer's conclusion as the answer to confirm. They may inspect rationale but challenge it against observed behavior. A different model does not guarantee independence or correctness.
 
-If workers need the same stylesheet, either assign that stylesheet to one owner and agree its interface or isolate work and integrate sequentially. Shared file ownership is not solved by asking both workers to be careful.
+## Integrated acceptance
 
-## Choose model roles from evidence
+Worker handoff is provisional. Inspect outside-advertised changes, callers, failure paths, existing utilities and check relevance. Request narrow revisions when contracts are incomplete. Resolve accepted findings with verified fixes; rejected findings need supported reasons. “Tests pass” does not answer an ownership/race concern.
 
-Preserve the session model unless supported selection is authorized. When a role policy exists, match the work to demonstrated capability: investigator context for tracing callers, implementation tool access, reviewer reasoning about state and failure paths. Faster execution may suit a stable local transformation; unfamiliar concurrent behavior may need more context and careful review. These are task needs, not fixed claims about named models.
+After integration, capture content identity including relevant uncommitted files. Revalidate checks affected by later slices/dependencies and record coordinator acceptance on that identity. Do not relabel old evidence mechanically. Reuse only when its actual covered content/dependencies remain valid; required criterion records must match the integrated artifact.
 
-Independent review should receive the objective, contract, artifact and raw evidence. Avoid presenting the implementer's conclusion as the answer to confirm. A reviewer may read the implementation rationale but must examine it against observed behavior. A different model alone does not make a review independent or correct.
+## Critical path and crossed contracts
 
-Record requested/actual metadata when exposed and honor supplied limits. If the actual model is unknown, leave it unknown. No cross-provider dispatch is assumed without an explicitly configured bridge.
+Name the decision/artifact each dependent slice awaits. Read-only investigation can proceed independently; unresolved transaction/response contracts cannot be guessed by implementers. More agents can increase assumption conflicts, setup duplication and integration delay.
 
-## Accept a result on the integrated artifact
+Blocked workers identify the specific missing input. Reassign unaffected work after reconciling ownership, not by introducing a competing contract. Repeated failures on one assumption call for investigation rather than replacement-worker churn.
 
-A worker handoff is provisional. Inspect changes outside the advertised files, failure paths, existing utilities and test relevance. Return a narrow revision request when the behavior or contract is incomplete; do not silently reassign broad work that hides the cause.
-
-After integration, record a new content identity that includes uncommitted relevant files. Rerun checks affected by later slices or dependencies and record coordinator-accepted task results at that identity. Do not mechanically relabel old evidence with the new identity. Evidence can be reused only when its actual covered content and dependencies remain valid, and the completion guard requires current criterion records with matching artifacts.
-
-For a rejected review finding, record the supported reason: for example, the supposedly duplicate guard covers a separate external boundary. “Tests pass” does not answer a concern about ownership or races. For an accepted finding, verify the fix and review nearby consequences before marking it resolved.
-
-## Keep the critical path visible
-
-For each dependent slice, name the decision or artifact it waits on rather than scheduling all workers immediately. Read-only investigation can resolve uncertainty in parallel; code that depends on an unresolved transaction or response contract should not invent it. More active agents can lengthen the task through conflicting assumptions, duplicated setup and integration delay. Match delegation to independent questions and collect a useful result before multiplying roles.
-
-When a worker cannot proceed, ask what specific input changes that fact. Reassign unaffected work only after reconciling ownership; do not conceal the dependency by having another worker implement a second contract. Repeated failures on the same assumption call for a focused investigation, not an endless sequence of replacement implementers.
-
-Review both successful behavior and the user-visible failure consequence on the integrated artifact. For an export plus download UI, file generation can pass while a stale link delivers the previous export. The shared job identity and state transition are integration criteria; independent screenshots or a generator unit test cannot settle them. Record the behavior that crosses slices and use evidence that reaches it.
+Check successful behavior and user-visible failure across slices. Export generation can pass while a stale download link serves the previous job. Shared job identity/state is an integration criterion; generator tests and isolated UI screenshots cannot prove it. Keep this crossed behavior in acceptance and obtain evidence that reaches it.

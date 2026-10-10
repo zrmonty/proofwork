@@ -1,7 +1,7 @@
 import test from "node:test";
 import assert from "node:assert/strict";
 import { validateLinks, build } from "../scripts/build.mjs";
-import { mkdtemp, writeFile, readFile, cp, rm, readdir, symlink, rename } from "node:fs/promises";
+import { mkdtemp, writeFile, readFile, cp, rm, readdir, symlink, rename, mkdir } from "node:fs/promises";
 import { spawnSync } from "node:child_process";
 import { tmpdir } from "node:os";
 import path from "node:path";
@@ -46,6 +46,9 @@ test("isolated builds stamp versions, preserve skill parity and reject broken so
     ]) {
       await cp(path.join(repository, entry), path.join(root, entry), { recursive: true });
     }
+    const ordinaryPolicy = path.join(root, 'shared/skills/rust-best-practices/agents');
+    await mkdir(ordinaryPolicy, { recursive: true });
+    await writeFile(path.join(ordinaryPolicy, 'openai.yaml'), 'policy:\n  allow_implicit_invocation: true\n');
     const outputRoot = path.join(root, "output");
     const reports = await build({ repository: root, outputRoot });
     assert.equal(reports.length, 2);
@@ -60,6 +63,9 @@ test("isolated builds stamp versions, preserve skill parity and reject broken so
         metadata.version,
       );
       assert.ok((await readdir(output)).includes("shared"));
+      assert.match(await readFile(path.join(output, 'README.md'), 'utf8'),
+        host === 'codex' ? /codex plugin add proofwork@proofwork-local/
+          : /\/plugin install proofwork --marketplace zrmonty\/proofwork/);
       assert.equal(
         await readFile(path.join(output, "shared/routing.json"), "utf8"),
         await readFile(path.join(root, "shared/routing.json"), "utf8"),
@@ -69,12 +75,23 @@ test("isolated builds stamp versions, preserve skill parity and reject broken so
       await readdir(path.join(outputRoot, "codex/skills")),
       await readdir(path.join(outputRoot, "claude-code/skills")),
     );
+    for (const name of ['pw-setup', 'pw-worker-mode', 'audit-stack']) {
+      const codex = await readFile(path.join(outputRoot, 'codex/skills', name, 'SKILL.md'), 'utf8');
+      const claude = await readFile(path.join(outputRoot, 'claude-code/skills', name, 'SKILL.md'), 'utf8');
+      assert.equal(claude.replace(/disable-model-invocation: true\r?\n/u, ''), codex);
+      assert.doesNotMatch(codex, /disable-model-invocation/);
+      assert.match(await readFile(path.join(outputRoot, 'codex/skills', name, 'agents/openai.yaml'), 'utf8'),
+        /allow_implicit_invocation: false/);
+    }
+    assert.doesNotMatch(await readFile(
+      path.join(outputRoot, 'claude-code/skills/rust-best-practices/SKILL.md'), 'utf8'),
+      /disable-model-invocation/);
     const marketplace = JSON.parse(await readFile(path.join(root, ".claude-plugin/marketplace.json"), "utf8"));
     assert.equal(marketplace.plugins.find((plugin) => plugin.name === "proofwork").version, metadata.version);
     await build({ repository: root, outputRoot });
     const cli = spawnSync(process.execPath,[path.join(root,'scripts/build.mjs')],{encoding:'utf8'});
     assert.equal(cli.status,0,cli.stderr);
-    const canonical = path.join(root,'shared/skills/setup');
+    const canonical = path.join(root,'shared/skills/pw-setup');
     const linked = path.join(root,'shared/linked');
     await symlink(canonical,linked,'junction');
     await assert.rejects(build({repository:root,outputRoot}),/symlink forbidden/);
@@ -93,10 +110,10 @@ test("isolated builds stamp versions, preserve skill parity and reject broken so
     await writeFile(path.join(root, "shared/skills/use-proofwork/broken.md"), "[missing](absent.md)");
     await assert.rejects(build({ repository: root, outputRoot }), /missing reference/);
     await rm(path.join(root, "shared/skills/use-proofwork/broken.md"));
-    const skillPath = path.join(root, "shared/skills/setup/SKILL.md");
+    const skillPath = path.join(root, "shared/skills/pw-setup/SKILL.md");
     await writeFile(skillPath, "invalid");
     await assert.rejects(build({ repository: root, outputRoot }), /frontmatter/);
-    await rm(path.join(root, "shared/skills/setup"), { recursive: true });
+    await rm(path.join(root, "shared/skills/pw-setup"), { recursive: true });
     await assert.rejects(build({ repository: root, outputRoot }), /missing required/);
   } finally {
     await rm(root, { recursive: true, force: true });

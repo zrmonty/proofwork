@@ -1,6 +1,6 @@
 ---
 name: typescript-best-practices
-description: "Use for TypeScript and TSX changes or reviews; preserve runtime contracts with truthful types and pure domain logic."
+description: For TypeScript changes requiring truthful types and runtime validation.
 ---
 
 # TypeScript best practices

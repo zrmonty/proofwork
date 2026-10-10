@@ -1,6 +1,6 @@
 ---
 name: use-proofwork
-description: Carry engineering intent through proactive discovery, proportionate execution and verified delivery; select a light, standard or full workflow from the actual task and risk.
+description: For engineering requests needing intent-to-delivery coordination.
 ---
 
 # Use Proofwork
@@ -25,6 +25,6 @@ Run `node <plugin-root>/scripts/proofwork.mjs route --task <text> --files <comma
 
 Compare candidate improvements by user impact, confidence, effort and disruption. Prefer a complete correction that removes recurring work or defects. Use existing mechanisms, safe local changes and proportionate verification; never manufacture wins or broaden authority because agency is high.
 
-For substantial integrated work, obtain independent correctness and maintainability review. Settle material findings on the current artifact. Distinguish observed evidence from claims, keep missing checks explicit and complete authorized delivery. Public deployment, credential actions and destructive operations retain their actual permission requirements. Before authorized commits/pushes, read commit-features and validate the outgoing range.
+For substantial integrated work, obtain independent correctness and maintainability review. Settle material findings on the current artifact. Distinguish observed evidence from claims, keep missing checks explicit and complete authorized delivery. Public deployment, credential actions and destructive operations retain their actual permission requirements. Before authorized commits/pushes, read commit-features and honor the repository convention. Validate formatting only when commitFormat is explicitly enabled; otherwise it is off.
 
 Return the changed user outcome, meaningful checks, measurable benefits where available and remaining limitations. Confidence, activity and smaller context are not evidence of correctness.

@@ -57,12 +57,12 @@ export async function build(options = {}) {
     "language-fit",
     "brainstorm",
     "use-proofwork",
-    "worker-mode",
-    "setup",
+    "pw-worker-mode",
+    "pw-setup",
     "thermo-nuclear-code-quality-review",
     "functional-programming",
     "data-driven-development",
-    "clean-code",
+    "pw-clean-code",
     "typescript-best-practices",
     "rust-best-practices",
     "python-best-practices",
@@ -101,6 +101,20 @@ export async function build(options = {}) {
           errorOnExist: true,
           force: false,
         });
+      if (host === 'claude-code') {
+        for (const name of skills) {
+          const policy = path.join(staging, 'skills', name, 'agents/openai.yaml');
+          let metadata;
+          try { metadata = await readFile(policy, 'utf8'); }
+          catch (error) { if (error.code === 'ENOENT') continue; throw error; }
+          if (/^  allow_implicit_invocation: false[ \t]*\r?$/mu.test(metadata)) {
+            const entry = path.join(staging, 'skills', name, 'SKILL.md');
+            const source = await readFile(entry, 'utf8');
+            await writeFile(entry, source.replace(/^---(\r?\n)/u, (_, newline) =>
+              `---${newline}disable-model-invocation: true${newline}`));
+          }
+        }
+      }
       await cp(path.join(repository, "adapters", host), path.join(staging, "adapters"), { recursive: true });
       for (const file of ["LICENSE", "NOTICE.md", "UPSTREAM.md"]) {
         await cp(path.join(repository, file), path.join(staging, file));
@@ -135,9 +149,12 @@ export async function build(options = {}) {
         host === "codex"
           ? "$use-proofwork <task> (or select the skill from the host menu)"
           : "/proofwork:use-proofwork <task>";
+      const install = host === 'codex' ? 'codex plugin add proofwork@proofwork-local'
+        : '/plugin install proofwork --marketplace zrmonty/proofwork';
       await writeFile(
         path.join(staging, "README.md"),
         `# Proofwork ${metadata.version} for ${host}\n\n` +
+          `Install: \`${install}\` (Codex requires marketplace registration; Claude requires 2.1.275+).\n\n` +
           "Describe the outcome you want; Proofwork carries the engineering detail and verifies the result. " +
           `Start with \`${invocation}\`. Read [runtime](adapters/runtime.md) and [tools](scripts/README.md). ` +
           "These files are generated from our canonical authored source. " +

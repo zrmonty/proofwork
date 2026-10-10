@@ -59,9 +59,9 @@
     ]
   },
   "core": [
-    "worker-mode",
+    "pw-worker-mode",
     "data-driven-development",
-    "clean-code"
+    "pw-clean-code"
   ],
   "auditStack": [
     "audit-stack",

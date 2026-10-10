@@ -1,56 +1,42 @@
 # Rendered review
 
-Use the actual running artifact. A static mock supports composition review; it cannot prove the implementation's responsive behavior, focus, navigation, or error recovery.
+Inspect the running artifact. Mocks support composition, not implemented focus, responsiveness, navigation or recovery.
 
-## Evidence proportional to the claim
+## Appropriate evidence
 
-For a narrow visual correction, compare the affected region before and after at the viewport that exposed the defect. For a substantial build, capture the primary view, a representative detail/state, and a narrow view with realistic content. Add captures only when they answer a distinct question; a screenshot collection without observations is not evidence.
+For narrow corrections, compare affected regions at revealing viewports. Substantial work needs primary/detail/state/narrow views using realistic content. Each extra capture answers a distinct question.
 
-Record artifact/revision identity, viewport dimensions, route/state, fixture content, and the action performed. Use sanitized examples. Distinguish observed behavior from predictions and from subjective preferences. If assets, network responses, or fonts are missing, report how that limits the review instead of certifying the intended design.
+Record artifact identity, viewport, route/state, sanitized fixtures and actions. Separate observations/predictions/preferences. Missing fonts/assets/network responses limit conclusions. Inspect whole-page composition and normal-use text; convenient cropping cannot hide overflow/illegibility. Check orientation after scrolling.
 
-## A useful critique pass
+## Useful critique order
 
-Start at page scale and then inspect component details. View the whole composition for dominance and grouping; inspect text/control size and wrapping at normal use rather than judging a zoomed-out capture alone. Do not hide overflow, missing assets or unreadable text by choosing a convenient crop. Record whether the primary flow starts where expected and remains understandable after scrolling.
+1. Orient: product, location and meaningful action in first useful view.
+2. Scan: weight matches content priority/reading order.
+3. Read: actual wraps, paragraphs, metadata, links and values; applicable tool-based contrast.
+4. Act: keyboard/pointer flow, focus, labels, feedback, retained input/recovery.
+5. Reflow: narrow/zoom, clipping, scroll, actions, crops and data meaning.
+6. Polish: rhythm, baselines, radii, icons and media after behavior/hierarchy.
 
-1. **Orient:** Can a first-time visitor identify the product, current location, and next meaningful action from the first useful view?
-2. **Scan:** Does visual weight match content priority? Are unrelated regions competing? Can the eye follow the intended reading order?
-3. **Read:** Check actual headline wrapping, paragraphs, metadata, link distinction, and dense values. Inspect contrast through the project's tools and target, not appearance alone.
-4. **Act:** Exercise the primary flow with keyboard and pointer. Inspect focus order/visibility, labels, feedback, retained input, and recovery from a relevant failure.
-5. **Reflow:** Inspect the narrow layout and relevant zoom/reflow. Check clipping, accidental horizontal scroll, action access, image crop, and table/list meaning.
-6. **Polish:** Look for inconsistent spacing, baselines, radii, icon weight, and media treatment after the hierarchy and interaction work.
+Use relevant probes; static essays are not upload consoles.
 
-Apply the portions relevant to the brief. A static essay need not be tested as a transactional application; an upload console needs more than a homepage capture.
+## Hypothesis-driven correction
 
-## Compare a change with a hypothesis
+Name defect and predicted improvement. Equal lead/archive emphasis may need stronger lead and quieter archive; compare identical content/viewports while preserving titles/actions/density. Color cannot fix wrapping; animation cannot establish outcome truth.
 
-For each material iteration, state the defect and predicted improvement. “The lead and archive look equally important; make the lead title/media larger and reduce archive surface weight so the lead is identifiable before reading every item.” Compare the same content and viewport before and after. Check that improvement did not push the actual action away, clip a title or erase useful density.
+For redesigns, compare index/detail/state at desktop/narrow sizes and intermediate transitions when relevant. Exercise focus, zoom, fallback and recovery. Missing access stays a gap, not simulated evidence. Retain effective patterns.
 
-Separate cause from preference. If the defect is wrapping, changing accent color cannot close it. If the defect is uncertain action state, a smoother animation cannot establish truth. Fix hierarchy before microdetail, then inspect typography, borders, corners and icon alignment at normal size. Retain an existing successful pattern when no supported defect remains.
+## Changing data and stress
 
-For a substantial redesign, compare index/detail and an actual state across desktop and narrow views. Check a viewport between the endpoints for a likely layout transition when applicable; two ideal screenshots can miss an awkward intermediate layout. Exercise keyboard/focus, relevant zoom, asset fallback and primary recovery with available tools. Missing capability remains a named gap rather than a simulated observation.
+Follow transitions. When selection changes/disappears/becomes unavailable before submission, identify what is acted on and preserve context. Separate blocked, pending and unknown outcomes. Repeat-click prevention does not prove duplicate-effect prevention. Preserve actual retry/cancel/recovery/undo contracts rather than invented optimistic completion. Partial success must not require repeating completed work.
 
-## Review actions across changing data
+Stress relevant identifiers, missing media, equivalent priorities, permission-limited views, single items and realistic density. Preserve identity/labels/grouping rather than shrinking/hiding difficulty. Curated captures establish only their fixtures.
 
-Inspect the real transition, not just each state's visual appearance. For a selection-and-submit flow, establish what happens when the selected item changes, disappears or becomes unavailable before submission. Preserve the person's context and make the result refer to the item actually acted on. A beautiful selected card does not resolve an action that applies to an outdated selection.
+Batch approval needs selection after filtering and partial outcomes; an essay index may need long titles/bylines/thumbnails. Primary behavior determines cases.
 
-Differentiate a blocked control from a pending action and an outcome the application cannot yet confirm. Preventing repeat clicks may support the flow, but does not prove the server avoided duplicate effects. Use the actual contract for retry, cancellation and recovery; do not add optimistic completion or undo solely for visual smoothness. Surface partial success when some operations finished and others need attention, without asking the person to repeat successful work.
+## Actionable findings
 
-Stress the chosen composition with content that changes its meaning: a long unbroken identifier, an item with no image, several equivalent priorities, a permission-limited view, or a result containing only one item. Choose cases encountered by this product. Confirm that action identity, labels and grouping survive, rather than shrinking meaningful text or hiding the difficult data. A render with curated content is evidence only for that content.
+Replace “more premium” with mechanism/consequence: equal title/media weight obscures lead; give distinct composition and recheck scanning. Replace blanket rounded-corner requests with inconsistent control/media roles and a focus-preserving correction.
 
-For example, a batch approval screen should expose which rows remain selected after a filter change and which approvals actually succeeded after a partial failure. A static essay index has neither obligation; its important stress cases may instead be long titles, missing thumbnails and bylines. The primary flow determines the review, not a universal state checklist.
+A mobile conclusion names observed conditions: supplied long headline wraps, byline remains readable, essay opens by keyboard at recorded viewport. Unexercised payment behavior remains separate.
 
-## Findings that lead to changes
-
-Weak: “Make it more premium.”
-
-Useful: “The index gives all twelve stories the same image size and title weight, so the lead essay is indistinguishable. Give the lead a distinct composition and reduce secondary image emphasis; compare scanning on desktop and narrow view.”
-
-Weak: “Add more rounded corners.”
-
-Useful: “The rounded image and square floating control use unrelated corner treatments, and the control appears detached. Align their radius roles and spacing, then check focus is still visible.”
-
-Weak: “Mobile looks good.”
-
-Useful: “At the recorded narrow viewport, the longest supplied headline wraps without clipping, the byline remains readable, and opening the essay works by keyboard. The payment flow was not exercised.”
-
-Prioritize material findings and batch related fixes. Repeat the same capture and action after changes. Stop when acceptance is met and remaining differences are preference or out of scope. A clean layout may have no finding; review is not a requirement to redesign.
+Prioritize material findings, batch related corrections, repeat captures/actions, and stop at observed acceptance when remaining differences are preference/out of scope. Review does not require redesign or criticism quotas.

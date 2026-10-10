@@ -1,5 +1,13 @@
 # Proofwork changelog
 
+## 0.19.0 — smaller guidance and opt-in commit policy
+
+- Shortened all 23 trigger descriptions; renamed generic setup, worker-mode and clean-code commands to pw-setup, pw-worker-mode and pw-clean-code. No duplicate aliases are bundled. Setup, workers and audit-stack require explicit invocation with host-specific metadata; the root may deliberately read their guidance.
+- Added lexical trigger-collision checks and 600-word entry / 800-word reference gates. Pruned repeated procedures and made audit-stack a thin coordinator of canonical lenses.
+- Added commitFormat: proofwork, conventional or off. Missing repository policy defaults to off; no automatic message rewriting or formatting-based push enforcement without opt-in.
+- Added adapter heading/capability parity tests and documented uninstall/reset, untrusted input and evidence-ledger limits.
+- Prepared both host packages. Public tag/release publication remains gated on usable Phase 3 comparison results; existing pilot results do not establish improvement.
+
 ## 0.18.0 — 2026-10-10
 
 - Made functional-programming conditional on stateful workflows, retries, concurrency, caching or shared mutable state; typo fixes, ordinary UI tweaks and simple CRUD skip it.

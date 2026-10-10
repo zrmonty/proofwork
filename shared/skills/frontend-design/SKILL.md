@@ -1,6 +1,6 @@
 ---
 name: frontend-design
-description: Design and refine distinctive frontends through an explicit visual direction, content-led composition, typography and surface craft, complete interaction states and observed visual iteration.
+description: When developing distinctive visual composition and rendered interaction states.
 ---
 
 # Frontend design

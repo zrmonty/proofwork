@@ -1,4 +1,4 @@
-import { readFileSync } from 'node:fs';
+import { readFileSync, readdirSync } from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { route } from './routing.mjs';
@@ -40,8 +40,27 @@ export function contextBudget(repo) {
   const corpus = readJson(path.join(repo, 'tests/router-corpus.json'));
   const baseline = readJson(path.join(repo, 'shared/context-budget.json'));
   const measured = measureContext(repo, corpus);
-  const violations = checkContextBudget(measured, baseline);
-  return { ...measured, violations, passed: violations.length === 0 };
+  const files = skillBudgets(repo);
+  const violations = [...checkContextBudget(measured, baseline), ...files.filter(file => file.words > file.limit)];
+  return { ...measured, files, violations, passed: violations.length === 0 };
+}
+
+export function skillBudgets(repo) {
+  const root = path.join(repo, 'shared/skills');
+  const files = [];
+  function walk(directory) {
+    for (const entry of readdirSync(directory, { withFileTypes: true })) {
+      const file = path.join(directory, entry.name);
+      if (entry.isDirectory()) walk(file);
+      else if (entry.name === 'SKILL.md' || (file.includes(`${path.sep}references${path.sep}`)
+        && entry.name.endsWith('.md'))) {
+        files.push({ path: path.relative(repo, file), words: wordCount(file),
+          limit: entry.name === 'SKILL.md' ? 600 : 800 });
+      }
+    }
+  }
+  walk(root);
+  return files;
 }
 
 if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {

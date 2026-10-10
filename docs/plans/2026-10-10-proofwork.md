@@ -27,7 +27,7 @@ Tech stack: Markdown, JSON, Node.js built-ins, host-native tools. Spec: ../desig
 
 ## Task 1: orchestration and review instructions
 
-Owned: shared/skills/{use-proofwork,worker-mode,setup,thermo-nuclear-code-quality-review}, shared/playbooks/, shared/contracts/.
+Owned: shared/skills/{use-proofwork,pw-worker-mode,setup,thermo-nuclear-code-quality-review}, shared/playbooks/, shared/contracts/.
 Produces: original root router, assignment/result/evidence contracts, bounded playbooks, reviewer standards. Entry reads adapters/runtime.md and scripts/proofwork.mjs routing command when installed; relative links use ../../contracts and ../../playbooks. Skill names are canonical directory names.
 
 - [ ] Run pressure scenarios without authored skill guidance and save the behavior observed.
@@ -37,7 +37,7 @@ Produces: original root router, assignment/result/evidence contracts, bounded pl
 
 ## Task 2: language, principles, and frontend skills
 
-Owned: shared/skills/{typescript-best-practices,rust-best-practices,python-best-practices,functional-programming,data-driven-development,clean-code,frontend-design}, shared/principles/.
+Owned: shared/skills/{typescript-best-practices,rust-best-practices,python-best-practices,functional-programming,data-driven-development,pw-clean-code,frontend-design}, shared/principles/.
 Produces: independently authored targeted guidance and language/frontend cases; no dependencies on installed skills. Every skill has a spec/acceptance record in docs/skill-specs/ owned by its author.
 
 - [ ] Define and execute baseline scenarios before authoring.

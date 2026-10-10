@@ -1,63 +1,29 @@
-# Structural review examples
+# Structural judgment at the integrated seam
 
-Read when evaluating state models, wrappers, failure boundaries or file-growth concerns. These examples demonstrate review reasoning; they are not findings to paste into unrelated code.
+This lens decides whether the combined artifact has coherent responsibilities, invariants and effect ownership. It does not repeat [DRY classification](../../dry-audit/references/duplication-decisions.md), [deadness proof](../../dead-code-audit/references/reachability-and-tests.md) or [refactor mechanics](../../pw-clean-code/references/contract-preserving-refactors.md). Delegate those obligations and retain their evidence in the finding.
 
-## Contradictory state
+## Reachable contradictory state
 
-An operation stores `isRunning`, `isComplete` and an optional result independently. Callers repeatedly decide which combinations are valid. A useful review traces actual writes and shows a reachable contradiction or the duplicated rule, rather than assuming booleans are always wrong.
+Running/completed flags plus optional result are concerning when actual writes permit completed-without-result or consumers encode competing precedence rules. Trace that mechanism. A useful remedy owns pending/running/completed-with-result and explicit failure/cancellation transitions while preserving wire behavior and partial-save handling. Relocating flags does not fix contradictions. Independent feature toggles with no invalid combination need no state machine.
 
-A supported finding might say: “In the completion path, `isComplete` is set before the result is saved; readers can observe completion without a result. Both the UI and retry loop contain their own precedence rule. Represent pending/running/completed-with-result as explicit states owned by the operation, and keep failure/cancellation transitions explicit. Preserve the response format and verify partial-save failure.”
+## Unearned layers and hidden effects
 
-This is a structural concern with correctness consequences. The remedy earns its complexity by eliminating invalid combinations and caller predicates. Merely renaming the flags or relocating them does not resolve it.
+Trace a forwarding chain and identify what each layer owns. Remove only a layer hiding no useful domain, compatibility, cleanup or policy contract. A query-policy or transaction wrapper can earn its existence despite its brevity. Compare a local removal with a broader model change: what responsibility disappears, which consumer contracts remain, and what new indirection is introduced?
 
-Clean counterexample: two independent feature toggles represent unrelated options, and no state combinations are invalid. Do not replace them with a state machine to satisfy a pattern preference.
+A price/retry decision using ambient clock/settings may impose reproducibility and change costs. Demonstrate those dependencies before moving them to inputs. Do not require an effect framework for a CLI timestamp at an output boundary; pure calculation cannot supply remote exactly-once delivery.
 
-## A wrapper that earns its existence
+## Integration rather than shape quotas
 
-A helper forwards arguments to another helper without changing semantics, handling effects or hiding a meaningful contract. Trace its callers and ask what domain concept or compatibility boundary it owns. If none, removing the layer may reduce reader work while preserving behavior.
+Ask where a real business-rule change would propagate and which unrelated consumers it would disturb. Several files may own distinct rules; several pure functions may still duplicate one rule. Layer count and functional syntax do not settle ownership.
 
-A resource wrapper can look similarly small but guarantee cleanup on errors/cancellation. Inspect that obligation before deletion. A feasible finding names the forwarding chain, shows the redundant call layer and states the signature/error behavior to preserve. “Too many abstractions” without the chain and contract is not actionable.
+Inspect caller adoption after a new owner is introduced. Old predicates, state copies or response meanings can survive even when each worker's tests pass. Review success/failure contracts across the seam, canonical state, authority and resource lifetime. Never claim unseen integration was exercised.
 
-Clean counterexample: a repository wrapper centralizes query policy or transaction lifetime for several callers. Its brevity does not make it redundant.
+Large files warrant restructuring when responsibilities compete or change friction is demonstrated, not because of a universal line ceiling. Splitting into tiny forwarding files can make that friction worse. Generated structural problems belong in the generator and require fresh-generation evidence.
 
-## Hidden effect in a decision
+Boundary validation may intentionally appear at separately consumed request/import entry points. Use DRY's policy-versus-enforcement distinction rather than deleting a necessary guard. A transport adapter, transaction wrapper and domain calculation may form a coherent design; collapsing them can erase cleanup or public error handling.
 
-A pricing or retry decision reads the wall clock and shared mutable settings internally. Reproducing a particular result requires coordinating ambient state. A narrower design may take time/settings as inputs and leave external writes to the boundary.
+## Verdict and re-review
 
-Demonstrate the actual dependency and testing/change cost. Do not demand a universal effect framework. For a local CLI timestamp appended at the output boundary, direct clock access may be appropriate. For retryable writes, inspect persistence and idempotency: pure calculation alone does not settle exactly-once effects.
+Needs restructuring names the material mechanism, smallest adequate remedy and preserved-contract checks. Meets the bar explains coherent important invariants within the inspected scope. Insufficient evidence identifies the missing consumer/observation without inventing a defect; supported scoped findings can still be returned.
 
-## Apparent duplication at trust boundaries
-
-Validation appears both on an external request and on a separately consumed imported file. Investigate whether they share the same trusted representation. If they are different external boundaries, both checks may be required even if a common parsing helper is useful.
-
-Do not delete a guard because a previous caller validated once. The preservation constraint includes alternate entry points and error behavior. A review can accept the duplicated boundary check and still suggest a shared domain parser when its contract clearly fits.
-
-## File violates the hard maximum
-
-Inspect whether routing, persistence and domain transitions have distinct responsibilities. A coherent remedy might move persistence behind an existing boundary while leaving pure transitions together. Preserve error handling, transaction boundaries and callers, then check both behavior and resulting file sizes. Scattering related cases across tiny forwarding files does not satisfy the structural review.
-
-For generated application code, adjust the generator to emit meaningful bounded modules and verify a fresh generation. Do not reformat several statements onto one line, discard explanations or reclassify code as data to disguise the violation.
-
-A large cohesive file is not automatically a defect. Identify competing responsibilities or a demonstrated change cost before proposing a split; preserve ownership and authorized scope.
-
-The automatic checker inventory is a starting point. A checked-in `.py` test counts as project code; a project-owned extensionless executable or ignored generated source must be added through the supplementary JSON inventory. A Markdown manual and an external dependency installation are outside the code-file count. Document the inspected boundary and any unavailable generated output; missing inventory evidence cannot support full acceptance.
-
-## Compare remedies before prescribing one
-
-Probe a structural concern with a concrete change: if one business rule changes tomorrow, which owners must be updated and which unrelated consumers are affected? Trace the actual locations rather than counting layers or guessing from names. Several files can legitimately own different rules. Several pure functions can still duplicate the same policy and drift. Neither file count nor functional style settles ownership.
-
-Compare the smallest local remedy against a broader model change. Name what each removes, which contracts it preserves and any added indirection. A new abstraction is justified only when its useful ownership or boundary outweighs that cost for current consumers. When two remedies are reasonable, state the tradeoff rather than presenting one stylistic preference as the only acceptable design.
-
-For integrated parallel work, inspect the contract at the seam: do consumers use the new authoritative rule, do old paths still maintain a second state, and do success and failure responses mean the same thing on both sides? Separate worker tests can pass while the combined callers still use incompatible assumptions. A review of the integrated artifact should identify that mismatch and its preservation checks; it must not claim unseen integration was tested.
-
-Counterexample: a transaction wrapper, domain calculation and transport adapter can be a coherent three-layer design with separate obligations. Collapsing them to reduce the layer count may obscure cleanup or public error handling. Accept that design when the traced contract earns the boundaries. Conversely, moving a duplicated predicate into another file without migrating the old callers leaves the original finding unresolved.
-
-## Useful verdicts
-
-**Needs restructuring:** describe the material mechanism, smallest adequate remedy and checks preserving behavior. Cosmetic preferences can remain nonblocking and should not inflate this verdict.
-
-**Meets the bar:** explain why the important invariants, ownership and effects are coherent within scope. It is acceptable to report no findings. Do not recommend speculative generalization just to make the review look busy.
-
-**Insufficient evidence:** identify what prevents judgment, such as a missing consumer necessary to evaluate whether an abstraction duplicates existing ownership. Ask for that context or inspect it if available; do not turn missing evidence into an assumed defect. The reviewer can still report supported scoped observations without claiming a full verdict on unseen behavior.
-
-After revision, inspect whether the proposed owner actually became authoritative. Old predicates may survive in callers after a new state model is introduced. Re-review the original concern and nearby consequences, then report current evidence rather than repeating the original finding after it has been resolved.
+After revision, verify that the proposed owner became authoritative and recheck nearby consequences. Stop repeating resolved findings. Cosmetic preferences remain nonblocking and no finding quota applies. Record actual artifact identity and evidence through [finding disposition](finding-disposition.md).

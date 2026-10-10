@@ -1,6 +1,6 @@
 ---
 name: architecture-fit
-description: Challenge proposed and existing architecture for unnecessary complexity; require concrete reasons for each major tool, compare simpler adequate alternatives, and choose from actual project needs rather than popularity or habit.
+description: When choosing infrastructure or challenging unnecessary architecture.
 ---
 
 # Architecture fit

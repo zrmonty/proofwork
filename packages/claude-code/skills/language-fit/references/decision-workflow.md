@@ -1,48 +1,42 @@
-# Language fit
+# Language and framework fit
 
-Choose the implementation technology that fits the work. No language or framework gets a preferred position because it is popular, familiar to an agent or already used in a template. A fair comparison can choose TypeScript, Rust, Python or something else; explain which real requirement selects it.
+Select technology from inspected requirements, not popularity, templates or agent familiarity. Preserve an adequate incumbent for focused fixes. Pair with architecture-fit for component boundaries; a recommendation alone does not authorize migration, dependencies or deployment.
 
-Use this skill for new language/framework choices, a consequential technology review or a justified implementation migration. Pair with architecture-fit: it decides which components and boundaries are needed; this skill selects their implementation technology. Preserve a suitable incumbent for focused fixes. A recommendation does not authorize installing dependencies, rewriting a product or deploying a new service.
+## Partition responsibilities, not services
 
-## Partition responsibilities before choosing tools
+Inspect brief, accepted direction, existing code, platforms, available toolchains and operating owner. Identify systems, scripting/automation and presentation/fullstack work as evaluation categories, not three mandatory languages or services. A small product may be one application with scheduled functions.
 
-Inspect the ordinary-language brief, accepted direction, existing code, target platforms, available skills/toolchains and operating owner. Describe systems, scripting/automation and fullstack/UI responsibilities. These are evaluation categories, not three mandatory services or languages. A small project may need only one deployable application; an automation can be a function or scheduled command within it.
+Describe concrete CPU/I/O work, sustained/burst throughput, latency distribution, concurrency, startup/memory limits, numeric semantics, integrations and recovery. Ask material unknowns in practical terms. Trading dashboards, backtests and execution engines have different requirements; “trading” does not establish hard real-time deadlines or execution authority.
 
-Identify each responsibility's concrete workload: CPU versus I/O, sustained and burst throughput, latency distribution, concurrency, startup, memory bounds, numeric/data semantics, failure/recovery needs and integrations. Ask about material unknowns in practical terms. A trading dashboard, research/backtest tool and execution engine have different requirements despite the same domain label. Do not infer a hard real-time deadline or live execution authority from "trading app."
+Distinguish language, runtime, framework, rendering and libraries. Vue versus React does not decide TypeScript. Python may spend time in native libraries or remote I/O; Rust may wait on storage/serialization. Trace the actual expensive responsibility before proposing replacement.
 
-Distinguish language, runtime, framework, rendering architecture and library ecosystem. Vue versus React is a framework decision; it does not require choosing or rejecting TypeScript. A Python automation may spend its time in native libraries or remote I/O. A Rust server can still spend its latency budget in serialization, storage or networking. Trace the actual expensive responsibility before recommending a rewrite.
+## Compare serious candidates
 
-## Give credible alternatives a fair hearing
+Include the incumbent, a simpler adequate arrangement and credible materially different alternatives. Exclude by requirements, not preference. The following are families to investigate, not rankings or a demand to prototype every option:
 
-Begin with requirements and exclusion reasons, not a preferred stack. Include the incumbent when present, a simpler adequate arrangement and materially different credible alternatives. Consider the candidate families below and expand beyond them when the target ecosystem supplies a better fit. This is a starting map, not an exhaustive ranking or a demand to prototype every framework.
+- Systems: Rust, C++, C, Zig, platform-native choices; Go/JVM/.NET where their runtime tradeoffs fit deadlines, resource control, safety and native APIs.
+- Automation: Python, JS/TS, Ruby, shell/PowerShell, Lua or existing platform tools selected for libraries, scheduling, host and maintainers.
+- Services/fullstack: Go, Python, Ruby, PHP, Java/Kotlin, C#/.NET, Elixir/Erlang, Rust, JS/TS and relevant frameworks selected for integration, concurrency and operational cost.
+- Presentation: server HTML/progressive enhancement, Vue/Nuxt, React, Svelte/SvelteKit, Angular, Astro, Solid or platform UI selected for real interaction, initial content, accessibility, devices and support.
 
-| Responsibility | Candidate families to investigate | Decisive questions |
-| --- | --- | --- |
-| Systems / critical execution | Rust, C++, C; Zig or platform-specific alternatives; Go, JVM or .NET when their runtime tradeoffs fit | Which deadlines, memory/resource control, native APIs, portability, safety and maintained tooling matter? |
-| Scripting / automation | Python, JavaScript/TypeScript, Ruby, shell/PowerShell, Lua or existing platform tools | Which libraries, scheduler, host, failure semantics, typed boundaries and operational owner fit the actual job? |
-| Fullstack / services | Go, Python, Ruby, PHP, Java/Kotlin, C#/.NET, Elixir/Erlang, Rust, JavaScript/TypeScript and their relevant frameworks | Which workflow, integration, concurrency, deployment, maintenance and delivery requirements select a fit? |
-| Frontend / presentation | Server-rendered HTML with progressive enhancement; Vue/Nuxt, React and suitable rendering frameworks, Svelte/SvelteKit, Angular, Astro, Solid or target-platform UI tools | How much interaction, initial content, accessibility, update volume, device budget and ecosystem support is required? |
+Check version-compatible libraries/protocols, target OS/CPU/browser, deployment, diagnostics, testing, onboarding and ownership cost. Verify current consequential claims in primary official documentation. Missing bundled guidance is a capability gap, not a reason to default to covered languages or claim absent expertise.
 
-Compare maintained/version-compatible libraries, required protocols, target OS/CPU/browser, deployment constraints, diagnostics, testing, onboarding and total ownership cost. Verify current support and consequential technical claims in official primary documentation. Missing bundled language guidance is a capability gap to address with appropriate primary sources and concrete checks, not a reason to default to a covered language or pretend C/C++ expertise is bundled.
+Read [systems boundaries](systems-and-boundaries.md) for throughput/latency-critical native work. Seriously evaluate Rust/C++/C against measured budgets while retaining adequate other candidates. Native execution can serve one subsystem without rewriting its dashboard. No language guarantees speed, determinism or safety alone.
 
-For a throughput- or latency-critical native responsibility, read [systems and mixed-language boundaries](systems-and-boundaries.md). Seriously evaluate Rust, C++ and C against the measured budget and integration needs; keep other candidates in contention when they meet it. A native language can be justified for the critical subsystem without rewriting the dashboard and automation. Never claim a language alone guarantees throughput, determinism or safety.
+Read [frontend fit](frontend-and-application.md) for comparable user journeys and rendering strategies, including minimal client frameworks. Neither habitual React nor universal Vue-speed claims establish fit.
 
-For browser or fullstack choices, read [frontend and application fit](frontend-and-application.md). Compare equivalent user journeys and rendering strategies, including minimal/no client framework where adequate. Do not pick React by habit or Vue from an unsupported universal speed claim.
+## Make boundaries earn their cost
 
-## Make each additional language earn its boundary
+Compare single-language and mixed arrangements: toolchains, upgrades, builds/deployments, local setup, observability, serialization/copies, schemas and operators. Library boundaries need not become processes/services. Name canonical domain/state owners; never duplicate authorization or business policy across UI/scripts/engine.
 
-Compare a single-language arrangement with the proposed mixed stack. Count toolchains, dependency updates, builds, deployment units, observability, local setup, serialization, data copies, schema changes and operators. A useful library boundary does not require a separate process; a separate process does not automatically require a distributed service.
+Match dominant style. Extract pure transitions for at least three meaningful states/event types, real partial-failure/retry, or framework-independent decision testing; otherwise preserve surrounding shape. Record numeric precision, errors, cancellation, timeouts, idempotency, ordering and version compatibility at seams.
 
-Map ownership of domain decisions and persisted state. Match the existing dominant style. Extract a pure transition when the changed workflow has at least three meaningful states or event types, a real partial-failure/retry path, or domain logic needing tests without its framework; otherwise follow surrounding code. Effects retain their authoritative owner. Record numeric precision, errors, cancellation, timeouts, idempotency, ordering, compatibility and versioning across any language seam. Do not duplicate business rules in the frontend, Python script and Rust engine or let UI validation authorize server changes.
+Vue/Python/Rust is a candidate only when each responsibility earns its complexity. Prefer simpler adequate arrangements and state what evidence would justify splitting later.
 
-A Vue interface, Python automation and Rust engine is a candidate arrangement, not the default answer. Use it when the interface workload, Python integration ecosystem and native critical path each provide a demonstrated reason that outweighs boundary costs. Otherwise recommend the simpler adequate stack and name what evidence would justify a future split.
+## Recommend with evidence
 
-## Recommend with evidence and an affordable next step
+Return responsibility/workload, candidates, selected/provisional choice, serious exclusions, tradeoffs, operating owner and missing decisive evidence. Respect explicit user mandates while exposing unmet needs. Give a recommendation, not an unranked catalog.
 
-Return a concise responsibility matrix: workload/constraints, candidates, selected or provisional choice, reason serious alternatives did not fit, tradeoffs, operating owner and decisive evidence still needed. Give a recommendation rather than an unranked catalog. Respect an explicit user mandate while identifying unmet requirements; do not silently replace it.
+When performance decides, use [performance-increase](../../performance-increase/SKILL.md) for representative comparable release trials, variability, correctness and the actual user-facing comparison table. Greenfield estimates stay hypotheses with bounded measurement plans, never invented benchmarks.
 
-When performance decides the choice, load performance-increase and use representative comparable release-mode trials. Its actual before/after or incumbent/candidate table, variation, correctness checks and practical interpretation belong in the user-facing result. For a greenfield choice without measurements, present a hypothesis and bounded comparison plan; no invented benchmark, universal framework ranking or unsupported capacity guarantee.
-
-Apply relevant bundled language skills only after the implementation choice or actual file scope warrants them. Python remains strictly typed; Rust ownership/resource guidance and functional, security and coverage requirements remain in force. A runtime/framework choice cannot waive a quality gate.
-
-State the smallest authorized implementation or migration step, preserved contracts and an observable reopening condition. A choice-only request ends with the decision and its evidence gaps. Do not scaffold a preferred stack while calling the alternatives "considered."
+Apply relevant language guidance after actual selection/file scope. Strict Python typing, Rust ownership/resource obligations and executable coverage/security gates remain. End a choice-only request with its decision, smallest authorized next step, preserved contracts and reopening condition; do not scaffold while claiming alternatives were considered.

@@ -1,6 +1,6 @@
 # Recovery and evidence
 
-Read on interruption, continuation, uncertain external actions or apparently contradictory verification. The checkpoint describes prior observations; inspect present reality before taking the next action. Use the packaged tool reference for command arguments and valid records.
+On continuation or uncertain effects, inspect present reality before acting. Use packaged tools for valid arguments/records.
 
 ## Resume decisions
 
@@ -10,7 +10,7 @@ Read on interruption, continuation, uncertain external actions or apparently con
 4. Reconcile live workers/processes through available host tools. Saved IDs alone do not establish running status. Before reopening work, resolve current ownership; a formerly reviewed task may now overlap an active assignment.
 5. Inspect external actions and evidence, then set one useful next action. If a required fact is unknown, collect it rather than replaying the whole workflow.
 
-A write lock left after a crash is not automatically stale. Check for a live writer before manually removing it. If state is corrupt, inspect the backup and checkout before restoring it. Recovery must not silently erase work completed after the backup.
+A crash does not establish stale locks. Check live writers; remove only through explicit supported recovery. Inspect backups/checkout before restoring corrupt state; preserve subsequent work.
 
 ## Interrupted push
 
@@ -26,7 +26,7 @@ If user changes overlap the worker's paths, pause those writes and reconcile own
 
 ## Evidence that supports the claim
 
-A useful evidence record says, for example: “On snapshot S, Node version V ran the repository's export regression from checkout P; multi-page, single-page and empty cases passed, exit 0; bounded output is in artifact A.” It does not say “fully tested” if only export tests ran.
+Evidence names snapshot, runtime, checkout, actual command/cases, exit and artifact. Export-only checks do not mean fully tested.
 
 The content identity must describe what was observed. `HEAD` while relevant files are dirty is insufficient. Record a snapshot or content digest covering the behavior and its dependencies, and create a new identity after relevant changes. Artifact hashes protect the recorded file from later alteration; they do not prove the test ran or that the revision is truthful.
 
@@ -34,7 +34,7 @@ Keep observations monotonic as history, not as success selection. A newer failed
 
 ## Finish or remain incomplete
 
-Before the local completion guard, check facts it cannot infer: all modifying workers are collected, actual content matches the recorded identity, observations are honest, reviewed scope is adequate and authorized delivery is finished. The guard checks structure, latest criterion results and artifact digests. A successful guard is separate from native goal completion.
+Before the guard, collect modifying workers and verify current identity, honest observations, adequate review and authorized delivery. Structural/latest-result/digest checks cannot infer those facts. Guard success is separate from native goal completion.
 
 If a limit or interruption prevents finishing, save remaining criteria, attempts, concrete gap and next action. Use the host's actual lifecycle rules for pause/blocked/complete. A missing browser may leave visual proof incomplete while tests remain useful; it does not convert partial acceptance into completion. Do not start a background loop to bypass the host's continuation model.
 
@@ -44,4 +44,4 @@ A later user correction can change a requirement without cancelling the objectiv
 
 On resume, a clean working tree may still be the wrong artifact if a dependency, environment or remote release changed. Compare the relevant manifest, configuration and deployment identity before reusing checks. Likewise, a dirty unrelated note need not invalidate a previously observed parser behavior. Explain selective reuse through actual dependencies rather than treating timestamps or cleanliness as proof.
 
-Keep the next action specific enough for another coordinator to continue: reconcile the remote ref, observe the pending job's outcome, obtain the required fixture, or verify a named criterion on the current snapshot. “Continue testing” and a list of past intentions leave important decisions hidden. If there is no confirmed success, retain uncertainty rather than reconstructing it from the planned command.
+Name the concrete next action: inspect a remote ref, pending effect, missing fixture or current criterion. Retain uncertainty; planned commands are not observations.

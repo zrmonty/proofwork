@@ -1,6 +1,6 @@
 ---
 name: dry-audit
-description: Audit duplicated domain rules, validation and transformations; consolidate proven shared responsibilities while preserving distinct policies, ownership and behavior.
+description: When consolidating duplicated domain rules with a shared owner.
 ---
 
 # DRY audit

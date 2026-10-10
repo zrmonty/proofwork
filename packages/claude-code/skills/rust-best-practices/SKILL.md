@@ -1,6 +1,6 @@
 ---
 name: rust-best-practices
-description: "Use for Rust implementation or demanding review; design ownership and pure transitions, preserve public/error contracts, bound async and concurrent work, and verify performance or unsafe claims with the supported toolchain."
+description: For Rust changes involving ownership, borrowing, async, atomics or unsafe invariants.
 ---
 
 # Rust best practices

@@ -1,45 +1,37 @@
 # Component decisions
 
-Use this reference when the proposed stack gains another service or deployment layer. Start from the behavior and the existing operating environment; a component earns its place when it solves a requirement better than a simpler arrangement.
+Use when a proposal adds services or deployment layers. Each component must solve a requirement better than a complete simpler arrangement. Review the stack, not merely its database, and return keep, replace, omit or defer decisions. Popularity and unspecified growth do not earn infrastructure.
 
-Review the whole proposed stack before implementation, and relevant existing choices during an architecture audit. Name what the project actually needs, what each component contributes, a concrete simpler alternative and its tradeoffs. “Everyone uses this” and unspecified future growth do not earn a component. Return keep, replace, omit or defer decisions; do not merely list alternatives and leave the overbuilt proposal intact.
-
-| Proposed component | Requirement that can justify it | Simpler candidate to evaluate first | Failure or cost to account for |
+| Component | Earned requirement | Simpler candidate | Costs |
 | --- | --- | --- | --- |
-| Frontend framework | Interaction, rendering or navigation requirements that benefit from its model | Static/server-rendered pages or the existing framework | Bundles, build tooling, state coordination and maintenance |
-| ORM or query layer | Actual query, schema or migration responsibilities it usefully owns | Existing driver and contained queries where adequate | Hidden query cost, mapping semantics, another abstraction to maintain |
-| Additional API layer | Required clients, contracts or independent delivery | Existing server endpoints or direct server-owned calls | Authorization duplication, serialization, versioning and extra hops |
-| Separate service | Independent deployment, a meaningful security/failure boundary, or distinct owner | A module within the existing app | Network failure, versioned contracts, tracing and additional deployments |
-| Cache | Representative query work misses the agreed target | Better query, index, pagination, or computed result within existing mechanisms | Stale data, invalidation, eviction and fallback under failure |
-| Broker or task queue | Work must outlive the request and recover across failure, with explicit delivery semantics | Existing scheduler or persisted jobs in the app's current storage, if adequate | Duplicate effects, retries, poison jobs, monitoring and shutdown |
-| Search engine | Required relevance, analysis, indexing or query behavior exceeds existing storage | Existing database search with representative queries | Index freshness, rebuilds and another sensitive-data surface |
-| Container image | A target accepts containers and repeatable packaging helps deployment | Provider-supported runtime or existing deployment | Image updates, secret boundaries, runtime resources and persistent volumes |
-| Container orchestrator | Required scheduling, fleet operations or availability that the team can operate | Existing managed app platform or a small host deployment | Cluster expertise, access control, upgrades and incident burden |
+| Frontend framework | Required interaction/rendering/navigation | Static/server-rendered pages or incumbent | Bundles, build tools, state, maintenance |
+| ORM/query layer | Useful query/schema/migration ownership | Existing driver with contained queries | Mapping semantics, hidden queries, abstraction |
+| Extra API | Required clients/contracts/independent delivery | Existing endpoints/server-owned calls | Authorization duplication, versions, serialization |
+| Service | Real owner, deployment, failure/security boundary | Existing-app module | Network failures, tracing, contract/deployment versions |
+| Cache | Representative work misses target | Query/index/pagination/per-operation reuse | Invalidation, eviction, stale data, failure |
+| Broker/queue | Required durable work/delivery guarantees | Incumbent scheduler or persisted jobs if adequate | Retries, duplicates, poison jobs, shutdown |
+| Search engine | Necessary relevance/analysis/indexing beyond storage | Incumbent database search | Freshness, rebuilds, sensitive-data surfaces |
+| Container image | Suitable target/repeatable runtime packaging | Provider runtime/existing deployment | Updates, secrets, resources, persistence |
+| Orchestrator | Required scheduling/fleet/availability with operator | Managed platform/small host | Expertise, access, upgrades, incidents |
 
-These are comparisons, not mandatory rejection rules. An established platform may make a managed queue easier than building jobs into a database. Conversely, do not implement a homemade delivery system merely to avoid one dependency. State the requested delivery and failure guarantees before deciding.
+These are comparisons, not mandatory rejections. A managed queue can be simpler than homemade database jobs. Define failure/delivery semantics first; custom replacements count as complexity.
 
-For example, a public event timetable maintained by one editor might use content files and static delivery: no runtime database, frontend state framework, cache service or orchestrator is earned by that description. If live RSVP changes are added, re-evaluate the new persistence and interaction needs; do not retain the static recommendation by ignoring the changed contract. For a complex established editor with a suitable framework, replacing it with bespoke DOM/state handling may increase complexity. The test is project fit, not a preference for removing tools.
+## Walk complete behavior
 
-## A component must solve its own problem
+Name the scale dimension: overlapping writes, requests, jobs, availability, geography or independent delivery. Packaging does not solve shared state/availability. Replicas need compatible storage/coordination.
 
-“Scalable” is too broad to justify a cache, broker, or orchestrator. Name the dimension: concurrent requests, overlapping writes, job throughput, availability, geographic latency, or team deployment independence. A new container image addresses packaging; it does not settle shared state, availability, or throughput. Several app replicas require a storage and coordination arrangement compatible with their behavior.
+Walk an action and consequential failure through serious alternatives. For booking, locate availability enforcement, recording, confirmation failure and retry identity. Compare equal authorization, retention, recovery and ownership. A smaller diagram is inadequate if guarantees become hidden synchronization or incident repair.
 
-For a small event signup system, start with the app's existing runtime and relational queries. If email delivery must survive request failure, that requirement may earn a persisted job mechanism. Define duplicate-delivery tolerance and retry behavior. Do not attach a broker, cache, search cluster and service mesh because a future audience might grow.
+Choose the cheapest falsifying observation: a query, durable-host contract, interrupted job or restore. Avoid building several stacks unnecessarily. Missing evidence makes fit provisional.
 
-For a team already operating an appropriate managed platform, use its demonstrated mechanisms rather than introducing a smaller but unfamiliar deployment path. The decision optimizes the actual team's burden, not the component count in a diagram.
+## Examples and reopening conditions
 
-## Test the smallest complete arrangement
+A one-editor timetable may use content files/static delivery without runtime database, state framework, cache or orchestrator. Live RSVP writes reopen persistence/interaction. An established complex editor may be simpler with its framework than bespoke DOM/state machinery.
 
-Walk one representative user action through each serious option, including a failure at the most consequential boundary. For a booking, identify who checks availability, who records the booking, what happens if confirmation delivery fails, and how a retry avoids creating another booking. Put every required responsibility somewhere explicit. A diagram with fewer boxes is incomplete if the application must secretly reimplement transactions, authorization or delivery guarantees.
+A signup app can start with incumbent runtime/relational queries. Email surviving request failure may earn persisted jobs with defined retries/duplicates; it does not earn search infrastructure or a broker. Existing managed platforms can beat unfamiliar smaller deployments.
 
-Compare a complete simpler arrangement against the proposed one, not a stripped-down happy path against a production system. Include the same data retention, access boundaries, operational owner and recovery expectations. If the simpler option needs custom synchronization, a homegrown job runner and manual incident repair, those mechanisms count as complexity even when they do not appear as dependencies.
+A managed database can remain when transactions/recovery cost less owner effort than replacement. A newsletter can omit its queue when a provider owns required durable delivery; new application-owned durable jobs change that reasoning.
 
-Before settling a disputed choice, name the observation that could disprove the recommendation. Prefer the cheapest decisive check: exercise one required query, verify the host's durable storage contract, test an interrupted job, or trace an existing restore procedure. Do not build several complete stacks for comparison. When the evidence is unavailable, distinguish a provisional choice from a proved fit and state what would change it.
+Tie upgrades to observed limits/user targets: measure peak booking writes with imports, improve direct queries/transactions, and reopen storage if contention still misses agreed response time. Without targets, label measurements exploratory.
 
-For example, a booking application may retain a managed database because existing transaction and recovery arrangements solve its actual obligations with less owner effort. A newsletter may omit a queue because publication is synchronous and a delivery provider already owns durable delivery. The same queue becomes justified if the application has a separate required job that must survive its own process failure. Evaluate the responsibility, not the component's reputation.
-
-## A measured upgrade, without speculative layers
-
-State the current limitation and an observable trigger tied to the user's target. For example: measure the booking write path at the expected peak, including the import job; reopen storage if observed contention prevents the agreed response time after direct transaction/query improvements. If no target exists, ask for it or report exploratory measurements honestly.
-
-Keep the current implementation direct. Put query ownership in an existing module, preserve schema migrations, and isolate external calls from pure domain decisions. These seams make changes understandable without pretending that different databases or service transports are interchangeable. Record the likely migration risks and checks; implementing adapters for unused alternatives does not remove those risks.
+Keep direct query ownership, versioned schemas and explicit effect boundaries. Name conversion, cutover and rollback without universal adapters or dormant alternatives. Fewer components help only when complete behavior remains covered.

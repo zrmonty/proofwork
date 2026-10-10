@@ -25,6 +25,7 @@ test('outgoing range checks real commit bodies and rejects invalid revisions', (
   };
   try {
     git('init', '-b', 'main');
+    writeFileSync(join(repo, '.proofwork.json'), JSON.stringify({ commitFormat: 'proofwork' }));
     git('config', 'user.name', 'Proofwork fixture');
     git('config', 'user.email', 'fixture@example.invalid');
     writeFileSync(join(repo, 'note.txt'), 'fixture');

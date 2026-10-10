@@ -1,6 +1,6 @@
 ---
 name: humanizer
-description: Write and revise application copy with a natural, specific voice and purposeful content structure; reduce formulaic language, unnecessary headings, repeated calls to action and oversized footers while preserving meaning and usability.
+description: When writing natural application copy and reducing unnecessary headings.
 ---
 
 # Humanizer

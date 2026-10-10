@@ -2,7 +2,7 @@
 
 ## Decode an order without trusting its annotation
 
-`Order(**json.loads(text))` can be convenient, but a dataclass constructor and annotations alone do not enforce domain rules. An external order needs decisions about shape, booleans, ranges, extra fields, and record ownership. This original example declares a small contract without adding a validator dependency:
+Dataclasses and annotations do not validate external data. Define shape, ranges and ownership explicitly:
 
 ```python
 from dataclasses import dataclass
@@ -53,7 +53,7 @@ def append_to_first(
 
 Here every returned batch list is independent. Order instances remain shared, which is valid for the immutable scalar record above. Test both original preservation and the ownership promised for later edits to returned lists. Do not use blanket deep copying when the changed path and value ownership can be stated simply.
 
-For ordering alone, `sorted(items, key=...)` produces a new list whereas `items.sort()` changes a list in place. Choose from the ownership contract rather than a blanket ban on mutation. A private builder is fine if it does not escape before completion or modify caller data.
+sorted produces a new list; sort mutates in place. Choose by ownership; private builders may preserve caller data.
 
 ## Defaults and iteration change behavior
 

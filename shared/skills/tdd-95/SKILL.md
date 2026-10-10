@@ -1,46 +1,40 @@
 ---
 name: tdd-95
-description: "Use for test-first implementation, a 95% coverage gate, or reducing redundant tests while preserving fault detection and independent cases."
+description: When implementing executable behavior test-first with separate line and branch coverage gates.
 ---
 
 # TDD with a 95% gate
 
-Build the smallest test suite that protects the real contract. Require at least **95% line coverage and 95% branch coverage** of the selected first-party executable target, while retaining any stricter existing thresholds. Coverage is a floor for execution evidence; assertions must still detect incorrect behavior.
+Protect the real contract with the smallest effective suite. Require at least **95% line coverage and 95% branch coverage** of the independently selected first-party executable target, retaining stricter aggregate/per-file gates. Coverage measures execution; assertions must detect wrong behavior.
 
-## Establish the target and the baseline
+## Establish target and baseline
 
-Inspect the requested change, affected callers, test configuration, coverage collector, CI command and existing exclusions. Select the target before measuring: ordinarily the application, package or module the task concerns, not just the functions convenient to exercise. Record its source set, metric definitions and thresholds. Include executable sources that tests never import. Preserve the same denominator for before/after comparisons.
+Inspect affected callers, configuration, collector, CI and exclusions. Select the task's application/package/module before measuring, not only convenient functions. Independently enumerate executable source, including files tests never import, and record metric definitions and thresholds. Keep before/after denominators comparable.
 
-Keep generated code, vendored dependencies, test fixtures and non-executable declarations out only for a documented reason. Do not exclude error paths, add ignore annotations, reduce the target or alter the metric to obtain a passing number. Dead production code may be removed after checking its callers; hiding live code is not removal.
+Exclude generated/vendor/fixture/non-executable material only for documented reasons. Do not hide live code, error paths or branches with ignores, target changes or weaker metrics. Justified dead-code deletion requires consumer checks and a disclosed inventory/denominator update.
 
-Measure the current suite's outcome, coverage, elapsed time and slow setup. A legacy target below 95% remains below the required gate. Make relevant progress within authorized scope and report the remaining gap; do not silently lower the threshold or start an unrelated rewrite. Unsupported branch collection or absent reports mean the gate is unverified, even if line coverage is 100%.
+Measure current test outcomes, coverage, elapsed time and expensive setup. A legacy target below 95% remains below gate: improve relevant work within authority and expose remaining gaps rather than silently lowering requirements or rewriting unrelated systems. Missing reports or unsupported branch collection leave the gate unverified.
 
-Read [Coverage and CI](references/coverage-and-ci.md) when configuring measurement or interpreting a report. Read [Test economy](references/test-economy.md) when consolidating cases or improving suite time.
+Load [coverage and CI](references/coverage-and-ci.md) for collection/enforcement, [test economy](references/test-economy.md) for consolidation, and [independent oracles](references/oracles-and-properties.md) for shared expectations, weak generated assertions or lost detectors.
 
-Read [Independent oracles and properties](references/oracles-and-properties.md) when expected values reuse implementation logic, generated cases have weak assertions, snapshots are too broad, or consolidation could remove a distinct detector.
+## Red, green, refactor
 
-## Test a behavior before implementing it
+Write a focused test of the next observable behavior and run it. Establish the intended unmet assertion rather than a broken import, fixture or dependency; an absent interface can explain an initial failure but does not establish the behavior assertion.
 
-Write one focused failing test for the next observable behavior. Run it and establish that the failure is the intended unmet assertion, rather than a missing dependency, bad import or broken fixture. An absent interface can explain an initial failure, but reach the behavior assertion before treating the contract as demonstrated.
+Implement the smallest correct change, run affected checks, then refactor with protection intact. Add meaningful boundaries, invalid inputs, cleanup, cancellation, authorization and persistence failures where relevant. Explicit domain decisions and owned effect seams avoid repeatedly booting the application for pure cases.
 
-Implement only what makes that behavior correct, then run the test and affected checks. Refactor with the behavior still protected. Repeat for meaningful alternatives: boundary values, invalid input, resource cleanup, cancellation, authorization or persistence failures when relevant. Keep pure decisions separate from effect adapters so ordinary domain cases do not repeatedly boot the whole application.
+For bugs, demonstrate failure against old behavior and success after repair. For test-only consolidation, demonstrate retained fault detection without manufacturing production changes for a red phase.
 
-For a bug, show the regression fails against the old behavior and passes after the fix. For test-only consolidation, demonstrate preserved detection of relevant faults rather than manufacturing production changes to enact a red phase.
+## Remove repetition without removing protection
 
-## Consolidate overlapping tests without hiding cases
+Map cases to behaviors/failure modes before deleting tests. Shared executed lines do not imply duplicate contracts. Consolidate genuine semantic duplicates or parameterize independently reported variants; distinguish case count from test functions/files.
 
-Map existing tests to behaviors and failure modes before deleting them. Two tests that execute the same lines may protect different contracts. Distinguish cases from test functions and files: parameterization can reduce repetition without reducing the number of independent cases.
+Reuse expensive immutable setup only where supported. Isolate mutable state and effects, keeping fresh fixtures when reset cannot preserve independence. Avoid assertion chains whose first failure suppresses remaining cases. Retain distinct boundary, failure, integration and public-contract detectors even when coverage does not increase. Fix flaky causes rather than deleting tests or hiding failures with retries.
 
-Merge true semantic duplicates or express input/output variants as named, independently reported cases. Reuse costly immutable setup where the runner supports it, then isolate each case's mutable state and effects. Keep a fresh fixture when rollback or reset cannot preserve independence. Do not replace several independent tests with one chain whose first failure prevents later checks from running.
+## Verify both evidence and economy
 
-Retain boundary, failure and integration cases that protect distinct risks even when they add no coverage percentage. Remove implementation-mirroring assertions when the public contract already detects the fault; retain a direct assertion when removing it would conceal a required guarantee. Fix a flaky test's cause rather than adding retries or deleting it to improve timings.
+Run the final suite and full selected target. Require exact aggregate line and branch ratios separately; rounded displays or blended scores cannot satisfy the gate. Re-run after final source/configuration edits. Verify CI invokes enforcement and propagates failure. Use bundled `scripts/check-coverage.mjs` with actual normalized collector data and independent inventory where needed.
 
-## Prove both protection and economy
+Confirm expected cases and effective assertions execute: empty bodies, caught failures, unawaited checks, skips and missing discovery can produce false green. Compare timings and functions/cases under the same environment and source set. Use targeted fault injection when consolidation threatens a unique detector, not an incidental full mutation campaign.
 
-Run the final affected suite and the full selected target with coverage. Require the target's aggregate line ratio and aggregate branch ratio to each meet the gate; a combined line-and-branch score or a rounded display alone is insufficient. Preserve existing stricter per-file gates. Re-run after the final source or configuration change. Verify CI actually invokes the threshold check and propagates its failure. Where the runner lacks separate thresholds, use Proofwork's bundled `scripts/check-coverage.mjs` over a normalized collector report and independently enumerated source inventory, as described in [Coverage and CI](references/coverage-and-ci.md).
-
-Check that the tests contain effective assertions and that expected cases actually execute. An empty assertion body, a caught assertion failure, an unawaited asynchronous check or an unexpectedly skipped variant can leave a misleading green run. Use the existing runner's failure behavior and case reporting; do not substitute coverage percentage for proof that the assertions ran.
-
-Compare before/after under the same runner configuration, source set and environment. Report elapsed time, repeated measurements when meaningful, test functions and independent cases separately. A shorter suite is a useful result only if behavior protection remains. Use a small fault-injection check or targeted mutation run when deletion could remove a unique detector; avoid adding a costly full mutation campaign to a trivial change.
-
-Deliver the behavior changes, observed red/green evidence, coverage counts and percentages, exclusions, consolidation rationale, suite timings and unresolved gaps. State which faults were exercised and which were not. The workflow is complete only when the required gate and relevant behavior checks pass; authored instructions or an unexecuted CI configuration do not constitute a passing gate.
+Return red/green evidence, actual coverage counts/percentages, exclusions, consolidation rationale, timings and unresolved gaps. Completion requires passing behavior and coverage checks, not authored configuration.

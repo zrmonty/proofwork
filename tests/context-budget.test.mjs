@@ -45,7 +45,7 @@ function fixture() {
   const repo = mkdtempSync(path.join(tmpdir(), 'proofwork-budget-'));
   putFile(repo, 'shared/skills/use-proofwork/SKILL.md', 'entry '.repeat(100));
   putFile(repo, 'shared/skills/use-proofwork/references/light.md', 'stub '.repeat(50));
-  for (const skill of ['worker-mode', 'functional-programming', 'data-driven-development', 'clean-code',
+  for (const skill of ['pw-worker-mode', 'functional-programming', 'data-driven-development', 'pw-clean-code',
     'tdd-95', 'security-hardening', 'thermo-nuclear-code-quality-review', 'rust-best-practices']) {
     putFile(repo, `shared/skills/${skill}/SKILL.md`, 'skill '.repeat(10));
   }
@@ -77,4 +77,7 @@ test('budget command reports a failure and success from the actual selected entr
   const passed = spawnSync(process.execPath, [command, repo], { encoding: 'utf8' });
   assert.equal(passed.status, 0);
   assert.equal(JSON.parse(passed.stdout).totalWords, 150);
+  putFile(repo, 'shared/skills/use-proofwork/references/large.md', 'word '.repeat(801));
+  assert.equal(contextBudget(repo).passed, false);
+  assert.ok(contextBudget(repo).violations.some(file => file.limit === 800));
 });

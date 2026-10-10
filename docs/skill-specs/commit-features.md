@@ -1,47 +1,43 @@
-# Commit features specification
+# Commit message specification
 
-## Purpose and trigger
+## Purpose and policy
 
-Prepare and check every newly authored outgoing GitHub commit with truthful Major features and Minor features sections. Classification describes outcome and scope, not semantic versioning.
+Prepare truthful commit messages under an explicitly selected target-project policy. `.proofwork.json` accepts `commitFormat: proofwork | conventional | off`. Missing file or property defaults to off. No automatic Proofwork message or push gate applies without opt-in.
 
-## Inputs and scope
-
-Read staged diff, repository status/conventions, actual verification, source and destination refs, observed remote state, and existing publication authority. Preserve unrelated work, inherited/shared history, hooks, signatures, and project policies.
+The skill respects incumbent project conventions, hooks and authority. Invoking it can produce a requested draft; it does not automatically configure a gate, commit, publish, amend, rebase or force-push.
 
 ## Required decisions
 
-- Exactly one nonempty Major features section and one nonempty Minor features section, with None when no change belongs there.
-- Classify substantial capability or architectural milestone versus focused fix/improvement/documentation/tooling from behavior, not diff size.
-- Describe only this committed artifact; separate breaking compatibility and actually executed validation.
-- Determine actual newly outgoing commits against the observed destination/history. Stale upstream assumptions and checking only the tip are insufficient.
-- Run the bundled explicit-range checker, then examine semantic truth; format validation alone establishes neither code correctness nor authority.
-- Repair messages only in locally authored unpublished history within authority. Published/shared/third-party history is not rewritten automatically.
-- Disclose unverified remote range or incompatible history rather than force-pushing.
+- Inspect current target-project policy before choosing plugin syntax. Reject malformed configuration or unsupported values instead of silently defaulting.
+- In Proofwork mode, require exactly one nonempty Major features section and one nonempty Minor features section, using None as appropriate. Scope categories do not define version bumps.
+- In Conventional mode, validate the typed subject, optional scope/breaking marker, nonempty description and blank body separator. Syntax checking does not certify complete footer conformance, semantic type choice, compatibility or release policy.
+- In off mode, impose no plugin formatting or pre-push message enforcement. Existing project rules remain applicable.
+- Describe this actual committed artifact and executed evidence. Preserve unrelated work, truthful staged/committed provenance and public compatibility.
+- For authorized delivery with an enabled format, establish the actual newly outgoing range against observed remote state and check the selected commits. Disclose unavailable remote inspection or malformed history.
+- Never repair messages automatically, including unpublished commits. Actual history rewriting requires explicit authority and preservation of other owners, content, hooks and signing.
+- Keep per-destination acceptance and uncertain transport outcomes separate; retry only after reconciliation within authority.
 
-## Progressive disclosure
+## Interfaces and disclosure
 
-references/messages-and-history.md contains fictional major, fix-only, and compatibility examples plus normal-update, new-branch, empty-remote, and repair decisions. The checker remains a format-only tool and does not discover destinations or certify fast-forward status.
+`checkMessage(message)` retains the existing pure Proofwork-format validation default for callers. An explicit second argument selects `proofwork`, `conventional` or `off`; this helper does not read a repository or enforce delivery.
 
-## Output and evidence
+`configuredCommitFormat(repo)` resolves the Git root where available and reads its `.proofwork.json`. Non-Git targets use their own local configuration. `checkRange(repo, range)` reads policy and returns the existing per-commit array; off returns no inspected commits. An explicit helper argument can select a format for a deliberately requested local check.
 
-Return commit identities, feature summaries, observed source/destination and range, actual format/claim checks, validation gaps, and authorized push outcome when requested. Message examples must never be reported as performed tests.
+The CLI retains `--repo PATH --range GIT_RANGE` and reports `{format, enabled, commits}` so disabled enforcement cannot be mistaken for a verified empty range. It never writes Git history. No hook installation or CLI format override is provided.
 
 ## Acceptance cases
 
-1. Documentation-only and focused bug-fix messages use Major features None and concrete Minor features entries.
-2. A small diff enabling a substantial capability may be major; a large behavior-preserving cleanup is not major merely by size.
-3. Missing, duplicated, or empty headings fail format validation. Both real content and None pass.
-4. A breaking adapter removal is described separately without deriving a release bump from its feature category.
-5. A push of multiple new commits checks all relevant messages; validating only HEAD fails the outgoing-set requirement.
-6. A new branch on a nonempty remote checks newly introduced work against known remote history, not every ancestor indiscriminately.
-7. A malformed shared commit is reported without automatic rewrite. Locally authored unpublished repair preserves intended content and project hooks.
-8. An unavailable remote leaves the outgoing set explicitly unverified, even when the local checker succeeds.
-9. Passing tests used an unstaged configuration or a hook changes staged content: validation must cover the actual committed tree or its claim is explicitly limited.
-10. A worker advances the source after the range check or the destination moves: inspect the changed range, preserve normal push safety and never force-push as automatic recovery.
-11. A push to several refs partially succeeds or returns an ambiguous transport result: report observed per-target identities and verify unresolved destinations before retrying or claiming completion.
+1. An unconfigured repository with a free-form commit passes without message inspection or history mutation.
+2. Explicit off likewise skips enforcement and reports disabled in CLI output.
+3. Explicit Proofwork rejects missing, duplicate or empty sections; concrete content and None pass.
+4. Explicit Conventional accepts scoped, unscoped and breaking-marker typed subjects without Proofwork sections; malformed subjects or missing body separators fail.
+5. Invalid configuration and unsupported values fail closed. An unrelated valid project configuration with no commitFormat defaults to off.
+6. A nested Git working directory uses the project's root policy rather than ignoring it.
+7. A multi-commit range checks each selected commit only when enabled. Unsafe option-like ranges are rejected in every mode.
+8. Message validation or a format failure never changes commit identities or automatically rewrites published, shared or unpublished history.
+9. Partial staging, content-changing hooks and generated inputs preserve meaningful validation provenance.
+10. Multi-ref delivery and interrupted transport require separately observed outcomes; formatting cannot create publication authority.
 
-## Evaluation status and authorship
+## Evidence and authorship
 
-references/content-provenance.md covers working/index/commit differences, generated inputs, content-changing hooks and per-ref outcomes. A strict check depending on an unstaged stub does not certify the committed implementation. The workflow verifies a supported isolated artifact or limits its claim without resetting unrelated work or suppressing diagnostics. Series-wide final-tree results are not attributed to every intermediate commit. Optional push atomicity is not assumed; independently observed destinations and unresolved transport outcomes remain explicit.
-
-Originally authored from the user's commit requirement. Existing checker tests establish format/range parsing, not the instructional workflow's remote decisions or semantic truth. Parent evaluation records actual exercised cases; no new push permission is created.
+Originally authored for project-selected message assistance and validation. Runtime fixtures exercise format selection, syntax and read-only Git boundaries. They do not establish the instructional workflow's remote decisions, semantic truth or release correctness.

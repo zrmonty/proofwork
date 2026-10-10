@@ -1,6 +1,6 @@
 ---
 name: brainstorm
-description: Shape a new project or unresolved product idea into a concrete direction, representative user journey and smallest useful first slice before architecture or implementation.
+description: When shaping an unresolved product idea before implementation.
 ---
 
 # Brainstorm

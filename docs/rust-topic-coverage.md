@@ -49,6 +49,6 @@ Both unnumbered interactive review panels map to the worked contracts and the re
 
 ## Beyond the screenshots
 
-The same entry retains deeper guidance for validated construction, pure next-state/effect proposals, downstream compatibility, feature isolation, locks, supervised async tasks, cancellation, partial I/O, backpressure, measured allocation/retention, adversarial inputs, unsafe/FFI, callback lifetime, pinning and manual thread-safety obligations. All twenty-three references are reachable through the topic guide. Cross-skill links carry strict coverage, clean-code limits and actual before/after performance reporting.
+The same entry retains deeper guidance for validated construction, pure next-state/effect proposals, downstream compatibility, feature isolation, locks, supervised async tasks, cancellation, partial I/O, backpressure, measured allocation/retention, adversarial inputs, unsafe/FFI, callback lifetime, pinning and manual thread-safety obligations. All twenty-three references are reachable through the topic guide. Cross-skill links carry strict coverage, pw-clean-code limits and actual before/after performance reporting.
 
 Coverage here means authored guidance can be found for each visible topic. Executed compiler/test evidence and remaining gaps are recorded separately in the Rust curriculum verification report; this map does not certify a project or an agent's behavior.

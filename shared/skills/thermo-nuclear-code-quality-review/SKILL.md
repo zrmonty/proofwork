@@ -1,6 +1,6 @@
 ---
 name: thermo-nuclear-code-quality-review
-description: Assess structural maintainability of substantial changes or explicit demanding reviews; identify supported simplifications and give one evidence-bound verdict.
+description: When judging structural quality of substantial integrated changes.
 ---
 
 # Thermonuclear maintainability review

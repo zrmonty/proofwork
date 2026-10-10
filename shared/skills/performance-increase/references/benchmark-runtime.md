@@ -1,50 +1,32 @@
-# Reduce benchmark wall time while preserving its meaning
+# Reduce benchmark wall time without changing its meaning
 
-Read this reference when developers or CI spend too long running benchmarks. The target is faster useful feedback, with sufficient evidence for the decision. Separate a diagnostic command from the benchmark used to substantiate a release claim.
+Separate diagnostic feedback from final confirmation. Measure dependency/build work, data generation, startup/warm-up, sample setup, measured operations, cleanup and reporting. Identify costs per command, case, sample or operation. Do not exclude startup when startup is the requirement.
 
-## Account for elapsed time
+Record suite wall time including required preparation and operation duration per completed unit. Faster suite time with unchanged operation time is a valid harness improvement; fixed-duration harnesses may collect more samples instead.
 
-Measure where the command spends time: dependency resolution or compilation, generating data, startup and warm-up, sample setup, measured operations, cleanup and reporting. Identify whether a cost repeats per command, per case, per sample, or per operation. Avoid timing the process launcher when the intended measurement is an already-running function, and avoid excluding launch when startup is the requirement.
+## Remove repeated overhead
 
-Record two quantities where relevant:
+- Reuse unchanged build artifacts; cold-build claims need separate cold measurements.
+- Generate immutable input once only outside the product operation. Reset mutable state: warm caches, drained queues and sorted arrays change workloads.
+- Batch tiny operations, normalize by actual count and consume/validate outputs so optimization or laziness cannot erase work.
+- Select affected cases during iteration; retain final confirmation including plausible regressions. Shared fixtures preserve isolation and independent diagnostics.
+- Parallelize only without interference; competing CPU, disk, network, memory or database work is not isolated sampling.
+- Inspect installed sampling controls. Short exploratory runs need adequate independent confirmation; never silently loosen thresholds, drop warm-up or truncate unfavorable samples.
 
-```text
-Suite wall time: from command start to successful completion, including required preparation.
-Operation statistic: duration per stated unit under the documented measurement boundary.
-```
+Rust cargo bench --no-run isolates compilation but executes no benchmarks. Arguments after -- belong to the actual, possibly custom, harness. See [Cargo's command contract](https://doc.rust-lang.org/cargo/commands/cargo-bench.html).
 
-Improved suite time with unchanged operation time is a valid harness improvement. Report it that way. Faster code may also shorten the suite, but a harness with fixed minimum measurement duration may instead collect more samples.
+## Defensible comparison
 
-## Remove repeated overhead carefully
+Choose representative/boundary/adversarial cases before favorable results. Baseline and candidate use identical fixtures, configuration, counts and statistics with independently verified outputs. Legitimate workload updates require rerunning the baseline.
 
-- Reuse unchanged compilation artifacts through the existing build tool. Include a cold-build result separately if clean build speed is in scope; a warm cache does not prove a faster compiler or cold build.
-- Generate immutable representative input once when generation is outside the product operation. Reset mutable state between samples so a warmed cache, drained queue or already-sorted array cannot make later samples easier. If building the input is part of the product operation, keep it timed.
-- Batch enough tiny operations inside a sample to reduce clock overhead, then normalize by the actual operation count. Vary or reset inputs when repeated work would exploit an unrealistic cache. Validate the work and consume the output; check that compiler elimination or lazy execution cannot erase it.
-- Select the affected cases during iteration using the existing runner. Keep a documented full or appropriately scoped confirmation for the final claim, including cases that could regress. Label selected-case results as such.
-- Avoid repeating identical setup across equivalent cases when an owned shared fixture is safe. Preserve isolation and per-case diagnostics; joining cases must not conceal a failure or stop subsequent cases from running.
-- Parallelize unrelated preparation or separate jobs only when resource interference does not spoil measurements. Benchmarks competing for CPU, disk, network, memory or a shared database cannot be treated as isolated samples.
-- Use the runner's supported sampling controls after checking its installed version and help. Shorter exploratory runs may reduce sample count or duration, but retain enough confirmation data to detect the relevant change. Do not silently loosen regression thresholds, drop warm-up, or truncate samples to obtain the desired result.
+Keep cold/warm observations separate. Alternate/randomize revision order and repeat independent runs when drift matters. Report interference and uncertainty if an idle runner is unavailable. Retain distributions: minimum is best case, median is not a tail percentile, overlapping small samples may be inconclusive. Do not invent confidence intervals.
 
-If compilation dominates a Rust suite, `cargo bench --no-run` can isolate the build stage for diagnosis; it does not execute benchmarks. Arguments after `--` go to the actual benchmark harness, which may be custom. Check that harness rather than assuming libtest flags apply. See [Cargo's command contract](https://doc.rust-lang.org/cargo/commands/cargo-bench.html).
+Throughput needs duration and completed-successful-unit definition. Timing dispatch, counting attempts or changing units invalidates comparisons. Place instrumentation outside timing only when required product validation remains inside.
 
-## Keep the comparison defensible
+For services, record offered load, completed successes, failures, timeouts and queues together. Excluding slow failures can disguise degradation. State whether clients await responses before submitting again: closed models reduce load as service slows and cannot alone substantiate independent bursts. End-to-end claims include queue wait. Never generate live traffic merely for comparison. See [open versus closed models](https://grafana.com/docs/k6/latest/using-k6/scenarios/concepts/open-vs-closed/); do not add a new harness dependency by default.
 
-Choose representative cases before seeing the candidate's favorable result. Include a boundary or adversarial case when the changed algorithm has a known weakness. Run both revisions with the same fixture, configuration, operation count and statistical method; independently verify identical outputs. When a legitimate workload update is needed, rerun the baseline with the new workload and describe the update.
+Keep distinct cases visible; averages can hide regressions. Choose acceptance/tradeoffs before favorable runs. Confirm exploratory choices with fresh observations. Archive actual timings with units/revisions privately where needed.
 
-Allow warm-up appropriate to the runtime, but retain a separate cold measurement when the product relies on it. Avoid blending cold and warm samples into one unexplained number. Where machine drift matters, alternate or randomize baseline/candidate order and repeat independent runs. Prefer an idle controlled runner; if unavailable, report interference and uncertainty rather than manufacturing precision.
+## Claim boundary
 
-Keep meaningful distributions. A minimum can help estimate an uncontended best case but does not describe a typical request or a tail. A median cannot stand in for a required high percentile. Comparing small samples that overlap substantially supports an inconclusive result, not a guaranteed improvement. Do not invent confidence intervals unsupported by the runner or analysis.
-
-Check total work. A throughput figure needs its duration and completed-unit definition. Timing asynchronous dispatch instead of completion, counting attempted rather than successful operations, or changing bytes to records between runs invalidates the comparison. Confirm that instrumentation and output checks do not consume the bottleneck being measured; place invariant checks outside timing when safe and retain required product validation inside it.
-
-For service measurements, record offered load, completed successful work, failures, timeouts and queued work together. Discarding slow failures can improve reported latency while making the service worse. State whether each simulated client waits for a response before submitting its next request: that model reduces offered load as the service slows and cannot alone substantiate behavior under an independently arriving burst. Include queue waiting in an end-to-end latency claim. Never generate live traffic merely to complete this comparison.
-
-The [k6 load-model documentation](https://grafana.com/docs/k6/latest/using-k6/scenarios/concepts/open-vs-closed/) explains why request scheduling changes the question a load test answers. Use the existing harness's appropriate model rather than adding k6 as a dependency by default.
-
-Keep a case table when workloads differ: typical, small, large, cold or contention-heavy as applicable. Do not average distinct cases into a single gain that hides a material regression. Choose the acceptance target and permitted tradeoffs before selecting favorable runs; if exploratory tuning used these data, confirm the chosen candidate with new independent observations. Archive the actual raw timing records with their units and revision so the summary can be checked.
-
-## Finish with an explicit claim boundary
-
-Return the command and case selection, environment, measured boundary, baseline and candidate identities, wall time, operation statistic, sample method and observed variation. State correctness checks, changed resource costs and remaining gaps. A result from one machine and workload establishes that scoped observation. Capacity, production tails and other supported platforms require their own evidence.
-
-When a shortened run cannot resolve the expected difference, use it for iteration and run a longer confirmation. If confirmation remains inconclusive, retain the simpler change only when another demonstrated benefit justifies it; do not advertise it as a performance win.
+Return commands/cases, environment, measured boundary, identities, wall time, operation statistics, sampling/variation, correctness, resource tradeoffs and gaps. One machine/workload does not prove production capacity, tails or other platforms. Inconclusive exploratory runs need longer confirmation; retain a simpler change for another demonstrated benefit without advertising an unproved speedup.

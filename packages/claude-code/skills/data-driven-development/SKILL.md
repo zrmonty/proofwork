@@ -1,6 +1,6 @@
 ---
 name: data-driven-development
-description: Model domain data in the existing codebase style; preserve ownership and evaluate decisions with representative observations and reproducible comparisons.
+description: When modeling domain invariants or validating hypotheses against observed data.
 ---
 
 # Data-driven development
