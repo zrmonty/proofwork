@@ -17,6 +17,7 @@ Load only relevant detail:
 
 - For records, annotations, JSON policy, aliasing, numeric/time interchange, read [Data and boundaries](references/data-and-boundaries.md).
 - For exceptions, files, generators, subprocesses, async/blocking work, and checks, read [Effects and verification](references/effects-and-verification.md).
+- For untyped SDKs, protocols, callbacks, decorators or typed test doubles, read [Strict typed integrations](references/typed-integrations.md).
 
 ## Design a small, honest interface
 

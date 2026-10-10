@@ -38,6 +38,14 @@ references/coverage-and-ci.md defines denominator integrity, independent ratios,
 15. Parameterization schedules asynchronous assertions without waiting: the suite must propagate failures and complete each independent case before a green result is trusted.
 16. Shared setup passes only in its original order or leaves background resources alive: consolidation restores independence and includes teardown in its timing evidence.
 
+## Conditional reference expansion
+
+Reference map: references/oracles-and-properties.md is loaded only for independent expected results, domain-derived properties, economical differential checks and detector-preserving consolidation.
+
+Required acceptance: A price test cannot use the changed rounding helper as its only oracle. An always-empty filter must fail a completeness detector despite satisfying order/subset properties. Consolidation retains targeted fault detection and both separately collected >=95% gates over the independent inventory.
+
+The reference is original decision guidance. These cases specify observable acceptance; they are not claims of executed application, framework, provider or benchmark evidence. Existing strict typing, functional ownership, coverage and physical code-file limits remain in force.
+
 ## Evidence and authorship
 
 Original Proofwork instructions and examples. Official Vitest, Coverage.py and Rust documentation was inspected for collector behavior and capability caveats. These acceptance cases specify observable decisions; they do not claim that language projects, mutation campaigns or CI deployments were executed. Evaluation evidence belongs in the parent verification record.

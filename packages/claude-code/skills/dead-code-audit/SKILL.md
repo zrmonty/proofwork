@@ -17,6 +17,8 @@ No search matches, zero coverage and a tool's unused report are leads, not proof
 
 ## Delete the complete obsolete responsibility
 
+Read [durable consumers and retirement](references/durable-consumers-and-retirement.md) when handlers depend on persisted versions, queued work, staged flags or old configuration. A removed producer does not prove its accepted durable consumers have disappeared; separate source cleanup from authorized retirement of data and public behavior.
+
 For proven dead candidates within scope, remove the implementation and its obsolete imports, exports, registration, configuration and documentation references. Preserve initialization, cleanup and failure behavior still needed by live paths. Edit the generator for generated code rather than deleting output that will return. Do not replace removed code with empty wrappers, commented copies or speculative compatibility shims.
 
 Check dependencies after their final real consumer disappears, including build/dev tools and scripts. Update manifests and lockfiles with the existing package manager and verify the consumed build. Do not upgrade unrelated packages or remove a transitive entry manually. Migration files, public interfaces and release artifacts need their actual retention/compatibility contract checked before removal; absence of a current source caller is insufficient.

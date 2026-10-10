@@ -5,6 +5,8 @@ description: Write and revise application copy with a natural, specific voice an
 
 # Humanizer
 
+Read [messages as contracts](references/message-contracts.md) when wording summarizes partial results, spans surfaces or contains localized/dynamic values. Keep the observed event authoritative while choosing a useful full message for each surface.
+
 Make the application sound as though someone understands the person using it and the task in front of them. Useful human writing is specific, accurate and appropriately warm. It does not need a personality in every sentence. A clear label can do more than a paragraph of welcome copy.
 
 Use this skill when creating or revising visible application wording: navigation, page introductions, forms, buttons, empty states, errors, confirmations, notifications and help. Use it alongside frontend-design for page composition. A request to humanize copy does not authorize changing product behavior, removing required information or rewriting unrelated technical documents.

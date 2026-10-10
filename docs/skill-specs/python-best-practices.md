@@ -46,5 +46,13 @@ These are authored acceptance cases, not claims of executed integration evidence
 
 On 2026-10-10, Python Markdown blocks were combined in an isolated temporary script and executed with Python 3.14.5. Assertions passed for valid decoding, invalid shape/bool/float/range rejection, nested input preservation and returned-list independence, empty input, loader success, malformed JSON cause and missing-file cause. Deleting the failed-load file succeeded on Windows, checking prompt closure in that scenario. No configured static type check, older-interpreter matrix, async/subprocess integration, or incremental skill-benefit claim follows from these example checks. Repository dependencies and user configuration were unchanged.
 
+## Conditional reference expansion
+
+Reference map: references/typed-integrations.md is loaded only for strict typed SDK adapters, structural protocols, callbacks, async contracts and honest typed test doubles.
+
+Required acceptance: An untyped SDK payload becomes object and is validated before returning a precise domain value; implementation, callers and tests pass the existing strict gate. A protocol or cast alone cannot establish payload validity. A synchronous success-only fake cannot certify the async client's failure/lifetime contract.
+
+The reference is original decision guidance. These cases specify observable acceptance; they are not claims of executed application, framework, provider or benchmark evidence. Existing strict typing, functional ownership, coverage and physical code-file limits remain in force.
+
 ## Authorship and evaluation
 Requirements originate in the approved Proofwork design and user preferences. The instructional text and workflow were written for these requirements; no upstream skill assets were imported or adapted. Official documentation linked in the skill supplies technical grounding only. Coordinator supplied a fresh Codex pre-skill baseline at evals/results/baseline.txt: pure input handling, Python mutable-default avoidance, Rust recoverable input errors, and generic frontend critique already worked. It did not establish Proofwork-specific routing, rendered design iteration, integration, or host parity. Detailed scenario prompts/rubrics were recorded before authoring; that broad baseline does not count as running every listed case. Guided evaluation and full language/browser fixtures remain pending until artifacts demonstrate them.

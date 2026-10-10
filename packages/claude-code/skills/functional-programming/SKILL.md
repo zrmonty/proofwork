@@ -25,6 +25,8 @@ Model meaningful states and errors directly. Several booleans often permit impos
 
 When a process genuinely has state, distinguish the current state and incoming event, the next state, and any requested actions. Read [state and effect boundaries](references/state-effects.md) for persisted workflows, retries, cancellation, or concurrent writers. The transition decides; the existing application boundary performs the action and supplies its outcome back.
 
+For optimistic changes, stale edits, rebasing intent or partial-result projections, read [intent and reconciliation](references/intent-and-reconciliation.md). It distinguishes a requested operation from a replacement calculated using old state.
+
 Apply this default to as much changed stateful behavior as possible: create/update/delete rules, UI selection and form state, workflow progress, permissions, retry eligibility, reconciliation, cache invalidation and derived views. Inventory the writes in the changed path. Move the decision for each write into a pure transition or transformation unless it depends on an inseparable framework/resource operation; state that reason in the handoff. Do not extract trivial setters into layers merely to satisfy a pattern.
 
 Supply an owned snapshot, typed event and explicit policy/observations. Return the next value and any necessary effect requests as data; never invoke I/O, mutate a store, emit telemetry or consult hidden current state inside the transition. Feed actual effect results back as events. Distinguish proposed, committed, confirmed and uncertain states where they change behavior. Keep validation and authorization authoritative at the real boundary.

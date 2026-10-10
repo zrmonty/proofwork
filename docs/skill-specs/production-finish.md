@@ -38,4 +38,6 @@ references/exposure-and-response.md covers public-surface tracing, safe scanning
 
 ## Evidence and authorship
 
+references/release-observation.md covers authorized rollout observation and reconciliation of unknown durable writes. A green readiness endpoint cannot certify the authenticated save/read path. A timed-out smoke write is looked up through the supported identity before retry or run-owned cleanup; missing observations remain uncertain. A partially completed deployment is reconciled against the actually serving artifact, and recovery considers current data compatibility rather than promising lossless image rollback. Bounded local/host/live observations remain separate, with no new live-operation authority.
+
 Evaluate observed decisions and artifacts against these cases. Static skill validation proves structure only; a real image build or app deployment requires separate execution evidence. Authored originally for Proofwork from the user's finishing requirement. These cases describe required behavior and do not claim they have all been executed.

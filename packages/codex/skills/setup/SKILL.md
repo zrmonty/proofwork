@@ -29,6 +29,8 @@ Native subagents do not supply cross-provider orchestration. An external bridge 
 
 ## Map checks to acceptance
 
+Read [verification prerequisites and isolation](references/verification-isolation.md) when commands touch services, reset fixtures or depend on hidden local inputs. Establish the safe target and owned cleanup before execution, without incidental provisioning.
+
 Select shared engineering skills, languages for affected files and frontend guidance for interface work. For each required outcome, name the existing check or observation that can prove it, its expected environment, and any missing capability. Treat builds, unit tests, browser interactions and visual review as different claims. A supported substitute is acceptable only when it proves the same required behavior.
 
 For executable work, inspect both collection and enforcement: source discovery, separate coverage metrics, failure-status propagation and code-file discovery. A threshold in configuration is not evidence that CI runs it. Record how unimported source and ignored/custom generated code enter the respective inventories. If an inherited target cannot meet the required 95% or 500-line gate within scope, state that gap before promising completion and continue authorized useful work without weakening the requirement.

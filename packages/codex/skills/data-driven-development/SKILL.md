@@ -19,6 +19,8 @@ For producer/consumer or cross-language changes, identify the wire shape, units,
 
 Read [domain models and examples](references/domain-models.md) for difficult invariants or shared data contracts.
 
+For repeated imports, corrected observations, incremental aggregates or uncertain snapshot completeness, read [corrections and lineage](references/corrections-and-lineage.md). Establish source identity and replacement policy before counting rows.
+
 ## Make empirical claims falsifiable
 
 Use an experiment when the assignment makes a measurable claim: performance, resource use, reliability, conversion, quality, or a suspected regression. State the hypothesis, primary outcome, representative workload, meaningful decision threshold, and correctness guardrails before selecting a favorable result. A threshold should come from the user's need or existing target, not an invented impressive percentage.

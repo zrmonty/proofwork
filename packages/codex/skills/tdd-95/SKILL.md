@@ -17,6 +17,8 @@ Measure the current suite's outcome, coverage, elapsed time and slow setup. A le
 
 Read [Coverage and CI](references/coverage-and-ci.md) when configuring measurement or interpreting a report. Read [Test economy](references/test-economy.md) when consolidating cases or improving suite time.
 
+Read [Independent oracles and properties](references/oracles-and-properties.md) when expected values reuse implementation logic, generated cases have weak assertions, snapshots are too broad, or consolidation could remove a distinct detector.
+
 ## Test a behavior before implementing it
 
 Write one focused failing test for the next observable behavior. Run it and establish that the failure is the intended unmet assertion, rather than a missing dependency, bad import or broken fixture. An absent interface can explain an initial failure, but reach the behavior assertion before treating the contract as demonstrated.

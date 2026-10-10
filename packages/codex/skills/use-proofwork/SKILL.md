@@ -43,6 +43,8 @@ For substantial work, read [coordination and integration](references/coordinatio
 
 ## Integrate and challenge the result
 
+Read [acceptance changes](references/acceptance-changes.md) when the user revises requirements or new evidence changes the repair. Update affected contracts and selectively revalidate; preserve useful independent work and existing effect authority.
+
 Collect a worker's artifact and evidence, inspect its diff in caller context, then integrate one accepted result at a time. Never overwrite another owner's changes to make a patch apply. Verify the combined behavior: two locally passing slices can still disagree about serialization, ordering, states or failure handling.
 
 Track semantic dependencies as well as paths. A schema, configuration default, localization contract or retry policy can invalidate work in another file. When one changes, tell its consumers what assumption changed and update their checks before acceptance. Review results against the actual contract, not the worker's confidence or the number of commands run. Narrow scope when a proposed addition has no demonstrated need; do not turn every review comment into a new architectural layer.

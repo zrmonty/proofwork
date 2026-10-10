@@ -26,6 +26,8 @@ Conditional detail lives in the skill's references/coordination.md and reference
 
 ## Evidence and boundaries
 
+references/acceptance-changes.md covers changing requirements and new failure evidence inside an active run. Adding cancellation publication semantics revises UI/job integration criteria while unchanged serializer evidence may be retained through actual dependencies. The correction does not authorize deleting server records, cancelling unrelated jobs or creating another native goal. Live dependent owners receive the revised contract before writes, historical failures remain visible, and completion uses current acceptance rather than superseded intent.
+
 Acceptance identifies user outcomes, preserved contracts and consequential failure evidence. The coordinator tracks semantic dependencies, not only disjoint paths, and makes the critical path visible before dispatch. A later user correction revises dependent criteria/assignments without discarding unaffected work. Resumed evidence is reused only through actual content/environment dependencies; next actions identify a specific uncertainty or criterion rather than a generic testing intention.
 
 Code delivery includes the hard 500-physical-line maximum as a completion criterion on the integrated artifact. The coordinator checks additive discovery for custom or ignored code, coordinates required decomposition and does not record a repository-wide pass with unresolved existing violations. Exactly 500 passes; 501 does not. Neither structural review nor the completion guard creates an exception.

@@ -42,4 +42,6 @@ Return commit identities, feature summaries, observed source/destination and ran
 
 ## Evaluation status and authorship
 
+references/content-provenance.md covers working/index/commit differences, generated inputs, content-changing hooks and per-ref outcomes. A strict check depending on an unstaged stub does not certify the committed implementation. The workflow verifies a supported isolated artifact or limits its claim without resetting unrelated work or suppressing diagnostics. Series-wide final-tree results are not attributed to every intermediate commit. Optional push atomicity is not assumed; independently observed destinations and unresolved transport outcomes remain explicit.
+
 Originally authored from the user's commit requirement. Existing checker tests establish format/range parsing, not the instructional workflow's remote decisions or semantic truth. Parent evaluation records actual exercised cases; no new push permission is created.

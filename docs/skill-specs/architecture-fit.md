@@ -1,5 +1,11 @@
 # Architecture fit specification
 
+## Exit and operating ownership decisions
+
+Load references/exit-cost-and-ownership.md for consequential provider dependence, portability claims or tied alternatives. Compare actual export/exit obligations and the team's configured recovery/access ownership; an abstract adapter alone proves neither portability nor operability. Preserve pure domain/effect separation without pretending unlike providers have interchangeable guarantees.
+
+Acceptance: a small managed event platform can be retained when its complete operating arrangement fits, while an unmet required relationship-preserving export can disqualify it. A custom alternative must account for its identity, delivery and recovery owners. Do not implement unused providers or migrate data as part of a recommendation; record bounded observations and accepted dependence.
+
 ## Purpose and trigger
 
 Choose architecture and tools from actual workload, hosting, recovery, and maintenance needs. Apply to new-project architecture, consequential technology selection, and proposed infrastructure expansion; do not initiate a stack migration during an unrelated fix.

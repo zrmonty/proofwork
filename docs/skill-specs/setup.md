@@ -23,6 +23,8 @@ Conditional examples and role tradeoffs live in references/capabilities.md. Setu
 
 ## Evidence and boundaries
 
+references/verification-isolation.md covers command reach, hidden prerequisites and owned verification cleanup. A destructive fixture reset using the normal application connection is not run until its destination is established as isolated and authorized. A mock leaves required real integration unproved. A surviving child process or unknown stop is an outstanding effect; cleanup never prunes unrelated resources. Tool, assertion and environment failures receive distinct remedies, while independent coverage collection and additive code discovery retain the existing gates.
+
 Probe the actual required path after inspecting command effects and fixture isolation. Classify assertion failure separately from unavailable tools or permissions; do not retry an identical rejection or provision unrelated capabilities. Executable-work plans inspect coverage collection/enforcement and additive code discovery, preserving unresolved legacy gates rather than promising a pass. A threshold in configuration is not observed CI enforcement.
 
 Use real tool outcomes and inspected project commands, then observe the resulting plan/actions. Static packaging does not prove host access. A failed path should not be generalized to all host capability. Native lifecycle and permissions take precedence.

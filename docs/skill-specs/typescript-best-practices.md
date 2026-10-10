@@ -41,5 +41,13 @@ These are authored acceptance cases, not claims of executed integration evidence
 
 On 2026-10-10, Markdown code blocks were extracted and combined in an isolated temporary directory. TypeScript 5.9.3 compiled the examples using strict checking, no emit, target ES2022 and ESNext modules. Node 24.16.0 ran added decoder/label/order assertions successfully. A negative fixture adding cancelled failed compilation at the never argument as expected (TS2345). These checks verify the examples, not framework integration, older compiler compatibility, async behavior, or incremental skill benefit. The compiler ran through an ephemeral npm invocation; repository dependencies and user configuration were not changed.
 
+## Conditional reference expansion
+
+Reference map: references/patch-and-presence.md is loaded only for partial updates, omitted/null/undefined semantics, writable-field restrictions, nested replacement policy and stale drafts.
+
+Required acceptance: A nickname patch preserves an omitted value, clears only under the endpoint's null policy, and serializes valid empty values accurately. A stale draft retains user intent under the documented conflict policy; whole-record overwrites and browser-only authorization fail.
+
+The reference is original decision guidance. These cases specify observable acceptance; they are not claims of executed application, framework, provider or benchmark evidence. Existing strict typing, functional ownership, coverage and physical code-file limits remain in force.
+
 ## Authorship and evaluation
 Requirements originate in the approved Proofwork design and user preferences. The instructional text and workflow were written for these requirements; no upstream skill assets were imported or adapted. Official documentation linked in the skill supplies technical grounding only. Coordinator supplied a fresh Codex pre-skill baseline at evals/results/baseline.txt: pure input handling, Python mutable-default avoidance, Rust recoverable input errors, and generic frontend critique already worked. It did not establish Proofwork-specific routing, rendered design iteration, integration, or host parity. Detailed scenario prompts/rubrics were recorded before authoring; that broad baseline does not count as running every listed case. Guided evaluation and full language/browser fixtures remain pending until artifacts demonstrate them.

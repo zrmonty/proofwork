@@ -121,3 +121,7 @@ Version 0.10.0 adds dry-audit and audit-stack, specifications, aggregate routing
 ## Follow-up: deeper visual direction and interface craft
 
 Version 0.10.1 strengthens frontend-design with actionable direction, reference translation, representative vertical slices, a new interface-craft reference and hypothesis-driven rendered critique. Specifications and authored scenarios cover typography/fallback, grouping, selective softness, assets and truthful interaction states. The [verification report](../evals/results/design-craft-20261010.md) records twenty-five passing tests, both package builds, strict Claude validation and installed design-file parity. No target interface or browser evaluation was executed; visual and interaction claims still require observed rendered evidence.
+
+## Follow-up: references across every skill
+
+Version 0.11.0 adds twenty-one conditional references across all twenty-one skills, expanding the collection to fifty-five references. Entries and specifications map the new decision support; a [reference guide](reference-guide.md) makes it discoverable. The [verification report](../evals/results/references-expansion-20261010.md) records independent source review, separate hypothetical scenario reasoning, all twenty-five passing tests, both package builds, all skill validators, strict Claude validation and installed parity across seventy-six skill/reference files. These checks do not establish application-level behavioral certification or comparative improvement.

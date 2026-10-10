@@ -1,5 +1,7 @@
 # Proofwork
 
+See the [skill reference guide](docs/reference-guide.md) for conditional decision guides and worked scenarios across the full skill set.
+
 An engineering workflow plugin for Codex and Claude Code. Give it a task; its entry skill selects a playbook, loads the relevant language and design skills, coordinates bounded workers when useful, and checks the integrated result against evidence.
 
 Proofwork aims to help a team write less, better code. All shipped instructions are originally authored to [our specification](docs/design/2026-10-10-proofwork-design.md). No existing skill files were imported or adapted.

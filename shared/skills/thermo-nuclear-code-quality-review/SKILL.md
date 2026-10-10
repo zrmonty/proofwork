@@ -33,6 +33,8 @@ Resolve violations through cohesive decomposition that preserves contracts, vali
 
 ## Make findings actionable
 
+Read [finding disposition and counterevidence](references/finding-disposition.md) when a concern is disputed or a revision claims to resolve it. Let demonstrated responsibility change the judgment, inspect the current owner and integrated consumers, and keep structural conclusions separate from unverified runtime claims.
+
 Use the structural reference's concrete-change probe and remedy comparison for disputed findings. Inspect the integrated seam after parallel work, including remaining old owners and consumer assumptions. Prefer a supported local remedy when it fully addresses the concern; fewer layers, pure functions and more files are not independent evidence of better ownership.
 
 Each finding names a location, observed mechanism, practical maintenance cost, feasible remedy and behavior that must survive. Tie the cost to a real kind of change or failure, such as updating a validation rule in three owners. Show what disappears: duplicate rules, contradictory states, forwarding layers or hidden effects. Moving unchanged complexity into more files is not enough.

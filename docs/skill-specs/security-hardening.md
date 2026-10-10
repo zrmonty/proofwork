@@ -26,4 +26,6 @@ Audit application security and fix reachable vulnerabilities at shared trust/enf
 
 ## Evidence
 
+references/access-lifecycles.md is conditional guidance for jobs, retained exports, private caches, links and changing permissions. An export submitted before membership removal is assessed through execution and retrieval under the actual product policy; the skill does not invent universal revocation semantics. A corrected submission route does not revoke an already issued provider capability. Verification distinguishes pure policy, real adapter enforcement and unverified provider/cache behavior, and protects link values before output. Synthetic cross-scope, stale-permission and valid retrieval cases retain current-authority and no-prohibited-effect obligations.
+
 Routing and package checks establish discovery structure only. Forward fixtures, live boundary behavior, artifact scanning and production response require their own observed evidence. No compliance or exhaustive-security certification follows from a clean audit.

@@ -1,5 +1,11 @@
 # Frontend design specification
 
+## Journey continuity decisions
+
+Load references/journey-continuity.md for navigation round trips, editor context changes or returning work. Distinguish durable work, transient presentation and derived values; use pure transition decisions with owned navigation/storage effects. Preserve relevant orientation, input and position without leaking prior-context data or inventing persistence.
+
+Acceptance: an index/detail return retains established filters and position, while a direct detail arrival remains oriented. A late save result cannot overwrite another item's editor; account/permission changes isolate or invalidate retained data according to the real contract. Coherent type and surface choices survive the journey. Screenshots alone cannot close history, focus or work-preservation criteria; record actual interactions or gaps.
+
 ## Purpose and trigger
 
 Design, implement, critique, or refine a frontend whose composition and interactions serve actual people and content. The skill owns design decisions and rendered critique, not installation, publication, or a universal aesthetic.

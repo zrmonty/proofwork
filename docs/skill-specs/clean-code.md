@@ -1,5 +1,11 @@
 # Clean code specification
 
+## Contract-preservation decisions
+
+Load references/contract-preserving-refactors.md when extraction changes signatures, errors, ordering, nested aliases or initialization. Distinguish source, wire and behavioral compatibility; identify actual supported consumers and one authoritative rule owner without speculative compatibility frameworks.
+
+Acceptance: pure update extraction retains commit-before-notification semantics and observes the relevant failed effect through a caller. A new top-level object cannot be called an independent snapshot when mutable nested aliases still violate the contract; intentional resource identity need not be deep-copied. Integrated callers, imports and failure owners are checked alongside strict typing, coverage and cohesive 500-line compliance.
+
 ## Purpose and trigger
 
 Simplify implementation or review by removing unnecessary responsibility and indirection while preserving user-visible behavior, safety, and compatibility. A clean implementation may need no edit.

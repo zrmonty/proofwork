@@ -1,5 +1,11 @@
 # Specification: thermo-nuclear-code-quality-review
 
+## Counterevidence and disposition decisions
+
+Load references/finding-disposition.md for disputed findings or claimed resolutions. Identify the observed mechanism before prescribing a shape; distinguish correctness, structural concern and missing fact. Real transaction/cleanup/public responsibilities can withdraw an unsupported wrapper-removal recommendation.
+
+Acceptance: a pure new cancellation owner does not close the concern while an integrated worker retains its old predicate. Migrated authoritative ownership supports a bounded source conclusion, but untested denied effects remain unverified runtime/security claims. A size-compliant split cannot close distributed policy; an oversized reviewed file still blocks acceptance. Re-review the current artifact and nearby consequences rather than repeating resolved old findings; preserve the existing single-verdict contract.
+
 ## Purpose and inputs
 
 Give a demanding but calibrated structural maintainability verdict with actionable supported findings. Inputs are authorized paths/base/dirty scope, changed code and consumers, contracts/tests, a complete project-code inventory with physical line measurements and language/functional guidance.

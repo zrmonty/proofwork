@@ -45,6 +45,14 @@ references/hotspot-investigation.md covers symptom-driven measurements, semantic
 15. A lookup wins on a reused large fixture but loses when constructed for ordinary small requests: the report includes construction, size crossover and relevant input distributions rather than prescribing it everywhere.
 16. Repeated tuning selects the best of many noisy candidates: independent confirmation and preserved raw records are required before reporting a reliable gain.
 
+## Conditional reference expansion
+
+Reference map: references/cache-lifecycle.md is loaded only for measured cache suitability, complete dependencies, effect ownership, invalidation, cold/miss behavior and bounded retention.
+
+Required acceptance: A total cached only by organization ID cannot survive snapshot/policy/permission changes unchecked. Compare actual cold/warm/miss/invalidation cases including key/copy cost and retained memory; reject a faster stale or cross-caller-mutable result. Prefer local reuse when it solves the measured bottleneck.
+
+The reference is original decision guidance. These cases specify observable acceptance; they are not claims of executed application, framework, provider or benchmark evidence. Existing strict typing, functional ownership, coverage and physical code-file limits remain in force.
+
 ## Evaluation status and authorship
 
 Original Proofwork instructions and examples. Cargo, Python, Node and SQLite primary documentation was inspected for measurement constraints. Acceptance cases specify expected behavior; they do not assert that benchmarks or forward evaluations were executed. Executed checks and limitations belong in the parent verification record.

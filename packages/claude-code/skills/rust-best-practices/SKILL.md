@@ -15,6 +15,7 @@ For each changed operation, identify who owns its inputs, what remains available
 
 - For borrowing, domain types, UTF-8 boundaries, fallible collections, amounts, and errors, read [Ownership and domain contracts](references/ownership-and-domain.md).
 - For shared ownership, locks, cancellation, blocking work, resources, unsafe code, and checks, read [Resources and verification](references/resources-and-verification.md).
+- For public API evolution, optional adapters or isolated consumer builds, read [Downstream compatibility](references/downstream-compatibility.md).
 
 ## Choose ownership from use
 

@@ -1,5 +1,11 @@
 # Humanizer specification
 
+## Message-contract decisions
+
+Load references/message-contracts.md for dynamic/localized messages, cross-surface wording or partial-result summaries. Derive message selection from explicit observed events and policy; do not create a second mutable copy status, infer success or add effects to formatting. Preserve full-message interpolation, semantic value types, escaping and established disclosure.
+
+Acceptance: three confirmed changes, two refusals and three unknown results never become blanket success or a definite five-failure claim. Control, toast and detail can express different aspects of one truthful event. Matching date/status strings do not erase distinct facts. Check representative count/name/locale branches in their actual resources; stress text is not verified translation and source review is not rendered evidence.
+
 ## Purpose and scope
 
 Write application copy with natural, specific language and purposeful structure. Apply to visible interface wording and content composition; preserve product semantics, accessible structure, supplied facts and localization. Do not rewrite unrelated documents or modify behavior merely to match a proposed sentence.

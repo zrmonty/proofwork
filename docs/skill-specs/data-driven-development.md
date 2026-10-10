@@ -51,6 +51,14 @@ Existing cases are in evals/language-scenarios.md. Expanded decisions:
 
 These are authored acceptance cases, not claims of executed integration evidence.
 
+## Conditional reference expansion
+
+Reference map: references/corrections-and-lineage.md is loaded only for source identity, repeated delivery, corrected observations, snapshot completeness and pure incremental aggregates.
+
+Required acceptance: A count corrected from four to three contributes three under an authoritative replacement policy rather than seven or first-arrival four. Independent equal-valued events remain distinct. Missing snapshot rows cannot imply deletion without completeness evidence; finite retention does not promise unlimited duplicate suppression.
+
+The reference is original decision guidance. These cases specify observable acceptance; they are not claims of executed application, framework, provider or benchmark evidence. Existing strict typing, functional ownership, coverage and physical code-file limits remain in force.
+
 ## Evaluation status and authorship
 
 Original Proofwork instructions and examples. Scenario descriptions are not executed benchmarks. Prior broad baseline did not establish these experiment decisions; actual evaluator artifacts and limitations are maintained separately.

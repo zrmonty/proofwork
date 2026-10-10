@@ -23,6 +23,8 @@ Repeat enough independent observations to distinguish a material change from run
 
 Read [hotspot investigation](references/hotspot-investigation.md) when improving product code. Trace cost from the user-visible operation to the responsible work. Use CPU profiles, allocation observations, query plans, traces or counters according to the symptom. A profiler locates work; a representative benchmark tests whether changing it helps.
 
+When caching is a measured candidate or a warm benchmark hides invalidation, retention or miss costs, read [cache lifecycle](references/cache-lifecycle.md). Per-operation reuse may solve the problem without shared cache state.
+
 Write a short hypothesis that can fail: “Repeated membership scans dominate this input; one index per request should remove the repeated scan while preserving output order.” Choose the smallest change that addresses the measured cause. Prefer removing unnecessary work, improving an algorithm or data layout, reducing copies and allocations, batching owned effects, and avoiding repeated parsing or serialization before adding a cache, concurrent workers, or another service.
 
 Check how cost grows, not just one favorable input size. An optimization should address the observed expensive dimension: record count, payload size, key distribution, concurrent requests or retained state. Include a small-input comparison and a representative stress shape when the algorithm's crossover or worst case could change the decision. Do not describe an empirical speedup as a complexity proof.

@@ -51,6 +51,14 @@ Existing cases are in evals/language-scenarios.md. Expanded decisions:
 
 These are authored acceptance cases, not claims of executed integration evidence.
 
+## Conditional reference expansion
+
+Reference map: references/intent-and-reconciliation.md is loaded only for pure intentions versus stale replacement values, optimistic projections, conflicts and partial-result reconciliation.
+
+Required acceptance: An increment and an absolute replacement from the same stale cart receive their distinct documented conflict decisions. An older failure cannot erase newer pending intent; confirmed/refused/unknown outcomes remain distinct, and rejected candidates issue no effects.
+
+The reference is original decision guidance. These cases specify observable acceptance; they are not claims of executed application, framework, provider or benchmark evidence. Existing strict typing, functional ownership, coverage and physical code-file limits remain in force.
+
 ## Evaluation status and authorship
 
 Original Proofwork guidance. Examples are instructional and need their stated contracts; they are not production libraries or proof of general correctness. Parent evaluation records executed checks. Existing broad baseline already handled pure input preservation; no incremental efficacy claim follows from adding this reference.

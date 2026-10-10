@@ -1,5 +1,11 @@
 # Dead-code-audit specification
 
+## Durable-consumer decisions
+
+Load references/durable-consumers-and-retirement.md for persisted versions, queued jobs, old configuration or staged flags. Treat supported stored identifiers and retained upgrade/restore paths as potential callers. Establish retirement authority and observation bounds without exposing private records or mutating live data.
+
+Acceptance: an obsolete enqueue producer can be deleted while its old job handler and distinctive compatibility tests remain for accepted work. Authorized retirement with adequate evidence permits complete handler/registration/exclusively owned test removal. A locally disabled feature or skipped compatibility test is not automatically dead. Rebuild surviving source inventory and preserve gates without claiming percentage increases prove stronger tests.
+
 ## Purpose and scope
 
 Remove proven unreachable/obsolete code and exclusively attached tests as a complete scoped cleanup. Explicit read-only requests remain read-only. Preserve live behavior, external compatibility, user data and other owners' changes. Guidance is independently authored; no external skill assets are imported.

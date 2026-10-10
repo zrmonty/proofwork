@@ -31,6 +31,8 @@ Read [messages and outgoing history](references/messages-and-history.md) for exa
 
 ## Validate the commits that will leave this checkout
 
+Read [commit content provenance](references/content-provenance.md) for partial staging, content-changing hooks, generated delivery inputs or several destination refs. Bind validation to the actual outgoing tree and reconcile each delivery outcome.
+
 Before an authorized push, identify the exact source revision, destination remote/ref, and newly outgoing range from observed remote state. Verify the range rather than assuming `HEAD~1..HEAD` or treating a stale tracking branch as current. A new branch is not necessarily an empty remote repository.
 
 Run the bundled format checker:

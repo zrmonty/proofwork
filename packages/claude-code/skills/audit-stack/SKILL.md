@@ -31,6 +31,8 @@ Use [functional-programming](../functional-programming/SKILL.md), [data-driven-d
 
 ## Merge findings before editing
 
+Read [repair interactions](references/repair-interactions.md) when lenses share a root cause or a remedy trades security, performance, duplication or test coverage against another obligation. Keep one repair with distinct evidence requirements.
+
 Use one finding ledger: safe location, observed mechanism, user impact, evidence, responsible owner, affected contracts, smallest complete repair, checks and status. Merge reports of the same root cause and retain their distinct verification obligations. Prioritize security/data-loss/correctness, then supported subtraction and duplication cleanup, then measured performance and structural improvements. Real dependencies may change the order.
 
 Establish reachability before extracting a duplicate helper: there is no benefit in consolidating dead code. Fix ownership/security before optimizing a vulnerable path. Keep initial performance observations, but remeasure on the final comparable workload after repairs; source deletions and changed behavior can invalidate prior measurements. Track justified coverage-inventory changes explicitly rather than presenting denominator shrinkage as better testing.

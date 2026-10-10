@@ -31,6 +31,8 @@ For scope conflicts, test failures, interrupted work and worked result examples,
 
 ## Preserve ownership and return evidence
 
+Read [fixture fidelity and boundary evidence](references/fixture-fidelity.md) when reproduction depends on ordering, substitute effects or incomplete fixtures. Verify that the check reaches the reported mechanism and disclose the real boundary it leaves unproved.
+
 Edit only assigned paths. If a needed change belongs to another owner, report the required interface or path to the coordinator and continue independent assigned work. Do not overwrite shared/generated output, revert another worker, write aggregate run state, conclude the team goal or start nested workers without authorization.
 
 Before returning, inspect the actual diff and remove demonstrated duplication, unnecessary forwarding and misleading names. Preserve failure handling and observable behavior while simplifying. Explain material departures from the agreed design or functional default; a useful reason names the clarity, compatibility or measured performance tradeoff.

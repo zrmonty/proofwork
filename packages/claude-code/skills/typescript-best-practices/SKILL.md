@@ -17,6 +17,7 @@ Read only the detail needed for the task:
 
 - For parsing, numeric/time wire rules, sparse lookups, states, or public signatures, read [Domain contracts](references/domain-contracts.md).
 - For promises, bounded work, state checked across await, UI races, modules, resource ownership, or test selection, read [Effects and verification](references/effects-and-verification.md).
+- For partial updates, omitted/null fields, nested patches or unsaved drafts, read [Updates and presence](references/patch-and-presence.md).
 
 ## Choose types that expose decisions
 

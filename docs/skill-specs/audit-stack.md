@@ -14,3 +14,7 @@ One coordinated entry loads security, dead-code, DRY, performance, TDD/coverage,
 - Audit-stack routing loads every core lens once, plus actual languages; unrelated single audits and dry-run operations do not invoke the aggregate.
 
 Structural routing/build validation is separate from a target-application audit and real host invocation. Full audits need their own observed reachability, security, coverage, performance, integration and applicable rendered/release evidence.
+
+## Conditional repair interactions
+
+references/repair-interactions.md covers shared findings and conflicting remedies without creating additional ledger schemas. An export-cache defect reported by security, DRY and performance receives one coherent owner/repair while retaining separate isolation, representation and measurement obligations. Removing a cache may close disclosure but leaves its latency impact unmeasured until equivalent work is observed. Later integrations invalidate affected benchmarks and coverage; old passes are not relabeled. Deadness precedes extraction, distinct external enforcement survives consolidation, and unavailable measurements remain explicit gaps.

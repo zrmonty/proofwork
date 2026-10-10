@@ -43,6 +43,8 @@ If containers fit and building is within scope, create or improve the smallest s
 
 ## Return a release decision
 
+Read [release observation and uncertain writes](references/release-observation.md) for rollout verification, interrupted deployment or smoke checks with durable effects. Choose observations that reach the required flow and reconcile unknown outcomes before retrying.
+
 Give the user a concise readiness report: selected hosting and reasons; changes made; production artifact identity; checks actually executed and their environment; findings resolved; and any missing credentials, hosting answers, restore tests, or external actions. Distinguish locally verified packaging from deployment and live verification.
 
 Keep release states explicit: locally verified, ready for the selected host, deployed, and verified live. Report only states reached by observed checks. If deployment is authorized, promote the tested artifact rather than quietly rebuilding different inputs, and verify the primary flow through the actual public routing and access boundary. Record environment-specific checks separately from local ones.

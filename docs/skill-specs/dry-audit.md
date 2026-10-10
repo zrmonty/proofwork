@@ -1,5 +1,11 @@
 # DRY-audit specification
 
+## Facts and projection decisions
+
+Load references/facts-projections-and-policy.md for repeated totals, status maps, labels or serializers. Locate the authoritative fact/rule, preserve distinct consumer projections and historical meaning, and avoid mutable shadow totals or universal flag-driven helpers. Pure shared decisions do not remove current-state enforcement.
+
+Acceptance: settled historical amounts are not recalculated under today's estimate policy; genuinely identical settled-total rules gain one owner with migrated consumers. Localized labels cannot become retry policy or public wire values merely because text matches. Retain independent expected values and distinct consumer/security checks. Report justified retained differences, not unmeasured gains from fewer lines.
+
 Audit duplicated knowledge and give genuinely shared rules one appropriate owner. Similar syntax alone, line-count thresholds or a findings quota cannot justify consolidation. Preserve distinct policy, resource lifecycle, boundary enforcement and public compatibility. Originally authored guidance.
 
 ## Required decisions and acceptance cases

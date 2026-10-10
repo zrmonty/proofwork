@@ -15,6 +15,8 @@ For each candidate, identify the invariant or decision, its consumers and owner,
 
 ## Consolidate at the right boundary
 
+Read [facts, projections and policy](references/facts-projections-and-policy.md) when repeated totals, status maps, labels or serializers seem equivalent. Share the authoritative fact or rule while preserving consumer projections, historical meaning, units and real boundary enforcement.
+
 Reuse an existing authoritative implementation first. Otherwise give the common domain operation a concrete name and a narrow typed interface in the appropriate existing module. Keep its calculation or state transition pure over explicit inputs; adapters retain I/O, resource lifetime, retries, authorization and current-state enforcement. Preserve ownership, ordering, precision, error selection and cancellation when moving code.
 
 Migrate all relevant consumers, then delete the obsolete copies and exports. Do not leave both implementations active or add wrappers that simply preserve an old owner. Share immutable facts where appropriate; a mutable singleton can introduce cross-request state instead of removing duplication. No dependency container, generic policy language or flag-heavy helper merely to merge a few lines.

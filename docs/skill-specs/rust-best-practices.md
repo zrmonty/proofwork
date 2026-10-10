@@ -42,5 +42,13 @@ These are authored acceptance cases, not claims of executed integration evidence
 
 On 2026-10-10, both Rust Markdown blocks were extracted into an isolated temporary source and compiled with rustc 1.95.0 using --test. The ledger_contract test passed: ordinary and empty totals, preserved borrowed input, negative entry and overflow rejection. This establishes example behavior on that compiler, not minimum-compiler compatibility, all Cargo feature/target combinations, unsafe soundness, cancellation behavior, or incremental skill benefit. Repository toolchain configuration was unchanged.
 
+## Conditional reference expansion
+
+Reference map: references/downstream-compatibility.md is loaded only for actual downstream APIs, relevant feature combinations, isolated minimal builds and validated construction through optional adapters.
+
+Required acceptance: A workspace parser succeeds only because another package enables a feature: check its supported isolated consumer and fix the declared contract. New public enum/ownership behavior checks affected callers; a newer default build cannot certify minimum-compiler or adapter support.
+
+The reference is original decision guidance. These cases specify observable acceptance; they are not claims of executed application, framework, provider or benchmark evidence. Existing strict typing, functional ownership, coverage and physical code-file limits remain in force.
+
 ## Authorship and evaluation
 Requirements originate in the approved Proofwork design and user preferences. The instructional text and workflow were written for these requirements; no upstream skill assets were imported or adapted. Official documentation linked in the skill supplies technical grounding only. Coordinator supplied a fresh Codex pre-skill baseline at evals/results/baseline.txt: pure input handling, Python mutable-default avoidance, Rust recoverable input errors, and generic frontend critique already worked. It did not establish Proofwork-specific routing, rendered design iteration, integration, or host parity. Detailed scenario prompts/rubrics were recorded before authoring; that broad baseline does not count as running every listed case. Guided evaluation and full language/browser fixtures remain pending until artifacts demonstrate them.

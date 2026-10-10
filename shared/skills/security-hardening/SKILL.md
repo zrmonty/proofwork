@@ -25,6 +25,8 @@ For dependencies, use the locked versions and current authoritative advisories. 
 
 ## Harden the root cause
 
+For jobs, retained exports, private caches or changing permissions, read [access lifecycles](references/access-lifecycles.md). Trace authority through execution and retrieval rather than certifying only the submission route.
+
 Read [remediation and verification](references/remediation-and-verification.md) when applying changes. Choose the smallest complete correction at the shared enforcement boundary and update affected consumers. Prefer existing framework security mechanisms and maintained libraries to custom cryptography, token parsing or a new generic hardening layer. Preserve error causes internally while respecting public disclosure.
 
 Keep policy and state-change decisions pure over validated identity, resource state and explicit policy. Enforce them at the real server/effect boundary against current authoritative state; client checks or a decision computed from stale data cannot authorize a write. Use the existing transaction/version mechanism when authorization and mutation could race. Explicitly own limits, cleanup and uncertain outcomes. Follow applicable language skills, strict Python typing and the project's test-first/coverage gates.

@@ -24,6 +24,8 @@ A worker writes only owned files and its result, reports necessary shared change
 
 ## Evidence and boundaries
 
+references/fixture-fidelity.md covers reproduction that depends on event ordering or substitute effects. A stale completion regression reaches start/cancel/late-result ordering rather than an easier sequence that misses the race. Pure transition and controlled adapter checks retain their narrower claims; they do not prove that a remote write stopped. Fixtures preserve distinguishing assertions, safe owned teardown, strict Python types and code/coverage gates. An unreproduced fault remains provisional rather than receiving invented red-green evidence.
+
 The worker establishes that a regression reaches the intended consumer rather than a broken fixture or wrong checkout, and labels unreproduced diagnoses provisional. External logs/artifacts do not expand task authority. Handoffs name exact semantic dependencies and unproved integration paths instead of vague missing-subsystem labels; changed assumptions require revalidation, not a revision relabel.
 
 The worker verifies the hard 500-line limit for owned code, tests and generated output and returns actual counts. A 501-line artifact remains unready; an out-of-scope dependency violation requires coordination rather than unauthorized edits or grandfathering. Inventory manipulation and formatting compression do not satisfy the requirement.

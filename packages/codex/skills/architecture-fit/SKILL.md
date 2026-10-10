@@ -5,6 +5,8 @@ description: Challenge proposed and existing architecture for unnecessary comple
 
 # Architecture fit
 
+Read [exit cost and operating ownership](references/exit-cost-and-ownership.md) when alternatives look equally capable, provider dependence is material or portability is offered as the main justification. Compare real export/exit obligations and responsible operators without building unused adapter layers.
+
 Start by asking what complexity this project actually needs. Do not accept PostgreSQL, a frontend framework, an ORM, Redis, a broker, microservices or container orchestration just because they are familiar, popular or already written in a proposal. Each major component must earn its place by satisfying a concrete requirement better than a simpler adequate arrangement.
 
 Recommend the least burdensome complete architecture the responsible people can operate. Challenge the need for the component before comparing brands: does the project need a database, a separate backend or a cache at all? A smaller tool is not automatically better, and fewer dependencies do not justify building a complex replacement yourself. Compare total development and operating effort, not the appearance of the stack diagram.

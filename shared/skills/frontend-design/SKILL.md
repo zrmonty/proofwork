@@ -37,6 +37,8 @@ Avoid automatic hero → benefit cards → testimonials → repeated CTA composi
 
 ## Build the real experience
 
+Read [journey continuity](references/journey-continuity.md) when the flow crosses index/detail views, editors, dialogs or changing contexts. Carry the visual direction through navigation and verify orientation, work preservation and state ownership on the actual round trip, not only isolated screenshots.
+
 Use semantic controls and familiar affordances for important actions. Make the primary flow work with keyboard and pointer; expose focus; keep labels and errors connected to their controls; preserve meaningful reading order. Apply the project's accessibility target and check applicable contrast, reflow, motion, and target requirements against its standards. A screenshot cannot establish keyboard behavior.
 
 Design the states that the flow actually encounters: loading, empty, failed, partial, successful, disabled, or destructive confirmation as appropriate. Put recovery near the failed action and preserve entered work when possible. Distinguish “no items exist” from “the filter matches no items” and “items failed to load.” Do not add fictional loading or error screens to a static publication merely to fill a checklist.
