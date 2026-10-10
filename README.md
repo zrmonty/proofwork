@@ -188,7 +188,7 @@ Model roles use actual host capabilities and user-selected settings. Native alte
 
 See [verification](docs/verification.md) for exact executed checks, behavioral observations, tested host versions, and unverified release gates. Packaging tests establish packaging behavior; they do not certify agent quality or subjective visual appeal. The run-state guard enforces its recorded evidence contract, not truthfulness of arbitrary input supplied by an operator.
 
-The plugin has no global hook installation, external publishing automation, credential store, model API client, or background scheduler. Root invocation uses the host's existing agent and tools. User authorization and project instructions govern work.
+The plugin has no global hook installation, external publishing automation, credential store, model API client, or background scheduler. See the [hook audit](docs/hook-audit.md) for proposed lifecycle and Git integration points; these hooks are not implemented or installed. Root invocation uses the host's existing agent and tools. User authorization and project instructions govern work.
 
 ## Development
 
