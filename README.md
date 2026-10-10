@@ -31,7 +31,7 @@ Give any skill a task in the same prompt. In Codex, use `$<skill-name>` or selec
 | --- | --- | --- |
 | `$use-proofwork` | `/proofwork:use-proofwork` | Carry a task through discovery, routing, bounded workers, review and evidence. |
 | `$setup` | `/proofwork:setup` | Inspect host capabilities, toolchains, model roles and repository checks. |
-| `$architecture-fit` | `/proofwork:architecture-fit` | Choose architecture and tools from real workload, hosting, budget and maintenance needs. |
+| `$architecture-fit` | `/proofwork:architecture-fit` | Challenge every major stack component, compare simpler adequate alternatives and justify tools from real requirements. |
 | `$production-finish` | `/proofwork:production-finish` | Prepare an app for production, inspect secret exposure, establish hosting and build a suitable container when needed. |
 | `$performance-increase` | `/proofwork:performance-increase` | Profile bottlenecks, improve measured runtime/resource use and reduce benchmark overhead without changing the workload. |
 | `$tdd-95` | `/proofwork:tdd-95` | Use test-first development with separate 95% line/branch gates and consolidate redundant tests while preserving fault detection. |
@@ -55,7 +55,7 @@ $thermo-nuclear-code-quality-review Review the current diff and its callers. Rep
 $frontend-design Refine the article page with a content-led editorial identity and verify desktop/mobile behavior.
 $humanizer Rewrite this application's copy in a natural, direct voice. Reduce repetitive headings and footer sections while preserving useful navigation, facts and behavior.
 $commit-features Prepare a commit message from the staged diff and check the outgoing history.
-$architecture-fit Design a small club app for about 100 people. Explain the simplest adequate stack and ask about material unknowns.
+$architecture-fit Challenge this proposed stack. Explain why each major tool is needed, recommend simpler adequate alternatives and omit unearned complexity.
 $production-finish Prepare this app for production. Check for exposed secrets, ask about hosting and build a Docker image if it fits.
 $performance-increase Improve this parser's throughput and shorten its benchmark run. Preserve correctness and report comparable measurements.
 $tdd-95 Implement the approved behavior test-first, enforce the 95% coverage gate and consolidate redundant test setup and cases.
@@ -63,7 +63,7 @@ $tdd-95 Implement the approved behavior test-first, enforce the 95% coverage gat
 
 For Claude Code, replace the skill token with its namespaced command, for example `/proofwork:use-proofwork Find and fix issues in this repository`. `/use-proofwork` is the product entry name; a bare slash alias depends on host installation and is not guaranteed by the plugin. Commands reuse the host's available tools and permissions. Invoking a review or commit skill alone does not authorize edits, pushing or publishing.
 
-[Architecture fit](shared/skills/architecture-fit/SKILL.md) asks which requirements justify each component. About 100 users makes SQLite worth considering; write concurrency, hosting, recovery and maintenance determine whether it fits. It also challenges unnecessary services, queues, caches and orchestration while preserving a suitable existing stack.
+[Architecture fit](shared/skills/architecture-fit/SKILL.md) actively challenges the proposed and relevant existing stack: why is this component needed, and what simpler arrangement would satisfy the project? PostgreSQL, frameworks, ORMs, API layers, queues, caches and orchestration must each earn their place. It recommends what to keep, replace, omit or defer based on real requirements and total burden, including migration costs. No database brand or audience size supplies a default answer.
 
 [Production finish](shared/skills/production-finish/SKILL.md) establishes hosting with the user, checks the actual production artifact for public secret exposure, and verifies the relevant build, runtime and recovery behavior. When containers fit, it can build and smoke-test a Docker image. It treats packaging, scaling and live deployment as distinct deliverables and reports any missing evidence or required credential response.
 

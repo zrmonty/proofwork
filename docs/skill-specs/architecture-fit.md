@@ -11,6 +11,8 @@ Inspect existing code, hosting evidence, chosen tools, workflows, data ownership
 ## Required decisions
 
 - Separate hard requirements, preferences, observed facts, and assumptions. Name the behavior a proposed tool enables.
+- Actively challenge each major proposed and relevant incumbent component, including whether its category is needed at all. Popularity, habit and unspecified future scale are not requirements. State a simpler adequate arrangement and what requirement would rule it out.
+- Return keep, replace, omit or defer decisions with reasons rather than an unranked catalog. Review frameworks, ORMs, API layers and infrastructure as well as storage; a no-additional-component arrangement is a credible option when it meets the contract.
 - Distinguish account count from concurrent sessions, writes, transaction duration and jobs. Do not create a universal user-count rule or capacity promise.
 - Include the demonstrated incumbent, the least complex adequate option, and a material alternative when useful; compare equivalent requirements and total operating burden.
 - Evaluate local durable storage, ephemeral hosting, replica topology, required data/query features, backup/restore, availability targets, and maintainer capability where they can affect the choice.
@@ -40,6 +42,10 @@ Return a reasoned selected architecture or explicitly conditional recommendation
 8. A required specialized database feature or mandated viable tool choice overrides a small-audience heuristic; the comparison states the requirement explicitly.
 9. A Docker recommendation describes packaging separately from persistence and scaling; no promise that replicas can share local files safely.
 10. A scaling recommendation ties an observation to the agreed target and names a modest next change, without building generic storage abstractions in advance.
+11. A static event publication proposed with PostgreSQL, Redis, a broker and Kubernetes challenges every component and can recommend no runtime database when the actual editing/delivery workflow needs none.
+12. A modest mutable app with an unjustified PostgreSQL proposal asks what a simpler supported arrangement cannot do; it gives a concrete recommendation rather than merely mentioning SQLite.
+13. An existing PostgreSQL service is questioned on capability and burden; retention requires reasons including actual migration cost, while a demonstrated simpler fit receives a scoped proposal rather than an unauthorized migration.
+14. A framework or ORM is retained only with a real advantage for this project's interactions or data work; bespoke replacement complexity counts against removal.
 
 ## Evaluation status and authorship
 

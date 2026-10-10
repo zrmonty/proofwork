@@ -87,3 +87,7 @@ Version 0.5.0 adds humanizer with two conditional references and frontend integr
 ## Follow-up: hard 500-line maximum
 
 Version 0.6.0 enforces the hard code-file maximum through implementation, review and completion guidance and bundles an executable checker. The [verification report](../evals/results/file-limit-20261010.md) records boundary tests, independent review and the passing 20-file repository scan. All twenty-two tests pass; both seventeen-skill packages build and npm run check now includes the gate. Source discovery requires an additive inventory for custom or ignored project code and does not replace architectural review.
+
+## Follow-up: active architecture challenge
+
+Version 0.6.1 requires each major architecture choice to earn its place, including whether the component is needed at all. The [forward-use report](../evals/results/architecture-challenge-20261010.md) records concrete omit/replace decisions for an overbuilt static publication and reasoned retention plus topology questions for an established transactional app. All twenty-two tests and the file gate pass; both packages build and Codex 0.6.1 is installed. Hypothetical reasoning does not establish target-app operating evidence.
