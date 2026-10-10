@@ -1,5 +1,11 @@
 # Proofwork changelog
 
+## 0.23.1 — symptom and file-location routing
+
+- Slow-page requests asking for speed improvements start with investigation and retain performance-increase.
+- Questions asking which file/function/module/handler owns behavior route to read-only investigation.
+- Added exact checkout and C-login regressions, a Rust variant and an implementation-intent control; 159 routing checks pass.
+
 ## 0.23.0 — bounded evidence and process identity
 
 - Executed evidence has a two-minute default timeout and an explicit bounded override; timeouts never pass.

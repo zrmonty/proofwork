@@ -9,7 +9,7 @@
       "name": "proofwork",
       "source": "./packages/claude-code",
       "description": "Original engineering-team workflows with pure decisions and inspectable evidence.",
-      "version": "0.23.0"
+      "version": "0.23.1"
     }
   ]
 }

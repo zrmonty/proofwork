@@ -1,12 +1,12 @@
 {
   "schemaVersion": 1,
   "patterns": {
-    "readOnly": "^\\s*(?:explain|describe|summarize|summarise)\\b",
+    "readOnly": "^\\s*(?:explain|describe|summarize|summarise)\\b|^\\s*(?:which|what)\\s+(?:[\\w.+#-]+\\s+){0,3}(?:file|function|module|handler)\\b",
     "dryRun": "\\bdry[- ]run\\b",
     "review": "\\b(review|audit)\\b",
     "bugFix": "\\b(fix|bug|regression|broken|typo|spelling)\\b",
     "refactor": "\\b(refactor|simplify|restructure|rename)\\b",
-    "investigate": "\\b(investigate|diagnose|explain|research)\\b",
+    "investigate": "\\b(investigate|diagnose|explain|research)\\b|\\bslow\\b.*\\b(?:faster|speed\\s+up)\\b",
     "brainstorm": "\\b(brainstorm(?:ing)?|ideat(?:e|ion))\\b|\\bexplore\\s+(?:an?\\s+)?idea\\b",
     "newProject": "\\bnew\\s+(?:project|app|application|website|product)\\b|\\b(?:i|we)\\s+(?:want|need|would like)\\s+(?:to\\s+(?:build|create|make)\\s+)?an?\\s+(?:app|application|website|product)\\b|\\bi['\\u2019]d\\s+like\\s+an?\\s+(?:app|application|website|product)\\b",
     "approved": "\\bapproved\\s+(?:design|plan|spec(?:ification)?)\\b",

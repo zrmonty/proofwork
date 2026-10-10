@@ -86,5 +86,9 @@
 {"task": "I'd like a website to share my recipes", "files": [], "tier": "standard", "playbook": "brainstorm", "skills": ["pw-worker-mode", "data-driven-development", "pw-clean-code", "brainstorm", "frontend-design", "humanizer"]},
 {"task": "I want to build an app to track invoices", "files": [], "tier": "standard", "playbook": "brainstorm", "skills": ["pw-worker-mode", "data-driven-development", "pw-clean-code", "brainstorm"]},
 {"task": "I want an app to track invoices; implement the approved design", "files": [], "tier": "standard", "playbook": "feature", "skills": ["pw-worker-mode", "data-driven-development", "pw-clean-code", "tdd-95"]},
-{"task": "I want to add invoice tracking to our app", "files": ["src/invoices.ts"], "tier": "standard", "playbook": "feature", "skills": ["pw-worker-mode", "data-driven-development", "pw-clean-code", "typescript-best-practices", "tdd-95"]}
+{"task": "I want to add invoice tracking to our app", "files": ["src/invoices.ts"], "tier": "standard", "playbook": "feature", "skills": ["pw-worker-mode", "data-driven-development", "pw-clean-code", "typescript-best-practices", "tdd-95"]},
+{"task": "the checkout page is slow, make it faster", "files": [], "tier": "standard", "playbook": "investigate", "skills": ["pw-worker-mode", "data-driven-development", "pw-clean-code", "performance-increase"]},
+{"task": "which C file handles login", "files": [], "tier": "light", "playbook": "investigate", "skills": []},
+{"task": "Which Rust module handles login?", "files": [], "tier": "light", "playbook": "investigate", "skills": ["rust-best-practices"]},
+{"task": "Add a screen explaining which C file handles login", "files": [], "tier": "standard", "playbook": "feature", "skills": ["pw-worker-mode", "data-driven-development", "pw-clean-code"]}
 ]

@@ -1,4 +1,4 @@
-# Proofwork 0.23.0 for claude-code
+# Proofwork 0.23.1 for claude-code
 
 Install: `/plugin install proofwork --marketplace zrmonty/proofwork` (Codex requires marketplace registration; Claude requires 2.1.275+).
 

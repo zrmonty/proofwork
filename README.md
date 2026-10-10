@@ -6,7 +6,7 @@ Install in Claude Code 2.1.275+: `/plugin install proofwork --marketplace zrmont
 
 See the [skill reference guide](docs/reference-guide.md) for conditional decision guides and worked scenarios across the full skill set.
 
-Contributor routing check: `npm run test:routing`. It covers the existing 88 scenarios plus a focused
+Contributor routing check: `npm run test:routing`. It covers the existing 92 scenarios plus a focused
 [50-prompt Go/C corpus](tests/language-routing-corpus.json). Ordinary go/C wording must not reopen technology choice;
 genuine choices must still route correctly. These checks also run in `npm test` and `npm run check`.
 
