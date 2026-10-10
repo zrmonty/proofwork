@@ -1,6 +1,7 @@
+import { isMain } from './runtime-entry.mjs';
 import { readdir, readFile, writeFile, mkdir, cp, rm, rename, lstat, access } from "node:fs/promises";
 import path from "node:path";
-import { fileURLToPath, pathToFileURL } from "node:url";
+import { fileURLToPath } from "node:url";
 import { randomUUID } from "node:crypto";
 
 const repository = path.dirname(path.dirname(fileURLToPath(import.meta.url)));
@@ -202,7 +203,7 @@ export async function build(options = {}) {
   await writeFile(marketplacePath, `${JSON.stringify(marketplace, null, 2)}\n`);
   return report;
 }
-if (process.argv[1] && import.meta.url === pathToFileURL(path.resolve(process.argv[1])).href) {
+if (isMain(import.meta.url)) {
   try {
     const args = process.argv.slice(2);
     if (args.length && (args.length !== 1 || args[0] !== '--hooks')) throw new Error('usage: build.mjs [--hooks]');

@@ -1,8 +1,9 @@
+import { isMain } from './runtime-entry.mjs';
 import { readdir, readFile, writeFile, mkdir } from 'node:fs/promises';
 import { spawn } from 'node:child_process';
 import { createHash, randomUUID } from 'node:crypto';
 import path from 'node:path';
-import { fileURLToPath, pathToFileURL } from 'node:url';
+import { fileURLToPath } from 'node:url';
 import { normalizeLcov } from './collect-coverage.mjs';
 import { checkCoverage } from './check-coverage.mjs';
 
@@ -66,7 +67,7 @@ export async function verifyCoverage(repository = root) {
   return { ...gate, directory, inventory, revision };
 }
 
-if (process.argv[1] && import.meta.url === pathToFileURL(path.resolve(process.argv[1])).href) {
+if (isMain(import.meta.url)) {
   verifyCoverage(path.resolve(process.argv[2] ?? root))
     .then(report => {
       console.log(JSON.stringify(report, null, 2));

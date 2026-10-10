@@ -1,7 +1,7 @@
+import { isMain } from './runtime-entry.mjs';
 import { spawnSync } from "node:child_process";
 import { readFileSync } from "node:fs";
 import { resolve } from "node:path";
-import { pathToFileURL } from "node:url";
 
 function validateFormat(format) {
   if (!["proofwork", "conventional", "off"].includes(format))
@@ -63,7 +63,7 @@ export function checkRange(repo, range, format = configuredCommitFormat(repo)) {
   }));
 }
 
-if (process.argv[1] && import.meta.url === pathToFileURL(resolve(process.argv[1])).href) {
+if (isMain(import.meta.url)) {
   try {
     const args = process.argv.slice(2);
     if (args.length !== 4 || args[0] !== "--repo" || args[2] !== "--range")

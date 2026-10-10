@@ -5,6 +5,7 @@
 - Execute evidence through literal argument arrays or explicitly selected shell commands.
 - Support explicit native/Node CLI entries, bypass Windows shell wrappers and verify Claude folder versions.
 - Match repository policy paths with Windows or Unix separators without mutating caller input.
+- Resolve command entry identity through symlinked parents, including macOS `/var` aliases.
 - Run complete checks on Windows, Ubuntu and macOS with Node 22 and 24.
 
 ## 0.34.0 — Repository team policy

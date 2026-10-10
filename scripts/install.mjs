@@ -1,6 +1,6 @@
+import { isMain } from './runtime-entry.mjs';
 import { spawnSync } from 'node:child_process';
 import path from 'node:path';
-import { pathToFileURL } from 'node:url';
 
 const selector = 'proofwork@proofwork-local';
 export function installPlan(host, source = 'zrmonty/proofwork') {
@@ -69,7 +69,7 @@ export function parseInstallArgs(args) {
   return options;
 }
 
-if (process.argv[1] && import.meta.url === pathToFileURL(path.resolve(process.argv[1])).href) {
+if (isMain(import.meta.url)) {
   try { console.log(JSON.stringify(install(parseInstallArgs(process.argv.slice(2))), null, 2)); }
   catch (error) { console.error(error.message); process.exitCode = 1; }
 }

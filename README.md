@@ -34,6 +34,8 @@ For a CLI outside PATH, add `--cli "<absolute executable path>"` to the installe
 supply the package's Node entry file (`.js`, `.cjs` or `.mjs`) instead of its `.cmd` wrapper. Proofwork invokes it
 with the current Node runtime and literal arguments; it does not evaluate shell wrappers or change PATH.
 Installation checks enabled status and the loaded folder version when Claude reports a folder source.
+Command entry detection resolves symlinked parents, including macOS temporary paths; commands cannot silently
+skip their entry point because the invocation path differs from Node's resolved module path.
 
 Prefer `evidence --argv <check-argv.json>` for portable checks. The file is a JSON array such as
 `["node", "scripts/check.mjs", "argument with spaces"]`; use an absolute executable when PATH differs between

@@ -1,8 +1,8 @@
+import { isMain } from './runtime-entry.mjs';
 import { lstat, realpath, mkdir, open, link, unlink } from "node:fs/promises";
 import { constants } from "node:fs";
 import { randomUUID } from "node:crypto";
 import path from "node:path";
-import { pathToFileURL } from "node:url";
 
 const fail = () => {
   throw new Error("Invalid or conflicting Proofwork hook binding");
@@ -208,7 +208,7 @@ async function main() {
   const result = await (command === "bind" ? bind : unbind)(optionsFrom(args));
   console.log(JSON.stringify(result));
 }
-if (process.argv[1] && import.meta.url === pathToFileURL(path.resolve(process.argv[1])).href) {
+if (isMain(import.meta.url)) {
   main().catch(() => {
     console.error(JSON.stringify({ error: "Proofwork hook binding failed; inspect the explicit run and session" }));
     process.exitCode = 1;

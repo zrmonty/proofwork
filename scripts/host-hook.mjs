@@ -1,4 +1,4 @@
-import { pathToFileURL } from 'node:url';
+import { isMain } from './runtime-entry.mjs';
 import path from 'node:path';
 import { runHook } from './hook-policy.mjs';
 
@@ -19,6 +19,6 @@ export async function hookCli(args, stream) {
   }
 }
 
-if (process.argv[1] && import.meta.url === pathToFileURL(path.resolve(process.argv[1])).href) {
+if (isMain(import.meta.url)) {
   hookCli(process.argv.slice(2), process.stdin).then(output => process.stdout.write(`${JSON.stringify(output)}\n`));
 }

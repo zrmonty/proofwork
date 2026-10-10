@@ -1,8 +1,11 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { mkdtemp, writeFile, readFile, rm } from 'node:fs/promises';
+import { mkdtemp, writeFile, readFile, rm, symlink } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import path from 'node:path';
+import { spawnSync } from 'node:child_process';
+import { pathToFileURL, fileURLToPath } from 'node:url';
+import { isMain } from '../scripts/runtime-entry.mjs';
 import { createHash } from 'node:crypto';
 import { install } from '../scripts/install.mjs';
 import { executeEvidence } from '../scripts/runtime-evidence.mjs';
@@ -69,4 +72,26 @@ test('argv evidence integrates with run identity and rejects conflicting modes b
   assert.equal(state.evidence[0].passed, true);
   const observed = JSON.parse(await readFile(path.join(repo, '.engineering-team/portable.json'), 'utf8'));
   assert.equal(observed.exitCode, 0);
+});
+
+
+test('CLI entry identity survives symlinked parents without executing imports', async t => {
+  const repo = await fixture(t);
+  const source = path.dirname(path.dirname(fileURLToPath(import.meta.url)));
+  const link = path.join(repo, 'linked source');
+  await symlink(source, link, process.platform === 'win32' ? 'junction' : 'dir');
+  const entry = path.join(link, 'scripts/proofwork.mjs');
+  assert.equal(isMain(pathToFileURL(path.join(source, 'scripts/proofwork.mjs')).href, entry), true);
+  assert.equal(isMain(import.meta.url, entry), false);
+  assert.equal(isMain(import.meta.url, ''), false);
+  assert.equal(isMain('https://example.invalid/module', entry), false);
+  assert.equal(isMain(import.meta.url, path.join(repo, 'missing')), false);
+  const routed = spawnSync(process.execPath, [entry, 'route', '--explain', '--task', 'I want an app for invoices'],
+    {encoding:'utf8',windowsHide:true});
+  assert.equal(routed.status, 0, routed.stderr);
+  assert.equal(JSON.parse(routed.stdout).playbook, 'brainstorm');
+  const installer = spawnSync(process.execPath, [path.join(link, 'scripts/install.mjs'), '--host', 'invalid'],
+    {encoding:'utf8',windowsHide:true});
+  assert.equal(installer.status, 1);
+  assert.match(installer.stderr, /host must/);
 });

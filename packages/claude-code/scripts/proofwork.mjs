@@ -1,7 +1,7 @@
+import { isMain } from './runtime-entry.mjs';
 import { readFile, writeFile, mkdir, rename, copyFile, realpath, lstat, unlink } from 'node:fs/promises';
 import path from 'node:path';
 import { createHash, randomUUID } from 'node:crypto';
-import { pathToFileURL } from 'node:url';
 import { route, explainRoute } from './routing.mjs';
 import { withTeamPolicy } from './team-policy.mjs';
 import { acquireLock, releaseLock } from './runtime-locks.mjs';
@@ -375,6 +375,6 @@ async function cli() {
   if (!command || command === '--help' || command === 'help') console.log(help);
   else console.log(JSON.stringify(await execute(command, parseOptions(args)), null, 2));
 }
-if (process.argv[1] && import.meta.url === pathToFileURL(path.resolve(process.argv[1])).href) {
+if (isMain(import.meta.url)) {
   cli().catch(error => { console.error(redact(error.message)); process.exitCode = 1; });
 }

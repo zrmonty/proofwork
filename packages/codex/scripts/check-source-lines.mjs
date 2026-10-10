@@ -1,6 +1,6 @@
+import { isMain } from './runtime-entry.mjs';
 import { readdir, readFile } from "node:fs/promises";
 import path from "node:path";
-import { pathToFileURL } from "node:url";
 
 export function longLines(text, limit = 120) {
   if (!Number.isSafeInteger(limit) || limit < 1) throw new Error("invalid source-line limit");
@@ -22,7 +22,7 @@ export async function checkSourceLines(repository, names, limit = 120) {
   );
   return { passed: reports.every((file) => !file.violations.length), limit, files: reports };
 }
-if (process.argv[1] && import.meta.url === pathToFileURL(path.resolve(process.argv[1])).href) {
+if (isMain(import.meta.url)) {
   checkSourceLines(process.cwd())
     .then((report) => {
       console.log(JSON.stringify(report, null, 2));

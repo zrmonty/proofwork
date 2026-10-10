@@ -1,7 +1,7 @@
+import { isMain } from './runtime-entry.mjs';
 import { readFile, realpath, lstat } from "node:fs/promises";
 import { spawnSync } from "node:child_process";
 import path from "node:path";
-import { pathToFileURL } from "node:url";
 
 export const MAX_CODE_LINES = null;
 export async function configuredLimit(repo) {
@@ -94,7 +94,7 @@ export async function checkFileLines(repo, additional = [], limit = undefined) {
     files,
   };
 }
-if (process.argv[1] && import.meta.url === pathToFileURL(path.resolve(process.argv[1])).href) {
+if (isMain(import.meta.url)) {
   try {
     const args = process.argv.slice(2);
     if (args.length === 1 && args[0] === "--help")

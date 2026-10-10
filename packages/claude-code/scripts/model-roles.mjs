@@ -1,7 +1,7 @@
+import { isMain } from './runtime-entry.mjs';
 import { lstat, realpath, open } from "node:fs/promises";
 import { constants } from "node:fs";
 import path from "node:path";
-import { pathToFileURL } from "node:url";
 
 const preferences = {
   implementer: ["code"],
@@ -193,7 +193,7 @@ async function main() {
   if (Object.keys(options).length !== 3) fail();
   console.log(JSON.stringify(await planModelRoles(options), null, 2));
 }
-if (process.argv[1] && import.meta.url === pathToFileURL(path.resolve(process.argv[1])).href) {
+if (isMain(import.meta.url)) {
   main().catch(() => {
     console.error(
       JSON.stringify({ error: "Proofwork model role planning failed; inspect configuration and inventory" }),
