@@ -5,29 +5,41 @@ description: "Use for TypeScript and TSX changes or reviews; preserve runtime co
 
 # TypeScript best practices
 
-## Inputs
-Inspect affected callers, package scripts, tsconfig, lint rules, framework conventions, and any schema or generated types that already define the contract.
+Make the runtime contract easy to see and hard to misuse. A convincing type annotation is useful only when the values reaching it obey the same rules.
 
-## Workflow
-1. Separate external decoding from typed domain operations. Treat untrusted input as unknown until actual runtime checks establish its fields and invariants. Use the existing schema validator when present.
-2. Represent mutually exclusive states as distinct variants with a discriminant. Check all variants when adding or changing one. Required data belongs on the relevant variant rather than scattered optional properties.
-3. Reuse authoritative types where that preserves meaning. Add domain distinctions when they prevent a demonstrated mix-up. Let inference handle local expressions; annotate public contracts and places where inference obscures intent.
-4. Prefer pure calculations with explicit dependencies and readonly input contracts where useful. Readonly is not a runtime freeze and does not promise deep immutability. Avoid modifying shared arrays or objects.
-5. Use narrowing that matches runtime truth. Assertions and custom predicates need a defensible invariant; do not silence an invalid parse with a cast. Check numeric ranges and null/empty cases separately from shape.
-6. Keep promises, error handling, abort behavior, and resource cleanup explicit at async boundaries. Do not detach a promise without an owner for failures.
-7. Run the repository's relevant type/lint checks and behavior tests. Verify serialization or UI flows when the changed contract crosses those boundaries.
+## Establish the local contract
 
-## Outputs
-Return the changed contract, affected consumers, actual check results, and any casts or mutation whose necessity matters to review.
+Read affected callers before changing a signature. Inspect package scripts, the lockfile, compiler version, relevant tsconfig settings, module format, and existing schema/generated types. Identify whether the code runs in a browser, server, worker, or build tool; their APIs and failure behavior differ.
 
-## Boundaries
-Do not tighten compiler settings, add a schema library, or convert framework architecture as incidental cleanup. Compile success cannot prove external data valid. Load functional-programming for a new domain/state design.
+State the invariant concretely: “a retry count is a nonnegative safe integer,” “a completed export always has a download URL,” or “a search result belongs to the latest request.” This is more useful than deciding to make everything stricter.
 
-## References
-Consult the installed compiler's applicable behavior; these official references are technical grounding, not imported skill instructions.
-- [Narrowing](https://www.typescriptlang.org/docs/handbook/2/narrowing.html)
-- [Object types](https://www.typescriptlang.org/docs/handbook/2/objects.html)
-- [Type manipulation](https://www.typescriptlang.org/docs/handbook/2/types-from-types.html)
+Read only the detail needed for the task:
 
-## Behavioral cases
-Malformed JSON fails at entry; adding a job state exposes missing handling; pure transforms leave inputs intact; existing checks remain configured. See language-scenarios.
+- For parsing, numeric rules, states, or public signatures, read [Domain contracts](references/domain-contracts.md).
+- For promises, UI races, modules, resource ownership, or test selection, read [Effects and verification](references/effects-and-verification.md).
+
+## Choose types that expose decisions
+
+Use `unknown` at untrusted entry points and validate before handing values to domain functions. A JSON cast, generated response type, or generic fetch helper cannot establish what the server returned. Reuse the project's validator; a small direct check can suffice for a small contract.
+
+Use a discriminated union when states have different required data. Use ordinary records for data that can coexist. Add a wrapper or brand when it prevents an actual mix-up, with a constructor that establishes its invariant. Branding every string increases ceremony without creating runtime protection.
+
+Let inference describe local values. Annotate public boundaries where the annotation explains promises to callers. Prefer a named concrete type to a chain of conditional types when the domain has one stable shape. Use generics when a relationship between inputs and outputs needs preserving, not to make one implementation appear universal.
+
+Type predicates, assertions, and non-null assertions are proof obligations. Check the producer and every entry path. An assertion for an invariant guaranteed by a framework can be reasonable; an assertion replacing missing validation is a defect.
+
+## Keep decisions pure and effects owned
+
+Pass time, configuration, and decoded data into deterministic functions. Return a decision rather than writing files or updating application state inside a calculation. `readonly` communicates access restrictions; it does not freeze an object or recursively protect nested values. Copy only the levels the operation changes.
+
+A private mutable accumulator or clear loop is acceptable when it preserves caller-owned inputs. Avoid a dense reducer that hides control flow or copies a growing collection at every iteration.
+
+At async boundaries, name the owner of completion, failure, cancellation, and cleanup. Decide whether sibling operations may continue after one fails. Prevent obsolete UI requests from committing results. Cancellation can stop observation without undoing a server-side effect, so retries need the operation's own idempotency policy.
+
+## Verify the claim being made
+
+Run existing compiler and relevant behavior checks. A type check establishes compatibility with that configuration; runtime tests establish selected behavior. Neither substitutes for the other. Exercise malformed input, meaningful boundaries, added state variants, input preservation, and async races when those contracts change.
+
+For a module or published signature change, test an affected consumer or the package build. For TSX, inspect the framework's state and rendering conventions, and verify observable interaction when the change affects the UI.
+
+Return the changed invariant and consumers, actual commands/results, and material gaps. Explain casts, unhandled effects, or public compatibility changes that matter to review. Do not tighten compiler settings, migrate module formats, add dependencies, or rewrite framework architecture as incidental cleanup.

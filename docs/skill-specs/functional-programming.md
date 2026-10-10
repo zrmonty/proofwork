@@ -1,22 +1,43 @@
-# functional-programming specification
-
-Status: authored original Proofwork guidance, 2026-10-10. Package and host behavioral evidence tracked separately.
+# Functional programming specification
 
 ## Purpose and trigger
-Use for domain logic, transformations, and state transitions; make pure functions and explicit effects the default.
 
-## Inputs and boundaries
-The skill requires the assignment objective, relevant project conventions, caller/content contracts, and available verification capabilities. It preserves authorized scope and host permissions. It introduces no mandatory dependency or global configuration change. Its SKILL.md defines the specific inputs and technical limits.
+Use pure domain decisions and explicit effects as the default for transformations and stateful logic. Do not impose a framework or reject clear local loops/private mutation.
 
-## Required workflow
-Pure domain functions, explicit dependencies and caller preservation are the default. Stateful decisions and effect execution are distinguishable; ordering, retry, cancellation, and partial failure are accounted for. Clear loops and justified private mutation are accepted.
+## Inputs and scope
 
-## Output and evidence contract
-Report actual result, affected contracts, checks performed, artifacts tied to current revision/digests, unresolved criteria, and justified material deviations. Compilation or style alone cannot establish runtime behavior. Missing execution remains explicitly unverified.
+Read caller contracts, domain rules, ownership, effect boundaries, and project conventions. Identify time, randomness, shared mutation, persistence, and retry behavior that can affect the result. Preserve documented in-place APIs unless changing their contract is within scope.
+
+## Required decisions
+
+- Make supplied inputs sufficient to predict a domain result; obtain unstable dependencies at the boundary.
+- Preserve caller-owned data under the actual contract, distinguishing shallow copies, nested aliases, and immutable sharing.
+- Choose direct data shapes and meaningful states/errors rather than speculative generic abstractions.
+- Separate state transition decisions from existing effect execution and persistence ownership.
+- Keep concurrency/version/transaction mechanisms at the boundary; pure computation alone supplies none of those guarantees.
+- Handle uncertain effects through actual provider lookup/idempotency contracts. Cancellation/timeout is not proof of non-delivery.
+- Accept a clear private accumulator or loop and reject needless copying, pipeline complexity, or effect frameworks.
+
+## Progressive disclosure
+
+references/transformations.md explains a concrete immutable invoice update, intentional structural sharing, clear loops, and supplied unstable inputs. references/state-effects.md handles a notification workflow with uncertain delivery, crash windows, and concurrent writers. These are conditional decision examples, not mandatory runtime architecture.
+
+## Output and evidence
+
+Report changed decision/effect boundaries, ownership and aliasing contract, current-artifact checks, and justified departures. Unit determinism does not certify transactionality, cleanup, recovery, or real external delivery.
 
 ## Acceptance cases
-Use evals/language-scenarios.md. Applicable cases: State-effects, Clean-positive, TS-boundary, Rust-summary, Python-alias.
-Material behavior or honesty failures fail a case. Review must also accept the intentionally clean case. Fresh-context paired runs distinguish current capability from incremental skill benefit.
 
-## Authorship and evaluation
-Requirements originate in the approved Proofwork design and user preferences. The instructional text and workflow were written for these requirements; no upstream skill assets were imported or adapted. Official documentation linked in the skill supplies technical grounding only. Coordinator supplied a fresh Codex pre-skill baseline at evals/results/baseline.txt: pure input handling, Python mutable-default avoidance, Rust recoverable input errors, and generic frontend critique already worked. It did not establish Proofwork-specific routing, rendered design iteration, integration, or host parity. Detailed scenario prompts/rubrics were recorded before authoring; that broad baseline does not count as running every listed case. Guided evaluation and full language/browser fixtures remain pending until artifacts demonstrate them.
+Existing cases are in evals/language-scenarios.md. Expanded decisions:
+
+1. Updating one nested invoice line leaves input values unchanged and shares unchanged immutable values deliberately. A shallow outer copy followed by nested mutation fails.
+2. A local loop summing supplied quantities is accepted as pure; replacing it solely to remove iteration is unnecessary.
+3. A due-date decision uses supplied effective date/domain policy rather than hidden current time, without injecting every library function.
+4. Notification timeout enters uncertain outcome and reconciles through the provider's real contract. Blindly retrying with a new operation identity fails.
+5. Two transitions over one old revision preserve the storage conflict/version mechanism rather than claiming pure functions avoid races.
+6. A documented in-place API remains valid in a focused cleanup; unauthorized ownership changes fail scope.
+7. Checks distinguish transition unit evidence from a real failure/recovery boundary.
+
+## Evaluation status and authorship
+
+Original Proofwork guidance. Examples are instructional and need their stated contracts; they are not production libraries or proof of general correctness. Parent evaluation records executed checks. Existing broad baseline already handled pure input preservation; no incremental efficacy claim follows from adding this reference.

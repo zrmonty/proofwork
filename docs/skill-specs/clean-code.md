@@ -1,22 +1,43 @@
-# clean-code specification
-
-Status: authored original Proofwork guidance, 2026-10-10. Package and host behavioral evidence tracked separately.
+# Clean code specification
 
 ## Purpose and trigger
-Use for implementation cleanup or review; apply shared simplicity principles without inventing abstractions or changing behavior.
 
-## Inputs and boundaries
-The skill requires the assignment objective, relevant project conventions, caller/content contracts, and available verification capabilities. It preserves authorized scope and host permissions. It introduces no mandatory dependency or global configuration change. Its SKILL.md defines the specific inputs and technical limits.
+Simplify implementation or review by removing unnecessary responsibility and indirection while preserving user-visible behavior, safety, and compatibility. A clean implementation may need no edit.
 
-## Required workflow
-Load canonical principles, trace responsibility, remove only unnecessary mechanisms, preserve behavior and safety, accept already clear code, and route substantial structural work to thermonuclear review.
+## Inputs and scope
 
-## Output and evidence contract
-Report actual result, affected contracts, checks performed, artifacts tied to current revision/digests, unresolved criteria, and justified material deviations. Compilation or style alone cannot establish runtime behavior. Missing execution remains explicitly unverified.
+Read the assignment, actual callers and boundaries, canonical engineering principles, existing conventions, and preserved contracts. Scope includes relevant exports, fixtures, configuration, and external compatibility of a deletion; it does not authorize an architecture rewrite.
+
+## Required decisions
+
+- Trace behavior and locate a concrete maintainer question whose answer is scattered or obscured.
+- State a consequence before labeling code defective; function length, classes, and loops are not findings by themselves.
+- Remove a mechanism only when its responsibility is unnecessary or has one explicit replacement owner.
+- Share rules that change for the same domain reason; do not couple unrelated policies based on similar syntax.
+- Prefer meaningful names, clear ownership, direct flow, and proportionate pure/effect boundaries over clever compression or speculative generic helpers.
+- Preserve validation, failure context, ordering, cleanup, permissions, persistence, and compatibility that the changed code actually owns.
+- Check real consumers and behavior, and route substantial structural quality enforcement to thermonuclear review.
+
+## Progressive disclosure
+
+references/refactoring-decisions.md supports wrapper evaluation, policy duplication, meaningful state, derived values, and targeted preservation checks. The canonical principles remain shared; this skill adds decision examples rather than another verdict system.
+
+## Output and evidence
+
+Report the clarified responsibility, removed mechanism, current-artifact preservation evidence, and material remaining findings with feasible remedies. No arbitrary line-count, style, or novelty demands.
 
 ## Acceptance cases
-Use evals/language-scenarios.md. Applicable cases: Clean-positive, State-effects.
-Material behavior or honesty failures fail a case. Review must also accept the intentionally clean case. Fresh-context paired runs distinguish current capability from incremental skill benefit.
 
-## Authorship and evaluation
-Requirements originate in the approved Proofwork design and user preferences. The instructional text and workflow were written for these requirements; no upstream skill assets were imported or adapted. Official documentation linked in the skill supplies technical grounding only. Coordinator supplied a fresh Codex pre-skill baseline at evals/results/baseline.txt: pure input handling, Python mutable-default avoidance, Rust recoverable input errors, and generic frontend critique already worked. It did not establish Proofwork-specific routing, rendered design iteration, integration, or host parity. Detailed scenario prompts/rubrics were recorded before authoring; that broad baseline does not count as running every listed case. Guided evaluation and full language/browser fixtures remain pending until artifacts demonstrate them.
+Existing cases are in evals/language-scenarios.md. Expanded decisions:
+
+1. An unexported forwarding wrapper with no behavior is removed only after active consumers migrate.
+2. A public adapter remains when external compatibility is outside scope, even if its happy path looks redundant.
+3. Removing a wrapper preserves its sole error translation or cleanup owner.
+4. Similar formatting branches with unrelated policies are not forced into a flag-driven universal helper.
+5. Contradictory state flags receive a model/ownership fix, not just a shorter boolean expression.
+6. A clear local loop and an already direct implementation receive no finding.
+7. Targeted preservation checks exercise the responsibility that moved; implementation-mirroring tests do not substitute for integration.
+
+## Evaluation status and authorship
+
+Original Proofwork guidance. Acceptance includes intentionally clean cases so review is not rewarded for invented findings. A scenario's presence does not mean it was executed; parent evidence identifies performed checks and gaps.

@@ -1,36 +1,48 @@
 ---
 name: frontend-design
-description: "Use for frontend design, implementation, critique, and refinement; produce content-specific inviting interfaces with rendered and interaction evidence."
+description: Design, implement, or refine frontends through content-specific composition, coherent visual decisions, accessible interaction, and rendered critique.
 ---
 
 # Frontend design
 
-## Inputs
-Identify the people using the page, their next action, actual content/states, incumbent identity/components, target devices, assets and licenses, and available browser tools. Separate supplied facts from labeled fixtures; do not invent testimonials or business claims.
+Make the interface feel made for its people, content, and task. A distinctive page has a clear point of view; every region does not need its own visual trick. Prefer an inviting editorial direction and softer forms where they suit the product. Preserve the user's identity and incumbent design when the assignment is refinement.
 
-## Workflow
-1. Write a short brief tying the user task to content priority and constraints. For substantial new designs, explore two genuinely different compositions before choosing. Lightweight sketches suffice; user-delegated choice requires reasons, not an approval stop.
-2. Choose hierarchy, type and reading rhythm, layout, density, palette/contrast, image treatment, radius system, and purposeful motion. Record the direction in existing project documentation or DESIGN.md. Each choice must serve this brief.
-3. Start with the user's inviting editorial preference when compatible with the product. Let real headlines, excerpts, bylines, images, and article structure determine composition. Give the publication its own identity rather than reproducing Substack.
-4. Use softer controls/media/panels with coherent nested radii. Explore compact controls around 8-12px, media/surfaces 12-20px, and prominent panels 20-28px only if they suit this design. Leave reading regions open. Do not turn the page into nested rounded boxes.
-5. Establish one or two distinctive choices and carry them through the site. Handle long headlines, missing images, real metadata, and narrow views. Use licensed fonts and fallbacks; a serif headline is an option, not a recipe.
-6. Before parallel UI work, one design owner supplies common tokens, component contracts, content states, and a representative composition. Assign disjoint ownership; inspect the combined interface for drift.
-7. Implement using incumbent components. Include semantic controls, keyboard navigation, visible focus, sufficient contrast, reflow, reduced motion, and required loading/empty/error/success states. Use familiar affordances for important actions.
-8. Inspect the running primary page, a representative detail, and a narrow mobile view. Exercise the primary flow, keyboard path, and relevant failures. Capture revision-bound screenshots and interaction results.
-9. Identify the few material visual/usability weaknesses, batch improvements, and compare before/after renders. A weak hierarchy needs a hierarchy fix. Color changes alone cannot resolve it.
-10. Obtain independent visual review for substantial work. Finish when direction, content, required states, and interactions meet the brief and material findings are resolved. Preserve honest incomplete status when browser evidence is unavailable.
+## Find the design problem
 
-## Outputs
-A brief, selected direction and reasons, working interface or scoped critique, shared design contract when parallel, desktop/mobile captures, interaction/check evidence, visual findings and resolution, and remaining preference questions.
+Read the actual content, existing components, primary flow, and target devices before choosing a layout. Identify who arrives, what they need to understand, and what they should do next. Separate supplied facts from fixtures. Do not invent customers, awards, testimonials, metrics, or asset licenses.
 
-## Boundaries
-Refinement preserves incumbent identity unless redesign is authorized. Repeated cards, gradients, and standard layouts require reasons; they are not automatically defects. Do not invent assets, introduce a design dependency for convenience, or endlessly polish without a new hypothesis. Code checks cannot establish visual quality, and appearance cannot establish correctness.
+Write a brief that can settle a disagreement: audience; primary task; content priority; desired character; constraints; and observable acceptance. “Warm” is a direction, not an acceptance criterion. “A reader can scan the index, identify the lead essay, and open it on a narrow screen without clipped titles” is assessable. For a small existing-page correction, a paragraph and a focused render comparison suffice.
 
-## Review questions
-Can a reader tell what this specific product/publication is? Does real content determine hierarchy? Are rounded treatments coherent and controls clear? Does mobile preserve priority? Can a keyboard user complete the task? Name concrete defects and remedies; avoid beauty scores or claims to objectively detect AI authorship.
+For a substantial new composition, compare two plausible directions that change information hierarchy or navigation. Two palettes on the same arrangement are one direction. Read [composition and visual decisions](references/composition.md) when selecting a new direction or diagnosing a generic layout. Choose within delegated authority and explain why; do not create an approval stop merely to show options.
 
-## References
-Use [WCAG 2.2 guidance](https://www.w3.org/WAI/WCAG22/quickref/) for applicable access checks and project/browser standards for implementation. Substack is a user preference reference only. This workflow and text are original Proofwork requirements.
+## Give the interface a coherent voice
 
-## Behavioral cases
-An editorial index and article detail stay readable with long headlines; a task-led uploader gets its own composition; refinement keeps identity; inconsistent parallel tokens are reconciled; no browser means incomplete visual verification. See frontend-scenarios.
+Choose the hierarchy first: dominant content, supporting content, navigation, and action. Give these roles different visual weight through scale, spacing, placement, and contrast. If everything is prominent, nothing leads. Use real long titles, meaningful metadata, and representative imagery while composing; short placeholder text hides the hard cases.
+
+Record the chosen direction in the existing design document or a concise `DESIGN.md`. Include type roles and fallbacks; spacing rhythm; content widths; surfaces and colors; control and media radii; image treatment; interaction states; responsive changes; and one or two distinctive decisions. Reuse the project's system before introducing fonts, icons, packages, or additional token layers. Do not invent a design system for a one-line repair.
+
+Use softness selectively. Controls, media, and bounded surfaces can have related rounded forms while long reading regions remain open. Relate nested radii to padding and inspect the corners at their actual size. A pill is useful for a tag or compact action; it is not the default shape for every control. Do not cover weak hierarchy with oversized radii, blur, shadows, or gradients.
+
+For parallel UI work, the design owner supplies a shared contract before separate slices diverge: selected direction, representative composition, tokens, component states, content fixtures, responsive behavior, and ownership. Integrate and inspect the whole page. Two individually polished sections can still compete for attention or disagree on density.
+
+## Build the real experience
+
+Use semantic controls and familiar affordances for important actions. Make the primary flow work with keyboard and pointer; expose focus; keep labels and errors connected to their controls; preserve meaningful reading order. Apply the project's accessibility target and check applicable contrast, reflow, motion, and target requirements against its standards. A screenshot cannot establish keyboard behavior.
+
+Design the states that the flow actually encounters: loading, empty, failed, partial, successful, disabled, or destructive confirmation as appropriate. Put recovery near the failed action and preserve entered work when possible. Distinguish “no items exist” from “the filter matches no items” and “items failed to load.” Do not add fictional loading or error screens to a static publication merely to fill a checklist.
+
+Treat responsiveness as a change of priorities and available space, not scaled-down desktop styling. Decide what stacks, what changes alignment, how actions remain reachable, and whether dense data needs a useful alternate view. Check long text, missing media, realistic row counts, and zoom/reflow where relevant. Make motion explain a state change; support reduced motion and avoid delaying essential interaction for decoration.
+
+## Render, critique, and improve
+
+Read [rendered review](references/rendered-review.md) for substantial builds, redesigns, or visual audits. Inspect the running primary page, a representative detail or state, and a narrow viewport. Exercise the primary action, keyboard path, and relevant failure recovery. Record viewport, artifact/revision identity, and observed outcome with captures.
+
+Critique in order: purpose and hierarchy; reading order and density; alignment and rhythm; interaction and state clarity; typography and media; surface detail. Name a visible defect, its effect on the person, and the smallest design change that resolves it. “Looks generic” is a prompt to investigate, not a finding. A uniform card wall may flatten editorial priority; repeated cards may correctly support a product catalog.
+
+Batch the few material changes, render again, and compare at the same viewports. A stronger hierarchy should be visible in composition and reading order, not merely asserted in a description. Preserve behavior while polishing. Use independent visual review for substantial work when available and authorized; resolve material findings without demanding novelty from already effective patterns.
+
+## Deliverable and finish line
+
+Return the brief and chosen direction, working interface or scoped critique, shared contract when needed, rendered/interaction evidence, and resolved or outstanding material findings. Finish when the real content and required states meet the brief, desktop and narrow layouts preserve priority, and the primary flow works through its relevant inputs and recovery paths.
+
+If browser or interaction tooling is unavailable, report the bounded artifact and the missing checks. Code review can support likely correctness; it cannot certify visual quality or access. Do not continue cosmetic iteration without a concrete hypothesis, and do not substitute a subjective beauty score for observable evidence.

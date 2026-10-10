@@ -5,29 +5,37 @@ description: "Use for general Rust implementation or review; model ownership, er
 
 # Rust best practices
 
-## Inputs
-Read Cargo manifests, rust-toolchain when present, edition, public callers, feature flags, formatter/Clippy policy, and the relevant tests. Load focused official documentation for unfamiliar ownership or unsafe requirements.
+Make ownership, valid states, and failure policy visible in the API. The goal is a contract a caller can use correctly without reading the implementation, not maximizing iterator syntax or eliminating every mutable local.
 
-## Workflow
-1. Decide who owns each value and how long callers need it. Borrow for observation; transfer ownership for consumption. Clone only when independent ownership is necessary or its measured cost is justified.
-2. Use enums for distinct domain states and Result for failures callers can recover from. Preserve useful error context and existing public contracts. Restrict panic assumptions to proven programmer invariants.
-3. Keep transformations deterministic with supplied time/configuration. Private mutable buffers are compatible with pure output; avoid forcing extra allocations to mimic another language's functional syntax.
-4. State amount/range policies. Use checked operations or explicit validated bounds when overflow is possible. Test conversions, rounding, empty input, and boundary values relevant to the domain.
-5. Before concurrency changes, identify shared data ownership, lock ordering, and how cancellation releases resources. Avoid retaining a lock across suspension without a justified contract. Dropping an async operation does not necessarily undo an external write.
-6. For unsafe changes, document each safety invariant, its enforcement point, and what every caller must uphold. Keep the unsafe portion narrow. Do not claim tests alone establish soundness.
-7. Run configured formatting, Clippy, and tests for affected features/targets. Add a behavior-level regression or focused invariant check for substantive logic.
+## Establish the project contract
 
-## Outputs
-Report ownership/API changes, error and numeric policies, actual checks and feature coverage, and unresolved concurrency or unsafe evidence.
+Read Cargo manifests, workspace boundaries, the declared minimum compiler version, toolchain file, edition, feature flags, target assumptions, and affected public callers. Use the repository's formatter, Clippy policy, tests, and async runtime. Do not assume a current compiler feature is available to the project's supported consumers.
 
-## Boundaries
-No RTK conventions, new crate, edition migration, blanket lint policy, or speculative optimization. Preserve compatibility unless the task authorizes changing it. Load functional-programming for state/effect redesign.
+For each changed operation, identify who owns its inputs, what remains available afterward, which failures callers can handle, and what happens if work stops halfway through. Load focused detail when relevant:
 
-## References
-- [Ownership](https://doc.rust-lang.org/book/ch04-00-understanding-ownership.html)
-- [Recoverable errors](https://doc.rust-lang.org/book/ch09-02-recoverable-errors-with-result.html)
-- [Checked integer operations](https://doc.rust-lang.org/std/primitive.i64.html)
-- [Unsafe Rust](https://doc.rust-lang.org/nomicon/)
+- For borrowing, domain types, parsing, amounts, and errors, read [Ownership and domain contracts](references/ownership-and-domain.md).
+- For locks, cancellation, resources, unsafe code, and checks, read [Resources and verification](references/resources-and-verification.md).
 
-## Behavioral cases
-A borrowed ledger remains available after summary; overflow returns a recoverable error; a clear accumulator is accepted; unsafe invariants and cancellation gaps cannot disappear in a clean-code verdict. See language-scenarios.
+## Choose ownership from use
+
+Borrow for observation; take ownership when the operation consumes or retains a value. Prefer a slice to a vector when only contiguous input is needed. Return owned data when callers need independence; return borrowed data when its lifetime is useful and clear. Clone when independent ownership is intentional, not to conceal uncertainty about a borrow.
+
+Keep public signatures understandable. Accept the least demanding useful input, but do not introduce generics, trait objects, or a lifetime parameter without a real consumer. A concrete type is often easier to maintain than an abstraction designed for hypothetical implementations.
+
+## Make invalid decisions explicit
+
+Use enums for distinct states and Result for recoverable failures. Use validated wrappers where they prevent real domain mistakes; keep construction and invariants together. Preserve contextual errors through existing project conventions. An input failure is not a programmer invariant, so it should not become an unwrap or panic.
+
+Specify numeric behavior before selecting arithmetic: overflow, negative amounts, conversion, rounding, and aggregate limits are domain decisions. Checked operations or validated bounds should enforce those decisions in every build mode. Avoid lossy casts when a conversion can reject a value.
+
+## Keep the domain deterministic
+
+Pass configuration, time, and external observations into decisions; keep filesystem, networking, and persistence at explicit boundaries. Iterators are useful for clear transformations. A local accumulator or buffer is equally valid when it makes limits, early exit, or allocation behavior easier to follow. Purity concerns externally visible effects and ownership, not the presence of `mut`.
+
+Before parallelizing, identify shared state, lock scope/order, partial effects, and cancellation behavior. Prefer independent owned work when possible. Keep unsafe code narrow and record the invariants that make each operation valid, including what callers must uphold. Tests can reveal violations; passing tests do not prove soundness.
+
+## Verify and report
+
+Run configured formatting, Clippy, and tests for affected features/targets. Choose checks that challenge the changed invariant: preserved borrowed input, invalid parsing, numeric edges, cleanup on error, or concurrent ordering. For public API changes, exercise a consumer. Report actual feature/target coverage rather than claiming all builds from one default configuration.
+
+Return ownership/API changes, error and numeric policies, executed checks, and unresolved resource or unsafe assumptions. Do not add crates, change editions, impose blanket lints, or optimize speculative bottlenecks as incidental cleanup.

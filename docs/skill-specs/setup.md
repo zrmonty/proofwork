@@ -1,15 +1,28 @@
 # Specification: setup
 
-Purpose: expose real host capabilities and project checks before workflow promises depend on them.
+## Purpose and inputs
 
-Inputs: adapters, repository manifests/instructions, available host tools, user model policy and criteria.
+Determine what a Proofwork run can actually execute and prove without incidental changes to the environment. Inputs are live host tools/adapters, project instructions/manifests/checks, task criteria, model policy and user limits.
 
-Workflow: inspect rather than infer; distinguish tool classes; map supported roles; select languages; map required evidence to available checks; checkpoint capability plan.
+## Decision contract
 
-Output/evidence: supported/unavailable/unknown capability inventory, requested/actual model information, check commands and specific missing criteria.
+Inspect relevant access and distinguish supported, unavailable and unknown with observations. Ordinary shell, interactive TUI, browser, authenticated sessions, native desktop, delegation, checkout isolation and goals are distinct. Select roles and models within existing policy; fallback never silently changes defaults. Map each required criterion to an actual check or observation, retaining specific gaps. Avoid exhaustive capability inventory irrelevant to a small task.
 
-Boundaries: no incidental installation/config tightening, fabricated browser access, silent model fallback, goal creation or daemon.
+Conditional examples and role tradeoffs live in references/capabilities.md. Setup returns a concise coordinator capability/role/check plan, not a daemon or general provisioning operation.
 
-Behavioral acceptance: pressure case 4 discloses missing browser/bridge and cannot claim rendered verification; independent useful checks continue. Existing project toolchain remains authoritative.
+## Observable acceptance cases
 
-Original authorship: newly authored against product requirements. Fresh baseline evals/results/baseline.txt already reports missing browser/reviewer; this skill adds per-capability inventory and role mapping. Post-skill observations are recorded by coordinator.
+- A parser task checks its language/toolchain and test path without probing browser/native desktop access or provisioning a general environment.
+- A listed shell binary whose execution is denied is not called verified execution. An installed browser library is not treated as authenticated browser access.
+- A UI task with absent browser tools proceeds with useful code checks while rendered/interaction acceptance remains unproved.
+- A rejected CLI model is reported with the exact attempted run. An authorized fallback is per-invocation and leaves default settings intact; no policy means no silent substitution.
+- Requested/actual model metadata is recorded when exposed and remains unknown otherwise. Native subagents are not represented as a cross-provider bridge.
+- A modest change combines responsibilities where useful; a complex contract change receives reviewers with the combined artifact and required context.
+- A substitute check is accepted only for the same proved behavior. A service mock does not establish required service-backed behavior.
+- Capability labels and next actions have evidence and relate to the task. Setup does not create a goal, install tools, expose credentials, launch services or change global configuration incidentally.
+
+## Evidence and boundaries
+
+Use real tool outcomes and inspected project commands, then observe the resulting plan/actions. Static packaging does not prove host access. A failed path should not be generalized to all host capability. Native lifecycle and permissions take precedence.
+
+Original authorship: authored for Proofwork's capability/role needs and runtime boundaries without imported skill content. These acceptance cases are not claims that every host scenario has already run.

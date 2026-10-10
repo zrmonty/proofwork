@@ -1,14 +1,34 @@
 ---
 name: setup
-description: Use when first running Proofwork in a repository, changing host or model configuration, or discovering that a required execution capability is missing.
+description: Establish Proofwork's actual host capabilities, supported model roles and project verification plan when starting in an unfamiliar repository or encountering a missing capability.
 ---
 
 # Setup
 
-Establish what this run can actually do. Read the packaged [runtime](../../adapters/runtime.md), [goal](../../adapters/goal.md), [CLI control](../../adapters/control-cli.md) and [UI control](../../adapters/control-ui.md). Inspect applicable project instructions, manifests, lockfiles, toolchain versions and existing verification commands. Do not install tools, tighten configuration or change credentials as incidental setup.
+Replace assumptions about the environment with a short plan grounded in observed access. Setup should expose what can be proved, then let useful work begin. It does not need to inventory irrelevant capabilities for a small task.
 
-Report supported, unavailable or unknown for shell execution, interactive TUI, browser interaction/capture, Electron/native desktop, subagents, worktree isolation, native goal and model selection. Installed libraries do not prove host access. Distinguish a browser connection from access to the user's authenticated sessions.
+## Discover what the task needs
 
-Map coordinator, investigator, implementer, correctness reviewer and maintainability reviewer to explicitly configured supported models. Otherwise retain the user's current settings. Record requested versus actual model when exposed, unknown otherwise. A missing requested model is disclosed before dispatch. Use a fallback only within the user's policy; do not silently substitute. Mixed providers require an explicit bridge with credentials, isolation, cancellation, validated output and usage reporting; native subagents alone do not supply it.
+Read the packaged [runtime](../../adapters/runtime.md), [goal](../../adapters/goal.md), [CLI](../../adapters/control-cli.md) and [UI](../../adapters/control-ui.md) adapters as applicable. Inspect project instructions, manifests, lockfiles, toolchain versions and existing checks. Preserve the project's toolchain and user settings. Do not install tools, change credentials, launch services or tighten configuration as incidental discovery.
 
-Select language skills for actual affected files, shared principles for workers, and frontend-design for interface work. Record existing checks and required evidence against acceptance criteria. If a capability is absent, identify the exact unproved criterion and a supported substitute when it proves the same behavior. Continue independent useful checks; do not claim completion with missing required evidence. Output a concise capability/role/check plan in the coordinator checkpoint. Setup itself creates no goal, performs no deployment and launches no background service.
+Mark relevant capabilities **supported**, **unavailable** or **unknown**, with the observation behind the label. A listed tool can support a planned attempt; successful use establishes what access works in this environment. Distinguish ordinary shell execution from interactive TUI input, browser connection from authenticated tab access, browser from Electron/native desktop, and delegation from isolated checkout support. A library on disk does not establish any of those host permissions.
+
+For unfamiliar hosts, model choices or partial capability failures, read [capability and role decisions](references/capabilities.md). Do not repeatedly probe irrelevant access or expose credentials to establish a status.
+
+## Choose roles without changing model policy
+
+Retain the user's configured session model unless an explicit role mapping or fallback policy permits another supported model. Record requested and actual model where exposed, unknown otherwise. Capability and model support can differ between surfaces or accounts; a model name in an inventory does not prove this session can dispatch it.
+
+Choose a role for the uncertainty being resolved. An investigator traces a failing rule; an implementer owns a bounded change; a correctness reviewer challenges behavior; a maintainability reviewer challenges the model and ownership. A simple task can combine roles. Independence comes from reviewing the artifact and assumptions, not merely selecting a different model.
+
+Where model choice is authorized, use observed performance on the relevant task, required context/tool support, latency and supplied cost limits. Do not assign strengths by brand or promise a quality improvement without evidence. An unavailable requested model is a disclosed gap before dispatch. A fallback is used only within the user's policy and remains per-invocation unless settings changes are authorized.
+
+Native subagents do not supply cross-provider orchestration. An external bridge would need explicit configuration, credential handling, isolation, cancellation, output validation and usage visibility; this package does not create one.
+
+## Map checks to acceptance
+
+Select shared engineering skills, languages for affected files and frontend guidance for interface work. For each required outcome, name the existing check or observation that can prove it, its expected environment, and any missing capability. Treat builds, unit tests, browser interactions and visual review as different claims. A supported substitute is acceptable only when it proves the same required behavior.
+
+If browser access is absent for a layout task, code checks can continue but cannot establish rendered quality. If a project test requires an unavailable external service, isolate pure behavior where useful and keep the service-backed criterion unproved. Do not weaken acceptance merely to make the plan pass.
+
+Return a concise capability/role/check plan to the coordinator checkpoint, including specific gaps and the smallest next action. Follow the live host's native goal rules; setup creates no goal, scheduler or deployment. Revisit only the capabilities affected by a later host, toolchain or assignment change.

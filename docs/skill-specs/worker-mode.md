@@ -1,15 +1,29 @@
 # Specification: worker-mode
 
-Purpose: each independent worker applies the same engineering discipline and owns only its assignment.
+## Purpose and inputs
 
-Inputs: assignment, checkout/base, scope, criteria, required skills, available tools and limits.
+Execute an assigned behavior with the same engineering discipline as the coordinator, preserve other owners and return a reviewable artifact. Inputs are the assignment, checkout/current changes, base/content identity, criteria, selected skills, tools and limits.
 
-Workflow: explicitly read standards; inspect owning behavior and affected consumers; reproduce/model; implement minimal complete change; verify behavior; simplify; return artifact and evidence.
+## Decision contract
 
-Output/evidence: worker-result contract with status, revision/digests, changed paths, observed checks, gaps and next action.
+Explicitly read assigned skills and ownership before writes. Inspect owning behavior plus consumers, fixtures, exports/config and error paths. Bug work reproduces the failure; feature work names observable states; refactoring identifies preserved behavior and removed complexity. Pure decisions and explicit effects are preferred without introducing a framework or unnecessary copying. Meaningful checks support specific claims, and a cleanup pass preserves validation, ordering and resource behavior.
 
-Boundaries: no aggregate state writes, team completion, conflicting writes or unapproved nested dispatch. Pure functions are the default, not an excuse for expensive copying or replacing existing architecture.
+A worker writes only owned files and its result, reports necessary shared changes to the coordinator and never concludes the team goal. Result identity includes relevant dirty content. Status and gaps are honest; ready-for-review remains provisional. Conditional execution/handoff examples live in references/execution.md, with schemas centralized in the worker-result/evidence contracts.
 
-Behavioral acceptance: pressure case 2 returns needed shared changes to the coordinator; fresh workers name loaded skills; nontrivial changes have meaningful checks; blocked workers report precise gaps and continue independent work.
+## Observable acceptance cases
 
-Original authorship: specified and written for Proofwork without imported skill content. Fresh baseline evals/results/baseline.txt already respects ownership and testing; Proofwork adds explicit contracts, required skill loading and result identity. Post-skill observations are recorded by coordinator.
+- A fresh worker names loaded skill assets, inspects current changes and refuses writes when ownership/criteria are missing.
+- An export regression observes the original truncation and checks multi-page behavior plus relevant boundaries without creating an unrelated abstraction.
+- A UI worker needing another owner's schema reports the expected field/semantics, continues independent work and does not edit or fake the shared response.
+- A stateful assignment distinguishes pure transition decisions from effect persistence and tests requested failure/retry behavior; pure syntax alone does not establish idempotency.
+- A runtime test is not described as type checking; missing browser/service access is recorded as an unproved criterion rather than a passing substitute.
+- A clear local loop is accepted when appropriate; an unexplained shared mutation or expensive copying model is challenged through the relevant standards.
+- An interrupted worker preserves its artifact and last actual observation, reports an uncertain process stop and does not restore aggregate state or replay unknown effects.
+- A result lists changed paths, identity, executed checks, evidence, remaining issues and next action. Own incomplete behavior is needs-revision; a precise unavailable input is blocked; a reviewable artifact is ready-for-review.
+- Review-only assignments make no edits or external comments. No nested dispatch, ownership overwrite or aggregate writes occur without applicable authorization.
+
+## Evidence and boundaries
+
+Evaluate through actual artifact/diff, checks and conflict/resume decisions, not matching prescribed headings. A summary is not test evidence. Preserve existing user work and the project's toolchain/architecture. Do not infer actual model metadata when the host omits it.
+
+Original authorship: independently written to Proofwork's worker specification and current contracts. No external skill content was imported or adapted. These cases require recorded forward evaluation before claiming behavioral certification.

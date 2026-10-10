@@ -1,18 +1,34 @@
 ---
 name: worker-mode
-description: Use when accepting a Proofwork assignment, independently implementing with Proofwork, or revising work returned by a reviewer.
+description: Implement or investigate a bounded Proofwork assignment, preserve other workers' ownership, and return a revision-bound artifact with observed evidence.
 ---
 
 # Worker mode
 
-Read this file and each assigned skill explicitly. Work within the [assignment](../../contracts/assignment.md); return the [worker result](../../contracts/worker-result.md) with [evidence](../../contracts/evidence.md). Inherited context is not a substitute for these contracts.
+Own the assigned behavior and make your result easy to inspect. A confident summary cannot replace an artifact, and a task that passes in isolation is still provisional until integration.
 
-Before editing, inspect the owning behavior, callers, tests, fixtures, exports and configuration. Identify what the change could break or expose. Reuse the project's utilities and language conventions. Limit scope to the smallest complete result; preserve user changes, validation, error handling, cancellation and compatibility.
+## Understand before writing
 
-Prefer pure functions with explicit inputs, deterministic outputs and preserved caller data. Represent material state changes explicitly; keep I/O, clocks and randomness at clear boundaries. Local mutation and loops are valid when they make the code clearer or have measured benefit. No functional framework or speculative abstraction is required. Load functional-programming, clean-code and data-driven-development plus affected language guidance. UI assignments also load frontend-design and the agreed direction before implementation.
+Read the [assignment](../../contracts/assignment.md), this skill and every selected skill explicitly; inherited context may omit constraints. Load [functional-programming](../functional-programming/SKILL.md), [clean-code](../clean-code/SKILL.md), [data-driven-development](../data-driven-development/SKILL.md) and affected language guidance. UI work also reads [frontend-design](../frontend-design/SKILL.md) and the agreed design direction.
 
-Reproduce bugs before fixing. New nontrivial decisions, parsing, security/money logic or scripts need a small meaningful behavior test or assertion check. Verify actual requested behavior, not merely compilation. Refactors establish behavior preservation. Record executed checks, failures and limitations; never invent a result.
+Confirm the allowed checkout, owned paths, base/content identity, criteria and result destination. Inspect current changes before edits. If ownership or acceptance is missing, resolve that gap before writes rather than interpreting broad task language as permission to edit another worker's files.
 
-Edit only owned paths in the assigned checkout. If a required change touches another owner, report the needed interface and request a revised assignment; continue independent work. Do not overwrite shared/generated outputs, revert another worker, write aggregate run state, dispatch nested workers without permission, or conclude the team's goal. Reviews are read-only unless edits are authorized.
+Trace the behavior through callers, tests, fixtures, exports and configuration. Ask what must remain true at the boundary: validation, compatibility, ordering, cancellation, resource cleanup and error behavior. Reuse existing utilities when their contract fits. Include required consumers in the scope; changing only the definition can leave a broken feature.
 
-Perform a cleanup pass: remove demonstrated duplication and unnecessary forwarding, clarify names and ownership, and check that simpler code retains error paths and ordering. Explain material departures from the functional default. Return changed paths, exact revision/digests, evidence locations, unresolved issues and the next action. `ready-for-review` is provisional until coordinator integration and review.
+## Implement the smallest complete behavior
+
+For a bug, reproduce the reported failure before editing and trace the owning rule. For a feature, identify states and observable outcomes. For a refactor, establish the behavior to preserve and the complexity that will disappear. A review assignment is read-only unless edits are authorized.
+
+Prefer pure decisions with explicit inputs and preserved caller data. Keep clocks, randomness, I/O and shared mutation at visible boundaries. Use explicit state transitions where they prevent contradictory states or duplicate effects. Clear loops and local mutation are valid; do not introduce a functional framework or repeatedly copy large data merely to avoid mutation syntax.
+
+Write meaningful checks for new nontrivial decisions, parsers, security/money behavior or scripts. A regression should fail for the original behavior and exercise the user's scenario. Cover neighboring behavior when the fix changes a shared contract or error path. Use project checks and record what each check supports; do not claim a type check from a runtime test.
+
+For scope conflicts, test failures, interrupted work and worked result examples, read [execution and handoff](references/execution.md) when those situations arise.
+
+## Preserve ownership and return evidence
+
+Edit only assigned paths. If a needed change belongs to another owner, report the required interface or path to the coordinator and continue independent assigned work. Do not overwrite shared/generated output, revert another worker, write aggregate run state, conclude the team goal or start nested workers without authorization.
+
+Before returning, inspect the actual diff and remove demonstrated duplication, unnecessary forwarding and misleading names. Preserve failure handling and observable behavior while simplifying. Explain material departures from the agreed design or functional default; a useful reason names the clarity, compatibility or measured performance tradeoff.
+
+Return the [worker-result](../../contracts/worker-result.md) with checkout/content identity, changed paths, fulfilled criteria, actual commands and observations, evidence locations, unresolved findings and next action. Include requested/actual models only when exposed; otherwise say unknown. Never label unexecuted checks as passing. `ready-for-review` means the artifact is ready to evaluate, not that the team's objective is complete.

@@ -147,6 +147,8 @@ The plugin has no global hook installation, external publishing automation, cred
 
 Edit `shared/` and the relevant `adapters/`; rebuild both packages from canonical authored assets. Each skill has a [specification](docs/skill-specs/) and scenario coverage. Use disposable repositories for lifecycle and integration tests. Never edit generated package copies as the source of a fix.
 
+Skill entry files carry the essential decisions and operating constraints. Their linked `references/` contain focused worked examples, specialist guidance and review procedures; each entry explains when to read them. The root selects relevant skills, and those skills load the detail the task needs. See the [skill depth and evaluation standard](docs/skill-depth-review.md) for authoring and review criteria.
+
 Commit messages use the built-in format check:
 
 ```text

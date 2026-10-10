@@ -1,39 +1,46 @@
 ---
 name: commit-features
-description: Use when preparing commits or sending newly authored commits to GitHub in a Proofwork run.
+description: Prepare truthful Major features and Minor features sections and validate newly authored outgoing commits before an authorized GitHub push.
 ---
 
 # Commit features
 
-Make each outgoing commit explain its actual major and minor changes. This skill formats and checks commits; it does not authorize pushing, merging, or publishing.
+Each newly authored outgoing commit explains its substantial and focused changes. These categories describe the commit's scope; they are independent of semantic-version rules. This skill formats and checks commits. It does not authorize a push, merge, release, history rewrite, or global hook installation.
 
-## Inputs
+## Describe the staged change
 
-Read the staged diff, repository commit conventions, completed task evidence, and authorized destination. Before a push, identify the outgoing commit range from the actual remote state. Do not stage unrelated files or rewrite existing history to impose this format.
+Inspect the staged diff, repository status, subject conventions, and actual verification evidence. Keep unrelated work out of the commit without discarding it. Name what this commit changes for a user or maintainer, not the overall project, a future feature, or work present only in the unstaged tree.
 
-## Procedure
-
-1. Inspect `git diff --cached` and the changed behavior. Use the project's subject convention, followed by the sections below.
-2. Put substantial capabilities or architectural milestones under Major features. Put focused improvements, bug fixes, documentation, or tooling under Minor features. Use `None` for an empty category. Describe exactly this commit, not future work or the whole project.
-3. State verification actually performed and relevant gaps. Identify breaking compatibility separately; feature size does not automatically select a semantic-version bump.
-4. Write the message to a UTF-8 file and use `git commit -F <file>` to preserve literal text and newlines. Check the resulting message. Before an authorized push, check each new outgoing commit for both feature sections and check its claims against the diff. Stop to repair messages in locally authored, unpublished commits if needed; do not rewrite shared commits without authorization.
+Use these headings exactly once, each with meaningful content:
 
 ```text
-feat: add export recovery
-
 Major features
-- Recover interrupted exports from a validated checkpoint.
+- A substantial capability or architectural milestone, or None.
 
 Minor features
-- Explain an invalid checkpoint in the error view.
-
-Validation
-- Regression test passes for interrupted export recovery.
-- Browser verification was not available.
+- A focused improvement, fix, documentation, or tooling change, or None.
 ```
 
-For a documentation-only commit, Major features may be `None`; Minor features names the documentation change. Never fabricate a feature just to fill a section.
+A large diff is not necessarily a major feature. A behavior-preserving cleanup can be a minor change. A small diff can enable a substantial capability. Classify by the actual outcome; do not exaggerate to fill a section. A mixed commit can use both sections when the smaller items are distinct rather than repeating the major feature.
 
-## Result and boundaries
+State breaking compatibility separately and state checks actually performed. “Tests pass” needs a real executed result applicable to the committed artifact. A documentation-only commit can have Major features `None` and a concrete Minor features entry. A fix-only commit can do the same.
 
-Return the commit identity, feature summary, verification gaps, and authorized push result when requested. A valid message is not evidence that code works. Use the actual host's Git tools; preserve signatures, hooks, and project policies. For deterministic checks use `node <plugin-root>/scripts/check-commits.mjs --repo <repository> --range <git-range>`; this checks format only, and reports malformed commits without rewriting them.
+Read [messages and outgoing history](references/messages-and-history.md) for examples and push-range decisions. Use a UTF-8 message file with `git commit -F <file>` to preserve literal newlines and text. Preserve repository hooks, signing, and established commit policy.
+
+## Validate the commits that will leave this checkout
+
+Before an authorized push, identify the exact source revision, destination remote/ref, and newly outgoing range from observed remote state. Verify the range rather than assuming `HEAD~1..HEAD` or treating a stale tracking branch as current. A new branch is not necessarily an empty remote repository.
+
+Run the bundled format checker:
+
+```text
+node <plugin-root>/scripts/check-commits.mjs --repo <repository> --range <git-range>
+```
+
+The checker reports malformed messages without rewriting them. Also review claims against each relevant diff; headings alone cannot prove truth or behavior. If the remote cannot be inspected, the outgoing set remains unverified. An empty range means no new commits in that comparison, not evidence that some different push target is valid.
+
+Repair an invalid message only within authority. Locally authored, unpublished commits can be corrected without changing their intended content. Shared or published commits require explicit rewrite authorization; do not force-push to satisfy this format. Preserve inherited history, and distinguish legacy or third-party commits from newly authored work. Report any incompatible outgoing history rather than silently rewriting it.
+
+## Return the outcome
+
+Report commit identities, major/minor summaries, the checked range and destination, actual validation, and the push result when requested. Disclose an unverified range or blocked message. A valid commit message is neither proof that code works nor permission to send it.

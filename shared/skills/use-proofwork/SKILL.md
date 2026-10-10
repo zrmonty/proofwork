@@ -1,41 +1,52 @@
 ---
 name: use-proofwork
-description: Use when the user invokes Proofwork, requests a coordinated engineering team, or resumes a goal or checkpoint already using Proofwork.
+description: Coordinate an engineering task through scoped implementation, independent review and integrated evidence; resume an existing Proofwork run or native goal.
 ---
 
 # Use Proofwork
 
-Own the result from task discovery through integrated verification. Every worker carries the same engineering standards. Prefer less code, explicit data, pure decisions and evidence over ceremony.
+Own the user's outcome, including the work between individually correct changes. Choose a method that matches the risk: a wording fix needs inspection; a shared-state change needs explicit ownership and behavior checks. Agent count, artifacts and passing commands are not measures of completion.
 
-## Start and route
+## Establish the task
 
-1. Resolve this installed package's root: two directories above this skill folder. Read [runtime](../../adapters/runtime.md), [goal](../../adapters/goal.md), and the packaged [tool reference](../../scripts/README.md). Use only capabilities actually available. Bare `/use-proofwork` is the product entry concept; the host adapter gives its supported invocation syntax.
-2. Read applicable project instructions, the user's objective, supplied design, working-tree changes, relevant callers and checks. Existing authorization persists. A mode invocation alone does not create a native goal; attach to an active goal and preserve its objective.
-3. Automatically execute the bundled router through the host shell, supplying task text and affected file paths as separate, safely quoted arguments:
+Resolve the installed package root two directories above this skill folder. Read its [runtime adapter](../../adapters/runtime.md), [goal adapter](../../adapters/goal.md), and [tool interface](../../scripts/README.md). Use the adapter's actual invocation form and live capabilities. This skill does not register a new slash command or supply absent tools.
+
+Inspect project instructions, working changes, affected behavior and callers before deciding scope. Preserve existing user authorization and the active goal's objective. Turn the request into observable criteria, separating required behavior from optional improvements. For an investigation or review, the deliverable may be a report rather than edits.
+
+Run the bundled router with task text and inspected file paths as separately quoted arguments:
 
 ```text
 node <plugin-root>/scripts/proofwork.mjs route --task <text> --files <comma-separated paths>
 ```
 
-4. Read the returned playbook and skill files inside this package before acting. Always load worker-mode, functional-programming, data-driven-development and clean-code; routing adds languages/frontend/review as applicable. Correct an inappropriate route from observed scope and record why. Missing files/tools are concrete capability gaps, not successful routing.
-5. Define observable criteria and a smallest complete scope. Run setup if capabilities, role models or repository checks are unknown. Read [assignment](../../contracts/assignment.md), [worker result](../../contracts/worker-result.md), [evidence](../../contracts/evidence.md), and [run state](../../contracts/run-state.md).
+Read the selected playbook and skills. Always load [worker-mode](../worker-mode/SKILL.md), [functional-programming](../functional-programming/SKILL.md), [data-driven-development](../data-driven-development/SKILL.md) and [clean-code](../clean-code/SKILL.md); add languages and frontend guidance for actual affected files. Routing is a recommendation: correct it when inspected scope differs and record the reason. A missing file is a capability gap, not an invitation to invent its instructions. Run [setup](../setup/SKILL.md) when required capabilities, role mappings or checks are unknown.
 
-## Coordinate
+## Select ownership before parallelism
 
-Initialize or recover a unique local run using the tool reference. Persist `use-proofwork` as the active mode and keep objective/design, selected skills, ownership, evidence and next action in the checkpoint. Only the coordinator writes aggregate state. Inspect repository identity and actual workers before resuming; saved IDs and prior summaries are insufficient.
+Read the [assignment](../../contracts/assignment.md), [worker-result](../../contracts/worker-result.md), [evidence](../../contracts/evidence.md) and [run-state](../../contracts/run-state.md) contracts. Initialize a unique local run, or reconcile an existing one. The coordinator alone writes aggregate state; each worker returns its own result.
 
-For independent work, dispatch bounded assignments with explicit files, checkout, criteria, selected skill paths, and result location. Tell every fresh worker to read worker-mode and those skills. Respect the host's capacity; default ceiling is three workers plus coordinator. Use fewer for small tasks. No nested delegation without bounded coordinator authorization. Independent agents without a shared assignment remain independent runs.
+Handle a bounded change directly when decomposition would cost more than it clarifies. Delegate independent questions or slices with a stable interface. Default capacity is at most three workers plus the coordinator, reduced to live host limits. No nested delegation without bounded coordinator authorization. Unrelated chats do not join a run implicitly.
 
-Shared interfaces are agreed before dependent edits. Disjoint owners may share a checkout; overlapping edits or competing implementations require isolation. Integrate one accepted result at a time. Inspect actual diffs and evidence, then check the combined result. Resolve ownership conflicts instead of overwriting another agent. Record requested/actual models where exposed; unavailable metadata is unknown. Cross-provider work needs an explicitly configured bridge.
+Each assignment names the checkout, owned paths, forbidden outputs, acceptance criteria, selected skill paths, dependencies, checks and result location. Require a fresh worker to read these assets. A vague responsibility such as “backend” does not establish safe file ownership. Agree on shared interfaces first. Disjoint writes can share a checkout; overlapping implementations require isolation and sequential integration. Keep generated outputs coordinator-owned unless generation itself is the assignment.
 
-## Review, verify, continue
+For substantial work, read [coordination and integration](references/coordination.md) before dispatch. It covers dependency decisions, design ownership, model roles and representative task sizes.
 
-Independent correctness and thermonuclear review cover substantial changes and combined parallel work. A modest change can use one independent reviewer for both responsibilities. Accept or reject material findings with reasons; verify fixes and re-review affected code. After two failed attempts on one premise, investigate that premise. Lightweight cleanup remains part of every worker's job.
+## Integrate and challenge the result
 
-Evidence must describe the current integrated artifact. Invalidate affected evidence after code/dependency changes. Required frontend criteria include actual rendered desktop/mobile and interaction checks. Continue useful independent work when one capability is missing; report the unproved criterion precisely.
+Collect a worker's artifact and evidence, inspect its diff in caller context, then integrate one accepted result at a time. Never overwrite another owner's changes to make a patch apply. Verify the combined behavior: two locally passing slices can still disagree about serialization, ordering, states or failure handling.
 
-Checkpoint before dispatch, after integration/review/checks, and before yielding. On native goal continuation reload this skill, adapters and checkpoint, reconcile live work and uncertain external effects, and take the next useful step. Follow the host's actual goal contract: create only on explicit request, budget only if supplied, pause only on explicit request, and blocked only when its required conditions hold. Resource limits leave incomplete work, never completion. No second scheduler or goal loop.
+Substantial changes and integrated parallel work receive independent correctness and [thermonuclear maintainability review](../thermo-nuclear-code-quality-review/SKILL.md). One reviewer may cover both for a modest change; distinguish the verdicts. Reviewers report evidence and feasible remedies, not a required number of criticisms. Resolve each material finding by fixing and verifying it, or rejecting it with a supported reason. When repeated attempts fail on the same assumption, investigate that assumption before another patch.
 
-Before every authorized commit or push, read [commit-features](../commit-features/SKILL.md), inspect the actual outgoing range, and include `Major features` and `Minor features` sections (`None` when empty). These describe changes, not inferred semantic versions. Run `node <plugin-root>/scripts/check-commits.mjs --repo <path> --range <range>` against the resulting range before push or final delivery.
+Identify the integrated content honestly. A clean Git commit can identify a clean tree; `HEAD` does not identify uncommitted edits. Use a recorded snapshot or relevant content digest for dirty work and change the identity after relevant changes. A task becomes `reviewed` only after coordinator acceptance on that integrated identity. Revalidate affected slices after later integration.
 
-Finish only when required criteria have current evidence, material findings are resolved, all modifying workers are collected, and authorized delivery is complete. Use the CLI completion guard and the native goal completion operation where applicable; passing one does not establish the other. Report outcome, meaningful evidence and remaining limitations. A review-only objective ends with a scoped report, without edits or external posting.
+Evidence names the criterion, artifact, identity, environment, command or interaction, and observation. Keep failures as well as successes. Compilation proves compilation; a screenshot proves one appearance; neither proves the primary user flow. Required frontend criteria need actual rendered desktop/mobile and interaction checks. Missing access leaves the specific criterion unproved while other useful work continues.
+
+## Continue safely and deliver
+
+Checkpoint before dispatch, after integration/review/checks and before yielding. On interruption or continuation read [recovery and evidence](references/recovery.md), reload this skill and the adapters, then inspect the actual checkout, live workers and uncertain effects. A saved identifier does not prove liveness, and an absent success record does not prove an external action failed.
+
+Follow the host's live goal contract. Invoking Proofwork does not create a goal. Create one only when explicitly requested, supply budgets only when requested, pause only when requested, and use blocked status only under the host's conditions. No second scheduler or replacement loop. Limits preserve an incomplete checkpoint rather than establishing success.
+
+Before an authorized commit or push, read [commit-features](../commit-features/SKILL.md), inspect staged changes and validate the actual outgoing range with the bundled checker. Major/minor feature sections describe the actual change; they do not imply semantic versioning or publication permission.
+
+Before completion, collect all modifying workers, inspect the final artifact, obtain current evidence for every required criterion, settle material findings and reconcile outstanding effects. Complete authorized delivery, then run the local completion guard against the integrated identity. Its structural checks do not establish evidence honesty, worker liveness or native goal completion. Perform the host completion operation separately where applicable. Report the outcome, meaningful checks and concrete remaining limits.

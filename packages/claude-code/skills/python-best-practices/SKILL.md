@@ -5,29 +5,35 @@ description: "Use for Python implementation or review; make dependencies, mutati
 
 # Python best practices
 
-## Inputs
-Inspect supported Python versions, project configuration, caller expectations, package dependencies, and the existing test/lint/type-check commands.
+Make data ownership and failure visible without burying the task in classes or helper layers. Prefer deterministic domain functions and explicit effects; retain ordinary Python idioms when they make the contract clearer.
 
-## Workflow
-1. Give meaningful interfaces accurate annotations. Choose a value record, dataclass, or enum when it clarifies a real contract; retain simple built-in structures where their meaning is already clear.
-2. Put calculations and validation rules in deterministic functions with supplied dependencies. Avoid global state and mutable default arguments. Check aliasing before sorting, extending, or editing caller collections.
-3. Remember that frozen records do not recursively freeze nested objects. Copy or model ownership only where needed, and test the preservation actually promised.
-4. Catch failures where the code can handle them. Use specific exception classes and retain causes when translating errors. Do not return an empty success value after an unexplained failure.
-5. Use context managers for files and other resources. For async work, preserve cancellation and run cleanup on failure. Iterator consumption and generator resource lifetimes need explicit ownership.
-6. Validate serialization and subprocess inputs at entry. Avoid shell interpolation of untrusted text; prefer argument lists and check the process result. Test missing, malformed, and boundary data.
-7. Run configured checks and behavior tests with the project's interpreter. Exercise repeated calls, mutation hazards, resource cleanup, and actual I/O contracts when touched.
+## Establish the interpreter and callers
 
-## Outputs
-Report changed data/error contracts, interpreter/check results, mutation ownership, and any missing runtime evidence.
+Read supported Python versions, project configuration, dependency/lock files, import layout, existing error conventions, and affected callers. Use the project's interpreter and configured test/lint/type checks. Do not introduce syntax or standard-library APIs beyond its supported version without an authorized compatibility change.
 
-## Boundaries
-Annotations are not runtime validation. Do not add a type checker, framework, packaging system, or immutable-data dependency for this skill. Load functional-programming for substantial state design.
+Identify whether inputs are trusted domain values, decoded external values, one-shot iterators, or caller-owned mutable collections. These demand different contracts even when their annotations look similar.
 
-## References
-- [Dataclasses](https://docs.python.org/3/library/dataclasses.html)
-- [Errors and exceptions](https://docs.python.org/3/tutorial/errors.html)
-- [Async tasks and cancellation](https://docs.python.org/3/library/asyncio-task.html)
-- [Subprocess](https://docs.python.org/3/library/subprocess.html)
+Load only relevant detail:
 
-## Behavioral cases
-Two calls do not share default state; nested input is preserved where promised; failed loading closes the file; subprocess failure is visible. See language-scenarios.
+- For records, annotations, decoding, aliasing, and numeric rules, read [Data and boundaries](references/data-and-boundaries.md).
+- For exceptions, files, generators, subprocesses, async work, and checks, read [Effects and verification](references/effects-and-verification.md).
+
+## Design a small, honest interface
+
+Annotate meaningful interfaces with the values they actually accept and return. An iterable is useful when only one traversal is needed; a sequence is clearer when indexing or repeated traversal is required. Do not annotate a generator as a reusable collection or accept a protocol whose required methods the implementation never needs.
+
+Use a dataclass for a stable value record, an enum for meaningful alternatives, or a simple built-in shape when the domain remains obvious. Annotations do not validate runtime data. A frozen record does not recursively freeze its contents. Decide which values may be shared and which updates require a fresh value.
+
+## Separate decoding, decisions, and effects
+
+Validate external shape and domain limits before calculations. Be explicit about booleans at integer boundaries, absent versus empty values, non-finite numbers, units, and conversion loss where relevant. Keep persistence/transport representation separate when it differs from domain meaning.
+
+Pass time, configuration, and external observations into calculations. Avoid mutable defaults and implicit global state. Copy only what changes; a clear local loop or accumulator can preserve purity without repeated allocations. Verify nested aliasing when a transform claims to leave inputs unchanged.
+
+Catch an exception where the code can meaningfully recover or translate it. Keep causes when translating; do not turn a failed load into an empty success value. Use context managers and explicit ownership for resource lifetimes. Preserve cancellation and account for partial effects when async work or retries are involved.
+
+## Verify and return evidence
+
+Exercise the changed contract with the configured interpreter: repeated calls, malformed boundaries, relevant limits, generator exhaustion, mutation preservation, cleanup, or external-process failure. Run configured static checks separately; passing annotations do not establish runtime correctness.
+
+Return changed data/error contracts, affected callers, actual commands/results, and material gaps. Explain intentional mutation or compatibility changes when they matter. Do not add a type checker, framework, packaging system, immutable-data dependency, or async redesign as incidental cleanup.

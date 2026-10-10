@@ -1,22 +1,43 @@
-# frontend-design specification
-
-Status: authored original Proofwork guidance, 2026-10-10. Package and host behavioral evidence tracked separately.
+# Frontend design specification
 
 ## Purpose and trigger
-Use for frontend design, implementation, critique, and refinement; produce content-specific inviting interfaces with rendered and interaction evidence.
 
-## Inputs and boundaries
-The skill requires the assignment objective, relevant project conventions, caller/content contracts, and available verification capabilities. It preserves authorized scope and host permissions. It introduces no mandatory dependency or global configuration change. Its SKILL.md defines the specific inputs and technical limits.
+Design, implement, critique, or refine a frontend whose composition and interactions serve actual people and content. The skill owns design decisions and rendered critique, not installation, publication, or a universal aesthetic.
 
-## Required workflow
-Derive composition from product and content; explore two directions for major new work; select and record direction; provide shared UI contracts before delegation; implement authentic softer forms, accessible responsive states; inspect and exercise actual browser renders; iterate on material findings and independently review.
+## Inputs and scope
 
-## Output and evidence contract
-Report actual result, affected contracts, checks performed, artifacts tied to current revision/digests, unresolved criteria, and justified material deviations. Include brief, direction, representative before/after screenshots, desktop/narrow viewport identity, primary/keyboard/failure interaction evidence, and visual finding resolution. Missing browser capability leaves visual verification incomplete.
+Read the objective, audience, primary task, representative content and states, incumbent identity/components, target devices, assets/licenses, and available tools. Preserve refinement scope and user choices. Distinguish supplied facts, fixtures, predictions, and observed behavior.
+
+## Required decisions
+
+- Express the brief through audience, task, content priority, character, constraints, and observable acceptance.
+- For substantial new composition, compare genuinely different hierarchies or navigation approaches; color swaps do not count as different directions.
+- Select typography roles, rhythm, width, surfaces, image treatment, related radii, states, and responsive behavior to fit that brief.
+- Prefer inviting editorial/softer forms where appropriate, while allowing distinct catalog, operations, service, and compact-tool shapes. No fixed font, radius, layout, or dependency is mandatory.
+- Supply a coherent contract before parallel UI slices diverge, and review their integrated hierarchy.
+- Implement meaningful loading/empty/error/success states only where the actual flow encounters them, with accessible controls, focus, recovery, reflow, and applicable motion/contrast checks.
+- Critique hierarchy and task usability before surface decoration; batch fixes and compare the actual running artifact.
+
+## Progressive disclosure
+
+The entry point carries the brief-to-artifact workflow. references/composition.md supports choosing structure, typography, rhythm, and selective softness. references/rendered-review.md supports evidence collection and actionable visual findings. Load them when those decisions matter, rather than importing both into every small correction.
+
+## Output and evidence
+
+Return the brief, selected direction with reasons, current working artifact or scoped critique, shared design contract when needed, viewport/revision-bound renders, actual interactions, and resolved/outstanding findings. A screenshot cannot prove keyboard behavior; code checks cannot certify visual quality. Missing browser capability leaves rendered acceptance incomplete.
 
 ## Acceptance cases
-Use evals/frontend-scenarios.md: editorial identity and long content, task application with required states, incumbent refinement and parallel token coherence, missing browser and honest critique.
-Material behavior or honesty failures fail a case. Review must also accept the intentionally clean case. Fresh-context paired runs distinguish current capability from incremental skill benefit.
 
-## Authorship and evaluation
-Requirements originate in the approved Proofwork design and user preferences. The instructional text and workflow were written for these requirements; no upstream skill assets were imported or adapted. Official documentation linked in the skill supplies technical grounding only. Coordinator supplied a fresh Codex pre-skill baseline at evals/results/baseline.txt: pure input handling, Python mutable-default avoidance, Rust recoverable input errors, and generic frontend critique already worked. It did not establish Proofwork-specific routing, rendered design iteration, integration, or host parity. Detailed scenario prompts/rubrics were recorded before authoring; that broad baseline does not count as running every listed case. Guided evaluation and full language/browser fixtures remain pending until artifacts demonstrate them.
+Existing scenario prompts are in evals/frontend-scenarios.md. Expanded behavioral decisions:
+
+1. A publication with a longest-title fixture chooses either lead-story/list or chronological composition for stated discovery reasons. It preserves open article reading, coherent soft media/control forms, and legible metadata. A mere accent-color change cannot resolve equal-weight hierarchy.
+2. A batch-review tool favors actionable queue/status/recovery over a promotional hero. Justified repeated rows or cards receive no novelty finding.
+3. Incumbent refinement preserves recognizable identity and components while correcting a specific density or focus issue. A wholesale rebrand fails scope.
+4. Parallel sections share type/spacing/radius/state contracts; integrated renders reveal and resolve drift that isolated screenshots missed.
+5. A filtered empty list and a network failure communicate different meanings and actions. A static essay receives no invented transactional states.
+6. Missing browser access yields a bounded code/static critique with the missing checks named, never “verified desktop/mobile” from description alone.
+7. A clean, coherent layout is accepted without demanding arbitrary decorative distinction.
+
+## Evaluation status and authorship
+
+Originally written to Proofwork requirements and user preferences. No external instructional assets imported or adapted. These cases define acceptance; their presence is not evidence that a browser fixture was executed. Prior broad baseline supported generic critique, not full rendered iteration. Parent evaluation records the actual checks and any pending cases separately.
