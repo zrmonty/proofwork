@@ -1,0 +1,11 @@
+{
+  "name": "proofwork-local",
+  "plugins": [
+    {
+      "name": "proofwork",
+      "source": {"source": "local", "path": "./packages/codex"},
+      "policy": {"installation": "AVAILABLE", "authentication": "ON_INSTALL"},
+      "category": "Productivity"
+    }
+  ]
+}

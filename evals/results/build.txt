@@ -1,0 +1,16 @@
+
+> proofwork@0.1.0 build
+> node scripts/build.mjs
+
+[
+  {
+    "host": "codex",
+    "path": "C:\\Users\\zrmon\\OneDrive\\Documents\\ChatGPT\\Proofwork\\packages\\codex",
+    "skills": 12
+  },
+  {
+    "host": "claude-code",
+    "path": "C:\\Users\\zrmon\\OneDrive\\Documents\\ChatGPT\\Proofwork\\packages\\claude-code",
+    "skills": 12
+  }
+]

@@ -1,0 +1,3 @@
+Validating marketplace manifest: C:\Users\zrmon\OneDrive\Documents\ChatGPT\Proofwork\.claude-plugin\marketplace.json
+
+√ Validation passed

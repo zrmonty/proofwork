@@ -1,0 +1,35 @@
+✖ export preserves every page including a single final page (1.1849ms)
+ℹ tests 1
+ℹ suites 0
+ℹ pass 0
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 67.2921
+
+✖ failing tests:
+
+test at evals\fixtures\export-last-page\export.test.mjs:5:1
+✖ export preserves every page including a single final page (1.1849ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
+  + actual - expected
+
+    [
+      'cover',
+      'body',
+  -   'final'
+    ]
+
+      at TestContext.<anonymous> (file:///C:/Users/zrmon/OneDrive/Documents/ChatGPT/Proofwork/evals/fixtures/export-last-page/export.test.mjs:7:10)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.start (node:internal/test_runner/test:1177:17)
+      at startSubtestAfterBootstrap (node:internal/test_runner/harness:385:17) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: [ 'cover', 'body' ],
+    expected: [ 'cover', 'body', 'final' ],
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }

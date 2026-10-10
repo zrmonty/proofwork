@@ -1,0 +1,6 @@
+.engineering-team/
+node_modules/
+dist/
+evals/results/*.events.jsonl
+evals/results/*.stderr.txt
+evals/results/claude-auth-status.json

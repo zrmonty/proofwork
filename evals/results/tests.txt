@@ -1,0 +1,22 @@
+
+> proofwork@0.1.0 test
+> node --test tests/*.test.mjs
+
+✔ package reference validator rejects escaped and missing local links (9.8461ms)
+✔ both feature sections must contain actual text or None (0.9022ms)
+✔ duplicate and fabricated-empty headings cannot satisfy sections (0.1609ms)
+✔ outgoing range checks real commit bodies and rejects invalid revisions (424.6666ms)
+✔ routing loads core discipline and affected languages without mutating inputs (1.6779ms)
+✔ pure transitions protect ownership, input and completion gates (1.3127ms)
+✔ record mutation cannot change checkpoint outputs; latest failed observation blocks completion (0.4825ms)
+✔ checkpoints retain run context, reject unsafe paths and invalidate stale task results (0.4376ms)
+✔ run paths reject directory junctions and a held lock rejects another writer (18.2628ms)
+✔ filesystem boundary rejects traversal, duplicate init and changed evidence; saves backup (43.7357ms)
+ℹ tests 10
+ℹ suites 0
+ℹ pass 10
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 488.4869

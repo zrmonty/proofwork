@@ -1,0 +1,19 @@
+{
+  "name": "proofwork",
+  "version": "0.1.0",
+  "description": "Coordinated engineering with original skills, bounded parallel work and inspectable evidence.",
+  "author": {
+    "name": "Proofwork contributors"
+  },
+  "license": "MIT",
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "Proofwork",
+    "shortDescription": "Less code. Better evidence.",
+    "developerName": "Proofwork contributors",
+    "category": "Productivity",
+    "defaultPrompt": [
+      "Use Proofwork to carry this engineering task through verified completion."
+    ]
+  }
+}
