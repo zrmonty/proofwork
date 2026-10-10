@@ -1,5 +1,14 @@
 # Proofwork changelog
 
+## 0.29.0 — Systems outcomes
+
+- Add a bounded one-invocation installer with enabled/version verification and correct Claude one-command version guidance.
+- Deepen conditional configuration-drift, failure-mode/runbook and dependency/delivery-integrity guidance; route operational intent without expanding discovery.
+- Keep principle names internal by default and make ordinary reports outcome/evidence oriented.
+- Add the release-config evaluation fixture, an executed repair example and paired user-outcome aggregation with explicit missing metrics.
+- Add original contribution guidance and an opt-in production-user feedback form; no participants or quality gains are fabricated.
+
+
 ## 0.28.0 — Integrated intent-to-delivery flow
 
 - Share intent normalization and read-only decisions across routing, phases, wrappers and hook hints.

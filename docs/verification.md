@@ -1,4 +1,4 @@
-# Proofwork 0.28.0 verification
+# Proofwork 0.29.0 verification
 
 October 10, 2026. This matrix describes current evidence and its limits. Earlier release observations are preserved in [verification history](../CHANGELOG.md).
 
@@ -8,7 +8,7 @@ October 10, 2026. This matrix describes current evidence and its limits. Earlier
 | Routing/context | 49 distinct trigger descriptions (380 discovery words); selected principle files and playbook guide counted; all 600-word entries/800-word references; 92 exact routing cases; light at most 800 initial words, standard at most 4,000; aggregate growth limited to 10% | Deferred review/report entries, conditional references and task/model tokens are additional |
 | Codex and Claude package builds | Isolated version equality, skill parity and broken-reference rejection | Structural packaging does not prove task quality or live host behavior |
 | Run-state evidence | Actual exits, duration and stream digests; current filesystem/Git identity; manual claims require override; killed-process stale-lock recovery tested | A successful command can prove the wrong criterion. Local coordination is not an authentication boundary |
-| Installed Codex 0.28.0 | Standard hook-free CLI installation succeeded | Hook-enabled Codex installation and native event dispatch remain unverified |
+| Installed Codex 0.29.0 | Standard hook-free CLI installation succeeded | Hook-enabled Codex installation and native event dispatch remain unverified |
 | Rust atomic counter, 1.95.0/MSVC | Counter probe fails on split load/store, passes after fetch_add in debug/release; formatting and Clippy pass | Counter probe has no weak-memory proof, unsafe reclamation, Loom/Miri, cross-target or benchmark claim. See [probe](../evals/results/atomics-probe-20261010.md) |
 | Codex CLI 0.150.1 | Bounded comparative pilot outcome in [evaluation report](../evals/results/improvement-evaluation.md) | An interrupted pilot cannot establish relative agent quality |
 | Claude Code 2.1.296 | Exact optional handlers dispatched SessionStart and UserPromptSubmit; prompt hint advertises automatic init binding. See [native turn](../evals/results/native-claude-turn-20261010.json) | Authentication failed before a model response; native Stop blocking, subagents and goal continuation remain unverified. Earlier recovery smoke used a temporary binding wrapper |
@@ -18,7 +18,17 @@ October 10, 2026. This matrix describes current evidence and its limits. Earlier
 Reproduce local checks with `npm run check`. Run the comparative suite using the [harness](../evals/ab/README.md), with a locally reviewed runner configuration. Export only sanitized aggregates. Fixture checks do not establish production security, visual appeal, goal continuation or real-application performance.
 
 
-Current 0.28 [integrated-flow checks](../evals/results/integrated-flow-20261010.json) pass across 19 canonical scripts:
+Current 0.29 [systems-outcome checks](../evals/results/systems-outcomes-20261010.json) pass locally across 20 canonical scripts:
+2,346/2,378 lines (98.65%) and 1,461/1,502 branches (97.27%). The single-invocation Codex installer shows an enabled
+0.29.0; Claude installation remains unexecuted. Twelve focused checks cover installer verification/failure behavior,
+operational routing, missing/invalid observations, duplicate pairing, example repair and exit-zero eligibility.
+The 92-case initial corpus totals 159,484 words (0.75% above 0.28), with 19,022 report/review entry words deferred;
+light/standard maxima are 679/2,761. All existing context limits remain. The executed configuration fixture fails its
+baseline public/acceptance checks and passes all three after repair. This is local fixture evidence, not deployment.
+The two-row native pilot changed no files and lacks valid plugin/tool isolation; user-outcome metrics remain unknown.
+Remote Windows/Linux verification is recorded separately in the current evidence file.
+
+Historical 0.28 [integrated-flow checks](../evals/results/integrated-flow-20261010.json) pass across 19 canonical scripts:
 2,282/2,311 lines (98.75%) and 1,424/1,464 branches (97.27%). Seven new integration tests exercise shared intent,
 read-only decisions, mixed repair, coordinator ownership, resume guidance, stage handoffs and an executed export
 criterion through checkpoint, evidence, read-only preflight and completion. Both built host layouts execute seven

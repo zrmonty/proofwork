@@ -41,10 +41,10 @@ if (mode === 'failure') process.exitCode = 2;
   return { command: process.execPath, args: [script, "{metadataFile}"], referenceContextPath };
 }
 
-test("all eight distinct tasks begin with failing public behavior and independent acceptance", (t) => {
+test("all nine distinct tasks begin with failing public behavior and independent acceptance", (t) => {
   const root = temporary(t);
-  assert.equal(tasks.length, 8);
-  assert.equal(new Set(tasks.map((task) => task.kind)).size, 8);
+  assert.equal(tasks.length, 9);
+  assert.equal(new Set(tasks.map((task) => task.kind)).size, 9);
   for (const task of tasks) {
     const fixture = path.resolve("evals/ab/fixtures", task.id);
     const observed = verifyTask(fixture, task, path.join(root, task.id));

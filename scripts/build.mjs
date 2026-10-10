@@ -162,7 +162,8 @@ export async function build(options = {}) {
       await writeFile(
         path.join(staging, "README.md"),
         `# Proofwork ${metadata.version} for ${host}\n\n` +
-          `Install: \`${install}\` (Codex requires marketplace registration; Claude requires 2.1.275+).\n\n` +
+          `Install: \`${install}\` (register the Codex marketplace first).\n\n` +
+          "Claude one-command marketplace install requires 2.1.292+.\n\n" +
           "Describe the outcome you want; Proofwork carries the engineering detail and verifies the result. " +
           `Start with \`${invocation}\`. Read [runtime](adapters/runtime.md) and [tools](scripts/README.md). ` +
           "These files are generated from our canonical authored source. " +

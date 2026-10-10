@@ -24,6 +24,8 @@ Load [exposure checks and response](references/exposure-and-response.md). Redact
 
 Remove real secret capabilities from delivery and rebuild. Deletion does not revoke an exposed credential. Authorized rotation/revocation remains separate; leave unavailable response pending and preserve public history unless history changes are authorized. An unresolved exposed capability blocks release readiness. Use [security-hardening](../security-hardening/SKILL.md) for deeper requested audits or demonstrated vulnerabilities.
 
+For configuration changes or environment mismatches, read [configuration and drift](references/configuration-and-drift.md). For consequential operational paths, read [failure modes and runbooks](references/failure-modes-and-runbooks.md) and update the actual code-linked recovery procedure. For build/dependency trust, read [delivery integrity](../security-hardening/references/supply-chain.md). These are conditional lenses of this release, not new coordinators.
+
 ## Verify operation and rollout
 
 Build and start the locked production artifact; exercise its primary flow. Fail safely for missing required configuration, preserve redacted diagnostics, and remove development paths only after checking consumers. Verify applicable authorization, cookies/proxies, TLS termination, exposure, scoped identities, limits, graceful shutdown, health and readiness with incumbent mechanisms.

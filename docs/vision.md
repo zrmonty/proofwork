@@ -2,7 +2,7 @@
 
 Proofwork makes the craft of building software accessible through intent, taste and judgment. A person describes what they want, works with a concrete result and refines it. The plugin supplies the engineering discipline needed to make that result dependable.
 
-Our north star: **a person can turn a clear intention into useful, distinctive, verified software without having to manage the engineering machinery themselves.**
+Our north star: **a person describes an outcome; Proofwork delivers a verified, proportionate change with clear evidence, residual risks and operating responsibilities, without requiring the person to manage skills, playbooks or models.** On production systems, success means measurably easier shipping, security and operation, demonstrated by actual checks and user observations rather than a feature count.
 
 The phone-camera analogy captures the shift we want: accessible tools let more people practice a craft through creative choices. It is a product direction, not evidence that engineering expertise will disappear. Engineering knowledge continues to shape implementation, diagnosis and verification; Proofwork carries more of that burden so the user can concentrate on what is worth making.
 
@@ -39,3 +39,5 @@ Evaluate skill compression through paired, comparable tasks: can a newcomer reac
 Do not grow the command list merely to appear capable, require stack vocabulary in the initial brief, turn every small request into an engineering questionnaire, conceal unresolved risks for a smooth interaction, or substitute attractive output for correctness. Deep specialist skills belong behind precise routing and progressive disclosure. The user-facing experience should become easier as the engineering underneath becomes more dependable.
 
 This is the current product goal. Existing host permissions, scope, caller-data ownership, conditional functional extraction, strict typing, coverage and explicitly adopted project policies remain in force. Skill compression changes who carries the cognitive burden; it does not create authority or relax evidence.
+
+The [outcome protocol](user-outcome-evaluation.md) makes these observations concrete. Dependency/build trust, effective configuration, failure behavior and code-linked runbooks are conditional operational responsibilities. Ordinary work keeps one entry, no required model setup and short outcome-first reports. The [opt-in feedback loop](early-user-feedback.md) requires real participants; no comparative advantage or regulated-system certification is assumed.

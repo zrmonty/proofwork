@@ -62,5 +62,13 @@
     "files": [
       "module.mjs"
     ]
+  },
+  {
+    "id": "release-config",
+    "kind": "production",
+    "prompt": "Prepare the invoice app configuration for production. releaseConfig(env) must reject a missing/blank DATABASE_PATH or SECRET_KEY and require PORT to be decimal digits for an integer from 1 through 65535. Keep valid server settings unchanged. Only appName, from PUBLIC_APP_NAME or the default Invoices, may appear in publicConfig; server environment values must not reach browser delivery. Preserve caller input. Show what you checked and what remains unverified.",
+    "files": [
+      "module.mjs"
+    ]
   }
 ]

@@ -4,7 +4,7 @@ Proofwork is a **skill-compression plugin for Codex and Claude Code**. Describe 
 
 Install in Codex (Bash or PowerShell 7): `codex plugin marketplace add zrmonty/proofwork && codex plugin add proofwork@proofwork-local`. See [installation](#build-and-local-installation) for local builds and Claude Code.
 
-Install in Claude Code 2.1.275+: `/plugin install proofwork --marketplace zrmonty/proofwork`.
+Install in Claude Code 2.1.292+: `/plugin install proofwork --marketplace zrmonty/proofwork`.
 
 See the [integrated workflow](docs/flow.md) and [skill reference guide](docs/reference-guide.md) for conditional decision guides and worked scenarios across the full skill set.
 
@@ -13,6 +13,8 @@ See the [integrated workflow](docs/flow.md) and [skill reference guide](docs/ref
 Proofwork aims to make software creation accessible through intent and judgment, while helping a team write less, better code. All shipped instructions are originally authored to [our specification](docs/design/2026-10-10-proofwork-design.md). No existing skill files were imported or adapted.
 
 Functions and files have no universal line-count ceiling. Keep names clear, responsibilities cohesive, control flow understandable and safety checks intact. A project can opt into its own file-size policy; the bundled checker is disabled until a limit is explicitly supplied.
+
+From a reviewed checkout, one command registers, installs and verifies the plugin: `node scripts/install.mjs --host codex` (or `--host claude-code`). Add `--source .` for the local built source. It does not configure model roles or lifecycle hooks. Older supported Claude versions can use the two-step marketplace registration/install flow in [first run](docs/first-run.md).
 
 ## Start
 
@@ -307,7 +309,9 @@ Model roles use actual host capabilities and user-selected settings. Native alte
 
 ## Verification and limits
 
-The initial guidance for the same TypeScript parser bug fell from **7,036 to 2,534 words** (about 64%). Conditional reference loading is additional; this does not establish model-token savings or agent quality. The comparative harness contains eight tasks and defaults to three repetitions per arm. Its actual pilot produced this result:
+Current 0.29 evidence is in the [systems-outcome record](evals/results/systems-outcomes-20261010.json). The [executed configuration repair](evals/examples/release-config/README.md) shows a public-safe before/after; [user-outcome evaluation](docs/user-outcome-evaluation.md) measures avoidable decisions, corrections, verified-slice time and feedback without inventing missing results. See [contributing](CONTRIBUTING.md) and the [opt-in feedback process](docs/early-user-feedback.md).
+
+The initial guidance for the same TypeScript parser bug fell from **7,036 to 2,534 words** (about 64%). Conditional reference loading is additional; this does not establish model-token savings or agent quality. The comparative harness contains nine tasks and defaults to three repetitions per arm. Its actual pilot produced this result:
 
 | Arm | Attempts | Completed implementations | Wall time | Input / output tokens reported by CLI | Result |
 | --- | ---: | ---: | ---: | ---: | --- |
@@ -315,11 +319,11 @@ The initial guidance for the same TypeScript parser bug fell from **7,036 to 2,5
 | Proofwork | 1 | 0 | 29.36 s | 120,426 / 899 | Same restriction; no files changed |
 | Local reference profile | 0 | — | — | — | Comparison deferred after host failure |
 
-These are blocked runs, not quality or performance scores. The full 72-run comparison remains unfinished. See the [evaluation report](evals/results/improvement-evaluation.md) for measurement scope, claim review and host limitations, and the [harness](evals/ab/README.md) to run it on a supported host. Further skill additions must cite a motivating evaluation.
+These are blocked runs, not quality or performance scores. The expanded full 81-run comparison remains unfinished. See the [evaluation report](evals/results/improvement-evaluation.md) for measurement scope, claim review and host limitations, and the [harness](evals/ab/README.md) to run it on a supported host. Further skill additions must cite a motivating evaluation.
 
 See [verification](docs/verification.md) for exact executed checks, behavioral observations, tested host versions, and unverified release gates. Packaging tests establish packaging behavior; they do not certify agent quality or subjective visual appeal. The run-state guard enforces its recorded evidence contract, not truthfulness of arbitrary input supplied by an operator.
 
-For source version **0.28.0**, the full check passes with **98.75% line coverage and 97.27% branch coverage**
+Historical source version **0.28.0**, the full check passes with **98.75% line coverage and 97.27% branch coverage**
 across 19 runtime scripts. Both host packages contain 49 skills and 13 named playbooks; Codex 0.28.0 is installed
 and enabled. The same 92-case corpus now loads **158,304 initial words**, down from 169,692 (6.71%).
 Selected guides and required resume guidance count initially; another 14,790 entry words are deferred.
@@ -397,4 +401,4 @@ The evidence ledger binds recorded checks to an artifact identity and distinguis
 
 ## Publication gate
 
-The next tagged public release and attached host packages remain gated on the completed Phase 3 comparison. The [current evaluation report](evals/results/improvement-evaluation.md) records two unusable pilot attempts and no completed 72-run experiment. Package checks and smaller instructions do not substitute for agent-quality results. Build locally with `npm run build`; publish a tag and attach both built host packages only after that experiment yields usable results.
+The next tagged public release and attached host packages remain gated on the completed Phase 3 comparison. The [current evaluation report](evals/results/improvement-evaluation.md) records two unusable pilot attempts and no completed original 72-run experiment; the expanded nine-task suite would have 81 rows. Package checks and smaller instructions do not substitute for agent-quality results. Build locally with `npm run build`; publish a tag and attach both built host packages only after that experiment yields usable results.

@@ -1,10 +1,10 @@
 # Comparative evaluation
 
-Eight dependency-free tasks cover a correctness bug, feature, refactor, path
+Nine dependency-free tasks cover a correctness bug, feature, refactor, path
 hardening, interface control, retry policy, data semantics and partial-update
 contract. Each starts with a failing public test. The same task and original
 tests are used for every arm: `bare`, caller-supplied `reference`, and `proofwork`.
-The default is three repetitions per task and arm; a complete run has 72 rows.
+The default is three repetitions per task and arm; a complete run has 81 rows.
 Each also has an independent regression check that passes before changes. The
 harness verifies those baseline conditions before invoking any runner.
 
@@ -31,7 +31,7 @@ Run a bounded pilot before spending on a full comparison:
 node evals/ab/run.mjs --config .engineering-team/ab-runner.json --tasks last-page --arms bare,proofwork --runs 1
 ```
 
-Then select all eight tasks, all three arms and three runs. Missing reference
+Then select all nine tasks, all three arms and three runs. Missing reference
 context is an error, not permission to silently omit that arm. A runner failure
 stops the comparison after preserving its observed row; opt into
 `continueOnRunnerFailure` only for an intentional failure experiment.
@@ -94,7 +94,7 @@ Record requested and observed model/reasoning identities and cost in runner
 metadata, with fallbacks and budget observations beside each row. Do not label
 single-model role separation as cross-model.
 
-After a usable paired pilot, repeat both conditions on the same eight tasks at
+After a usable paired pilot, repeat both conditions on the same nine tasks at
 least three times, alternating which condition starts each pair. The harness has
 no seed or randomization option; record provider sampling settings/seed when
 exposed and otherwise mark them unavailable. Use fresh workspaces and reviewed
@@ -113,3 +113,5 @@ authentication before a model response.
 The Proofwork arm also injects the selected named playbook guide; context-budget counts that initial input. Deferred review/report and conditional reference costs remain separate.
 
 The staged arm includes the selected procedure guide and required recovery references for Resume Work. It records continuation metadata and deferred review/report entries. This matches the context-budget accounting; conditional references beyond required recovery remain additional. Structural input parity is not evidence of agent adherence or comparative quality.
+
+The release-config fixture covers server/public configuration isolation and fail-closed startup validation. Compare operator/user effort using the [outcome protocol](../../docs/user-outcome-evaluation.md) and outcomes.mjs. Observer metrics are separate from runner claims and missing values remain unknown.

@@ -57,3 +57,9 @@ See the [integrated flow](flow.md), [playbooks](playbooks.md) and [worked contex
 | [use-proofwork](../shared/skills/use-proofwork/SKILL.md) | For engineering requests needing intent-to-delivery coordination. | [Acceptance changes during a run](../shared/skills/use-proofwork/references/acceptance-changes.md); [Coordination and integration](../shared/skills/use-proofwork/references/coordination.md); [Full coordination and verification workflow](../shared/skills/use-proofwork/references/full-workflow.md); [One task, successive stages](../shared/skills/use-proofwork/references/handoffs.md); [Intent, judgment and engineering detail](../shared/skills/use-proofwork/references/intent-and-judgment.md); [Light work](../shared/skills/use-proofwork/references/light.md); [Bounded model patterns](../shared/skills/use-proofwork/references/model-patterns.md); [Recovery and evidence](../shared/skills/use-proofwork/references/recovery.md) |
 
 All links derive from canonical source. Audit lenses retain their proof obligations; orchestration does not waive them. The native host owns goals, permissions and continuation. No model mapping establishes actual dispatch or review independence.
+
+## Conditional operational references
+
+- [Configuration and drift](../shared/skills/production-finish/references/configuration-and-drift.md): effective environment contracts and startup validation.
+- [Failure modes and runbooks](../shared/skills/production-finish/references/failure-modes-and-runbooks.md): actual fault drills, observability and code-linked recovery.
+- [Supply chain](../shared/skills/security-hardening/references/supply-chain.md): resolved dependency/build/CI trust and consumed remediation.

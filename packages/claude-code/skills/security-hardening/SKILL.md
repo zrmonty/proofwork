@@ -22,7 +22,7 @@ Configure secret redaction before scanning or emitting output. Report safe locat
 
 Load [trust-boundary probes](references/trust-boundaries.md) for applicable authentication, resource authorization, tenant separation, injection, filesystem/URL boundaries, browser protections, dependency integrity and resource limits. Inspect real callers and framework/configuration protections before classifying findings. Prioritize reachable impact; distinguish confirmed defects, plausible concerns, intentional public behavior and unavailable checks. Harmful exploitation is unnecessary when a safe trace establishes the defect.
 
-For dependencies, consult current authoritative advisories against locked versions, production/build inclusion and reachable use. Scanner failure leaves the check unverified. Do not send private package metadata to external services without authorization.
+For dependency/build/CI changes, read [supply-chain checks](references/supply-chain.md). For dependencies, consult current authoritative advisories against locked versions, production/build inclusion and reachable use. Scanner failure leaves the check unverified. Do not send private package metadata to external services without authorization.
 
 Load [access lifecycles](references/access-lifecycles.md) for changing permissions, exports, caches or deferred jobs, and [remediation](references/remediation-and-verification.md) when applying repairs. Fix the shared enforcement boundary and affected consumers using existing framework mechanisms and maintained libraries. Preserve validation, diagnostics, cleanup and accessibility; disabling useful behavior is not closure.
 

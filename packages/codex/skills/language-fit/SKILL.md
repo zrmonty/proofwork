@@ -13,4 +13,6 @@ Compare the incumbent, a simpler adequate arrangement and materially different c
 
 Read [decision workflow](references/decision-workflow.md) for substantive choices, [systems and boundaries](references/systems-and-boundaries.md) for critical paths or mixed languages, and [frontend/application fit](references/frontend-and-application.md) for rendering and user journeys. Each additional language must justify its toolchain, deployment and data-contract cost. Never duplicate business authority across the boundary.
 
+Compare actual supported targets, dependency/build trust, upgrade ownership, diagnostics and recovery procedures alongside speed. A new language must earn its maintenance and on-call burden, including any native boundary.
+
 Recommend a supported fit with tradeoffs, excluded alternatives, decisive unknowns and an affordable next step. Performance claims need comparable measurements; absent benchmarks remain hypotheses. Choice alone does not authorize scaffolding, dependency changes or migration. Apply language guidance once the actual choice or file scope warrants it.

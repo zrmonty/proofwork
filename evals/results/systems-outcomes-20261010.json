@@ -1,0 +1,194 @@
+{
+  "schemaVersion": 1,
+  "version": "0.29.0",
+  "date": "2026-10-10",
+  "environment": {
+    "os": "Windows",
+    "node": "v24.16.0"
+  },
+  "checks": {
+    "fullCheckPassed": true,
+    "standardPackages": [
+      "codex",
+      "claude-code"
+    ],
+    "optionalHookPackagesBuilt": true,
+    "codexInstall": {
+      "host": "codex",
+      "version": "0.29.0",
+      "verified": true,
+      "nextPrompt": "$use-proofwork <your outcome>",
+      "note": "Start a fresh host session. No model setup, project policy or lifecycle hooks were configured."
+    },
+    "claudeInstall": "Not executed; CLI unavailable",
+    "newFocusedTests": 12
+  },
+  "coverage": {
+    "tool": "Node V8 LCOV",
+    "files": 20,
+    "threshold": 95,
+    "revision": "scripts-sha256:3eb9e778f1edd4dcb42a95f4ae65e99565c9c97d4e16934ed3181c97fe537cae",
+    "lines": {
+      "covered": 2346,
+      "total": 2378,
+      "percent": 98.65433137089991
+    },
+    "branches": {
+      "covered": 1461,
+      "total": 1502,
+      "percent": 97.27030625832224
+    }
+  },
+  "skillListing": {
+    "skills": 49,
+    "words": 380,
+    "violations": [],
+    "passed": true
+  },
+  "context": {
+    "scenarios": 92,
+    "initialWords": 159484,
+    "previousInitialWords": 158304,
+    "deferredEntryWords": 19022,
+    "maxLight": 679,
+    "maxStandard": 2761,
+    "limitsUnchanged": true,
+    "conditionalReferencesAndTaskModelTokensAdditional": true
+  },
+  "executedExample": {
+    "task": "release-config",
+    "baselineDigest": "632504db7cd6c489d9713b62a13861148f294bbdf7f5fa26865699adf8b15ecd",
+    "repairDigest": "4420f512608574af91992c6c0846471daa57d44ad4e6c0c7f9f08447ea8f3928",
+    "before": {
+      "visible": {
+        "passed": false,
+        "exitCode": 1,
+        "digest": "e1e84dac9b37018a221cbce33fe5bf278e02a27fd6de754d557bb0f0dddeaab8"
+      },
+      "acceptance": {
+        "passed": false,
+        "exitCode": 1,
+        "digest": "d2490bf9b19aead02b889e738203607a2e41dd3e172cae589de81260587f2412"
+      },
+      "regression": {
+        "passed": true,
+        "exitCode": 0,
+        "digest": "7d58bc414c8e37a97a84bf60bbd3e43c2dec64c3532b0f6ae9026b56a7b6bb77"
+      }
+    },
+    "after": {
+      "visible": {
+        "passed": true,
+        "exitCode": 0,
+        "digest": "c0e08b9d42a6f7c1a9599df26868466d9b36f4226f4c0a367c73923885dcdc82"
+      },
+      "acceptance": {
+        "passed": true,
+        "exitCode": 0,
+        "digest": "5e97ec65e9d47ab3146891da67e23f64d62b1d36153528ad843d3300de65f89a"
+      },
+      "regression": {
+        "passed": true,
+        "exitCode": 0,
+        "digest": "e44dc012e4fe10e9021200b0e2217b801b9ebe31bf1021c74bb8802196a3c137"
+      }
+    },
+    "readiness": "Fixture contract locally verified; hosting, delivered public bundle, staging and live operation unverified"
+  },
+  "nativePilot": {
+    "host": "Codex CLI 0.150.1",
+    "requestedModel": "gpt-5.6-sol",
+    "actualModel": "Unverified",
+    "source": "Candidate working tree based on 0.28.0; revised entry/reference inputs preceded final 0.29 packaging",
+    "usableComparison": false,
+    "observations": [
+      {
+        "arm": "bare",
+        "runnerExitCode": 0,
+        "durationMs": 13272.707,
+        "filesChanged": 0,
+        "originalTestPassed": false,
+        "hiddenAccepted": false,
+        "preservationRegressions": 0
+      },
+      {
+        "arm": "proofwork",
+        "runnerExitCode": 0,
+        "durationMs": 22935.525999999998,
+        "filesChanged": 0,
+        "originalTestPassed": false,
+        "hiddenAccepted": false,
+        "preservationRegressions": 0
+      }
+    ],
+    "outcomes": {
+      "schemaVersion": 1,
+      "source": "observer-reported; runner exit independently recorded",
+      "pairs": 1,
+      "successfulRunnerExitPairs": 1,
+      "reviewedComparablePairs": 0,
+      "acceptedPairs": 0,
+      "unpairedRows": 0,
+      "metrics": {
+        "technicalDecisionsReturned": {
+          "pairs": 0,
+          "meanDelta": null
+        },
+        "clarificationRounds": {
+          "pairs": 0,
+          "meanDelta": null
+        },
+        "deliveredDefects": {
+          "pairs": 0,
+          "meanDelta": null
+        },
+        "reworkRounds": {
+          "pairs": 0,
+          "meanDelta": null
+        },
+        "timeToVerifiedSliceMs": {
+          "pairs": 0,
+          "meanDelta": null
+        },
+        "withoutTechniqueNames": {
+          "pairs": 0,
+          "bareTrue": 0,
+          "proofworkTrue": 0
+        },
+        "correctionRecoveryPassed": {
+          "pairs": 0,
+          "bareTrue": 0,
+          "proofworkTrue": 0
+        },
+        "wouldShip": {
+          "pairs": 0,
+          "bareTrue": 0,
+          "proofworkTrue": 0
+        }
+      },
+      "limits": [
+        "Missing observations remain unknown; deltas require successful exits and an explicit valid-comparison review for both arms.",
+        "Observer records require trace/artifact review; this module does not authenticate a human reviewer.",
+        "Fixture acceptance failures are not counted as production defect rates or ship approval."
+      ]
+    },
+    "limits": [
+      "Both agents reported a read-only/command-policy blocker, returned without file changes and disclosed verification gaps.",
+      "Proofwork-arm resource discovery returned the older account Proofwork 0.25 plugin despite isolation flags; bare plugin isolation therefore remains uncertified.",
+      "No independently verified slice, newcomer observations, correction trial, defect rate, ship feedback or comparative quality gain."
+    ]
+  },
+  "ci": {
+    "configuration": ".github/workflows/check.yml",
+    "status": "Awaiting remote verification"
+  },
+  "feedback": {
+    "participants": 0,
+    "recruitment": "Opt-in issue form and protocol prepared; no outreach or testimonials claimed"
+  },
+  "limits": [
+    "Local installer command is executed in Codex; Claude command plans and structural packages are tested, not native installation.",
+    "Coverage inventory covers 20 scripts, not instructional quality or comparative harness behavior.",
+    "No public release tag, deployment or global lifecycle hook installation."
+  ]
+}

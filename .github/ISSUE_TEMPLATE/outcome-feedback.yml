@@ -1,0 +1,40 @@
+name: Outcome and friction feedback
+description: Report a public-safe outcome or volunteer for a bounded usability trial.
+title: '[Outcome] '
+body:
+  - type: markdown
+    attributes:
+      value: Use synthetic examples. No credentials, customer records, private paths or raw transcripts. This form grants no private-system access.
+  - type: textarea
+    id: outcome
+    attributes:
+      label: What outcome did you want?
+      description: Ordinary language is enough. Include host and Proofwork version if known.
+    validations:
+      required: true
+  - type: textarea
+    id: friction
+    attributes:
+      label: What happened and what made it harder?
+      description: Setup, unnecessary questions, unclear reports, defects, rework or operating gaps.
+    validations:
+      required: true
+  - type: textarea
+    id: evidence
+    attributes:
+      label: What was actually verified?
+      description: Safe reproduction, before/after, checks and residual risks. Unknown is useful.
+  - type: dropdown
+    id: readiness
+    attributes:
+      label: Would you ship this in your stated environment?
+      options:
+        - Not assessed
+        - Yes, with the stated limits
+        - No
+  - type: checkboxes
+    id: volunteer
+    attributes:
+      label: Optional follow-up
+      options:
+        - label: I would consider a public-safe trial. Scope and publication consent must be agreed separately.

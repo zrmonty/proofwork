@@ -20,7 +20,7 @@
     "auditStack": "\\baudit[- ]stack\\b",
     "dryAudit": "\\bdry[- ]audit\\b|\\b(?:duplicate|duplicated|duplication of)\\s+(?:code|domain rules?|validation|logic|calculations?|implementations?)\\b",
     "deadCode": "\\bdead[- ]code\\b|\\b(?:unused|unreachable|obsolete)\\s+(?:code|functions?|exports?|modules?|dependencies|tests?)\\b|\\borphaned\\s+(?:tests?|fixtures?)\\b",
-    "security": "\\b(harden(?:ing)?|vulnerabilit(?:y|ies)|ssrf|xss|csrf)\\b|\\bsecurity\\s+(?:audit|review|hardening|scan)\\b|\\b(?:authorization|authentication|auth)\\s+bypass\\b|\\b(?:sql|command|code)\\s+injection\\b|\\b(?:exposed|leaked)\\s+(?:credentials?|secrets?|keys?)\\b",
+    "security": "\\b(harden(?:ing)?|vulnerabilit(?:y|ies)|ssrf|xss|csrf)\\b|\\bsecurity\\s+(?:audit|review|hardening|scan)\\b|\\b(?:authorization|authentication|auth)\\s+bypass\\b|\\b(?:sql|command|code)\\s+injection\\b|\\b(?:exposed|leaked)\\s+(?:credentials?|secrets?|keys?)\\b|\\b(?:audit|check|review|harden)\\b.*\\b(?:supply[- ]chain|dependency integrity|build provenance)\\b",
     "securityToken": "\\b(security|auth|authentication|authorization|secrets?|injection|credentials?)\\b",
     "fullRisk": "\\b(concurren(?:t|cy)|atomics?|memory ordering|migrations?|parallel workers?|subagents?|delegat(?:e|ion))\\b",
     "small": "\\b(rename|typo|spelling)\\b",

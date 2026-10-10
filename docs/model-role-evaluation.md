@@ -15,7 +15,7 @@ Run a bounded paired pilot before the full suite. A permission/authentication fa
 
 ## Repeated paired tasks
 
-The [existing harness](../evals/ab/README.md) provides eight executable fixtures: `last-page`, `chunks`, `pricing`, `safe-path`, `theme-control`, `retry-policy`, `measurement` and `patch-presence`. Freeze their original visible, hidden acceptance and baseline regression checks. Run at least three repetitions per task and condition in separate output roots, alternating condition order per pair. Both conditions use the harness's `proofwork` arm with different local runner configs. Set optional `modelPlanPath` to a saved planner result: all-inherit for single-model, configured roles for the other condition. The harness validates five resolved roles, no missing capabilities and bounded advisory budgets; it injects requested policy without dispatching. There is no dedicated model-role arm or seed flag.
+The [existing harness](../evals/ab/README.md) provides nine executable fixtures: `last-page`, `chunks`, `pricing`, `safe-path`, `theme-control`, `retry-policy`, `measurement` `patch-presence` and `release-config`. Freeze their original visible, hidden acceptance and baseline regression checks. Run at least three repetitions per task and condition in separate output roots, alternating condition order per pair. Both conditions use the harness's `proofwork` arm with different local runner configs. Set optional `modelPlanPath` to a saved planner result: all-inherit for single-model, configured roles for the other condition. The harness validates five resolved roles, no missing capabilities and bounded advisory budgets; it injects requested policy without dispatching. There is no dedicated model-role arm or seed flag.
 
 Record provider sampling parameters and seed if exposed; otherwise mark them unavailable. Fresh workspaces and sessions prevent candidate/history leakage. Disable unintended installed guidance in both arms and record remaining host context. Hidden tests are logically withheld, not protected from a hostile same-account process. Mark suspected oracle access or contamination invalid, preserving its count and reason.
 
@@ -23,7 +23,7 @@ Give graders anonymized candidates and the same criteria, without role/model ide
 
 ## Realistic extensions
 
-These cases are proposed manual extensions, not tasks accepted by the current eight-fixture CLI. Freeze supplied facts and grading criteria before executing them.
+These cases are proposed manual extensions, not tasks accepted by the current nine-fixture CLI. Freeze supplied facts and grading criteria before executing them.
 
 | Plain outcome prompt | Fixed acceptance and expected artifacts |
 |---|---|

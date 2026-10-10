@@ -9,6 +9,8 @@ Make every major component earn its place through a concrete requirement. Challe
 
 Inspect existing behavior, deployment, ownership and recovery obligations. Registered users are not concurrent writers. Compare actual peak workload, transaction duration, data features, persistence, failure behavior and operating burden. Ask only for missing facts that change the recommendation; keep dependent choices provisional.
 
+Walk one consequential failure through the candidates: detection, durable ownership, degraded behavior and demonstrated recovery. Include dependency updates, configuration drift and runbook burden in the operating cost; use [operational procedures](../production-finish/references/failure-modes-and-runbooks.md) when that boundary is decisive.
+
 Recommend the least burdensome complete arrangement the owner can operate. A smaller self-hosted component can cost more than a managed service; custom replacements also count as complexity. Explain each component's disposition: retain with evidence, replace, omit, or defer for a specific unknown. Recommendations do not authorize migrations or rewrites.
 
 Read [decision workflow](references/decision-workflow.md) for consequential architecture work. Select [storage fit](references/storage-fit.md), [component decisions](references/component-decisions.md), or [exit cost and ownership](references/exit-cost-and-ownership.md) for the actual question. Load [language fit](../language-fit/SKILL.md) when implementation technology is undecided.
