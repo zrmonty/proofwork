@@ -1,3 +1,3 @@
-# Architecture playbook
+# architecture
 
-Load architecture-fit, and language-fit when languages/runtimes/frameworks are undecided, with the product brief, repository and operating constraints. Challenge each consequential component against a simpler adequate arrangement; explain workflow, durability, cost and ownership. Resolve material unknowns without requiring tool vocabulary. Return boundaries, chosen mechanisms, preserved contracts, acceptance and unresolved decisions. Architecture-only work does not authorize implementation, infrastructure changes or deployment. Carry an accepted architecture into the requested implementation stage.
+Read the [justify-structure procedure](justify-structure.md). This stage identifier remains compatible with existing checkpoints. Actual tier and authority come from the current explained route.

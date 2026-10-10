@@ -51,6 +51,28 @@ Use Proofwork to fix the export. It sometimes loses the final page.
 Keep the current file format and show me that the full document survives.
 ```
 
+## Playbooks
+
+The root selects a named procedure from your request. You can also say “Use Proofwork. Follow Repair Behavior to fix the export.” Playbooks are workflow names; invoke them through use-proofwork rather than a separate slash command.
+
+| Playbook | Suggested tier |
+| --- | --- |
+| **Quick Fix** | light |
+| **Clarify Path** | light |
+| **Repair Behavior** | standard |
+| **Add or Change Behavior** | standard |
+| **Simplify Structure** | standard |
+| **Improve Measurement** | standard |
+| **Justify Structure** | full |
+| **Harden and Finish** | full |
+| **Coordinated Audit** | full |
+| **Explore Options** | full |
+| **Long Task** | full |
+| **Shape Intent** | special |
+| **Resume Work** | special |
+
+Full-tier recommendations remain proportionate: bounded architecture advice or a small candidate comparison can stay standard. Explicit full-playbook requests select full coordination. Read-only intent and risk floors always apply. Explained routing exposes the selected guide and actual tier; [playbook details](docs/playbooks.md) describe handoffs, checkpoint compatibility and context costs.
+
 ## Skill commands
 
 Version 0.19 renames `setup` → `pw-setup`, `worker-mode` → `pw-worker-mode`, and `clean-code` → `pw-clean-code`; update prompts or automation using the old names. Setup, workers and audit-stack are manually invoked. The root can deliberately read their guidance when needed.
@@ -297,10 +319,10 @@ These are blocked runs, not quality or performance scores. The full 72-run compa
 
 See [verification](docs/verification.md) for exact executed checks, behavioral observations, tested host versions, and unverified release gates. Packaging tests establish packaging behavior; they do not certify agent quality or subjective visual appeal. The run-state guard enforces its recorded evidence contract, not truthfulness of arbitrary input supplied by an operator.
 
-For source version **0.26.0**, the full check passes with **98.79% line coverage and 97.36% branch coverage**
-across 19 runtime scripts. Both host packages contain 49 skills; Codex 0.26.0 is installed and enabled. The 92-case
-initial-context corpus totals 163,019 words, with another 12,822 entry words deferred to review/report stages.
-See [current checks](evals/results/context-skills-20261010.json).
+For source version **0.27.0**, the full check passes with **98.73% line coverage and 97.38% branch coverage**
+across 19 runtime scripts. Both host packages contain 49 skills and 13 named playbooks; Codex 0.27.0 is installed
+and enabled. Selected guides count toward the 92-case initial-context corpus: 169,692 words, with another 14,640
+entry words deferred to later stages. See [current checks](evals/results/named-playbooks-20261010.json).
 
 In the historical 0.24 snapshot regression, a standalone Windows Git worktree with 20,000 ignored files fell from **5,036 ms
 to 129 ms**, excluding fixture setup and cleanup. These individual measurements do not establish performance on

@@ -1,12 +1,14 @@
 import { readFileSync } from 'node:fs';
-import { workflowFor } from './workflow-routing.mjs';
+import { workflowFor, explicitPlaybook, playbookPlan } from './workflow-routing.mjs';
 
 const rules = JSON.parse(readFileSync(new URL('../shared/routing.json', import.meta.url)));
 const testPattern = (pattern, value) => new RegExp(pattern, 'i').test(value);
 const matches = (name, task) => testPattern(rules.patterns[name], task);
 const hasExtension = (name, files) => files.some(file => testPattern(rules.extensions[name], file));
 const docsOnly = files => files.length > 0 && files.every(file => testPattern(rules.extensions.docs, file));
-const readonly = task => matches('readOnly', task) || matches('dryRun', task) ||
+const readonly = task => explicitPlaybook(task)?.id === 'clarify-path' ||
+  matches('readOnly', task) || matches('dryRun', task) ||
+  /\b(?:read[- ]only|report[- ]only|do not (?:edit|change))\b/i.test(task) ||
   /^\s*how\s+(?:does|do)\b.*\b(?:work|behave|handle|reject|process|flow)\b/i.test(task) ||
   /^\s*why\s+(?:was|is|does|did|were)\b.*\b(?:chosen|introduced|designed|decided|constraint|decision)\b/i.test(task);
 
@@ -35,6 +37,8 @@ function security(task) {
 }
 function playbookFor(task) {
   if (readonly(task)) return 'investigate';
+  const explicit = explicitPlaybook(task);
+  if (explicit) return explicit.stage;
   if (prototype(task)) return 'prototype';
   const ordinary = rules.ordinary.find(rule => matches(rule.pattern, task));
   if (ordinary) return ordinary.playbook;
@@ -43,7 +47,9 @@ function playbookFor(task) {
   if (matches('newProject', task) && !matches('approved', task)) return 'brainstorm';
   return production(task) ? 'production-finish' : 'feature';
 }
+const explicitFull = task => !readonly(task) && explicitPlaybook(task)?.tier === 'full';
 function tierFor(task, files) {
+  if (explicitFull(task)) return 'full';
   if (security(task) || matches('auditStack', task)) return 'full';
   if (!readonly(task) && matches('fullRisk', task)) return 'full';
   if (activePreparation(task)) return 'standard';
@@ -62,7 +68,7 @@ function languagesFor(task, files) {
   return selected.map(rule => rule.skill);
 }
 function domainSkills(task, playbook) {
-  const skills = [];
+  const skills = readonly(task) ? [] : [...(explicitPlaybook(task)?.skills ?? [])];
   if (playbook === 'prototype') skills.push('explore-options');
   if (playbook === 'brainstorm') skills.push('brainstorm');
   if (architecture(task) && !readonly(task)) skills.push('architecture-fit');
@@ -119,6 +125,7 @@ const mechanical = task => matches('small', task) &&
   !matches('behaviorMarkers', task) && !matches('performance', task);
 
 function minimumTier(task, files, playbook) {
+  if (explicitFull(task)) return 'full';
   if (security(task) || matches('auditStack', task) || (!readonly(task) && matches('fullRisk', task))) return 'full';
   if (activePreparation(task)) return 'standard';
   const behavioral = ['feature', 'bug-fix', 'refactor'].includes(playbook) ||
@@ -129,6 +136,7 @@ function minimumTier(task, files, playbook) {
 }
 
 function recommendationReasons(task, files, recommendation) {
+  if (explicitFull(task)) return ['The explicitly requested playbook requires full coordination.'];
   if (security(task)) return ['The task mentions security-sensitive work requiring the full review tier.'];
   if (matches('auditStack', task)) return ['The task requests the combined audit stack requiring the full tier.'];
   if (!readonly(task) && matches('fullRisk', task)) {
@@ -190,9 +198,11 @@ export function explainRoute(task, files = [], requestedTier) {
     if (!entry) throw new Error(`principle missing from index: ${slug}`);
     return entry.skill;
   });
+  const procedure = playbookPlan(task, tier, recommendation.playbook, skills);
   return {
     tier, playbook: recommendation.playbook, skills, recommendedTier: recommendation.tier, tierReasons, principles,
     tierOverride: { requested: requestedTier ?? null, applied: tier, minimum, constrained },
-    workflow: workflowFor(task, files, tier, recommendation.playbook),
+    procedure,
+    workflow: workflowFor(task, files, tier, recommendation.playbook, procedure.id),
   };
 }

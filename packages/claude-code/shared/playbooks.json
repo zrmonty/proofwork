@@ -1,0 +1,123 @@
+{
+  "schemaVersion": 1,
+  "playbooks": [
+    {
+      "id": "quick-fix",
+      "name": "Quick Fix",
+      "tier": "light",
+      "stage": "bug-fix",
+      "skills": [],
+      "path": "playbooks/quick-fix.md"
+    },
+    {
+      "id": "clarify-path",
+      "name": "Clarify Path",
+      "tier": "light",
+      "stage": "investigate",
+      "skills": [],
+      "path": "playbooks/clarify-path.md"
+    },
+    {
+      "id": "repair-behavior",
+      "name": "Repair Behavior",
+      "tier": "standard",
+      "stage": "bug-fix",
+      "skills": [],
+      "path": "playbooks/repair-behavior.md"
+    },
+    {
+      "id": "add-or-change-behavior",
+      "name": "Add or Change Behavior",
+      "tier": "standard",
+      "stage": "feature",
+      "skills": [],
+      "path": "playbooks/add-or-change-behavior.md"
+    },
+    {
+      "id": "simplify-structure",
+      "name": "Simplify Structure",
+      "tier": "standard",
+      "stage": "refactor",
+      "skills": [],
+      "path": "playbooks/simplify-structure.md"
+    },
+    {
+      "id": "improve-measurement",
+      "name": "Improve Measurement",
+      "tier": "standard",
+      "stage": "investigate",
+      "skills": [
+        "performance-increase"
+      ],
+      "path": "playbooks/improve-measurement.md"
+    },
+    {
+      "id": "justify-structure",
+      "name": "Justify Structure",
+      "tier": "full",
+      "stage": "architecture",
+      "skills": [
+        "architecture-fit",
+        "language-fit"
+      ],
+      "path": "playbooks/justify-structure.md"
+    },
+    {
+      "id": "harden-and-finish",
+      "name": "Harden and Finish",
+      "tier": "full",
+      "stage": "production-finish",
+      "skills": [
+        "security-hardening",
+        "production-finish"
+      ],
+      "path": "playbooks/harden-and-finish.md"
+    },
+    {
+      "id": "coordinated-audit",
+      "name": "Coordinated Audit",
+      "tier": "full",
+      "stage": "review",
+      "skills": [
+        "audit-stack"
+      ],
+      "path": "playbooks/coordinated-audit.md"
+    },
+    {
+      "id": "explore-options",
+      "name": "Explore Options",
+      "tier": "full",
+      "stage": "prototype",
+      "skills": [
+        "explore-options"
+      ],
+      "path": "playbooks/explore-options.md"
+    },
+    {
+      "id": "long-task",
+      "name": "Long Task",
+      "tier": "full",
+      "stage": "feature",
+      "skills": [],
+      "path": "playbooks/long-task.md"
+    },
+    {
+      "id": "shape-intent",
+      "name": "Shape Intent",
+      "tier": "special",
+      "stage": "brainstorm",
+      "skills": [
+        "brainstorm"
+      ],
+      "path": "playbooks/shape-intent.md"
+    },
+    {
+      "id": "resume-work",
+      "name": "Resume Work",
+      "tier": "special",
+      "stage": "feature",
+      "skills": [],
+      "path": "playbooks/resume-work.md"
+    }
+  ]
+}

@@ -49,3 +49,5 @@ checks; probe-first settles technical uncertainty. Option-arena extends explore-
 existing audits, and measure-loop extends performance-increase. Procedure-draft fills genuinely missing workflows.
 Clear-voice and evidence-surface apply proportionately at delivery. Exact commands are listed in the README.
 See [context walkthrough](context-worked-scenario.md) and [report example](report-worked-example.md).
+
+The [named playbook catalog](playbooks.md) connects intent to the selected guide, stage, tier and conditional skills; playbooks remain procedures rather than additional skill-list entries.

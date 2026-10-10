@@ -1,0 +1,95 @@
+{
+  "schemaVersion": 1,
+  "version": "0.27.0",
+  "date": "2026-10-10",
+  "environment": {
+    "os": "Windows",
+    "node": "24.16.0"
+  },
+  "checks": {
+    "fullCheckPassed": true,
+    "namedPlaybookRegressionTests": 8,
+    "namedPlaybooks": 13,
+    "standardPackages": [
+      "codex",
+      "claude-code"
+    ],
+    "optionalHookPackagesBuilt": true,
+    "packagedNamedRouting": [
+      {
+        "host": "codex",
+        "procedure": "coordinated-audit",
+        "tier": "full"
+      },
+      {
+        "host": "claude-code",
+        "procedure": "coordinated-audit",
+        "tier": "full"
+      }
+    ],
+    "codexInstalledVersion": "0.27.0",
+    "codexEnabled": true
+  },
+  "coverage": {
+    "passed": true,
+    "threshold": 95,
+    "revision": "scripts-sha256:f1127aeb7b90b523fc991f51e60963f5f77475a400a26ac641650be031f803f8",
+    "tool": "Node V8 LCOV",
+    "files": 19,
+    "metrics": {
+      "lines": {
+        "covered": 2262,
+        "total": 2291,
+        "percent": 98.73417721518987,
+        "passed": true
+      },
+      "branches": {
+        "covered": 1412,
+        "total": 1450,
+        "percent": 97.37931034482759,
+        "passed": true
+      }
+    },
+    "inventory": [
+      "scripts/build.mjs",
+      "scripts/check-commits.mjs",
+      "scripts/check-coverage.mjs",
+      "scripts/check-file-lines.mjs",
+      "scripts/check-skill-list.mjs",
+      "scripts/check-source-lines.mjs",
+      "scripts/collect-coverage.mjs",
+      "scripts/context-budget.mjs",
+      "scripts/hook-binding.mjs",
+      "scripts/hook-policy.mjs",
+      "scripts/host-hook.mjs",
+      "scripts/model-roles.mjs",
+      "scripts/proofwork.mjs",
+      "scripts/routing.mjs",
+      "scripts/runtime-evidence.mjs",
+      "scripts/runtime-locks.mjs",
+      "scripts/runtime-snapshot.mjs",
+      "scripts/verify-coverage.mjs",
+      "scripts/workflow-routing.mjs"
+    ]
+  },
+  "skillListing": {
+    "skills": 49,
+    "words": 380,
+    "violations": [],
+    "passed": true
+  },
+  "context": {
+    "scenarios": 92,
+    "initialWords": 169692,
+    "deferredEntryWords": 14640,
+    "maxLight": 627,
+    "maxStandard": 2917,
+    "selectedGuideCountedInitially": true,
+    "conditionalReferencesAndTaskModelTokensAdditional": true
+  },
+  "limits": [
+    "Routing, context inputs and packaging are executed checks; live agent adherence to these procedures remains unverified.",
+    "No comparative quality gain, live release readiness or cross-model dispatch claim.",
+    "No public tag, deployment or global hook installation."
+  ]
+}

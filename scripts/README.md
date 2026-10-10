@@ -27,3 +27,5 @@ Review host-specific `hooks/hooks.json` and install through the host's trust flo
 
 Context budgets count initial preparation/options and disclose deferred review/report entry words separately.
 Option Arena defaults to two candidates; an explicit third stays within maxParallel and actual host capacity.
+
+Named procedures: `route --explain` exposes `procedure`; read its packaged `path` before the selected phase guidance. The legacy `playbook` value remains a compatible checkpoint stage. See `playbooks/` and `shared/playbooks.json` in the package. Explicit full procedure names preserve a full floor; read-only intent still controls effects. Context-budget includes the selected guide, and the comparative harness injects the same guide.

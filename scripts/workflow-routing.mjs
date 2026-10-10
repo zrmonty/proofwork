@@ -1,5 +1,9 @@
+import { readFileSync } from 'node:fs';
+
+const playbooks = JSON.parse(readFileSync(new URL('../shared/playbooks.json', import.meta.url))).playbooks;
 const matches = (pattern, task) => pattern.test(task);
-const readonly = task => matches(/^\s*(?:explain|describe|summari[sz]e|how|why|which|what)\b/i, task) ||
+const readonly = task => explicitPlaybook(task)?.id === 'clarify-path' ||
+  matches(/^\s*(?:explain|describe|summari[sz]e|how|why|which|what)\b/i, task) ||
   matches(/\b(?:report[- ]only|read[- ]only|dry[- ]run|do not (?:edit|change))\b/i, task);
 const docsOnly = files => files.length > 0 && files.every(file => /\.(?:md|txt|rst|adoc)$/i.test(file));
 const mechanical = task => /\b(?:typo|spelling|rename)\b/i.test(task) &&
@@ -33,7 +37,7 @@ const novelProcedure = task => /\b(?:procedure[- ]draft|procedure|workflow)\b/i.
 const explicitChallenge = task => /\b(?:challenge[- ]review|adversarial|multi[- ]angle)\b/i.test(task);
 const integratedWork = task => /\b(?:integrated|substantial|combined|release|migration)\b/i.test(task);
 
-export function workflowFor(task, files, tier, playbook) {
+export function workflowFor(task, files, tier, playbook, procedureId) {
   const result = { beforeWork: [], options: [], review: [], report: ['clear-voice', 'evidence-surface'] };
   const readOnly = readonly(task);
   const origin = originRequest(task);
@@ -65,5 +69,40 @@ export function workflowFor(task, files, tier, playbook) {
   if (explicitChallenge(task) || (tier === 'full' && substantive && integratedWork(task))) {
     result.review.push('challenge-review');
   }
+  const explicit = explicitPlaybook(task);
+  if ((explicit || (tier === 'full' && substantive)) &&
+    ['harden-and-finish', 'coordinated-audit'].includes(explicit?.id ?? procedureId) && !readOnly) {
+    if (!result.beforeWork.includes('impact-map')) result.beforeWork.push('impact-map');
+    if (!result.review.includes('impact-map')) result.review.push('impact-map');
+    if (!result.review.includes('challenge-review')) result.review.push('challenge-review');
+  }
+  if (explicit?.id === 'clarify-path' && !result.beforeWork.includes('trace-path')) {
+    result.beforeWork.push('trace-path');
+  }
   return result;
+}
+
+export function explicitPlaybook(task) {
+  const request = task.replace(/^\s*(?:use\s+proofwork[.:]?\s*|\/proofwork:use-proofwork\s+|\$use-proofwork\s+)/i, '');
+  return playbooks.find(entry => new RegExp('^\\s*(?:(?:use|run|follow)\\s+(?:the\\s+)?)?'+
+    entry.name.replaceAll(' ', '[ -]')+'(?:\\s+playbook)?(?:\\b|:)', 'i').test(request));
+}
+
+export function playbookPlan(task, tier, stage, skills) {
+  const explicit = explicitPlaybook(task);
+  let id;
+  if (explicit) id=explicit.id;
+  else if (/^\s*(?:resume(?: work)?|continue)\b.*\b(?:interrupted|checkpoint|run|work)\b/i.test(task)) {
+    id='resume-work';
+  }
+  else if (stage==='investigate' && readonly(task)) id='clarify-path';
+  else if (tier==='light' && mechanical(task)) id='quick-fix';
+  else if (skills.includes('audit-stack')) id='coordinated-audit';
+  else if (skills.includes('security-hardening') || stage==='production-finish') id='harden-and-finish';
+  else if (skills.includes('performance-increase')) id='improve-measurement';
+  else id=({investigate:'clarify-path','bug-fix':'repair-behavior',refactor:'simplify-structure',
+    architecture:'justify-structure',prototype:'explore-options',brainstorm:'shape-intent',
+    review:'clarify-path'})[stage] ?? 'add-or-change-behavior';
+  const entry=playbooks.find(item=>item.id===id);
+  return {...entry, actualTier:tier, explicit:Boolean(explicit)};
 }

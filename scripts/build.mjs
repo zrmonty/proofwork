@@ -125,6 +125,7 @@ export async function build(options = {}) {
       }
       await mkdir(path.join(staging, "shared"));
       await cp(path.join(repository, "shared/routing.json"), path.join(staging, "shared/routing.json"));
+      await cp(path.join(repository, "shared/playbooks.json"), path.join(staging, "shared/playbooks.json"));
       await mkdir(path.join(staging, "shared/principles"));
       await cp(path.join(repository, "shared/principles/index.json"),
         path.join(staging, "shared/principles/index.json"));

@@ -109,3 +109,5 @@ No usable completed model-role comparison has been published; the previous
 [Codex pilot](../results/improvement-evaluation.md) was execution-blocked and
 the [Claude turn](../results/native-claude-turn-20261010.json) ended at
 authentication before a model response.
+
+The Proofwork arm also injects the selected named playbook guide; context-budget counts that initial input. Deferred review/report and conditional reference costs remain separate.

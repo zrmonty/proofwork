@@ -19,7 +19,8 @@ export function measureContext(repo, corpus) {
       .filter(skill => !initial.includes(skill));
     const deferredWords = deferred.reduce((total, skill) =>
       total + wordCount(path.join(skillRoot, skill, 'SKILL.md')), 0);
-    const words = entryWords + skills.reduce((total, count) => total + count, 0);
+    const playbookWords = wordCount(path.join(repo, 'shared', result.procedure.path));
+    const words = entryWords + playbookWords + skills.reduce((total, count) => total + count, 0);
     return { task: scenario.task, tier: result.tier, deferredWords,
       words: words + (result.tier === 'light' ? lightWords : 0) };
   });

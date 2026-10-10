@@ -24,3 +24,5 @@ documentation-scope production guidance and the packaged principle index. Fixes 
 current-artifact full checks. This is agent review, not human approval, native multi-model proof or a quality gain.
 
 Context-skill review (0.26.0): independent agent review found impact mapping was scheduled only after cross-boundary edits and schema migrations without file paths missed tracing. Both were corrected with failing-then-passing regressions. Final scoped review found no material issues. Coverage and packaging checks are separately recorded; this is not human approval, live skill-adherence proof or multi-model quality evidence.
+
+Named-playbook verification (0.27.0): coordinator review and regression checks covered all 13 procedure mappings, explicit full floors, read-only clarification, documented root invocation prefixes and compatible checkpoint stages. A context regression exposed an oversized Rust origin question; conditional history detail restored the light budget. Full source checks and built-package routes passed. This entry is coordinator verification, not independent agent or human approval, and does not establish live procedure adherence.

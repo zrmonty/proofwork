@@ -1,5 +1,13 @@
 # Proofwork changelog
 
+## 0.27.0 — Named playbooks
+
+- Add 13 original procedures with explained routing and compatible checkpoint stages.
+- Explicit full-playbook requests retain full coordination; clarification preserves read-only authority.
+- Count the selected guide initially and inject it into comparative input.
+- Defer historical investigation details to keep light context bounded.
+
+
 ## 0.26.0 — context and delivery workflows
 
 - Added ten original skills: Trace Path, Origin Check, Option Arena, Challenge Review, Clear Voice, Probe First,

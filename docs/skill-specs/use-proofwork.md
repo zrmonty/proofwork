@@ -69,3 +69,7 @@ missing access remains explicit. Prototypes compare isolated artifacts; integrat
 ## Conditional workflow phases
 
 Read explained beforeWork and options guidance before the affected action. Load review guidance on the integrated result and report guidance at delivery. Clear Voice also applies while authoring documentation/comments. Trace Path establishes current behavior; Origin Check verifies earlier constraints; Impact Map precedes cross-boundary edits and is checked again after integration. Novel unmatched operations use Procedure Draft before effects. These phases preserve authority and existing routing floors. Initial context includes required preparation/options; deferred costs are disclosed separately, not counted as an early load or ignored entirely.
+
+## Named playbooks
+
+Read procedure.path from explained routing. Canonical procedures cover bounded fixes, read-only understanding, repairs, feature changes, simplification, measurement, architecture, production/security, combined audits, alternatives, extended work, unresolved intent and recovery. Keep the legacy stage identifiers for existing checkpoints. Explicit full procedures have a full floor; read-only scope remains authoritative. Preparation and selected guide cost count initially. Resume requires actual bound state, and Long Task respects existing goal boundaries.

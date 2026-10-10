@@ -195,7 +195,8 @@ export function profileContext(arm, task, config) {
       return `Skill source: ${source}\n${readFileSync(source, "utf8")}`;
     })
     .join("\n\n");
-  const staged = `${sources}\n\nDeferred workflow guidance: ${JSON.stringify(result.workflow)}`;
+  const guide = readFileSync(path.join(skillRoot, '..', result.procedure.path), 'utf8');
+  const staged = `${guide}\n\n${sources}\n\nDeferred workflow guidance: ${JSON.stringify(result.workflow)}`;
   if (!config.modelPlanPath) return staged;
   const plan = modelPlan(config.modelPlanPath);
   return (

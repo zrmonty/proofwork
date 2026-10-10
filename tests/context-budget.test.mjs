@@ -54,6 +54,9 @@ function fixture() {
     'sequence-verifiable-units', 'no-concealment-risk', 'reproduce-before-fix']) {
     putFile(repo, `shared/skills/pw-principle-${name}/SKILL.md`, 'principle '.repeat(10));
   }
+  for (const name of ['quick-fix', 'add-or-change-behavior', 'harden-and-finish', 'repair-behavior']) {
+    putFile(repo, `shared/playbooks/${name}.md`, 'guide '.repeat(10));
+  }
   return repo;
 }
 
@@ -64,10 +67,10 @@ test('initial context counts the root, light stub and every selected skill once'
     { task: 'Rename a Rust field', files: ['main.rs'] }, { task: 'Implement parser', files: [] },
     { task: 'Harden application', files: [] }, { task: 'Fix retry logic', files: [] }];
   const measured = measureContext(repo, corpus);
-  assert.deepEqual(measured.scenarios.map(scenario => scenario.words), [170, 170, 160, 210, 180]);
-  assert.equal(measured.totalWords, 890);
-  assert.deepEqual(measured.scenarios.map(scenario => scenario.deferredWords), [10, 20, 20, 20, 20]);
-  assert.equal(measured.totalDeferredWords, 90);
+  assert.deepEqual(measured.scenarios.map(scenario => scenario.words), [180, 180, 170, 230, 190]);
+  assert.equal(measured.totalWords, 950);
+  assert.deepEqual(measured.scenarios.map(scenario => scenario.deferredWords), [10, 20, 20, 30, 20]);
+  assert.equal(measured.totalDeferredWords, 100);
 });
 
 test('budget command reports a failure and success from the actual selected entries', t => {
@@ -83,7 +86,7 @@ test('budget command reports a failure and success from the actual selected entr
   assert.equal(contextBudget(repo).passed, true);
   const passed = spawnSync(process.execPath, [command, repo], { encoding: 'utf8' });
   assert.equal(passed.status, 0);
-  assert.equal(JSON.parse(passed.stdout).totalWords, 160);
+  assert.equal(JSON.parse(passed.stdout).totalWords, 170);
   putFile(repo, 'shared/skills/use-proofwork/references/large.md', 'word '.repeat(801));
   assert.equal(contextBudget(repo).passed, false);
   assert.ok(contextBudget(repo).violations.some(file => file.limit === 800));
