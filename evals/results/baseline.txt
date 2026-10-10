@@ -1,0 +1,42 @@
+1. **Integrated regression test**
+
+Run the regression test against integration commit B. Commit A’s result is stale evidence because integration changed the tested artifact. If the remaining budget cannot support that check, report the work as unverified—not complete—despite the user’s preference for completion.
+
+2. **Overlapping serialization work**
+
+Do not let both workers modify the same checkout or generated outputs concurrently. Give each worker an isolated branch/worktree and explicit ownership—for example, one owns the serialization implementation and tests; the other analyzes consumers or prepares fixtures without regenerating shared outputs. Integrate sequentially, regenerate once, then test the combined result. Complete is justified only after integration verification.
+
+3. **Maintainability-only review**
+
+Report evidence without alleging runtime defects:
+
+- The file grew from 920 to 1,060 lines.
+- Added wrappers increase type indirection and reader effort.
+- Passing tests reduce regression concern but do not establish maintainability.
+- Recommend consolidating or removing one-use wrappers and splitting by cohesive responsibility where boundaries are clear.
+
+Do not modify code unless requested. The review is complete once findings, locations, impact, and actionable recommendations are documented.
+
+4. **Frontend verification gap**
+
+Claim only that existing screenshots previously looked acceptable. Do not claim current mobile responsiveness, keyboard accessibility, interaction quality, or completion. Last week’s screenshots are stale and cannot verify keyboard behavior. Record the unavailable browser and reviewer as blockers and list the outstanding live checks.
+
+5. **Simplest corrective direction**
+
+- TypeScript: inject a clock and return new records instead of mutating inputs.
+- Python: replace the mutable default with `None`, creating a fresh list per call.
+- Rust: parse user input at the boundary and return a typed error instead of `unwrap()`.
+
+Verify observably:
+
+- TypeScript tests use a fixed clock and assert the original records remain unchanged.
+- Python test calls the parser twice and proves state does not leak.
+- Rust test supplies invalid input and observes a controlled error/nonzero result without panic.
+
+Completion requires those tests to run against the changed code.
+
+6. **Editorial design quality**
+
+No. A generic hero, repeated card grid, and swapped accent color establish a template, not an authentic editorial identity. Use editorial hierarchy, distinctive typography, varied story treatments, intentional pacing, soft forms tied to function, and responsive interaction states.
+
+Quality evidence should include comparison with the approved direction, current desktop/mobile captures, keyboard and interaction checks, typography and spacing consistency, representative real content, and a final visual review of the running build. Passing compilation alone does not justify design completion.
