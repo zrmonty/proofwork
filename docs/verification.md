@@ -109,3 +109,7 @@ The original Python transition reference was extracted into an ignored fixture. 
 ## Follow-up: security auditing and hardening
 
 Version 0.8.0 adds security-hardening, its two references and specification, root/production integration, intent routing and user command examples. The [verification report](../evals/results/security-hardening-20261010.md) records the failing-then-passing routing regression, all twenty-three passing tests, both eighteen-skill package builds, strict Claude validation and installed Codex file parity. Guidance requires supported findings, shared-boundary repairs, safe secret handling and distinguishing regression evidence. No application audit, scanner or live security test was executed for this skill release; package checks do not certify application security.
+
+## Follow-up: dead-code and attached-test cleanup
+
+Version 0.9.0 adds dead-code-audit, a reachability/test-ownership reference, specification, routing and README commands. The [verification report](../evals/results/dead-code-audit-20261010.md) records the red/green routing test, all twenty-four passing tests, both nineteen-skill builds, strict Claude validation and installed Codex parity. The skill removes proven dead responsibilities and exclusively attached tests while protecting dynamic/public consumers, shared fixtures and live guarantees. No target-application cleanup was executed for this release; structural checks do not establish exhaustive reachability.

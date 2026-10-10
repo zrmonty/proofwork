@@ -21,6 +21,8 @@ Identify a concrete source of reader or change friction: duplicated policy, ambi
 
 ## Simplify one responsibility at a time
 
+For an explicit dead-code audit or removal task, load [dead-code-audit](../dead-code-audit/SKILL.md). It covers supported runtime roots, dynamic consumers and cleanup of exclusively attached tests. A lack of search matches alone is not a deletion decision.
+
 Read [refactoring decisions](references/refactoring-decisions.md) for structural changes, wrapper removal, or duplicated rules. Choose the smallest change that puts a responsibility in its appropriate existing place. Remove dead paths only after checking callers, exports, configuration, tests, fixtures, and external contracts relevant to the deletion.
 
 Unify decisions when they represent the same rule and change for the same reason. Similar-looking syntax may implement different policies; sharing it can couple unrelated behavior. Extract a function when a useful domain name or a single policy owner makes the code easier to follow, not because a block crossed an arbitrary length limit.

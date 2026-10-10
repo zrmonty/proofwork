@@ -27,6 +27,8 @@ For executable implementation, follow [tdd-95](../tdd-95/SKILL.md) and include i
 
 ## Select ownership before parallelism
 
+For dead-code cleanup, load [dead-code-audit](../dead-code-audit/SKILL.md). Establish supported roots before deleting and remove exclusively attached tests/artifacts coherently. Preserve live behavior and record justified executable-source inventory changes rather than manufacturing a better coverage percentage.
+
 For security audits or hardening, load [security-hardening](../security-hardening/SKILL.md). Trace the actual enforcement boundaries and include distinguishing regression evidence for repairs. Keep unresolved credential response and unavailable live checks explicit; do not equate local fixes with a secure-release verdict.
 
 Read the [assignment](../../contracts/assignment.md), [worker-result](../../contracts/worker-result.md), [evidence](../../contracts/evidence.md) and [run-state](../../contracts/run-state.md) contracts. Initialize a unique local run, or reconcile an existing one. The coordinator alone writes aggregate state; each worker returns its own result.

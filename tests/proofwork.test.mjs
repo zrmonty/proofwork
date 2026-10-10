@@ -20,6 +20,14 @@ test('routing loads core discipline and affected languages without mutating inpu
 });
 
 const initial = { schemaVersion: 1, owner: 'coordinator', objective: 'fix', criteria: ['works'], revision: 'r1', phase: 'preparing', tasks: [], evidence: [], findings: [] };
+test('routing selects dead-code cleanup without confusing it with live data deletion', () => {
+  for (const task of ['Audit dead code and remove attached tests', 'Remove unused exports', 'Delete unreachable functions', 'Clean up orphaned tests', 'Remove obsolete modules', 'Remove dead-code']) {
+    assert.ok(route(task).skills.includes('dead-code-audit'), task);
+  }
+  for (const task of ['Delete old user records', 'Audit security permissions', 'Improve test runtime', 'Explain dead letter queues']) {
+    assert.ok(!route(task).skills.includes('dead-code-audit'), task);
+  }
+});
 test('routing selects security hardening for security intent without broad audit matches', () => {
   for (const task of ['Security audit and harden vulnerable code', 'Fix authorization bypass', 'Prevent SQL injection', 'Investigate SSRF', 'Harden this application', 'Review exposed credentials']) {
     assert.ok(route(task).skills.includes('security-hardening'), task);
