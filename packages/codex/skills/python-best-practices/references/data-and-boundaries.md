@@ -6,14 +6,18 @@
 
 ```python
 from dataclasses import dataclass
+from typing import TypeGuard
 
 @dataclass(frozen=True)
 class Order:
     sku: str
     quantity: int
 
+def is_object_dict(value: object) -> TypeGuard[dict[object, object]]:
+    return isinstance(value, dict)
+
 def decode_order(value: object) -> Order:
-    if not isinstance(value, dict):
+    if not is_object_dict(value):
         raise ValueError("order must be an object")
     sku = value.get("sku")
     quantity = value.get("quantity")
@@ -25,6 +29,8 @@ def decode_order(value: object) -> Order:
 ```
 
 This contract accepts extra keys and preserves SKU spelling, including surrounding whitespace; normalization should be an explicit product decision. It rejects booleans as quantities, and `0`, `101`, floats, and strings. The exact integer check is intentional at this wire boundary; do not use exact type tests universally when subclasses are valid inputs.
+
+The guard establishes only a dictionary with arbitrary object keys/values. Field checks then narrow actual values; it does not pretend the input already has an order schema. Use the supported interpreter's typing facilities or existing compatibility imports. Prefer `object` at unknown boundaries, `TypedDict` for an already validated dictionary contract, and a small `Protocol` for behavior the consumer actually requires. Do not cast decoded data to a domain record or use `Any` to bypass narrowing.
 
 The frozen record contains only immutable scalar fields. Adding a list later changes that ownership story: frozen construction does not freeze the list. [Dataclass documentation](https://docs.python.org/3/library/dataclasses.html) describes the generated behavior, not a runtime schema guarantee.
 

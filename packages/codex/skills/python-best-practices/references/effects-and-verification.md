@@ -14,7 +14,7 @@ class OrderLoadError(Exception):
 def load_order(path: Path) -> Order:
     try:
         with path.open("r", encoding="utf-8") as source:
-            value = json.load(source)
+            value: object = json.load(source)
         return decode_order(value)
     except (OSError, ValueError) as error:
         raise OrderLoadError(f"Cannot load order from {path.name}") from error
@@ -56,3 +56,5 @@ Select a timeout and output policy from the operation, rather than buffering unl
 - Public interface: an affected consumer, configured type checks, and import/runtime compatibility.
 
 Use existing tooling and the supported interpreter. Report actual checks and gaps separately. A passing snippet on one interpreter is not evidence for every supported version or for a full application integration.
+
+Run the project's strict static gate over implementation, affected callers and Python tests. Record the effective configuration and included paths, not just a successful command against a convenient snippet. Mypy strict mode or Pyright strict mode is the minimum; retain stronger checks for explicit `Any` where configured. Reject untyped functions, incomplete generics and unknown values escaping adapters. Check overrides, optional values, async return contracts and test helpers when those contracts change. Keep narrowly justified third-party exceptions visible; blanket ignores or relaxed strict settings cannot satisfy the gate. Runtime tests still establish validation, cleanup and effect behavior that static checks cannot prove.

@@ -3,7 +3,7 @@
 Status: authored original Proofwork guidance, 2026-10-10. Package and host behavioral evidence tracked separately.
 
 ## Purpose and trigger
-Use for Python implementation or review; make dependencies, mutation, resource lifetime, and error contracts explicit.
+Use for Python implementation or review; require strict static typing and make ownership, resource lifetime and error contracts explicit.
 
 ## Inputs and boundaries
 The skill requires the assignment objective, relevant project conventions, caller/content contracts, and available verification capabilities. It preserves authorized scope and host permissions. It introduces no mandatory dependency or global configuration change. Its SKILL.md defines the specific inputs and technical limits.
@@ -12,6 +12,8 @@ The skill requires the assignment objective, relevant project conventions, calle
 Inspect supported interpreters, callers, import/dependency conventions and existing checks. Load data/boundary or effects references only when relevant. Use accurate collection/iterator interfaces, decode external shape and domain rules, preserve promised alias ownership, separate deterministic decisions from effects, preserve actionable exceptions and causes, bound resource/generator lifetimes, and review cancellation/subprocess partial outcomes. Accept useful Python idioms and local mutation without imposing frameworks.
 
 ## Output and evidence contract
+Strict typing is mandatory: fully annotated function/method interfaces, parameterized generics, validated/narrowed external data and a passing strict static gate covering implementation, affected callers and Python tests. Precise local inference is allowed. Establish an absent gate using existing project conventions; no second checker is required. Reject unchecked Any propagation, unjustified casts, blanket suppressions and file exclusions used to manufacture a pass. Missing tooling or failed checks remain unverified. Runtime behavior must also be tested.
+
 Report actual result, affected contracts, checks performed, artifacts tied to current revision/digests, unresolved criteria, and justified material deviations. Compilation or style alone cannot establish runtime behavior. Missing execution remains explicitly unverified.
 
 ## Acceptance cases
@@ -28,6 +30,8 @@ Additional measurable cases for the deeper guidance:
 | One-shot iterator used twice | One-pass design, explicit sequence contract, or justified materialization | Second pass silently empty |
 | Async cancellation during a resource/effect stage | Cleanup and partial-state policy verified or explicitly unverified | Cancellation swallowed or remote rollback falsely claimed |
 | Clean small function and private mutable builder | Retain existing interface and behavior | Unneeded classes, dependencies or purity rewrite |
+| Untyped helper, bare collection or unknown decoded value | Type the actual contract and narrow data; strict gate covers callers/tests | Any, cast, exclusion or ignore used to hide fixable errors |
+| No strict checker configured | Establish a strict gate through project conventions; report actual scope/result | Runtime tests or annotations alone presented as strict completion |
 
 ## Additional decision cases from the second depth review
 
