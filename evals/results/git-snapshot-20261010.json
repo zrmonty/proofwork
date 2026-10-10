@@ -1,0 +1,50 @@
+{
+  "schemaVersion": 1,
+  "version": "0.24.0",
+  "date": "2026-10-10",
+  "environment": "Node 24.16.0 on Windows",
+  "fullCheck": { "command": "npm run check", "exitCode": 0 },
+  "snapshotBenchmark": {
+    "fixture": "Git worktree with 20000 files under ignored node_modules; tracked and unignored source retained",
+    "operation": "snapshotIdentity, excluding fixture creation and cleanup",
+    "beforeMs": 5035.51,
+    "firstAfterMs": 156.18,
+    "reviewedAfterMs": 128.77,
+    "thresholdMs": 1000,
+    "passed": true,
+    "samples": "individual standalone executions, not a statistical distribution",
+    "baseline": "0.23.1 full-walk implementation",
+    "after": "0.24.0 Git-aware streamed implementation"
+  },
+  "coverage": {
+    "revision": "scripts-sha256:82de026c64e4674516c2750e3a3247624c9b20cb0df6f655ee014d18765655da",
+    "inventory": "17 canonical scripts/*.mjs",
+    "lines": { "covered": 1822, "total": 1849, "percent": 98.53975121687398 },
+    "branches": { "covered": 1028, "total": 1062, "percent": 96.7984934086629 },
+    "threshold": 95,
+    "passed": true
+  },
+  "executedRegressions": [
+    "Ignored dependencies and internal junctions do not change identity",
+    "Tracked content, tracked deletions and nonignored untracked files do change identity",
+    "Non-Git link target strings hash without following external or cyclic targets",
+    "Same-size rewrites with restored modification time do not reuse stale cached hashes",
+    "Executed checks can write ignored caches without staling their observation",
+    "Initialized submodule content changes invalidate parent identity",
+    "Native Windows birth lookup succeeds with empty PATH; forced CIM fallback matches normalized identity",
+    "Transient unknown birth lookup retries on later acquisition",
+    "Live local lock release permits bounded retry; stale, remote and malformed locks require existing explicit recovery",
+    "Remaining private account/rejected-PR note removed from current changelog"
+  ],
+  "limits": [
+    "Existing runs require a new checkpoint and recollected evidence after the inventory scope change.",
+    "Ignored untracked inputs and external symlink target content are outside snapshot identity; track relevant inputs.",
+    "Metadata caching assumes trustworthy filesystem metadata and does not defeat same-user tampering.",
+    "The benchmark covers one Windows fixture; large tracked trees and other hosts were not benchmarked.",
+    "Snapshot streaming is bounded per snapshot; separate processes and simultaneous calls are separate workers.",
+    "Blocked PowerShell/CIM or inaccessible Windows PID data can still yield unknown birth and remain protected.",
+    "Process lookup can add up to three seconds beyond the 1500 ms lock polling budget.",
+    "Native Stop timeout behavior and native false-completion blocking remain unverified.",
+    "Prior Git history and already shared copies were not rewritten."
+  ]
+}

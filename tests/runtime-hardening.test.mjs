@@ -76,10 +76,12 @@ async function gitFixture(repo) {
   return git(repo, 'rev-parse', 'HEAD');
 }
 
-test('Git revision binding and ignored source changes cannot reuse passing observations', async () => {
+test('Git revision binding and tracked ignored source changes cannot reuse passing observations', async () => {
   const repo = await createRepo();
   try {
     const revision = await gitFixture(repo), options = { ...optionsFor(repo), revision };
+    await writeFile(path.join(repo, 'ignored.rs'), 'pub const VALUE: u8 = 0;\n');
+    git(repo, 'add', '-f', 'ignored.rs');
     await assert.rejects(execute('init', { ...options, revision: 'not-a-commit' }), /Git HEAD/);
     const state = await execute('init', options); assert.equal(state.ignoreHint, null);
     await writeFile(path.join(repo, 'ignored.rs'), 'pub const VALUE: u8 = 1;\n');
@@ -222,7 +224,7 @@ test('lock metadata rejects invalid identities and release never deletes another
   } finally { await rm(repo, { recursive: true, force: true }); }
 });
 
-test('snapshot includes nested code and fails closed at symlink boundaries', async () => {
+test('snapshot includes nested code and hashes symlinks without traversing them', async () => {
   const repo = await createRepo(), outside = await createRepo();
   try {
     await mkdir(path.join(repo, 'src')); await writeFile(path.join(repo, 'src', 'code.py'), 'VALUE = 1\n');
@@ -230,7 +232,7 @@ test('snapshot includes nested code and fails closed at symlink boundaries', asy
     await writeFile(path.join(repo, 'src', 'code.py'), 'VALUE = 2\n');
     assert.notEqual((await snapshotIdentity(repo)).dirtyDigest, original.dirtyDigest);
     await symlink(outside, path.join(repo, 'external'), 'junction');
-    await assert.rejects(snapshotIdentity(repo), /symlinks/);
+    assert.notEqual((await snapshotIdentity(repo)).dirtyDigest, original.dirtyDigest);
   } finally { await rm(repo, { recursive: true, force: true }); await rm(outside, { recursive: true, force: true }); }
 });
 

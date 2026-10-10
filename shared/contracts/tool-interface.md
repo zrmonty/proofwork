@@ -30,6 +30,23 @@ Only the coordinator writes state. Workers return records, and the coordinator v
 
 ## Executed-command authority and deadlines
 
+### Snapshot scope and caching
+
+Git worktrees inventory files using `git ls-files -z --cached --others --exclude-standard`: tracked files, even if
+an ignore rule matches them, plus nonignored untracked files. Ignored dependencies, build output and caches do not
+invalidate evidence. `.git` and `.engineering-team` remain excluded. Non-Git folders use the recursive inventory.
+Track relevant ignored source or remove its ignore rule; ignored inputs and dependencies are outside this identity.
+
+Symlinks/junctions contribute their target string without traversal. External target changes are not covered.
+Tracked deletions have a missing-file identity. Hashing streams file bytes with at most eight concurrent workers.
+A process-local cache holds at most 10000 hashes, keyed by size, nanosecond modification/change times, inode/device
+and mode; metadata changes trigger rehashing. This assumes trustworthy filesystem metadata and is not protection
+against same-user tampering. Files that change during hashing reject the snapshot.
+
+After this inventory change, checkpoint existing runs and recollect evidence. Older observations cover a different
+scope and must not be reused as current verification. Readiness remains a point-in-time observation, not a guarantee
+that concurrent writers stopped. The 20000-ignored-file speed regression measures snapshot work, excluding setup.
+
 Executed evidence defaults to a 120000 ms timeout. Supply `--timeout-ms` with an integer from 1 to 3600000.
 A timeout records `timedOut: true`, `passed: false` and a termination request, with output digests and duration.
 The runner requests process-tree termination on Windows and process-group termination on Unix; Windows cleanup
@@ -45,6 +62,9 @@ will be recognized. Scrub local paths/account identifiers before publishing evid
 
 Locks record acquisition time and actual OS process-start identity. A live local PID with a different known birth
 is stale, but still requires explicit `--break-lock`. Unknown birth data and legacy live locks remain protected.
+Live local writer contention retries briefly for up to 1500 ms, polling every 50 ms; no stale/remote/malformed lock
+is automatically broken. Windows lookup uses an absolute PowerShell path with CIM fallback and retries transient
+failures on subsequent acquisition. The OS lookup timeout can add up to three seconds beyond the polling budget.
 Windows birth lookup is tested against the OS; Linux/macOS parsers use fixtures. Timestamp resolution and process
 lookup races limit PID-reuse detection. Locks coordinate trusted local writers, not hostile same-user processes.
 

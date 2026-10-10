@@ -1,5 +1,14 @@
 # Proofwork changelog
 
+## 0.24.0 — Git-aware snapshot identity
+
+- Snapshot inventory uses tracked and nonignored untracked Git files; non-Git folders retain a recursive inventory.
+- Symlinks contribute target strings, file bytes stream through eight workers, and bounded metadata caches avoid rereads.
+- A 20000-ignored-file regression fell from 5036 ms to 129 ms in standalone Windows runs; setup excluded.
+- Windows process-birth lookup supports an absolute executable and CIM fallback; transient failures are retried.
+- Live local lock contention retries for 1500 ms without automatically breaking stale/remote/malformed locks.
+- Removed the remaining private account/rejected-PR note. Existing runs need a checkpoint and fresh evidence after upgrade.
+
 ## 0.23.1 — symptom and file-location routing
 
 - Slow-page requests asking for speed improvements start with investigation and retain performance-increase.
@@ -140,7 +149,7 @@ Every shipped skill has a project-specific [specification](skill-specs/) and beh
 
 Newly authored commits include Major features and Minor features sections. The formatter check runs against actual Git history and validates structure only. Raw provider event logs and stderr are excluded from Git; exported summaries omit credentials. No global scheduler, hook, credential store, external release publication, or mixed-provider bridge was installed.
 
-GitHub delivery: the design baseline is on `main` and the implementation is on `codex/proofwork`. SSH push succeeded. PR creation was rejected because the current GitHub CLI account (`ZmontyVD`) has READ permission on `zrmonty/proofwork`. The prepared description is preserved in `docs/pull-request.md`; credentials and account configuration were not changed.
+GitHub delivery: the design baseline is on `main` and the implementation is on `codex/proofwork`. SSH push succeeded. The prepared description is preserved in `docs/pull-request.md`; credentials and account configuration were not changed.
 
 ## Follow-up: installed Codex self-audit
 

@@ -230,6 +230,11 @@ existing agent and tools. User authorization and project instructions govern wor
 
 ## Development
 
+Snapshots cover Git-tracked and nonignored untracked files; ignored build/dependency trees no longer invalidate
+evidence. Non-Git folders use a full inventory. Links are hashed by target string, files stream through bounded
+workers, and metadata caches avoid repeated reads. Track relevant ignored inputs explicitly. Existing runs need
+a new checkpoint and fresh evidence after upgrading; see [snapshot scope](shared/contracts/tool-interface.md#snapshot-scope-and-caching).
+
 Executed evidence commands have a two-minute default deadline; use `--timeout-ms` for an explicit override.
 They run with inherited permissions. Allowlisting the Proofwork launcher also grants child shell execution unless
 the host restricts descendants; see [command authority and deadlines](shared/contracts/tool-interface.md#executed-command-authority-and-deadlines).

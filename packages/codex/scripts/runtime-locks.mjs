@@ -3,6 +3,13 @@ import { hostname } from "node:os";
 import { randomUUID } from "node:crypto";
 import { readFileSync } from "node:fs";
 import { execFileSync } from "node:child_process";
+import path from "node:path";
+import { setTimeout as delay } from "node:timers/promises";
+
+function comparableBirth(value) {
+  // CIM creation dates have microsecond precision; normalize .NET's 100ns ticks to match.
+  return /^win32:\d+$/.test(value) ? `win32:${(BigInt(value.slice(6)) / 10n) * 10n}` : value;
+}
 
 export function processStartIdentity(pid, options = {}) {
   if (!Number.isSafeInteger(pid) || pid <= 0) return null;
@@ -18,13 +25,14 @@ export function processStartIdentity(pid, options = {}) {
       return /^\d+$/.test(startTicks ?? "") && /^[\da-f-]{36}$/i.test(boot) ? `linux:${boot}:${startTicks}` : null;
     }
     if (platform === "win32") {
-      const command = `[Diagnostics.Process]::GetProcessById(${pid}).StartTime.ToUniversalTime().Ticks`;
-      const ticks = run(
-        "powershell.exe",
-        ["-NoProfile", "-NonInteractive", "-Command", command],
-        commandOptions,
-      ).trim();
-      return /^\d+$/.test(ticks) ? `win32:${ticks}` : null;
+      const systemRoot = process.env.SystemRoot ?? process.env.windir ?? "C:\\Windows";
+      const executable = path.win32.join(systemRoot, "System32", "WindowsPowerShell", "v1.0", "powershell.exe");
+      const command =
+        `$ErrorActionPreference='Stop'; try { ` +
+        `[Diagnostics.Process]::GetProcessById(${pid}).StartTime.ToUniversalTime().Ticks } catch { ` +
+        `(Get-CimInstance Win32_Process -Filter 'ProcessId = ${pid}').CreationDate.ToUniversalTime().Ticks }`;
+      const ticks = run(executable, ["-NoProfile", "-NonInteractive", "-Command", command], commandOptions).trim();
+      return /^\d+$/.test(ticks) ? comparableBirth(`win32:${ticks}`) : null;
     }
     if (platform === "darwin") {
       const start = run("ps", ["-p", String(pid), "-o", "lstart="], {
@@ -43,7 +51,7 @@ export function processStartIdentity(pid, options = {}) {
 
 let ownProcessStart;
 function currentProcessStart() {
-  if (ownProcessStart === undefined) ownProcessStart = processStartIdentity(process.pid);
+  if (!ownProcessStart) ownProcessStart = processStartIdentity(process.pid);
   return ownProcessStart;
 }
 
@@ -69,20 +77,22 @@ export function diagnoseLock(record, lookup = processStartIdentity) {
   const recorded = record.processStart;
   const actual =
     typeof recorded === "string" && recorded.length > 0 && recorded.length <= 256 ? lookup(record.pid) : null;
-  if (typeof actual === "string" && actual && actual !== recorded)
+  if (typeof actual === "string" && actual && comparableBirth(actual) !== comparableBirth(recorded))
     return {
       stale: true,
       message: `stale lock from reused pid ${record.pid}; process birth differs; use --break-lock`,
     };
   return {
     stale: false,
+    live: true,
     message:
       `run is being written by ${record.owner} (pid ${record.pid})` +
       (actual ? "" : "; process birth unknown or legacy lock; cannot safely break a live local lock"),
   };
 }
-async function inspectLock(file) {
+async function inspectLock(file, previous) {
   const raw = await readFile(file, "utf8");
+  if (previous?.raw === raw) return previous;
   try {
     return { raw, ...diagnoseLock(JSON.parse(raw)) };
   } catch {
@@ -109,17 +119,40 @@ export async function acquireLock(file, owner, breakLock = false) {
     at: new Date().toISOString(),
     processStart: currentProcessStart(),
   });
-  try {
-    await writeFile(file, raw, { flag: "wx" });
-    return raw;
-  } catch (error) {
-    if (error.code !== "EEXIST") throw error;
+  const deadline = performance.now() + 1500;
+  let previous;
+  let recovered = false;
+  while (true) {
+    try {
+      await writeFile(file, raw, { flag: "wx" });
+      return raw;
+    } catch (error) {
+      if (error.code !== "EEXIST") throw error;
+    }
+    let inspected;
+    try {
+      inspected = await inspectLock(file, previous);
+    } catch (error) {
+      if (error.code !== "ENOENT") throw error;
+      if (performance.now() < deadline) continue;
+      throw lockError("lock disappeared during inspection; retry acquisition");
+    }
+    if (breakLock && !recovered && (inspected.stale || inspected.remote)) {
+      try {
+        await quarantineLock(file, inspected);
+      } catch (error) {
+        if (error.code !== "ENOENT" || performance.now() >= deadline) throw error;
+        previous = undefined;
+        continue;
+      }
+      recovered = true;
+      previous = undefined;
+      continue;
+    }
+    if (!inspected.live || performance.now() >= deadline) throw lockError(inspected.message);
+    previous = inspected;
+    await delay(Math.min(50, Math.max(1, deadline - performance.now())));
   }
-  const inspected = await inspectLock(file);
-  if (!breakLock || (!inspected.stale && !inspected.remote)) throw lockError(inspected.message);
-  await quarantineLock(file, inspected);
-  await writeFile(file, raw, { flag: "wx" });
-  return raw;
 }
 export async function releaseLock(file, raw) {
   if ((await readFile(file, "utf8")) !== raw) throw lockError("lock ownership changed; refusing release");
