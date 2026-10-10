@@ -1,5 +1,13 @@
 # Proofwork changelog
 
+## 0.34.0 — Repository team policy
+
+- Let teams add up to three short declarative rules to existing `.proofwork.json` without a fork.
+- Select rules by stage, literal task phrases and repository path prefixes; return evidence obligations and content identity.
+- Wire explained CLI routing and both prompt adapters to the same read-only resolver.
+- Preserve light tiers, read-only authority, legacy routing and existing model/commit configuration.
+- Carry policy dispositions into reports and systems outcomes, rechecking affected decisions after policy changes.
+
 ## 0.33.0 — First outcomes and systems handoff
 
 - Execute a real export-repair fixture through failed evidence, interruption, resume and current-artifact completion.

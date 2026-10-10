@@ -40,3 +40,5 @@ For executable changes, inspect source discovery, separate coverage collection, 
 Missing browser access leaves rendered quality unverified even when code checks pass. An unavailable service leaves its integration criterion unproved; isolated pure checks can still help. Do not weaken acceptance to make the plan green.
 
 Return a concise capability/role/check plan with observed gaps and next actions. Follow native goal rules; setup itself creates no goal, scheduler or deployment. Revisit only capabilities affected by later host, toolchain or assignment changes.
+
+For requested team constraints, merge up to three rules using [team policy](../../contracts/team-policy.md). Inspect explained routing on representative included/excluded tasks; preserve other `.proofwork.json` settings. Setup remains optional for ordinary work.

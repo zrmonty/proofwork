@@ -1,4 +1,4 @@
-# Proofwork 0.33.0 for codex
+# Proofwork 0.34.0 for codex
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="assets/brand/proofwork-logo-dark.png">

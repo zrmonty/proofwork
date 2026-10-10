@@ -3,6 +3,7 @@ import path from 'node:path';
 import { createHash, randomUUID } from 'node:crypto';
 import { pathToFileURL } from 'node:url';
 import { route, explainRoute } from './routing.mjs';
+import { withTeamPolicy } from './team-policy.mjs';
 import { acquireLock, releaseLock } from './runtime-locks.mjs';
 import { snapshotIdentity, sameIdentity, ignoreHint, validateRevision } from './runtime-snapshot.mjs';
 import { executeEvidence, redact } from './runtime-evidence.mjs';
@@ -315,7 +316,8 @@ export async function execute(command, options) {
   if (command === 'route') {
     const files = (options.files ?? '').split(',').filter(Boolean);
     return options.explain || options.tier
-      ? explainRoute(options.task, files, options.tier) : route(options.task, files);
+      ? withTeamPolicy(explainRoute(options.task, files, options.tier), options.repo ?? process.cwd(),
+        options.task, files) : route(options.task, files);
   }
   if (command === 'preflight') return preflight(options);
   const repo = await realpath(text(options.repo, 'repo')), run = id(options.run, 'run');
@@ -340,7 +342,7 @@ export async function execute(command, options) {
   return state;
 }
 const help = `Proofwork local tools (Node >=22). JSON on stdout; failures exit 1.
-route --task TEXT [--files comma,separated,paths] [--explain] [--tier light|standard|full]
+route --task TEXT [--files comma,separated,paths] [--explain] [--tier light|standard|full] [--repo PATH]
 init --repo PATH --run ID --owner SESSION --objective TEXT --revision REV --criteria criterion,ids
 init also accepts --host codex|claude-code --session HOST_SESSION for automatic hook binding.
 status --repo PATH --run ID

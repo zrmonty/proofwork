@@ -35,3 +35,5 @@ Distinguish recommended, implemented, emitted, collected, queryable and notifica
 Risk/gap | consequence | mitigation/next check | owner or unassigned | blocking gate | acceptance authority.
 
 List remaining hosting, credentials, deployment, monitoring and recovery actions. The agent cannot accept material risk on behalf of an operator. Unknown owners remain unassigned. Close with the next useful action, not an unsupported readiness claim.
+
+For configured team policy, include source/digest and each applicable rule ID, disposition, evidence or gap and owner. Reuse the same risk list. Changed policy requires reassessing affected decisions; a prior report is not proof of present compliance.

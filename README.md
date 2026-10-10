@@ -31,6 +31,12 @@ passes full checks and package parity. See the [operator-guidance verification r
 
 For release work, Proofwork connects resolved dependencies to the inspected artifact, compares effective environment configuration, maps failure propagation and recovery, and generates useful logs, metrics and alerts with the change. It returns separate ready-for-staging and ready-for-production decisions with owned residual risks. See [operational scenarios](docs/operational-scenarios.md) and [production-finish](shared/skills/production-finish/SKILL.md). Live deployment and verification remain separate observations.
 
+## Team principles without a fork
+
+Codex 0.34.0 is installed locally; see the [team-policy verification record](evals/results/team-policy-20261010.md).
+
+Add two or three team rules to `.proofwork.json`, such as requiring an architecture decision before introducing a database or an executed restore test for migrations. Explained routing selects relevant rules and their required evidence; final reports and systems outcomes record their dispositions. Rules are host-agnostic, skip light work unless opted in and cannot grant deployment authority. See the [configuration and selector examples](shared/contracts/team-policy.md).
+
 ## First outcomes and operational handoff
 
 Codex 0.33.0 is installed locally; [Windows/Ubuntu CI](https://github.com/zrmonty/proofwork/actions/runs/38087658789) passes. See the [executed first-outcome and recovery record](evals/results/first-outcome-recovery-20261010.md).

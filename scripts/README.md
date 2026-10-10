@@ -3,7 +3,7 @@
 Use Node.js 22 or newer. Resolve the package root from the loaded skill and run `node <package-root>/scripts/proofwork.mjs --help`. Commands use built-ins and return JSON; failures exit nonzero.
 
 - `route --task TEXT [--files paths]` returns tier, playbook and selected skill names.
-  Add `--explain` for reasons, selected principles and staged workflow guidance; `--tier light|standard|full` overrides subject to risk floors.
+  Add `--explain --repo PATH` for reasons, selected principles, repository team policy and staged workflow guidance; `--tier light|standard|full` overrides subject to risk floors.
 - `model-roles.mjs plan --repo PATH --host codex|claude-code --inventory PATH` resolves opted-in roles read-only.
   Inventories describe observed capabilities; plans never prove dispatch or enforce token budgets.
 - `init`, `status`, `assign`, `result`, `finding` and `checkpoint` coordinate full-tier work.
@@ -32,3 +32,5 @@ Option Arena defaults to two candidates; an explicit third stays within maxParal
 Named procedures: `route --explain` exposes `procedure`; read its packaged `path` before the selected phase guidance. The legacy `playbook` value remains a compatible checkpoint stage. See `playbooks/` and `shared/playbooks.json` in the package. Explicit full procedure names preserve a full floor; read-only intent still controls effects. Context-budget includes the selected guide, and the comparative harness injects the same guide.
 
 Explained routing is the shared integration plan: plain route, optional prompt hints and comparative inputs use the same normalized intent. Prompt hints leave file discovery to the root rather than inheriting previous assignment paths. Required resume guidance counts in initial context; review/report entries remain deferred. See [the integrated flow](https://github.com/zrmonty/proofwork/blob/main/docs/flow.md).
+
+Teams can merge up to three declarative rules into `.proofwork.json`; see [team policy](../contracts/team-policy.md). Explained routing returns applicable IDs, requirements and content digest; no shell checks or push hooks are installed by that policy.

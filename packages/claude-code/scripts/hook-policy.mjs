@@ -1,6 +1,7 @@
 import path from 'node:path';
 import { readBinding } from './hook-binding.mjs';
 import { redact } from './runtime-evidence.mjs';
+import { withTeamPolicy } from './team-policy.mjs';
 
 const context = (event, text) => ({ hookSpecificOutput: {
   hookEventName: event, additionalContext: redact(text).slice(0, 3000) } });
@@ -46,9 +47,10 @@ export async function runHook(host, input) {
     if (typeof input.prompt !== 'string') throw new Error('prompt event requires text');
     if (/^\s*(?:stop|cancel|pause)\b/i.test(input.prompt)) return {};
     const files = []; // Prompt hints do not treat previous assignments as the new task scope.
-    const plan = explainRoute(input.prompt, files);
+    const plan = withTeamPolicy(explainRoute(input.prompt, files), input.cwd, input.prompt, files);
     const recommendation = { tier: plan.tier, playbook: plan.playbook, skills: plan.skills,
-      procedure: plan.procedure.id, workflow: plan.workflow, continuation: plan.continuation };
+      procedure: plan.procedure.id, workflow: plan.workflow, continuation: plan.continuation,
+      teamPolicy: { ...plan.teamPolicy, rules: plan.teamPolicy.rules.map(rule => ({ id: rule.id })) } };
     return context(event, `Proofwork recommendation: ${JSON.stringify(recommendation)}. `
       + 'Preserve accepted context and actual authority; this hint does not change the checkpoint or create a goal. '
       + `For full-run init, pass --host ${host} --session ${input.session_id} to bind automatically; `
