@@ -6,7 +6,7 @@ Use Node.js 22 or newer. Tools use built-ins only; no installation of dependenci
 
 `route --task "Fix article layout" --files src/article.tsx,styles.css`
 
-Returns JSON `{playbook, skills}` with canonical skill names. Routing is a deterministic starting recommendation. The coordinator corrects it against inspected files and actual scope, reads the selected skills, and adds independent review for substantial changes. It makes no model calls or tool execution on the user's behalf.
+Returns JSON `{playbook, skills}` with canonical skill names. Routing is a deterministic starting recommendation. Playbooks are brainstorm, architecture, production-finish, investigate, bug-fix, feature, refactor and review. New-project intent starts with brainstorm; architectural decisions select architecture-fit; accepted implementation stays implementation. Re-route the current subtask at stage transitions, then checkpoint its playbook and skills. The router does not read conversation history, detect an empty repository or authorize the next stage. The coordinator corrects it against inspected files and actual scope, reads the selected skills, and adds independent review for substantial changes. It makes no model calls or tool execution on the user's behalf.
 
 ## Checkpoints
 

@@ -48,3 +48,9 @@ Authored acceptance cases:
 - Expert requests for implementation reasoning receive traceable code and evidence; an intuitive default never suppresses inspection.
 
 Evaluate newcomer task completion, avoidable technical choices delegated back, clarification burden, useful-slice latency and delivered defects on comparable tasks. These cases are requirements, not executed behavioral measurements or proof of improvement.
+
+## Stage-aware routing
+
+Choose the current stage from the prompt and actual context before implementation. New/unresolved projects use brainstorm; unresolved technical structure uses architecture-fit; approved constraints proceed to implementation. Bug fixes and focused changes preserve adequate incumbent architecture. Re-route the current subtask after a meaningful transition and record selected playbook/skills without replacing the overall objective or expanding authority.
+
+Router tests exercise brainstorm, architecture and production-finishing playbooks, their persisted checkpoint values, approved-design implementation and new-project bug disambiguation. Keyword routing remains a starting recommendation; coordinator context resolves ambiguity. No mandatory phase chain or unattended transition is implemented.

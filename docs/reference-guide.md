@@ -1,6 +1,6 @@
 # Skill reference guide
 
-Proofwork has twenty-one skills. Their entry points select the relevant detail; references are conditional reading, not a checklist to load in full for every task.
+Proofwork has twenty-two skills. Their entry points select the relevant detail; references are conditional reading, not a checklist to load in full for every task.
 
 Open a skill for its workflow and loading triggers. Each linked reference supplies decisions, worked scenarios and verification boundaries. Examples and acceptance cases are guidance unless a verification report explicitly records execution.
 
@@ -29,3 +29,5 @@ Open a skill for its workflow and loading triggers. Each linked reference suppli
 | [worker-mode](../shared/skills/worker-mode/SKILL.md) | [Execution and handoff](../shared/skills/worker-mode/references/execution.md); [Fixture fidelity and boundary evidence](../shared/skills/worker-mode/references/fixture-fidelity.md) |
 
 The combined `$audit-stack` / `/proofwork:audit-stack` entry coordinates applicable audits; it does not make every specialist reference mandatory. Existing project requirements, user scope and host permissions remain authoritative. Missing tools and unexecuted checks stay explicit.
+
+The [brainstorm entry](../shared/skills/brainstorm/SKILL.md) is self-contained: it shapes a direction and hands the working brief to the next relevant stage without loading a separate reference.

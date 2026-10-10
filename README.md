@@ -18,7 +18,19 @@ The root is **use-proofwork**. Supported command spelling depends on the host:
 - Claude Code plugin: `/proofwork:use-proofwork <task>`.
 - Claude Code standalone skill, if deliberately installed in the project's `.claude/skills/use-proofwork/`: `/use-proofwork <task>`. The rest of the package must remain available at the relative paths described in the installation section; copying only the root file is insufficient.
 
-The entry skill automatically invokes the bundled router and reads the selected guidance. It is an agent workflow, not a daemon intercepting unrelated prompts. Once a run is active, the checkpoint records the root mode and continuation instructions.
+The entry skill considers your prompt and existing context, invokes the bundled router and reads the selected guidance. It reassesses the current stage as the task develops:
+
+| Current need | Starting workflow |
+| --- | --- |
+| New project or unresolved idea | brainstorm: audience, journey, direction and first useful slice |
+| Architecture or consequential tool decisions | architecture-fit: simplest adequate structure and operating fit |
+| Implement an accepted direction | feature workflow with relevant language, design and verification skills |
+| Broken behavior | bug-fix: reproduce, repair and verify |
+| Review or simplify existing work | review/refactor with appropriate audit and maintainability guidance |
+| Measured speed improvement | performance-increase with a representative baseline |
+| Prepare an app for production | production-finish with actual hosting and release constraints |
+
+You can enter at any stage. An accepted design does not need another brainstorming round; a focused bug fix does not need a new architecture. The root carries the brief forward and selects the next relevant skills within your request. It is an agent workflow, not a daemon intercepting unrelated prompts. Once a run is active, the checkpoint records the root mode and continuation instructions.
 
 Example request:
 
@@ -39,6 +51,7 @@ Give any skill a task in the same prompt. In Codex, use `$<skill-name>` or selec
 | `$production-finish` | `/proofwork:production-finish` | Prepare an app for production, inspect secret exposure, establish hosting and build a suitable container when needed. |
 | `$performance-increase` | `/proofwork:performance-increase` | Profile bottlenecks, improve measured runtime/resource use and reduce benchmark overhead without changing the workload. |
 | `$tdd-95` | `/proofwork:tdd-95` | Use test-first development with separate 95% line/branch gates and consolidate redundant tests while preserving fault detection. |
+| `$brainstorm` | `/proofwork:brainstorm` | Shape a new project or unresolved idea into a concrete direction and first useful slice. |
 | `$worker-mode` | `/proofwork:worker-mode` | Execute a bounded assignment and return a reviewable result. |
 | `$thermo-nuclear-code-quality-review` | `/proofwork:thermo-nuclear-code-quality-review` | Audit maintainability and report concrete structural findings with a verdict. |
 | `$typescript-best-practices` | `/proofwork:typescript-best-practices` | Apply TypeScript guidance to types, validation, effects and tests. |
@@ -161,7 +174,7 @@ Use an identity that includes current content: a clean commit or a recorded snap
 
 ## Included guidance
 
-- Team root, worker discipline, setup, and task playbooks for investigation, bug fixes, features, refactoring, and reviews.
+- Team root, worker discipline, setup, and task playbooks for brainstorming, architecture, investigation, bug fixes, features, refactoring, reviews and production finishing.
 - TypeScript, Rust, and Python practices selected by task/files.
 - Functional programming as the default: pure decisions, explicit state transitions, effects at boundaries, and clear language-native code.
 - Data-driven development and clean code: model invariants, measure meaningful changes, remove unnecessary mechanisms, and test observed behavior.

@@ -2,6 +2,8 @@ import { readFile, writeFile, mkdir, rename, copyFile, realpath, lstat, unlink }
 import path from 'node:path';
 import { createHash, randomUUID } from 'node:crypto';
 import { pathToFileURL } from 'node:url';
+import { route } from './routing.mjs';
+export { route } from './routing.mjs';
 
 const fail = message => { throw new Error(message); };
 const text = (value, label) => typeof value === 'string' && value.trim() ? value : fail(`${label} must be nonempty text`);
@@ -16,27 +18,6 @@ function checkOwnership(tasks, taskId, files) {
   if (tasks.some(task => task.id !== taskId && task.status !== 'reviewed' && overlaps(task.files,files))) fail('ownership overlap; use isolated runs/checkouts or integrate first');
 }
 
-export function route(task, files = []) {
-  text(task,'task');
-  const playbook = /\b(review|audit)\b/i.test(task) ? 'review' : /\b(fix|bug|regression|broken)\b/i.test(task) ? 'bug-fix' : /\b(refactor|simplify|restructure)\b/i.test(task) ? 'refactor' : /\b(investigate|diagnose|explain|research)\b/i.test(task) ? 'investigate' : 'feature';
-  const skills = ['worker-mode','functional-programming','data-driven-development','clean-code'];
-  if (/\baudit[- ]stack\b/i.test(task)) skills.push('audit-stack','security-hardening','dead-code-audit','dry-audit','performance-increase','tdd-95','architecture-fit','thermo-nuclear-code-quality-review');
-  if (/\bdry[- ]audit\b|\b(?:duplicate|duplicated|duplication of)\s+(?:code|domain rules?|validation|logic|calculations?|implementations?)\b/i.test(task)) skills.push('dry-audit');
-  if (/\bdead[- ]code\b|\b(?:unused|unreachable|obsolete)\s+(?:code|functions?|exports?|modules?|dependencies|tests?)\b|\borphaned\s+(?:tests?|fixtures?)\b/i.test(task)) skills.push('dead-code-audit');
-  if (/\b(harden(?:ing)?|vulnerabilit(?:y|ies)|ssrf|xss|csrf)\b|\bsecurity\s+(?:audit|review|hardening|scan)\b|\b(?:authorization|authentication|auth)\s+bypass\b|\b(?:sql|command|code)\s+injection\b|\b(?:exposed|leaked)\s+(?:credentials?|secrets?|keys?)\b/i.test(task)) skills.push('security-hardening');
-  if ((['feature','bug-fix','refactor'].includes(playbook) && (files.some(file => /\.(?:tsx?|mts|cts|jsx?|mjs|cjs|rs|pyi?)$/i.test(file)) || /\b(implement|build|fix|bug|refactor|code)\b/i.test(task))) || /\b(tdd|coverage|tests?)\b/i.test(task)) skills.push('tdd-95');
-  if (/\b(performance|benchmarks?|profil(?:e|ing)|latency|throughput|allocations?|faster|slow|optimi[sz](?:e|ation|ing))\b|\bspeed\s+up\b/i.test(task)) skills.push('performance-increase');
-  if (/\b(architect(?:ure|ing)?|overengineering|stack)\b/i.test(task) || /\b(which|what|choose|select|compare|recommend|decide)\b.*\b(database|storage|tools?|technolog(?:y|ies)|sqlite|postgres(?:ql)?)\b/i.test(task) || /\bshould\b.*\b(use|choose)\b.*\b(database|storage|sqlite|postgres(?:ql)?)\b/i.test(task)) skills.push('architecture-fit');
-  if (/\b(production[- ](?:finish|ready|readiness)|deployment|deploy|hosting|docker|containeri[sz](?:e|ation))\b/i.test(task) || /\b(finish|prepare|ready)\b.*\b(production|prod|release)\b/i.test(task) || /\b(finish|prepare)\s+(?:(?:this|the|our|my|an|a)\s+)?(?:app|application)\b/i.test(task)) skills.push('production-finish');
-  if (files.some(file => /\.(?:tsx?|mts|cts)$/i.test(file)) || /\b(typescript|tsx)\b/i.test(task)) skills.push('typescript-best-practices');
-  if (files.some(file => /\.rs$/i.test(file)) || /\brust\b/i.test(task)) skills.push('rust-best-practices');
-  if (files.some(file => /\.pyi?$/i.test(file)) || /\bpython\b/i.test(task)) skills.push('python-best-practices');
-  if (files.some(file => /\.(?:tsx|jsx|css|scss|html|vue|svelte)$/i.test(file)) || /\b(frontend|front.end|website|layout|browser|visual|interface)\b/i.test(task)) skills.push('frontend-design');
-  if (skills.includes('frontend-design') || /\b(humani[sz](?:e|er|ing|ation)|microcopy|ux writing|empty[- ]states?)\b/i.test(task) || (/\b(copy|wording|labels?|messages?|tone|headings?|footer|header)\b/i.test(task) && /\b(app|application|page|screen|ui)\b/i.test(task)) || (/\b(buttons?|forms?|notifications?|onboarding|confirmations?|navigation)\b/i.test(task) && /\b(copy|wording|labels?|text|messages?)\b/i.test(task))) skills.push('humanizer');
-  if (playbook === 'review' || playbook === 'refactor') skills.push('thermo-nuclear-code-quality-review');
-  if (/\b(commit|push|github|shipping)\b/i.test(task)) skills.push('commit-features');
-  return {playbook,skills:[...new Set(skills)]};
-}
 
 export function transition(state, command, record, owner) {
   if (owner !== state.owner) fail('only the coordinator owner may update aggregate state');
@@ -86,7 +67,7 @@ export function transition(state, command, record, owner) {
       next[key] = [...record[key]];
     }
     if (record.playbook !== undefined) {
-      if (!['investigate','bug-fix','feature','refactor','review'].includes(record.playbook)) fail('invalid playbook');
+      if (!['brainstorm','architecture','production-finish','investigate','bug-fix','feature','refactor','review'].includes(record.playbook)) fail('invalid playbook');
       next.playbook = record.playbook;
     }
     if (record.limits !== undefined) {

@@ -40,7 +40,7 @@ export async function build() {
   const metadata = JSON.parse(await readFile(path.join(repository,'package.json'),'utf8'));
   const skillRoot = path.join(repository,'shared/skills');
   const skills = (await readdir(skillRoot,{withFileTypes:true})).filter(entry => entry.isDirectory()).map(entry => entry.name).sort();
-  const required = ['use-proofwork','worker-mode','setup','thermo-nuclear-code-quality-review','functional-programming','data-driven-development','clean-code','typescript-best-practices','rust-best-practices','python-best-practices','frontend-design','commit-features','architecture-fit','production-finish','performance-increase','tdd-95','humanizer','security-hardening','dead-code-audit','dry-audit','audit-stack'];
+  const required = ['brainstorm','use-proofwork','worker-mode','setup','thermo-nuclear-code-quality-review','functional-programming','data-driven-development','clean-code','typescript-best-practices','rust-best-practices','python-best-practices','frontend-design','commit-features','architecture-fit','production-finish','performance-increase','tdd-95','humanizer','security-hardening','dead-code-audit','dry-audit','audit-stack'];
   for (const name of required) if (!skills.includes(name)) throw new Error(`missing required skill ${name}`);
   for (const name of skills) {
     const content = await readFile(path.join(skillRoot,name,'SKILL.md'),'utf8');
@@ -63,7 +63,7 @@ export async function build() {
         await cp(path.join(repository,file),path.join(staging,file));
       }
       await mkdir(path.join(staging,'scripts'));
-      for (const file of ['proofwork.mjs','check-commits.mjs','check-coverage.mjs','check-file-lines.mjs','README.md']) await cp(path.join(repository,'scripts',file),path.join(staging,'scripts',file));
+      for (const file of ['proofwork.mjs','routing.mjs','check-commits.mjs','check-coverage.mjs','check-file-lines.mjs','README.md']) await cp(path.join(repository,'scripts',file),path.join(staging,'scripts',file));
       const manifestDirectory = host === 'codex' ? '.codex-plugin' : '.claude-plugin';
       await mkdir(path.join(staging,manifestDirectory));
       const manifest = {name:'proofwork',version:metadata.version,description:'Turn intent into verified software with original engineering skills and inspectable evidence.',author:{name:'Proofwork contributors'},license:'MIT',skills:'./skills/'};
