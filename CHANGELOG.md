@@ -1,5 +1,10 @@
 # Proofwork changelog
 
+## 0.21.1 — newcomer product-intent routing
+
+- Plain intent such as "I want an app to track my invoices" now starts brainstorming without requiring engineering keywords.
+- Added six exact corpus cases covering newcomer variants, an approved design and adding a feature to an existing app. Explicit stages retain precedence; the existing Go/C controls remain intact.
+
 ## 0.21.0 — executable Rust safety and cancellation contracts
 
 - Committed the eight-test reservation fixture and added executed Tokio framing/cancellation, blocking-waiter timeout and Miri initialization fixtures, including explicitly executed negative cases and repairs.

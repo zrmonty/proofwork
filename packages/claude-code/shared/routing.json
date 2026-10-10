@@ -8,7 +8,7 @@
     "refactor": "\\b(refactor|simplify|restructure|rename)\\b",
     "investigate": "\\b(investigate|diagnose|explain|research)\\b",
     "brainstorm": "\\b(brainstorm(?:ing)?|ideat(?:e|ion))\\b|\\bexplore\\s+(?:an?\\s+)?idea\\b",
-    "newProject": "\\bnew\\s+(?:project|app|application|website|product)\\b",
+    "newProject": "\\bnew\\s+(?:project|app|application|website|product)\\b|\\b(?:i|we)\\s+(?:want|need|would like)\\s+(?:to\\s+(?:build|create|make)\\s+)?an?\\s+(?:app|application|website|product)\\b|\\bi['\\u2019]d\\s+like\\s+an?\\s+(?:app|application|website|product)\\b",
     "approved": "\\bapproved\\s+(?:design|plan|spec(?:ification)?)\\b",
     "languageWords": "\\b(?:programming languages?|languages?|runtimes?|frameworks?|fullstack|full.stack|rust|python|typescript|javascript|react|vue|svelte|angular|astro|solid|golang|java|kotlin|elixir|ruby|php|zig|csharp|dotnet)\\b|c\\+\\+|c#|\\.net|\\b(?:go|c)\\s+(?:programming|language|compiler|runtime)\\b|\\b(?:go\\s+(?:and|or|versus|vs\\.?|against)\\s+c|c\\s+(?:and|or|versus|vs\\.?|against)\\s+go)\\b|\\b(?:use|choose|select|recommend)\\s+(?:go|c)\\s+for\\s+(?:(?:our|the|an?)\\s+)?(?:backend|server|service|network|firmware|embedded|systems?|cli|api)\\b",
     "choose": "\\b(?:which|what|choose|select|compare|recommend|decide|evaluate)\\b|\\bshould\\b.*\\b(?:use|choose)\\b",
