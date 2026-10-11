@@ -5,14 +5,32 @@ const matches = (pattern, task) => pattern.test(task);
 const routeRules = JSON.parse(readFileSync(new URL('../shared/routing.json', import.meta.url)));
 export const normalizeTask = task => task.replace(
   /^\s*(?:use\s+proofwork(?:[.:]\s*|\s+to\s+|\s+)|\/(?:proofwork:)?use-proofwork\s+|\$use-proofwork\s+)/i, '').trim();
+const restrictionPattern = new RegExp(
+  String.raw`\b(?:(?:do\s+not|don['\u2019]t|never)\s+(?:edit|change|modify|write|make)|` +
+  String.raw`without\s+(?:editing|changing|modifying|making))\b([^.,;!?\n]*)`, 'gi');
+const globalScope = new RegExp(
+  String.raw`^\s*(?:anything|(?:(?:any|all|the|this)\s+)?(?:codebase|repo|repository|files?|code|source(?:\s+code)?)|` +
+  String.raw`(?:(?:any|all)\s+)?(?:(?:codebase|code)\s+)?changes?)?` +
+  String.raw`(?:\s+(?:to|in|on)\s+(?:(?:the|this)\s+)?(?:codebase|repo|repository|files?|code|source|it))?` +
+  String.raw`\s*(?:at\s+all|yet|for\s+now|(?:until|before|unless)\b[^.,;!?]*)?\s*$`, 'i');
 const negativeAuthority = task =>
   /\b(?:report[- ]only|read[- ]only|dry[- ]run|findings?\s+only)\b/i.test(task) ||
-  /\b(?:do\s+not|don['\u2019]t|never)\s+(?:edit|change|modify|write|make\s+(?:(?:any|codebase|code)\s+)*changes?)\b/i
-    .test(task) || /\bwithout\s+(?:editing|changing|modifying|making\s+(?:any\s+)?changes)\b/i.test(task);
+  [...task.matchAll(restrictionPattern)].some(match => globalScope.test(match[1].split(/\b(?:and|but|then|or)\b/i)[0]));
 const implementationPattern = new RegExp(
   String.raw`(?:\b(?:and(?:\s+then)?|then)\s+|[.;]\s*(?:then\s+)?)(?:please\s+)?` +
-  String.raw`((?:implement|fix|repair|build|add|remove|delete|refactor|change|rewrite|harden)\b[\s\S]*)`, 'i');
-export const implementationClause = task => implementationPattern.exec(task)?.[1] ?? '';
+  String.raw`((?:implement|fix|repair|build|add|remove|delete|refactor|change|rewrite|harden)\b[\s\S]*?)` +
+  String.raw`(?=[.;]|$)`, 'gi');
+const explanatoryComplement = prefix =>
+  /^\s*(?:explain|describe|summari[sz]e)\s+(?:how|why|what|when|where|whether|the\s+(?:steps|process|procedure))\b/i
+    .test(prefix) && !/[.;]/.test(prefix);
+export function implementationClause(task) {
+  for (const match of task.matchAll(implementationPattern)) {
+    const prefix = task.slice(0, match.index);
+    if (explanatoryComplement(prefix) && !/^[.;]/.test(match[0])) continue;
+    return match[1];
+  }
+  return '';
+}
 export function isReadOnlyTask(task) {
   task = normalizeTask(task);
   if (negativeAuthority(task) || explicitPlaybook(task)?.id === 'clarify-path') return true;

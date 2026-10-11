@@ -1,7 +1,13 @@
-# Proofwork 0.35.2 verification
+# Proofwork 0.35.3 verification
+
+Current 0.35.3 [intent-scope checks](../evals/results/routing-intent-scope-20261011.md) pass locally:
+2,598/2,627 lines (98.90%) and 1,660/1,710 branches (97.08%) across 23 scripts. The routing corpus contains
+119 prompts. Scoped preservation, explanatory complements, qualified global prohibitions and natural
+report-only inspection lenses have executed regression checks. Standard and optional-hook packages build.
+These checks establish classifier behavior, not native agent compliance with user authority.
 
 
-Current 0.35.2 [routing authority and package parity checks](../evals/results/routing-authority-20261011.md)
+Previous 0.35.2 [routing authority and package parity checks](../evals/results/routing-authority-20261011.md)
 pass locally: 2,568/2,597 lines (98.88%) and 1,640/1,690 branches (97.04%) across 23 scripts.
 The 108-prompt routing corpus includes 14 new authority/analysis regressions. Both standard and optional-hook
 packages build. The full check does not establish native agent adherence to read-only instructions.

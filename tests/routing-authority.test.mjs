@@ -15,6 +15,12 @@ const noChanges = [
   'Audit the parser without editing',
   'Explain the proposed fix without editing',
   'Explain the bug and then fix it; do not edit anything',
+  'Do not edit anything and explain the parser',
+  'Fix the parser; do not make any changes and report findings',
+  'Audit the parser; do not make any changes to the codebase',
+  'Fix the parser; do not edit anything until I approve',
+  'Audit this repository; do not edit any files yet',
+  'Audit this repository without making changes to it',
 ];
 test('natural negative authority keeps team policy review-only', async t => {
   const repo = await mkdtemp(path.join(tmpdir(), 'pw-authority-'));
@@ -74,5 +80,80 @@ test('requested report-only procedures retain analysis depth without repair auth
     assert.deepEqual(plan.workflow.options, [], task);
     assert.ok(!plan.workflow.beforeWork.includes('probe-first'), task);
     assert.equal(withTeamPolicy(plan, repo, task, []).teamPolicy.mode, 'review-only', task);
+  }
+});
+
+const preservationRequests = [
+  ['The invoice export sometimes loses its final page. Fix it without changing the format, and show that every page survives.', 'bug-fix', 'standard'],
+  ['Implement the schema migration without changing the public API', 'feature', 'full'],
+  ['Fix the parser, but do not change the public API', 'bug-fix', 'standard'],
+  ['Implement the schema migration and do not edit unrelated files', 'feature', 'full'],
+  ['Fix the parser; do not make any changes to the public API', 'bug-fix', 'standard'],
+];
+test('scoped preservation constraints retain authorized changes and risk floors', async t => {
+  const repo = await mkdtemp(path.join(tmpdir(), 'pw-preservation-'));
+  t.after(() => rm(repo, { recursive: true, force: true }));
+  for (const [task, stage, tier] of preservationRequests) {
+    const plan = explainRoute(task, [], 'light');
+    assert.equal(plan.playbook, stage, task);
+    assert.equal(plan.tier, tier, task);
+    assert.equal(plan.tierOverride.minimum, tier, task);
+    assert.ok(plan.skills.includes('tdd-95'), task);
+    assert.equal(withTeamPolicy(plan, repo, task, []).teamPolicy.mode, 'apply', task);
+  }
+  const restricted = explainRoute('Fix the parser without changing its API; do not edit anything');
+  assert.equal(withTeamPolicy(restricted, repo,
+    'Fix the parser without changing its API; do not edit anything', []).teamPolicy.mode, 'review-only');
+});
+
+const explanationRequests = [
+  'Explain how to remove the cache and fix stale entries',
+  'Explain why users must delete the old config and add the new one',
+  'Describe the steps to remove the cache and fix stale entries',
+  'Explain how to remove the cache and then fix stale entries',
+];
+test('actions inside an explanation do not grant implementation authority', async t => {
+  const repo = await mkdtemp(path.join(tmpdir(), 'pw-explanation-'));
+  t.after(() => rm(repo, { recursive: true, force: true }));
+  for (const task of explanationRequests) {
+    const plan = explainRoute(task);
+    assert.equal(plan.playbook, 'investigate', task);
+    assert.equal(plan.tier, 'light', task);
+    assert.ok(!plan.skills.includes('tdd-95'), task);
+    assert.equal(withTeamPolicy(plan, repo, task, []).teamPolicy.mode, 'review-only', task);
+  }
+  for (const task of ['Explain the bug and then fix it',
+    'Explain how to remove the cache and fix stale entries; then implement the repair',
+    'Explain why users must delete the old config and add the new one. Fix the migration']) {
+    const plan = explainRoute(task);
+    assert.notEqual(plan.tier, 'light', task);
+    assert.ok(plan.skills.includes('tdd-95'), task);
+    assert.equal(withTeamPolicy(plan, repo, task, []).teamPolicy.mode, 'apply', task);
+  }
+});
+
+const inspectionRequests = [
+  ['Review unused functions, findings only', 'dead-code-audit'],
+  ['Audit duplicated validation logic; findings only', 'dry-audit'],
+  ['Compare SQLite and Postgres for this app, findings only', 'architecture-fit'],
+  ['Compare Rust and Python runtimes, findings only', 'language-fit'],
+  ['Review test coverage, findings only', 'tdd-95'],
+  ['Check staging readiness, findings only', 'production-finish'],
+];
+test('natural report-only inspections retain their requested lenses without effect workflows', async t => {
+  const repo = await mkdtemp(path.join(tmpdir(), 'pw-inspection-'));
+  t.after(() => rm(repo, { recursive: true, force: true }));
+  for (const [task, skill] of inspectionRequests) {
+    const plan = explainRoute(task, [], 'light');
+    assert.equal(plan.tier, 'standard', task);
+    assert.equal(plan.tierOverride.minimum, 'standard', task);
+    assert.ok(plan.skills.includes(skill), task);
+    assert.deepEqual(plan.workflow.options, [], task);
+    assert.ok(!plan.workflow.beforeWork.includes('probe-first'), task);
+    assert.equal(withTeamPolicy(plan, repo, task, []).teamPolicy.mode, 'review-only', task);
+  }
+  for (const task of ['Explain unused functions', 'Explain SQLite and Postgres',
+    'Explain staging readiness', 'Review this diff, findings only', 'Fix a typo, findings only']) {
+    assert.equal(explainRoute(task).tier, 'light', task);
   }
 });

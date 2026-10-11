@@ -106,5 +106,16 @@
 {"task": "Justify Structure, report-only: compare storage options", "files": [], "tier": "full", "playbook": "architecture", "skills": ["data-driven-development", "pw-clean-code", "architecture-fit", "language-fit", "thermo-nuclear-code-quality-review"]},
 {"task": "Run Harden and Finish, findings only", "files": [], "tier": "full", "playbook": "production-finish", "skills": ["data-driven-development", "pw-clean-code", "security-hardening", "production-finish", "thermo-nuclear-code-quality-review"]},
 {"task": "Explain the proposed fix without editing", "files": [], "tier": "light", "playbook": "investigate", "skills": []},
-{"task": "Explain the bug and then fix it; do not edit anything", "files": [], "tier": "light", "playbook": "investigate", "skills": []}
+{"task": "Explain the bug and then fix it; do not edit anything", "files": [], "tier": "light", "playbook": "investigate", "skills": []},
+{"task": "The invoice export sometimes loses its final page. Fix it without changing the format, and show that every page survives.", "files": [], "tier": "standard", "playbook": "bug-fix", "skills": ["data-driven-development", "pw-clean-code", "tdd-95"]},
+{"task": "Implement the schema migration without changing the public API", "files": [], "tier": "full", "playbook": "feature", "skills": ["data-driven-development", "pw-clean-code", "tdd-95", "thermo-nuclear-code-quality-review"]},
+{"task": "Fix the parser, but do not change the public API", "files": [], "tier": "standard", "playbook": "bug-fix", "skills": ["data-driven-development", "pw-clean-code", "tdd-95"]},
+{"task": "Implement the schema migration and do not edit unrelated files", "files": [], "tier": "full", "playbook": "feature", "skills": ["data-driven-development", "pw-clean-code", "tdd-95", "thermo-nuclear-code-quality-review"]},
+{"task": "Explain how to remove the cache and fix stale entries", "files": [], "tier": "light", "playbook": "investigate", "skills": []},
+{"task": "Explain why users must delete the old config and add the new one", "files": [], "tier": "light", "playbook": "investigate", "skills": []},
+{"task": "Describe the steps to remove the cache and fix stale entries", "files": [], "tier": "light", "playbook": "investigate", "skills": []},
+{"task": "Explain how to remove the cache and then fix stale entries", "files": [], "tier": "light", "playbook": "investigate", "skills": []},
+{"task": "Review unused functions, findings only", "files": [], "tier": "standard", "playbook": "investigate", "skills": ["data-driven-development", "pw-clean-code", "dead-code-audit"]},
+{"task": "Audit duplicated validation logic; findings only", "files": [], "tier": "standard", "playbook": "investigate", "skills": ["data-driven-development", "pw-clean-code", "dry-audit"]},
+{"task": "Compare SQLite and Postgres for this app, findings only", "files": [], "tier": "standard", "playbook": "investigate", "skills": ["data-driven-development", "pw-clean-code", "architecture-fit"]}
 ]

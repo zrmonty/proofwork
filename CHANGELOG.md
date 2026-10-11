@@ -1,5 +1,12 @@
 # Proofwork changelog
 
+## 0.35.3
+
+- Preserve implementation authority and risk floors when the task protects an API, format or unrelated files.
+- Keep actions inside explanatory clauses read-only while recognizing separate implementation instructions.
+- Retain natural report-only audit, architecture, language, coverage and operational inspection lenses.
+- Extend routing coverage with 11 intent-scope prompts; previous corpus context usage and per-task limits stay unchanged.
+
 ## 0.35.2
 
 - Recognize natural findings-only and no-change instructions as review-only authority.

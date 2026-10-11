@@ -9,7 +9,7 @@
       "name": "proofwork",
       "source": "./packages/claude-code",
       "description": "Intent-led engineering with verified changes and clear operating responsibilities.",
-      "version": "0.35.2"
+      "version": "0.35.3"
     }
   ]
 }

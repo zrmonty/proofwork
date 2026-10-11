@@ -53,12 +53,21 @@ function playbookFor(task) {
   if (matches('newProject', task) && !matches('approved', task)) return 'brainstorm';
   return production(task) ? 'production-finish' : 'feature';
 }
+const inspectionRequest = task => readonly(task) &&
+  /^\s*(?:review|audit|inspect|compare|choose|evaluate|recommend|assess|check|run)\b/i.test(task);
+function inspectionSkills(task) {
+  if (!inspectionRequest(task)) return [];
+  const skills = [...domainSkills(task, 'investigate'), ...auditSkills(task)];
+  if (matches('coverage', task)) skills.push('tdd-95');
+  if (matches('production', task) || operationalPreparation(task)) skills.push('production-finish');
+  return [...new Set(skills)];
+}
 const explicitFull = task => explicitPlaybook(task)?.tier === 'full';
 function tierFor(task, files) {
   if (explicitFull(task)) return 'full';
   if (security(task) || matches('auditStack', task)) return 'full';
   if (!readonly(task) && matches('fullRisk', task)) return 'full';
-  if (activePreparation(task)) return 'standard';
+  if (activePreparation(task) || inspectionSkills(task).length) return 'standard';
   if (prototype(task) && !readonly(task)) return 'standard';
   if (docsOnly(files) && !matches('review', task)) return 'light';
   if (files.length > 2 || languagesFor(task, files).length > 1) return 'standard';
@@ -78,8 +87,10 @@ function domainSkills(task, playbook) {
   const skills = [...(explicitPlaybook(task)?.skills ?? [])];
   if (playbook === 'prototype') skills.push('explore-options');
   if (playbook === 'brainstorm') skills.push('brainstorm');
-  if (architecture(task) && !readonly(task)) skills.push('architecture-fit');
-  if (!readonly(task) && (languageChoice(task) || matches('architect', task))) skills.push('language-fit');
+  if (architecture(task) && (!readonly(task) || inspectionRequest(task))) skills.push('architecture-fit');
+  if ((!readonly(task) || inspectionRequest(task)) && (languageChoice(task) || matches('architect', task))) {
+    skills.push('language-fit');
+  }
   if (production(task)) skills.push('production-finish');
   return skills;
 }
@@ -111,7 +122,7 @@ function selectedSkills(task, files, tier, playbook) {
   const languages = languagesFor(task, files);
   if (tier === 'light') return languages;
   const skills = [...rules.core, ...languages, ...domainSkills(task, playbook), ...auditSkills(task),
-    ...qualitySkills(task, files, playbook), ...experienceSkills(task, files)];
+    ...qualitySkills(task, files, playbook), ...experienceSkills(task, files), ...inspectionSkills(task)];
   const statefulWork = matches('stateful', task) &&
     (!matches('statefulCosmetic', task) || matches('statefulBehavior', task));
   if (!docsOnly(files) && statefulWork) skills.push('functional-programming');
@@ -138,7 +149,7 @@ const mechanical = task => matches('small', task) &&
 function minimumTier(task, files, playbook) {
   if (explicitFull(task)) return 'full';
   if (security(task) || matches('auditStack', task) || (!readonly(task) && matches('fullRisk', task))) return 'full';
-  if (activePreparation(task)) return 'standard';
+  if (activePreparation(task) || inspectionSkills(task).length) return 'standard';
   const behavioral = ['feature', 'bug-fix', 'refactor'].includes(playbook) ||
     matches('performance', task) || matches('behaviorMarkers', task) || matches('codeRequest', task);
   const executable = hasExtension('executable', files) || matches('codeRequest', task);
@@ -155,6 +166,7 @@ function recommendationReasons(task, files, recommendation) {
     return [`The task mentions ${risk}, requiring the full risk tier.`];
   }
   if (activePreparation(task)) return ['The task requests operational preparation requiring production checks.'];
+  if (inspectionSkills(task).length) return ['The requested inspection lenses remain applicable in read-only mode.'];
   if (docsOnly(files) && !matches('review', task)) return ['The supplied paths are documentation-only.'];
   if (files.length > 2) {
     return [`The supplied scope contains ${files.length} paths, recommending standard coordination.`];
