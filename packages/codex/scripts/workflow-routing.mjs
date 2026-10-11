@@ -5,12 +5,23 @@ const matches = (pattern, task) => pattern.test(task);
 const routeRules = JSON.parse(readFileSync(new URL('../shared/routing.json', import.meta.url)));
 export const normalizeTask = task => task.replace(
   /^\s*(?:use\s+proofwork(?:[.:]\s*|\s+to\s+|\s+)|\/(?:proofwork:)?use-proofwork\s+|\$use-proofwork\s+)/i, '').trim();
-export const isReadOnlyTask = task => explicitPlaybook(task)?.id === 'clarify-path' ||
-  new RegExp(routeRules.patterns.readOnly, 'i').test(normalizeTask(task)) ||
-  /\b(?:report[- ]only|read[- ]only|dry[- ]run|do not (?:edit|change))\b/i.test(task) ||
-  /^\s*how\s+(?:does|do)\b.*\b(?:work|behave|handle|reject|process|flow)\b/i.test(normalizeTask(task)) ||
-  /^\s*why\s+(?:was|is|does|did|were)\b.*\b(?:chosen|introduced|designed|decided|constraint|decision)\b/i
-    .test(normalizeTask(task));
+const negativeAuthority = task =>
+  /\b(?:report[- ]only|read[- ]only|dry[- ]run|findings?\s+only)\b/i.test(task) ||
+  /\b(?:do\s+not|don['\u2019]t|never)\s+(?:edit|change|modify|write|make\s+(?:(?:any|codebase|code)\s+)*changes?)\b/i
+    .test(task) || /\bwithout\s+(?:editing|changing|modifying|making\s+(?:any\s+)?changes)\b/i.test(task);
+const implementationPattern = new RegExp(
+  String.raw`(?:\b(?:and(?:\s+then)?|then)\s+|[.;]\s*(?:then\s+)?)(?:please\s+)?` +
+  String.raw`((?:implement|fix|repair|build|add|remove|delete|refactor|change|rewrite|harden)\b[\s\S]*)`, 'i');
+export const implementationClause = task => implementationPattern.exec(task)?.[1] ?? '';
+export function isReadOnlyTask(task) {
+  task = normalizeTask(task);
+  if (negativeAuthority(task) || explicitPlaybook(task)?.id === 'clarify-path') return true;
+  if (implementationClause(task)) return false;
+  return new RegExp(routeRules.patterns.readOnly, 'i').test(task) ||
+    /^\s*how\s+(?:does|do)\b.*\b(?:work|behave|handle|reject|process|flow)\b/i.test(task) ||
+    /^\s*why\s+(?:was|is|does|did|were)\b.*\b(?:chosen|introduced|designed|decided|constraint|decision)\b/i
+      .test(task);
+}
 const readonly = isReadOnlyTask;
 const docsOnly = files => files.length > 0 && files.every(file => /\.(?:md|txt|rst|adoc)$/i.test(file));
 const mechanical = task => /\b(?:typo|spelling|rename)\b/i.test(task) &&
@@ -56,7 +67,7 @@ export function workflowFor(task, files, tier, playbook, procedureId) {
   const existingCode = files.some(file => /\.(?:[cm]?[jt]sx?|rs|py|vue|svelte|go|c|cpp|rb)$/i.test(file)) ||
     /\b(?:existing|codebase|repository|repo|callers|source|module|function|handler)\b/i.test(task) ||
     /\b(?:harden|audit)\b.*\b(?:app|application|service|system|code)\b/i.test(task) ||
-    crossBoundary(task) ||
+    crossBoundary(task) || /\bmigrations?\b/i.test(task) ||
     ['bug-fix', 'refactor', 'review', 'investigate'].includes(playbook);
   if (!(tier === 'light' && origin) &&
     (traceRequest(task) || (tier !== 'light' && contextual && existingStage && existingCode))) {
@@ -79,7 +90,7 @@ export function workflowFor(task, files, tier, playbook, procedureId) {
   }
   const explicit = explicitPlaybook(task);
   if ((explicit || (tier === 'full' && substantive)) &&
-    ['harden-and-finish', 'coordinated-audit'].includes(explicit?.id ?? procedureId) && !readOnly) {
+    ['harden-and-finish', 'coordinated-audit'].includes(explicit?.id ?? procedureId)) {
     if (!result.beforeWork.includes('impact-map')) result.beforeWork.push('impact-map');
     if (!result.review.includes('impact-map')) result.review.push('impact-map');
     if (!result.review.includes('challenge-review')) result.review.push('challenge-review');

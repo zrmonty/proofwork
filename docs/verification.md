@@ -1,9 +1,14 @@
-# Proofwork 0.35.1 verification
+# Proofwork 0.35.2 verification
 
 
-Current host/environment checks are recorded in [the 0.35.0 parity result](../evals/results/host-environment-parity-20261010.md).
-Local runtime coverage is 98.86% lines/97.01% branches over 22 scripts. Native Codex 0.35.0 installation is verified;
-Claude CLI fixtures and generated adapter parity do not establish native Claude installation or live hook dispatch.
+Current 0.35.2 [routing authority and package parity checks](../evals/results/routing-authority-20261011.md)
+pass locally: 2,568/2,597 lines (98.88%) and 1,640/1,690 branches (97.04%) across 23 scripts.
+The 108-prompt routing corpus includes 14 new authority/analysis regressions. Both standard and optional-hook
+packages build. The full check does not establish native agent adherence to read-only instructions.
+
+Host/environment checks remain recorded in [the 0.35.0 parity result](../evals/results/host-environment-parity-20261010.md).
+Native Codex 0.35.0 installation is verified; Claude CLI fixtures and generated adapter parity do not establish
+native Claude installation or live hook dispatch.
 
 October 10, 2026. This matrix describes current evidence and its limits. Earlier release observations are preserved in [verification history](../CHANGELOG.md).
 

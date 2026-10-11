@@ -4,7 +4,7 @@
     "light": 800,
     "standard": 4000
   },
-  "totalWords": 155239,
-  "description": "Initial entries only, rebaselined after 0.19 pruning for the same 82 scenarios. Light/standard ceilings remain 800/4000; aggregate growth stays 10%. All entries additionally cap at 600 words and each conditional reference at 800.",
-  "scenarios": 82
+  "totalWords": 172725,
+  "description": "Original 155239-word allowance plus 17486 words for 14 authority/analysis regression cases (108 current scenarios); existing-route allowance is unchanged. Light/standard ceilings remain 800/4000; aggregate growth stays 10%. Entries cap at 600 words and conditional references at 800.",
+  "scenarios": 108
 }

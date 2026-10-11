@@ -1,5 +1,14 @@
 # Proofwork changelog
 
+## 0.35.2
+
+- Recognize natural findings-only and no-change instructions as review-only authority.
+- Keep testing and risk floors for explanation requests that explicitly continue into implementation.
+- Preserve named report-only playbook stages, analytical lenses and independent review steps.
+- Reject untracked, staged, modified or deleted generated packages in CI, including marketplace changes.
+- Extend the route corpus with 14 authority/analysis regressions; keep existing context limits and account
+  for the added scenarios separately.
+
 ## 0.35.1 — Upload manifest compatibility
 
 - Add a portable root manifest and synchronized Codex compatibility metadata.

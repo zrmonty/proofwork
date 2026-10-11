@@ -59,10 +59,10 @@ test('all canonical guides are bounded and legacy persisted stages remain stable
 });
 
 test('explicit clarification and read-only qualifiers exclude effects and behavioral testing', () => {
- for(const task of ['Use Clarify Path to explain uncertain prototype behavior',
-   'Use Harden and Finish for this service in read-only mode']) {
+ for(const [task, stage] of [['Use Clarify Path to explain uncertain prototype behavior', 'investigate'],
+   ['Use Harden and Finish for this service in read-only mode', 'production-finish']]) {
   const p=explainRoute(task,['service.rs']);
-  assert.equal(p.playbook,'investigate'); assert.ok(!p.skills.includes('tdd-95'));
+  assert.equal(p.playbook,stage); assert.ok(!p.skills.includes('tdd-95'));
   assert.deepEqual(p.workflow.options,[]); assert.ok(!p.workflow.beforeWork.includes('probe-first'));
  }
 });

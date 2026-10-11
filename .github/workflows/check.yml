@@ -28,4 +28,4 @@ jobs:
         run: npm test
       - run: npm run build:hooks
       - name: Check generated package parity
-        run: git diff --exit-code -- packages .claude-plugin/marketplace.json
+        run: node scripts/check-package-parity.mjs

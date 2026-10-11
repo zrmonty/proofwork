@@ -1,5 +1,6 @@
 import { readFileSync } from 'node:fs';
-import { workflowFor, explicitPlaybook, playbookPlan, normalizeTask, isReadOnlyTask } from './workflow-routing.mjs';
+import { workflowFor, explicitPlaybook, playbookPlan, normalizeTask, isReadOnlyTask,
+  implementationClause } from './workflow-routing.mjs';
 
 const rules = JSON.parse(readFileSync(new URL('../shared/routing.json', import.meta.url)));
 const testPattern = (pattern, value) => new RegExp(pattern, 'i').test(value);
@@ -40,18 +41,19 @@ function security(task) {
   return matches('security', task) || (matches('review', task) && matches('securityToken', task));
 }
 function playbookFor(task) {
-  if (readonly(task)) return 'investigate';
   const explicit = explicitPlaybook(task);
   if (explicit) return explicit.stage;
+  if (readonly(task)) return 'investigate';
   if (prototype(task)) return 'prototype';
-  const ordinary = rules.ordinary.find(rule => matches(rule.pattern, task));
+  const stageTask = matches('readOnly', task) ? implementationClause(task) || task : task;
+  const ordinary = rules.ordinary.find(rule => matches(rule.pattern, stageTask));
   if (ordinary) return ordinary.playbook;
   if (matches('brainstorm', task)) return 'brainstorm';
   if (architecture(task)) return 'architecture';
   if (matches('newProject', task) && !matches('approved', task)) return 'brainstorm';
   return production(task) ? 'production-finish' : 'feature';
 }
-const explicitFull = task => !readonly(task) && explicitPlaybook(task)?.tier === 'full';
+const explicitFull = task => explicitPlaybook(task)?.tier === 'full';
 function tierFor(task, files) {
   if (explicitFull(task)) return 'full';
   if (security(task) || matches('auditStack', task)) return 'full';
@@ -73,7 +75,7 @@ function languagesFor(task, files) {
   return selected.map(rule => rule.skill);
 }
 function domainSkills(task, playbook) {
-  const skills = readonly(task) ? [] : [...(explicitPlaybook(task)?.skills ?? [])];
+  const skills = [...(explicitPlaybook(task)?.skills ?? [])];
   if (playbook === 'prototype') skills.push('explore-options');
   if (playbook === 'brainstorm') skills.push('brainstorm');
   if (architecture(task) && !readonly(task)) skills.push('architecture-fit');
@@ -82,7 +84,8 @@ function domainSkills(task, playbook) {
   return skills;
 }
 function auditSkills(task) {
-  const skills = matches('auditStack', task) ? [...rules.auditStack] : [];
+  const skills = matches('auditStack', task) || explicitPlaybook(task)?.id === 'coordinated-audit'
+    ? [...rules.auditStack] : [];
   if (matches('dryAudit', task)) skills.push('dry-audit');
   if (matches('deadCode', task)) skills.push('dead-code-audit');
   if (security(task)) skills.push('security-hardening');

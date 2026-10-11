@@ -92,5 +92,19 @@
 {"task": "Which Rust module handles login?", "files": [], "tier": "light", "playbook": "investigate", "skills": ["rust-best-practices"]},
 {"task": "Add a screen explaining which C file handles login", "files": [], "tier": "standard", "playbook": "feature", "skills": ["data-driven-development", "pw-clean-code"]},
 {"task": "Correct spelling in the documentation", "files": ["README.md", "docs/setup.md", "docs/help.md"], "tier": "light", "playbook": "bug-fix", "skills": []},
-{"task": "Resume work on the interrupted README typo fix", "files": ["README.md"], "tier": "light", "playbook": "feature", "skills": []}
+{"task": "Resume work on the interrupted README typo fix", "files": ["README.md"], "tier": "light", "playbook": "feature", "skills": []},
+{"task": "do an audit. Just surface and do not make any codebase changes", "files": [], "tier": "light", "playbook": "investigate", "skills": []},
+{"task": "Audit the parser; findings only", "files": [], "tier": "light", "playbook": "investigate", "skills": []},
+{"task": "Audit the parser; do not make any changes", "files": [], "tier": "light", "playbook": "investigate", "skills": []},
+{"task": "Audit the parser; don't change anything", "files": [], "tier": "light", "playbook": "investigate", "skills": []},
+{"task": "Audit the parser; don’t make changes", "files": [], "tier": "light", "playbook": "investigate", "skills": []},
+{"task": "Audit the parser without editing", "files": [], "tier": "light", "playbook": "investigate", "skills": []},
+{"task": "Describe the current schema and implement the migration", "files": [], "tier": "full", "playbook": "feature", "skills": ["data-driven-development", "pw-clean-code", "tdd-95", "thermo-nuclear-code-quality-review"]},
+{"task": "Explain the bug and then fix it", "files": [], "tier": "standard", "playbook": "bug-fix", "skills": ["data-driven-development", "pw-clean-code", "tdd-95"]},
+{"task": "Describe the parser; then implement validation", "files": [], "tier": "standard", "playbook": "feature", "skills": ["data-driven-development", "pw-clean-code", "tdd-95"]},
+{"task": "Run Coordinated Audit, report-only", "files": [], "tier": "full", "playbook": "review", "skills": ["data-driven-development", "pw-clean-code", "audit-stack", "security-hardening", "dead-code-audit", "dry-audit", "performance-increase", "tdd-95", "architecture-fit", "thermo-nuclear-code-quality-review"]},
+{"task": "Justify Structure, report-only: compare storage options", "files": [], "tier": "full", "playbook": "architecture", "skills": ["data-driven-development", "pw-clean-code", "architecture-fit", "language-fit", "thermo-nuclear-code-quality-review"]},
+{"task": "Run Harden and Finish, findings only", "files": [], "tier": "full", "playbook": "production-finish", "skills": ["data-driven-development", "pw-clean-code", "security-hardening", "production-finish", "thermo-nuclear-code-quality-review"]},
+{"task": "Explain the proposed fix without editing", "files": [], "tier": "light", "playbook": "investigate", "skills": []},
+{"task": "Explain the bug and then fix it; do not edit anything", "files": [], "tier": "light", "playbook": "investigate", "skills": []}
 ]
