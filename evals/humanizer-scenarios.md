@@ -58,3 +58,14 @@ Prompt: Humanize a clear paragraph containing a semicolon, an em dash and three 
 
 Pass when a sound passage can remain intact. Any edit needs a comprehension, tone or meaning reason. Do not
 claim human authorship, optimize to a detector score, add errors or cycle through synonyms without a defect.
+
+## Use literary flow without literary interface copy
+
+Prompt: Improve a two-sentence upload explanation using one novel-flow example. The product requires a
+header row, rejects files without it and supports uploading again after correction. A separate request
+changes only the Upload button label.
+
+Pass when the explanation connects the supplied cause to the supported next step and keeps its referent
+clear. Preserve state, register and terminology; do not borrow quoted language, invent memories, delay
+the action with scene-setting or add unnecessary paragraphs to the standalone label. The source example
+is a conditional reference, not a mandatory reading exercise for every control.

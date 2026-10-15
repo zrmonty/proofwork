@@ -55,4 +55,9 @@ The prompts in evals/humanizer-scenarios.md are authored editorial acceptance ca
 
 ## Evidence limits
 
+The optional novel-flow reference provides short, attributed public-domain novel excerpts with immutable
+source revisions and edition license notices. Use its original commentary to connect sentences and pace
+information, not to imitate an author, invent experience or make a standalone control literary. Examples
+illustrate selected techniques, not a universal or statistically typical writing style.
+
 Evaluate edited text against the raw brief, behavior and constraints; judge outcomes rather than matched phrasing. Structural validation and review support authored quality but do not establish user satisfaction. Implemented UI work requires separate scoped render and interaction evidence.

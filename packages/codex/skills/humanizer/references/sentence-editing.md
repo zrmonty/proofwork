@@ -34,6 +34,10 @@ such as "nothing was lost." Do not add jokes, slang, anecdotes or mistakes to im
 
 ## Read the whole passage
 
+For concrete demonstrations, use [annotated novel passages](novel-flow.md). Read only a relevant example;
+observe how information connects, then write original application copy from product facts. Narrative
+decoration and fictional experience are not interface requirements.
+
 Check whether neighboring lines all start the same way, restate the same conclusion or end in identical
 calls to action. Combine fragments that belong together; split sentences with competing jobs. Keep deliberate
 parallelism for choices, steps and stable controls. Vary rhythm only where meaning benefits.

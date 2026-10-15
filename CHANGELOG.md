@@ -1,5 +1,11 @@
 # Proofwork changelog
 
+## 0.37.1
+
+- Add four short, attributed novel excerpts with original flow analysis and application-copy transfer guidance.
+- Pin Standard Ebooks source revisions and preserve separate edition license attribution in the reference and notice.
+- Load literary references conditionally; keep controls concise and retain original product facts, register and state.
+
 ## 0.37.0
 
 - Rework humanizer around sentence-level editing, evidence-based voice and fact-preserving review.

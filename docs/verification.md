@@ -1,6 +1,11 @@
-# Proofwork 0.37.0 verification
+# Proofwork 0.37.1 verification
 
-Current [humanizer editorial checks](../evals/results/humanizer-depth-20261015.md) pass for context budgets,
+Current [novel-reference checks](../evals/results/novel-flow-20261015.md) verify four pinned sources and
+edition notices, 170 words of exact excerpts, context budgets and both host packages. Ten focused package,
+adapter and skill-list checks pass. This reference-only change does not establish reader outcomes or
+resolve the previously reported Windows/Node 24 instrumented-test issue.
+
+Previous [humanizer editorial checks](../evals/results/humanizer-depth-20261015.md) pass for context budgets,
 reference links and both host packages. All 432 tests pass, and the final full coverage/build check passes
 after an initial instrumented-run failure. Runtime scripts are unchanged. New editorial scenarios define
 acceptance; they are not reader-study, rendered UI or authorship-detector results.

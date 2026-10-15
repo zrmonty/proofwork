@@ -33,6 +33,8 @@ information. Keep genuine choices and deliberate emphasis. Do not mechanically b
 Read adjacent lines together: stable terminology, varied but purposeful rhythm, no repeated conclusions or
 manufactured intimacy. Use [sentence editing](references/sentence-editing.md) and
 [worked revisions](references/worked-revisions.md) for diagnosis and fact-preserving examples.
+For multi-sentence flow, selectively read [annotated novel passages](references/novel-flow.md); apply a
+relevant mechanism to supplied facts, without copying literary voice into interface controls.
 
 ## Preserve the interaction contract
 
