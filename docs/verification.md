@@ -1,6 +1,10 @@
-# Proofwork 0.37.1 verification
+# Proofwork 0.37.2 verification
 
-Current [novel-reference checks](../evals/results/novel-flow-20261015.md) verify four pinned sources and
+Current [contemporary-flow checks](../evals/results/contemporary-flow-20261015.md) record source/license
+verification, context budgets and package checks. These examples guide writing at use time; they do not
+train a model or establish improved reader outcomes.
+
+Previous [novel-reference checks](../evals/results/novel-flow-20261015.md) verify four pinned sources and
 edition notices, 170 words of exact excerpts, context budgets and both host packages. Ten focused package,
 adapter and skill-list checks pass. This reference-only change does not establish reader outcomes or
 resolve the previously reported Windows/Node 24 instrumented-test issue.

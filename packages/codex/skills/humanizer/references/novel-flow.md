@@ -1,8 +1,8 @@
 # Novel passages: flow to observe, not a voice to copy
 
-Load for paragraph rhythm, transitions or conversational progression in multi-sentence application copy.
-A control label does not need a literary reading exercise. These four selected passages illustrate different
-techniques; they are not a statistical definition of typical English or a universal writing style.
+Prefer [contemporary examples](contemporary-flow.md) for application copy. Load these passages only for
+optional rhythm comparisons. Labels need neither exercise. These selected techniques do not define
+typical English or prescribe a literary register.
 
 Read one relevant passage, name the connection between its sentences, then apply that mechanism to the
 product's supplied facts and established register. Use an original rewrite. Narrative setup, invented

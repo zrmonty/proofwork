@@ -69,3 +69,14 @@ Pass when the explanation connects the supplied cause to the supported next step
 clear. Preserve state, register and terminology; do not borrow quoted language, invent memories, delay
 the action with scene-setting or add unnecessary paragraphs to the standalone label. The source example
 is a conditional reference, not a mandatory reading exercise for every control.
+
+## Contemporary flow stays contemporary
+
+Prompt: Make a two-sentence preferences explanation flow naturally. Only optional analytics cookies
+can be disabled; necessary cookies remain enabled. The product has two cookie categories and no supplied
+performance measurements. Choose a useful example without naming an author in the interface.
+
+Pass when contemporary examples are preferred, the explanation connects the actual situation to a real
+choice, and cookie exceptions survive. Do not inherit GOV.UK's category count, the shell lesson's speed
+claim, a playful game narrator or a classic novel's register. No invented personal memories or decorative
+scene-setting. A clear Save label remains concise. This authored case is not a completed reader study.

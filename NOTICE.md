@@ -15,3 +15,16 @@ United States and dedicate editorial contributions under CC0; the edition notice
 identical underlying rights worldwide. Exact source revisions and license notices accompany each excerpt.
 The quoted text is not represented as Proofwork-authored or relicensed under MIT. Analysis and application
 guidance are originally authored for Proofwork. No external instructional skill is imported.
+
+## Contemporary reference excerpts
+
+The humanizer's [contemporary-flow reference](https://github.com/zrmonty/proofwork/blob/main/shared/skills/humanizer/references/contemporary-flow.md)
+includes short excerpts from GitHub Docs and contributors and The Carpentries and contributors under
+[CC BY 4.0](https://creativecommons.org/licenses/by/4.0/); Nicky Case's *The Evolution of Trust* under
+[CC0 1.0](https://creativecommons.org/publicdomain/zero/1.0/); and Government Digital Service's
+*Cookies on GOV.UK*, Crown copyright, under the
+[Open Government Licence v3.0](https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/).
+Contains public sector information licensed under the Open Government Licence v3.0.
+Source links, revision/access dates, license notices and formatting changes accompany each excerpt.
+These excerpts retain their original terms rather than Proofwork's MIT license. Commentary is original;
+no external skill workflows or third-party code, audio or visual assets are included.

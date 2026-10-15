@@ -34,8 +34,9 @@ such as "nothing was lost." Do not add jokes, slang, anecdotes or mistakes to im
 
 ## Read the whole passage
 
-For concrete demonstrations, use [annotated novel passages](novel-flow.md). Read only a relevant example;
-observe how information connects, then write original application copy from product facts. Narrative
+For concrete demonstrations, prefer [contemporary examples](contemporary-flow.md);
+[novel passages](novel-flow.md) offer optional rhythm comparisons. Read one relevant example, observe how
+information connects, then write original copy from product facts. Keep the product register; narrative
 decoration and fictional experience are not interface requirements.
 
 Check whether neighboring lines all start the same way, restate the same conclusion or end in identical

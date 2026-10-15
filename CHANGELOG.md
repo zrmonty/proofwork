@@ -1,5 +1,10 @@
 # Proofwork changelog
 
+## 0.37.2
+
+- Prefer four openly licensed contemporary prose examples for application-copy flow; keep novel passages as optional rhythm comparisons.
+- Attribute each excerpt and license separately, preserve product facts and register, and add a contemporary-flow acceptance scenario.
+
 ## 0.37.1
 
 - Add four short, attributed novel excerpts with original flow analysis and application-copy transfer guidance.
