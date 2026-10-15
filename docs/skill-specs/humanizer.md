@@ -41,6 +41,18 @@ structure-and-voice.md supports page composition and editorial decisions. intera
 11. An invitation dispatch confirmation does not imply membership acceptance; controls, toast, detail and notification messages preserve their distinct observed events.
 12. A friendlier access error preserves the established disclosure policy and safe support reference rather than exposing internal diagnostics or identifying another person's account.
 
-## Evidence
+## Editorial depth and voice acceptance
+
+Use sentence-editing.md for abstraction, inflated persuasion, repetitive cadence and fact-preserving
+compression; voice-calibration.md for audience/register and moment-specific tone; worked-revisions.md for
+revisions whose assumptions are explicit. Keep clear-voice responsible for engineering reports/docs.
+
+Acceptance: plain language retains formal register and precise domain terms; empathy supplies supported
+help rather than guessing feelings; a real three-choice control stays parallel; required consequences and
+dynamic values survive shortening. Review changes to certainty, object, scope, time, permission and next
+step. No detector score, punctuation blacklist, forced contraction or fabricated anecdote establishes quality.
+The prompts in evals/humanizer-scenarios.md are authored editorial acceptance cases, not reader-study results.
+
+## Evidence limits
 
 Evaluate edited text against the raw brief, behavior and constraints; judge outcomes rather than matched phrasing. Structural validation and review support authored quality but do not establish user satisfaction. Implemented UI work requires separate scoped render and interaction evidence.

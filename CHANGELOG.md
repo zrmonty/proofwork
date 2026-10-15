@@ -1,5 +1,12 @@
 # Proofwork changelog
 
+## 0.37.0
+
+- Rework humanizer around sentence-level editing, evidence-based voice and fact-preserving review.
+- Add original sentence-editing, voice-calibration and worked-revision references, loaded conditionally.
+- Expand editorial acceptance scenarios while preserving state, localization, accessibility and scope contracts.
+- Keep existing skill names, routing and context limits; no punctuation blacklist or authorship guarantee.
+
 ## 0.36.0
 
 - Strengthen frontend-design with explicit scope, committed visual direction and conditional work approaches.

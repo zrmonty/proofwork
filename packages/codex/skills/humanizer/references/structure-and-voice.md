@@ -68,3 +68,6 @@ The error example is valid only if the implementation retained the details and r
 These are diagnostic prompts. A real three-option choice belongs in a list. A genuinely playful product can use playful copy. Do not remove a necessary term, technical distinction or brand expression merely because it appears in generic writing elsewhere.
 
 Read revised text in the order a person encounters it. Keep deliberate repetition for stable actions and important consequences; remove decorative repetition. Prefer a specific, useful line over a performance of friendliness.
+
+For sentence mechanics and register choices, use [sentence editing](sentence-editing.md) and
+[voice calibration](voice-calibration.md).

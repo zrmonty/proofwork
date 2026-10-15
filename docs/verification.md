@@ -1,6 +1,11 @@
-# Proofwork 0.36.0 verification
+# Proofwork 0.37.0 verification
 
-Current [frontend-craft checks](../evals/results/frontend-craft-20261015.md) pass for the revised design skill,
+Current [humanizer editorial checks](../evals/results/humanizer-depth-20261015.md) pass for context budgets,
+reference links and both host packages. All 432 tests pass, and the final full coverage/build check passes
+after an initial instrumented-run failure. Runtime scripts are unchanged. New editorial scenarios define
+acceptance; they are not reader-study, rendered UI or authorship-detector results.
+
+Previous [frontend-craft checks](../evals/results/frontend-craft-20261015.md) pass for the revised design skill,
 reference links, context limits and both host packages. Runtime coverage remains 2,598/2,627 lines and
 1,660/1,710 branches across 23 unchanged scripts. Standard and optional-hook builds pass. The new design
 scenarios are authored acceptance criteria; a visual-generation comparison has not been executed.

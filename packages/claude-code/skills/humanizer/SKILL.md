@@ -5,14 +5,50 @@ description: When writing natural application copy and reducing unnecessary head
 
 # Humanizer
 
-Write application language that sounds like a person helping another person complete a real task. Ground wording in the actual action, audience and product state. Preserve functional meaning, accessibility, legal requirements and truthful outcomes.
+Write words people can understand and act on without decoding a sales pitch or a performance of friendliness.
+Keep the product's own voice, concrete meaning and appropriate warmth. Natural writing is not a detector
+score, an authorship claim or a requirement to make every sentence short and casual.
 
-Inspect the surrounding interface and user journey before editing. Prefer familiar words, concrete verbs and useful information. Remove stock AI phrasing, inflated adjectives, repeated summaries and decorative headings or footers that add no orientation. Use headers and footers when they perform a real navigation or information role; do not ban them mechanically.
+## Read the situation
 
-Tell the user what happened, what remains possible and what action is useful. Distinguish requested, processing, confirmed, refused and unknown outcomes. Never humanize an uncertain operation into a false success. Error copy must preserve recovery meaning while keeping private diagnostics out of public text.
+Inspect the surrounding screen, the person's task, established terminology and the behavior behind the words.
+Identify supplied facts, unknowns, approved wording and dynamic values before editing. Preserve prices,
+permissions, object identity, timing, reversibility, legal meaning and accessible labels. Do not invent
+testimonials, personal experience, popularity, urgency, guarantees or capabilities to make copy persuasive.
 
-Keep voice consistent with the product and context. A serious failure needs direct language; a friendly confirmation need not become an essay. Avoid forced personality, manipulative urgency and claims the system cannot substantiate. Buttons should name the action, and destructive confirmations should identify its real consequence.
+Match a suitable incumbent voice. Keep specialist language when the audience needs its precision. Use
+[voice calibration](references/voice-calibration.md) when the register is unsettled or tone changes across
+routine, uncertain and consequential moments. Missing brand notes do not require a personality workshop.
 
-Read [detailed workflow](references/detailed-workflow.md) for a larger writing pass, [structure and voice](references/structure-and-voice.md) for tone, [interaction copy](references/interaction-copy-and-review.md) for states and controls, and [message contracts](references/message-contracts.md) for consequential wording.
+## Edit meaning before style
 
-Review copy in the actual rendered context where layout or interaction matters. Check overflow, localization assumptions, labels and assistive names. Return changed wording and its purpose, observed checks and explicit gaps. A prose review alone does not prove the UI works.
+Find each region's job: orientation, decision, action or recovery. Remove duplicated title layers and filler
+while retaining facts the person needs. Keep useful navigation, headings, support and required footer links;
+a sparse page is not automatically clearer. Use [structure and voice](references/structure-and-voice.md).
+
+Replace vague praise with a supported fact or delete it. Put concrete subjects and verbs before throat-clearing.
+Remove forced benefit triples, stock invitations and repeated dramatic contrasts when they substitute for
+information. Keep genuine choices and deliberate emphasis. Do not mechanically ban words or punctuation.
+
+Read adjacent lines together: stable terminology, varied but purposeful rhythm, no repeated conclusions or
+manufactured intimacy. Use [sentence editing](references/sentence-editing.md) and
+[worked revisions](references/worked-revisions.md) for diagnosis and fact-preserving examples.
+
+## Preserve the interaction contract
+
+Labels name actual actions; messages distinguish requested, queued, confirmed, refused and unknown outcomes.
+Keep recovery safe, destructive consequences explicit and private diagnostics out of public text.
+Read [interaction copy](references/interaction-copy-and-review.md) for controls, accessibility and localization;
+read [message contracts](references/message-contracts.md) for partial, dynamic or cross-surface outcomes.
+Do not change behavior to make a proposed sentence true.
+
+## Review in context
+
+Use [detailed workflow](references/detailed-workflow.md) for a larger pass; narrow edits load only relevant
+references. Compare old/new meaning, read the actual encounter order and inspect affected layouts, accessible
+names and localization contracts when implementing. Stop when the wording is useful, consistent and true;
+further revisions need a concrete defect or feedback, not endless synonym swapping.
+
+Return the changed wording, meaningful decisions and unresolved facts or verification gaps. Report-only
+requests produce proposals without edits. Source review cannot establish rendered behavior, translation
+quality or reader satisfaction. Engineering reports and repository documentation belong to clear-voice.

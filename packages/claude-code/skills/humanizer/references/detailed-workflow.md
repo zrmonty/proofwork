@@ -18,6 +18,11 @@ Review repetition across the journey. Keep deliberate terminology consistent; va
 
 ## Plain, specific language
 
+Use [sentence editing](sentence-editing.md) to diagnose abstraction, unsupported persuasion and repetitive
+cadence. Use [voice calibration](voice-calibration.md) for unsettled register or high-stakes tone; read
+[worked revisions](worked-revisions.md) when comparing a candidate against its supplied facts. Keep these
+conditional rather than loading every example for a single-label correction.
+
 Use concrete nouns and active verbs: “Export invoices” communicates the action. Replace unsupported praise and stock introductions with actual information, or delete them. Contractions and specialist terms should fit audience and established register. Read aloud for stiffness without adding filler, mistakes, forced humor, slang or invented anecdotes.
 
 Routine success can be “Changes saved.” Payment failure needs truthful status/recovery. Remove unearned promises and avoid repetitive three-benefit lists, dramatic contrasts or closing slogans. Connected prose suits explanations, lists suit parallel choices, tables suit comparisons; formatting follows the reader's task.
@@ -35,3 +40,7 @@ Compare controls, confirmations, toasts and notifications for conflicting promis
 For implemented wording, inspect representative narrow/wide layouts, long labels, affected accessible names and error placement where tools permit. Exercise behavior that copy depends on; reuse localization/behavior checks rather than freezing incidental phrasing. Report unavailable rendering, interaction or language review honestly. Source inspection is not rendered verification.
 
 Return revised copy or working change, material structural decisions, checks and unresolved facts. Judge usefulness and truth, not an AI-detector score or authorship guarantee.
+
+For the final comparison, identify any changed certainty, object, scope, time, permission or next step.
+If the sentence became friendlier by weakening a consequence or promising unsupported recovery, reject it.
+Stop when remaining alternatives express preference rather than correcting an actual defect.
