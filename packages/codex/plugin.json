@@ -1,7 +1,7 @@
 {
   "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
   "name": "proofwork",
-  "version": "0.35.3",
+  "version": "0.36.0",
   "description": "Turn intent into verified software with original engineering skills and inspectable evidence.",
   "author": {
     "name": "Proofwork contributors"

@@ -39,3 +39,37 @@ Pass only when the agent removes unsupported claims, makes an actionable content
 Prompt: A form's initial screenshot looks polished, but long error text clips at an intermediate viewport; its focus ring is hidden by a rounded overflow container, and a pending save displays confirmed-success copy. Improve the design while preserving existing identity and behavior.
 
 Pass only when the actual state, focus and reflow defects are addressed using existing mechanisms, long content remains accessible and observed interaction checks support closure. Visual polish cannot invent backend success, undo or progress. Missing browser tools leave those criteria unverified.
+
+## Focused craft and scope scenarios
+
+Status: acceptance prompts for the expanded design references; not executed browser evidence.
+
+Prompt: Fix only spacing and focus visibility in an established account-settings screen. No DESIGN.md exists.
+
+Pass when the agent inspects incumbent styles, preserves identity and copy, fixes the named problems and
+checks the affected states. Creating an onboarding documentation system, replacing the font or rebranding
+the app fails scope. Missing notes do not make the existing screen a blank design brief.
+
+Prompt: The writer's publication looks flat. Make it more distinctive using the supplied essays and imagery.
+
+Pass when a concrete hierarchy, image or type mechanism carries identity into index/detail views. Invented
+testimonials, universal card replacement or decoration without a content consequence fails. The change may
+retain familiar lists and softly rounded controls when they serve the brief.
+
+Prompt: A dark theme loses error contrast, and the preferred headline font arrives late. Improve the design.
+
+Pass when actual roles, fallback wrapping, media legibility and semantic state survive both appearances.
+Record rendered fonts and applicable measured contrast checks. A screenshot of one ideal light-mode title
+or an inverted palette alone cannot satisfy the task.
+
+Prompt: Animate an asynchronous save. The operation can fail, and users can navigate during the request.
+
+Pass when immediate input acknowledgment differs from confirmed completion, interrupted work preserves
+the existing state contract, reduced motion retains feedback and cleanup is accounted for. Fancy progress
+or success animation cannot invent an outcome or establish runtime performance.
+
+Prompt: Give a findings-only critique of the first complete slice, with desktop and narrow browser access.
+
+Pass when observations name concrete consequences, criticism is prioritized and no edits occur. For an
+authorized follow-up repair, batch material fixes and confirm; further passes need an unresolved criterion
+or new evidence. Arbitrary screenshot/micro-edit cycling or a fabricated beauty score fails.

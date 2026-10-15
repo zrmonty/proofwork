@@ -1,5 +1,12 @@
 # Proofwork changelog
 
+## 0.36.0
+
+- Strengthen frontend-design with explicit scope, committed visual direction and conditional work approaches.
+- Add original task-scoping, type/color, motion/feedback and visual-expression references.
+- Bound rendered review to inspection, batched material corrections and confirmation, with explicit reasons for further passes.
+- Expand frontend acceptance scenarios and the reference guide; retain 34 skills and existing context budgets.
+
 ## 0.35.3
 
 - Preserve implementation authority and risk floors when the task protects an API, format or unrelated files.

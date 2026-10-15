@@ -56,3 +56,9 @@ Existing scenario prompts are in evals/frontend-scenarios.md. Expanded behaviora
 ## Evaluation status and authorship
 
 Originally written to Proofwork requirements and user preferences. No external instructional assets imported or adapted. These cases define acceptance; their presence is not evidence that a browser fixture was executed. Prior broad baseline supported generic critique, not full rendered iteration. Parent evaluation records the actual checks and any pending cases separately.
+
+## Focused design work and finish discipline
+
+The entry point selects composition, critique/repair, visual refinement or shared-foundation work from the actual request. These are internal approaches, not extra slash commands. Refinement preserves the incumbent identity; missing design notes do not authorize a replacement. New references deepen type/color, motion/feedback and visual expression only when relevant.
+
+Acceptance: the focused scenarios in evals/frontend-scenarios.md cover a narrow spacing fix without DESIGN.md, stronger publication identity, dark-theme/fallback defects, interruptible async feedback and findings-only critique. A default inspection/correction/confirmation pass stays bounded; further passes name an unresolved criterion or new evidence. These are authored acceptance cases until exercised in a browser fixture; package tests do not establish visual improvement.

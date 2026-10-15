@@ -12,6 +12,12 @@ Build a representative vertical slice before multiplying sections: primary view,
 
 ## One coherent system
 
+Before implementation, make the chosen direction concrete enough to reject contradictory additions. Name
+what dominates, how typography groups content, where density changes, how imagery is treated and which
+surface/control roles repeat. For a narrow refinement, the incumbent design already supplies most of this.
+Read [task approaches](task-approaches.md) if scope is unclear; use [visual expression](visual-expression.md)
+when strengthening or quieting identity rather than adding unrelated decoration.
+
 Use [humanizer](../../humanizer/SKILL.md) for wording. Remove promotional/title layers lacking orientation while retaining meaningful headings/navigation/accessibility. Establish dominance through placement, scale, grouping and contrast with actual long titles/metadata.
 
 Record useful direction constraints in existing docs or concise DESIGN.md: type/fallback, spacing/width, surfaces, radii, media, states and responsive decisions. Reuse components/tokens before dependencies/layers. Use [interface craft](interface-craft.md). Open reading areas can coexist with rounded controls/media; blur/gradients/radii cannot repair hierarchy.
@@ -27,6 +33,10 @@ Use semantic controls, meaningful reading order, focus, connected labels/errors 
 Design encountered loading/empty/failure/partial/success/disabled/destructive states. Put recovery near failure and preserve input. Distinguish absent items, filter misses and load failure; static pages need no invented transactional states.
 
 Responsiveness changes priorities/relationships, not scale alone. Check actions, long text, missing media, realistic density, intermediate widths and relevant zoom. Preserve reduced motion/static behavior.
+
+Use [type and color](type-and-color.md) when font fallback, theming or readable hierarchy is consequential;
+use [motion and feedback](motion-and-feedback.md) for movement, interruptible transitions and truthful status.
+Keep these conditional: a spacing correction should not load an animation workflow or trigger a new palette.
 
 Render from authoritative state rather than synchronized flags/counts. Apply functional extraction when its criteria warrant; adapters own requests/navigation/effects. Preserve actual optimistic-update, cancel/retry/undo contracts; attractive feedback cannot invent completion.
 

@@ -21,6 +21,13 @@ Use relevant probes; static essays are not upload consoles.
 
 ## Hypothesis-driven correction
 
+Default to a bounded review: finish the representative implementation, inspect desktop and narrow states
+together, collect material defects, apply one coherent correction batch and confirm the affected conditions.
+Do not alternate screenshots, speculative micro-edits and rebuilds indefinitely. Another pass needs a
+specific remaining acceptance failure, changed content, new evidence or user feedback. Report unresolved
+functional/accessibility defects honestly; the pass budget cannot turn a failing criterion into success.
+For critique-only work, return findings after inspection rather than starting an unauthorized correction cycle.
+
 Name defect and predicted improvement. Equal lead/archive emphasis may need stronger lead and quieter archive; compare identical content/viewports while preserving titles/actions/density. Color cannot fix wrapping; animation cannot establish outcome truth.
 
 For redesigns, compare index/detail/state at desktop/narrow sizes and intermediate transitions when relevant. Exercise focus, zoom, fallback and recovery. Missing access stays a gap, not simulated evidence. Retain effective patterns.

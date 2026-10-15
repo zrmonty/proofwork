@@ -1,6 +1,11 @@
-# Proofwork 0.35.3 verification
+# Proofwork 0.36.0 verification
 
-Current 0.35.3 [intent-scope checks](../evals/results/routing-intent-scope-20261011.md) pass locally:
+Current [frontend-craft checks](../evals/results/frontend-craft-20261015.md) pass for the revised design skill,
+reference links, context limits and both host packages. Runtime coverage remains 2,598/2,627 lines and
+1,660/1,710 branches across 23 unchanged scripts. Standard and optional-hook builds pass. The new design
+scenarios are authored acceptance criteria; a visual-generation comparison has not been executed.
+
+Previous 0.35.3 [intent-scope checks](../evals/results/routing-intent-scope-20261011.md) pass locally:
 2,598/2,627 lines (98.90%) and 1,660/1,710 branches (97.08%) across 23 scripts. The routing corpus contains
 119 prompts. Scoped preservation, explanatory complements, qualified global prohibitions and natural
 report-only inspection lenses have executed regression checks. Standard and optional-hook packages build.
